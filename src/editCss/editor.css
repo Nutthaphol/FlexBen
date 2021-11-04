@@ -1,0 +1,44 @@
+.rdw-editor-main {
+  /* border-top: 1px solid #b8b8b8; */
+  padding: 5px;
+}
+
+/* .rdw-editor-wrapper {
+  border: 0.5px solid #b8b8b8;
+  border-radius: 5px;
+} */
+
+/* .rdw-editor-toolbar {
+  border-bottom: none;
+} */
+
+.public-DraftStyleDefault-block {
+  margin: 0;
+}
+
+.rdw-option-wrapper {
+  border-radius: 10px;
+  padding: 5px;
+}
+.rdw-option-wrapper:hover {
+  /* box-shadow: 0px 0px 1px 1px #14dcff; */
+  box-shadow: none;
+  background-image: linear-gradient(to right, #62a6ff, #99ebff);
+}
+
+.rdw-option-active {
+  box-shadow: 0px 0px 1.4px 1.4px #155fff inset;
+}
+
+.rdw-editor-toolbar {
+  background-color: whitesmoke;
+  border-bottom: 1px solid #b8b8b8;
+}
+
+.rdw-dropdown-wrapper {
+  border-radius: 10px;
+}
+.rdw-dropdown-wrapper:hover {
+  background-image: linear-gradient(to right, #62a6ff, #99ebff);
+  border: none;
+}

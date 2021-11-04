@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.page {
+  padding: 24px;
+  padding-top: 100px;
+  width: 100%;
+  background-color: #fffafa;
+}
+.dashboard-page {
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+.slick-list {
+  margin: 0 -10px;
+}
+.slick-slide > div {
+  padding: 0 10px;
+}
