@@ -25,6 +25,7 @@ import { getUserProfile } from "../../actions/user";
 import HighlightCard from "./shared/card/HighlightCard";
 import { getCategory } from "../../actions/category";
 import HorizontalList from "./shared/list/HorizontalList";
+import { getAllItem } from "../../actions/item";
 
 const theme = createTheme();
 
@@ -49,8 +50,8 @@ const Home = () => {
   const classes = useStyles();
   const { result: insurance } = useSelector((state) => state.insurance);
   const { result: category } = useSelector((state) => state.category);
+  const { result: item } = useSelector((state) => state.item);
   const { user: currentUser } = useSelector((state) => state.auth);
-
   const [setting] = useState({
     dots: true,
     infinite: false,
@@ -62,7 +63,7 @@ const Home = () => {
     prevArrow: <SlideArrow icon={<KeyboardArrowLeft />} />,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
@@ -71,11 +72,11 @@ const Home = () => {
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 800,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
       {
@@ -91,6 +92,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(getAllInsurance());
     dispatch(getCategory());
+    dispatch(getAllItem());
     // if (currentUser) {
     //   dispatch(getUserProfile());
     // }
@@ -99,7 +101,7 @@ const Home = () => {
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
+          <Container maxWidth="lg">
             <Grid container className={classes.root}>
               <Grid item xs={12} style={{ display: "flex" }}>
                 <Typography variant="h4" gutterBottom>
@@ -121,6 +123,35 @@ const Home = () => {
                           image={`${process.env.REACT_APP_URL}image/insurance/${val.profileImage}`}
                           head={val.highLights}
                           price={val.price}
+                          name={val.name}
+                        />
+                      ))}
+                </Slider>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider className={classes.divider} />
+              </Grid>
+              <Grid item xs={12} style={{ display: "flex" }}>
+                <Typography variant="h4" gutterBottom>
+                  Top Gedget
+                </Typography>
+                <Box style={{ flexGrow: 1 }} />
+                <Button variant="text" size="small">
+                  see more
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Slider {...setting} className={classes.slider}>
+                  {item &&
+                    item
+                      .filter((item) => item.rating > 4)
+                      .map((val, index) => (
+                        <HighlightCard
+                          key={index}
+                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                          head={val.highLights}
+                          price={val.price}
+                          name={val.name}
                         />
                       ))}
                 </Slider>

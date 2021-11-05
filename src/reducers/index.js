@@ -7,6 +7,7 @@ import department from "./department";
 import courseItem from "./course-item";
 import insurance from "./insurance";
 import category from "./category";
+import item from "./item";
 
 const appReducer = combineReducers({
   auth,
@@ -16,6 +17,7 @@ const appReducer = combineReducers({
   department,
   courseItem,
   insurance,
+  item,
   category,
 });
 

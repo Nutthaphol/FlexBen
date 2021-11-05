@@ -11,7 +11,7 @@ const Insurance = [
     description: "",
     rating: 4.5,
     price: 10000,
-    profileImage: "tmp.png",
+    profileImage: "smk.png",
   },
   {
     id: 2,
