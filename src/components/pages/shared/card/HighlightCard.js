@@ -1,3 +1,4 @@
+import { Favorite, FavoriteBorder, Star } from "@mui/icons-material";
 import {
   Card,
   CardActionArea,
@@ -10,7 +11,9 @@ import {
   Paper,
   Chip,
   Link,
+  IconButton,
 } from "@mui/material";
+import { amber } from "@mui/material/colors";
 import {
   createTheme,
   ThemeProvider,
@@ -20,131 +23,86 @@ import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React from "react";
 
-const theme = createTheme({
-  shape: {
-    borderRadius: 15,
-  },
-});
+const theme = createTheme({});
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 345,
     margin: "1rem",
+    width: "100%",
+    height: "auto",
   },
   cardMedia: {
-    height: 150,
+    height: "20vh",
+    backgroundColor: "black",
     width: "100%",
     objectFit: "cover",
-    // position: "relative",
-    // width: "100%",
-    // height: "100%",
-    // display: "none",
   },
   cardContent: {
     position: "relative",
-    width: "100%",
+  },
+  typograpphy: {
+    fontWeight: "400",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
   },
 }));
 
 const HighlightCard = (props) => {
-  const { image, head, price, name } = props;
+  const { image, head, price, name, id, path, rating } = props;
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Card className={classes.root}>
-          <CardActionArea>
+          <CardActionArea href={`${path}/${id}`}>
             <CardMedia
               className={classes.cardMedia}
               component="img"
               image={image}
             />
-          </CardActionArea>
-          <CardActions sx={{ display: "flex" }}>
-            <Link
-              href="profile"
-              underline="none"
-              style={{ width: "100%", cursor: "pointer", color: "black" }}
-            >
-              <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
-                {name}
+            <CardContent className={classes.cardContent}>
+              <Typography
+                className={classes.typograpphy}
+                variant="h6"
+                component="div"
+              >
+                {name.replace("Insurance", "").toUpperCase()}
               </Typography>
               <Typography
-                variant="subtitle2"
+                // className={classes.typograpphy}
                 sx={{
                   display: "-webkit-box",
                   overflow: "hidden",
                   WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 1,
+                  WebkitLineClamp: 2,
                 }}
+                variant="body2"
+                color="text.secondary"
               >
                 {head}
               </Typography>
-            </Link>
-            <Button
-              variant="outlined"
-              size="small"
-              style={{ fontSize: "0.65rem" }}
-              sx={{
-                "& .MuiButton-root": {
-                  borderRadius: "15px",
-                },
-              }}
-            >
-              {price} $
-            </Button>
-          </CardActions>
-          {/* <CardActionArea>
-            <CardMedia
-              className={classes.cardMedia}
-              component="img"
-              image={image}
-            />
+              <Typography variant="subtitle1" sx={{ marginTop: "0.5rem" }}>
+                <Box sx={{ display: "flex" }}>
+                  <Star sx={{ color: amber[500], marginRight: "0.25rem" }} />
+                  {"     "}
+                  {rating}
+                </Box>
+              </Typography>
+            </CardContent>
           </CardActionArea>
           <CardActions>
-            <CardContent className={classes.cardContent}>
-              <Grid container>
-                <Grid item xs={10}>
-                  <Link
-                    underline="none"
-                    style={{ color: "black", cursor: "pointer" }}
-                  >
-                    <Typography
-                      variant="subtitle1"
-                      gutterBottom
-                      style={{ fontWeight: "600" }}
-                      sx={{
-                        display: "-webkit-box",
-                        overflow: "hidden",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                      }}
-                    >
-                      {name}
-                    </Typography>
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        display: "-webkit-box",
-                        overflow: "hidden",
-                        WebkitBoxOrient: "vertical",
-                        WebkitLineClamp: 1,
-                      }}
-                    >
-                      {head}
-                    </Typography>
-                  </Link>
-                </Grid>
-                <Grid item xs={2}>
-                  <Chip
-                    onClick={() => console.log("click now")}
-                    label={`${price} $`}
-                    color="primary"
-                  />
-                </Grid>
-              </Grid>
-            </CardContent>
-          </CardActions> */}
+            <IconButton>
+              <FavoriteBorder />
+            </IconButton>
+            <Box sx={{ flexGrow: 1 }} />
+            <Button
+              sx={{ color: "black", fontSize: "1rem" }}
+              href={`${path}/${id}`}
+            >
+              $ {price}
+            </Button>
+          </CardActions>
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

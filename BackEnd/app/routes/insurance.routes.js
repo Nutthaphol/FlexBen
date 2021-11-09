@@ -15,4 +15,10 @@ module.exports = (app) => {
     [authJwt.verifyToken],
     insuranceController.allInsurance
   );
+
+  app.get(
+    "/api/insurance/:id",
+    [authJwt.verifyToken],
+    insuranceController.detailInsurance
+  );
 };

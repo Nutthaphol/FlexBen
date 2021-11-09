@@ -8,3 +8,14 @@ exports.allInsurance = (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.detailInsurance = (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = Insurance.find((item) => item.id == id);
+
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

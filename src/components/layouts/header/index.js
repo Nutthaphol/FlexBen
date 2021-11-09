@@ -18,6 +18,7 @@ import Avatar from "@mui/material/Avatar";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import SvgIcon from "@mui/material/SvgIcon";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../../actions/auth";
@@ -31,6 +32,22 @@ import {
 } from "@mui/icons-material";
 
 const theme = createTheme();
+
+const HeartIcon = (props) => {
+  return (
+    <SvgIcon {...props}>
+      <path d="/public/assets/icons/cardiogram.png" />
+    </SvgIcon>
+  );
+};
+
+// const heart = (props) => {
+//   return (
+//     <SvgIcon {...props}>
+//       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+//     </SvgIcon>
+//   );
+// };
 
 const drawerWidth = 240;
 const useStyles = makeStyles(() => ({
@@ -135,8 +152,37 @@ const Header = (props) => {
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      PaperProps={{
+        elevation: 0,
+        sx: {
+          // overflow: "visible",
+          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+          mt: 0.5,
+          "& .MuiAvatar-root": {
+            width: 32,
+            height: 32,
+            ml: -0.5,
+            mr: 1,
+          },
+          "&:before": {
+            content: '""',
+            display: "block",
+            position: "absolute",
+            top: 0,
+            right: 14,
+            width: 10,
+            height: 10,
+            bgcolor: "background.paper",
+            transform: "translateY(-50%) rotate(45deg)",
+            zIndex: 0,
+          },
+        },
+      }}
+      transformOrigin={{ horizontal: "right", vertical: "top" }}
+      anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem>Notifications</MenuItem>
+      <MenuItem sx={{ display: "flex" }}>Notifications</MenuItem>
+      <MenuItem>Wallet</MenuItem>
       <MenuItem component={Link} to="/login" onClick={logOut}>
         Logout
       </MenuItem>
@@ -167,40 +213,19 @@ const Header = (props) => {
                 <MenuIcon />
               </IconButton>
               <Button
-                to="/Home"
+                to="/home"
                 component={NavLink}
-                style={{ fontSize: "1.5rem", fontWeight: 700, color: "white" }}
-                sx={{ display: { xs: "none", sm: "flex" } }}
+                sx={{
+                  display: { xs: "none", sm: "flex" },
+                  fontSize: "1.75rem",
+                  fontWeight: 900,
+                  color: "white",
+                  textShadow: "2px 4px 3px rgba(0,0,0,0.3)",
+                }}
               >
                 Flexible benefit
               </Button>
-
-              <div className={classes.grow} />
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{
-                  marginBottom: "0",
-                  fontWeight: 500,
-                  marginRight: "0.25rem",
-                }}
-              >
-                100
-              </Typography>
-              <AttachMoney />
-              <div style={{ marginRight: 20 }} />
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{
-                  marginBottom: "0",
-                  fontWeight: 500,
-                  marginRight: "0.25rem",
-                }}
-              >
-                100
-              </Typography>
-              <MonetizationOn />
+              <Box sx={{ flexGrow: 1 }} />
               <div style={{ display: "flex", marginLeft: 20 }}>
                 <IconButton
                   edge="end"
@@ -211,12 +236,10 @@ const Header = (props) => {
                   onClick={(event) => setAnchorEl(event.currentTarget)}
                   size="large"
                 >
-                  <Badge badgeContent={17} color="secondary">
-                    <Avatar
-                      alt={currentUser.username}
-                      src={`${process.env.REACT_APP_URL}image/profile/${currentUser.image}`}
-                    />
-                  </Badge>
+                  <Avatar
+                    alt={currentUser.username}
+                    src={`${process.env.REACT_APP_URL}image/profile/${currentUser.image}`}
+                  />
                 </IconButton>
               </div>
             </Toolbar>

@@ -23,6 +23,7 @@ const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
   card: {
+    width: "100%",
     textAlign: "center",
     "& :hover::before": {},
     "& :hover": {
@@ -33,33 +34,31 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HorizontalList = ({ name, link }) => {
+const BlockCard = ({ name, link }) => {
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-          <Card className={classes.card}>
-            <CardActionArea>
-              <Apple sx={{ fontSize: "5rem" }} />
-              <Typography
-                variant="subtitle1"
-                gutterBottom
-                style={{
-                  display: "-webkit-box",
-                  overflow: "hidden",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 1,
-                }}
-              >
-                {name}
-              </Typography>
-            </CardActionArea>
-          </Card>
-        </Grid>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <Apple sx={{ fontSize: "5rem" }} />
+            <Typography
+              variant="subtitle1"
+              gutterBottom
+              style={{
+                display: "-webkit-box",
+                overflow: "hidden",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+              }}
+            >
+              {name}
+            </Typography>
+          </CardActionArea>
+        </Card>
       </ThemeProvider>
     </StyledEngineProvider>
   );
 };
 
-export default HorizontalList;
+export default BlockCard;

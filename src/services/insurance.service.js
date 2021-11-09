@@ -6,6 +6,12 @@ const getInsurance = () => {
   return res;
 };
 
+const getDetailInsurance = (id) => {
+  const res = httpClient.get("insurance/" + id);
+  return res;
+};
+
 export default {
   getInsurance,
+  getDetailInsurance,
 };

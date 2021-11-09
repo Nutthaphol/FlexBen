@@ -11,7 +11,7 @@ const Insurance = [
     description: "",
     rating: 4.5,
     price: 10000,
-    profileImage: "smk.png",
+    image: "smk.png",
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const Insurance = [
     description: "",
     rating: 4.2,
     price: 7000,
-    profileImage: "tmp.png",
+    image: "vry.png",
   },
   {
     id: 3,
@@ -39,7 +39,7 @@ const Insurance = [
     description: "",
     rating: 3.9,
     price: 5000,
-    profileImage: "tmp.png",
+    image: "tmp.png",
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ const Insurance = [
     description: "",
     rating: 3.8,
     price: 6000,
-    profileImage: "tmp.png",
+    image: "fwd.png",
   },
   {
     id: 5,
@@ -67,7 +67,7 @@ const Insurance = [
     description: "",
     rating: 4.9,
     price: 7500,
-    profileImage: "tmp.png",
+    image: "cn.png",
   },
 ];
 

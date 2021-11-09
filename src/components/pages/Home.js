@@ -24,7 +24,7 @@ import Slider from "react-slick";
 import { getUserProfile } from "../../actions/user";
 import HighlightCard from "./shared/card/HighlightCard";
 import { getCategory } from "../../actions/category";
-import HorizontalList from "./shared/list/HorizontalList";
+import BlockCard from "./shared/card/BlockCard";
 import { getAllItem } from "../../actions/item";
 
 const theme = createTheme();
@@ -56,17 +56,17 @@ const Home = () => {
     dots: true,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     initialSlide: 1,
     nextArrow: <SlideArrow icon={<KeyboardArrowRight />} />,
     prevArrow: <SlideArrow icon={<KeyboardArrowLeft />} />,
     responsive: [
       {
-        breakpoint: 1200,
+        breakpoint: 1150,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
+          slidesToShow: 3,
+          slidesToScroll: 3,
           infinite: true,
           dots: true,
         },
@@ -74,13 +74,21 @@ const Home = () => {
       {
         breakpoint: 800,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
           initialSlide: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 2,
+          initialSlide: 1,
+        },
+      },
+      {
+        breakpoint: 500,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -119,11 +127,14 @@ const Home = () => {
                       .filter((item) => item.rating > 4)
                       .map((val, index) => (
                         <HighlightCard
+                          path="detailInsurance"
                           key={index}
                           image={`${process.env.REACT_APP_URL}image/insurance/${val.profileImage}`}
                           head={val.highLights}
                           price={val.price}
                           name={val.name}
+                          id={val.id}
+                          rating={val.rating}
                         />
                       ))}
                 </Slider>
@@ -147,11 +158,14 @@ const Home = () => {
                       .filter((item) => item.rating > 4)
                       .map((val, index) => (
                         <HighlightCard
+                          path="detailshopping"
                           key={index}
                           image={`${process.env.REACT_APP_URL}image/${val.image}`}
                           head={val.highLights}
                           price={val.price}
                           name={val.name}
+                          id={val.id}
+                          rating={val.rating}
                         />
                       ))}
                 </Slider>
@@ -165,14 +179,22 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                {/* <Paper sx={{ padding: "0.5rem" }}> */}
-                <Grid container spacing={5} style={{ padding: "1rem" }}>
+                <Grid container spacing={5} sx={{ padding: "1rem" }}>
                   {category &&
                     category.map((val, index) => (
-                      <HorizontalList name={val.nameCategory} />
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        lg={3}
+                        xl={2}
+                        key={index}
+                      >
+                        <BlockCard name={val.nameCategory} />
+                      </Grid>
                     ))}
                 </Grid>
-                {/* </Paper> */}
               </Grid>
             </Grid>
           </Container>
