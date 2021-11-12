@@ -1,4 +1,9 @@
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
+import {
+  ArrowLeft,
+  ArrowRight,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from "@mui/icons-material";
 import {
   Container,
   Paper,
@@ -36,9 +41,7 @@ const useStyles = makeStyles(() => ({
   paper: {
     margin: "10px",
   },
-  slider: {
-    alignItems: "center",
-  },
+  slider: {},
   divider: {
     marginTop: "1.25rem",
     marginBottom: "1rem",
@@ -57,10 +60,11 @@ const Home = () => {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4,
+    slidesToScroll: 5,
     initialSlide: 1,
-    nextArrow: <SlideArrow icon={<KeyboardArrowRight />} />,
-    prevArrow: <SlideArrow icon={<KeyboardArrowLeft />} />,
+    adaptiveHeight: false,
+    nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
+    prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
     responsive: [
       {
         breakpoint: 1150,
@@ -129,7 +133,7 @@ const Home = () => {
                         <HighlightCard
                           path="detailInsurance"
                           key={index}
-                          image={`${process.env.REACT_APP_URL}image/insurance/${val.profileImage}`}
+                          image={`${process.env.REACT_APP_URL}image/insurance/${val.image}`}
                           head={val.highLights}
                           price={val.price}
                           name={val.name}

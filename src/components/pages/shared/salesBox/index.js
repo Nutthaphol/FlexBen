@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     position: "-webkit-sticky",
     position: "sticky",
     top: "100px",
-    minWidth: "100%",
+    width: "100%",
     height: "auto",
     padding: "1rem",
     boxShadow:

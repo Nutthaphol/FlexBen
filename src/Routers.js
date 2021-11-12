@@ -8,6 +8,7 @@ import Login from "./components/pages/LoginPage";
 import Home from "./components/pages/Home";
 import { UnauthorizedPage, NotFoundPage } from "./components/pages/error";
 import DetailInsurance from "./components/pages/user/DetailInsurance";
+import CoinDashboard from "./components/pages/user/CoinDashboard";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -99,6 +100,7 @@ function Routers() {
         <Route exact path="/unauthorized" component={UnauthorizedPage} />
 
         <UserRoute exact path="/home" component={Home} />
+        <UserRoute exact path="/coinDashboard" component={CoinDashboard} />
         <UserRoute
           exact
           path="/detailInsurance/:id"

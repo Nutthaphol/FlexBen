@@ -8,6 +8,7 @@ import courseItem from "./course-item";
 import insurance from "./insurance";
 import category from "./category";
 import item from "./item";
+import detail from "./detail";
 
 const appReducer = combineReducers({
   auth,
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   insurance,
   item,
   category,
+  detail,
 });
 
 const rootReducer = (state, action) => {

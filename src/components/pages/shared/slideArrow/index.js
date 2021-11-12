@@ -1,13 +1,18 @@
 const SlideArrow = (props) => {
-  const { className, style, onClick, icon } = props;
+  const { className, style, onClick, Comp } = props;
   return (
-    <div
+    <Comp
       className={className}
-      style={{ ...style, display: "block", color: "#000000" }}
+      style={{
+        ...style,
+        display: "block",
+        color: "#000000",
+        fontSize: "2rem",
+        borderRadius: "50px",
+        // backgroundColor: "green",
+      }}
       onClick={onClick}
-    >
-      {icon}
-    </div>
+    />
   );
 };
 

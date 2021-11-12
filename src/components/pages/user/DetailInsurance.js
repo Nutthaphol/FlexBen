@@ -63,10 +63,10 @@ const DetailInsurance = (props) => {
           {detail && (
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
-                <Grid item lg={8}>
+                <Grid item md={8} xs={12}>
                   <DataDetail detail={detail} />
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item md={4} xs={12}>
                   <SalesBox detail={detail} />
                 </Grid>
               </Grid>

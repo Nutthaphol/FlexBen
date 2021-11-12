@@ -91,7 +91,7 @@ const HighlightCard = (props) => {
               </Typography>
             </CardContent>
           </CardActionArea>
-          <CardActions>
+          <CardActions sx={{ borderTop: "0.2px solid rgb(0,0,0, 0.2)" }}>
             <IconButton>
               <FavoriteBorder />
             </IconButton>

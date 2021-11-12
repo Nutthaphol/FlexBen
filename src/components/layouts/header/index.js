@@ -22,7 +22,7 @@ import SvgIcon from "@mui/material/SvgIcon";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../../actions/auth";
-import { Button, Grid } from "@mui/material";
+import { Button, Divider, Grid } from "@mui/material";
 import { amber, indigo, red } from "@mui/material/colors";
 import {
   AccountBalanceWallet,
@@ -146,43 +146,25 @@ const Header = (props) => {
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-      PaperProps={{
-        elevation: 0,
-        sx: {
-          // overflow: "visible",
-          filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-          mt: 0.5,
-          "& .MuiAvatar-root": {
-            width: 32,
-            height: 32,
-            ml: -0.5,
-            mr: 1,
-          },
-          "&:before": {
-            content: '""',
-            display: "block",
-            position: "absolute",
-            top: 0,
-            right: 14,
-            width: 10,
-            height: 10,
-            bgcolor: "background.paper",
-            transform: "translateY(-50%) rotate(45deg)",
-            zIndex: 0,
-          },
+      // keepMounted
+      sx={{
+        "& .MuiPaper-root": {
+          minWidth: 180,
         },
       }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem sx={{ display: "flex" }}>Notifications</MenuItem>
-      <MenuItem>Wallet</MenuItem>
+      <MenuItem component={Link} to="/coinDashboard">
+        Wallet
+      </MenuItem>
+      <MenuItem component={Link} to="/coinDashboard">
+        History
+      </MenuItem>
+      <Divider sx={{ my: 0.5 }} />
       <MenuItem component={Link} to="/login" onClick={logOut}>
         Logout
       </MenuItem>

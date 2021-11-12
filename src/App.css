@@ -41,11 +41,14 @@
   padding: 24px;
   padding-top: 100px;
   width: 100%;
-  background-color: #fffafa;
 }
 .dashboard-page {
   background-color: #0d1117;
   color: #c9d1d9;
+}
+
+body {
+  background-color: #fbfcfa;
 }
 
 .slick-list {
