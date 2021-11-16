@@ -6,6 +6,6 @@ db.departments = require("../models/department.model.js");
 db.Insurance = require("../models/insurance.model.js");
 db.item = require("../models/item.model.js");
 db.category = require("../models/category.model.js");
-db.detail = require("../models/detail.model");
+db.package = require("../models/package.model");
 
 module.exports = db;

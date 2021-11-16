@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 
 import {
   createTheme,
@@ -6,24 +6,39 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import DataCard from "../shared/card/DataCard";
 import { getDetail } from "../../../actions/detail";
 import PaperTable from "../shared/card/PaperTable";
 import { Box } from "@mui/system";
+import { Adb } from "@mui/icons-material";
 
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
   root: {},
   paper: {
-    position: "relative",
+    // position: "relative",
     padding: "20px",
-    width: "100%",
-    height: "auto",
+    // width: "100%",
+    // height: "auto",
     marginTop: "50px",
-    overflow: "auto",
+    overflow: "scroll",
   },
 }));
 
@@ -31,69 +46,83 @@ const CoinDashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { result: detailUser } = useSelector((state) => state.detail);
 
-  useEffect(() => {
-    dispatch(getDetail(currentUser.id));
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          {detailUser && (
-            <Container maxWidth="xl">
-              <Typography variant="h4" gutterBottom>
-                Coin Dashboard
-              </Typography>
-              <Grid
-                container
-                spacing={2}
-                justifyContent="space-between"
-                sx={{ width: "100%" }}
-              >
-                <Grid item>
-                  <DataCard
-                    section="Insurance คงเหลือ"
-                    value={detailUser.insuranceCoin}
-                  />
-                </Grid>
-                <Grid item>
-                  <DataCard
-                    section="Insurance คงเหลือ"
-                    value={detailUser.insuranceCoin}
-                  />
-                </Grid>
-                <Grid item>
-                  <DataCard
-                    section="Insurance คงเหลือ"
-                    value={detailUser.insuranceCoin}
-                  />
-                </Grid>
-                <Grid item>
-                  <DataCard
-                    section="Insurance คงเหลือ"
-                    value={detailUser.insuranceCoin}
-                  />
-                </Grid>
+          <Container maxWidth="xl">
+            <Typography variant="h4" gutterBottom>
+              Coin Dashboard
+            </Typography>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="space-between"
+              sx={{ width: "100%" }}
+            >
+              <Grid item>
+                <DataCard section="Insurance คงเหลือ" value={10000} />
               </Grid>
-              {/* <Box sx={{ mt: 6 }} /> */}
-              <Paper className={classes.paper}>
-                <Typography variant="h5" gutterBottom>
-                  รายละเอียด
-                </Typography>
-                <Grid container spacing={4} sx={{ mt: 1 }}>
-                  {[1, 2, 3, 4].map((item) => (
-                    <Grid item xs={12}>
-                      <PaperTable
-                        section="Insurance"
-                        value1={detailUser.insuranceCoin}
-                      />
-                    </Grid>
+              <Grid item>
+                <DataCard section="Insurance คงเหลือ" value={10000} />
+              </Grid>
+              <Grid item>
+                <DataCard section="Insurance คงเหลือ" value={10000} />
+              </Grid>
+              <Grid item>
+                <DataCard section="Insurance คงเหลือ" value={10000} />
+              </Grid>
+            </Grid>
+            {/* <Box sx={{ mt: 6 }} /> */}
+            <Paper className={classes.paper}>
+              <Typography variant="h5" gutterBottom>
+                รายละเอียด
+              </Typography>
+              <Table>
+                <TableBody>
+                  {[1, 2, 3, 4].map((item, index) => (
+                    <TableRow>
+                      <TableCell>
+                        <ListItem>
+                          <ListItemIcon>
+                            <Adb sx={{ fontSize: "2rem" }} />
+                          </ListItemIcon>
+                          <ListItemText primary="Insurance" />
+                        </ListItem>
+                      </TableCell>
+                      <TableCell align="right">2000</TableCell>
+                      <TableCell align="right">2000</TableCell>
+                      <TableCell align="right">+4.25%</TableCell>
+                      <TableCell align="right">
+                        <Grid container justifyContent="flex-end" spacing={6}>
+                          <Grid item>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              color="success"
+                            >
+                              แลก
+                            </Button>
+                          </Grid>
+                          <Grid item>
+                            <Button
+                              variant="outlined"
+                              size="small"
+                              color="secondary"
+                            >
+                              ฝาก
+                            </Button>
+                          </Grid>
+                        </Grid>
+                      </TableCell>
+                    </TableRow>
                   ))}
-                </Grid>
-              </Paper>
-            </Container>
-          )}
+                </TableBody>
+              </Table>
+            </Paper>
+          </Container>
         </ThemeProvider>
       </StyledEngineProvider>
     </div>

@@ -14,6 +14,7 @@ const Insurance = [
     price: 10000,
     site: "https://www-smk-co-th.translate.goog/producthealthdetail/1?_x_tr_sl=th&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui,op,sc",
     image: "smk.png",
+    count: 10000,
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const Insurance = [
     price: 7000,
     site: "https://www-viriyah-co-th.translate.goog/lp/product/viriyah-healthcare-by-bdms/?_x_tr_sl=th&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui,op,sc",
     image: "vry.png",
+    count: 10000,
   },
   {
     id: 3,
@@ -46,6 +48,7 @@ const Insurance = [
     price: 5000,
     site: "https://product-thailife-com.translate.goog/%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E/%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%E0%B9%80%E0%B8%87%E0%B8%B4%E0%B8%99%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%9B%E0%B9%88%E0%B8%A7%E0%B8%A2?_x_tr_sl=th&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui,op,sc",
     image: "tmp.png",
+    count: 10000,
   },
   {
     id: 4,
@@ -62,6 +65,7 @@ const Insurance = [
     price: 6000,
     site: "https://ifwd-fwd-co-th.translate.goog/fwd-easy-e-cancer?utm_source=google&utm_medium=cpc&utm_campaign=FWD_TH_EN_CancerInsurance_Search_Google_Brand_BMM&utm_term=%2Bfwd&gclid=CjwKCAiA2O39BRBjEiwApB2IkusPGCtewJrGwSZArbiOUoBY6bh_4vZ-X9AwJRuqN2ZO-laMtS3zehoCIxQQAvD_BwE&_x_tr_sl=th&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui,op,sc",
     image: "fwd.png",
+    count: 10000,
   },
   {
     id: 5,
@@ -78,6 +82,7 @@ const Insurance = [
     price: 7500,
     site: "https://www-cigna-co-th.translate.goog/our-plans/modern-health-insurance/office-syndrome?utm_source=Affiliate&utm_medium=Interspace&utm_campaign=OfficeSyndrome&_x_tr_sl=th&_x_tr_tl=en&_x_tr_hl=en-US&_x_tr_pto=nui%2Cop%2Csc",
     image: "cn.png",
+    count: 10000,
   },
 ];
 

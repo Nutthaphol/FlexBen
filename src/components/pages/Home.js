@@ -26,11 +26,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllInsurance } from "../../actions/insurance";
 import SlideArrow from "./shared/slideArrow";
 import Slider from "react-slick";
-import { getUserProfile } from "../../actions/user";
+import { getAllUsers, getUserProfile } from "../../actions/user";
 import HighlightCard from "./shared/card/HighlightCard";
 import { getCategory } from "../../actions/category";
 import BlockCard from "./shared/card/BlockCard";
 import { getAllItem } from "../../actions/item";
+import { getAllPackage } from "../../actions/package";
+import PackageCard from "./shared/card/PackageCard";
+import AddCoinCard from "./shared/card/AddCoinCard";
 
 const theme = createTheme();
 
@@ -54,7 +57,9 @@ const Home = () => {
   const { result: insurance } = useSelector((state) => state.insurance);
   const { result: category } = useSelector((state) => state.category);
   const { result: item } = useSelector((state) => state.item);
+  const { result: package_ } = useSelector((state) => state.package_);
   const { user: currentUser } = useSelector((state) => state.auth);
+  const { result: users } = useSelector((state) => state.users);
   const [setting] = useState({
     dots: true,
     infinite: false,
@@ -105,6 +110,8 @@ const Home = () => {
     dispatch(getAllInsurance());
     dispatch(getCategory());
     dispatch(getAllItem());
+    dispatch(getAllPackage());
+    dispatch(getAllUsers());
     // if (currentUser) {
     //   dispatch(getUserProfile());
     // }
@@ -115,6 +122,37 @@ const Home = () => {
         <ThemeProvider theme={theme}>
           <Container maxWidth="lg">
             <Grid container className={classes.root}>
+              <Grid item xs={12} style={{ display: "flex" }}>
+                <Typography variant="h4" gutterBottom>
+                  Top Package
+                </Typography>
+                <Box style={{ flexGrow: 1 }} />
+                <Button variant="text" size="small">
+                  see more
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Slider {...setting} className={classes.slider}>
+                  {package_ &&
+                    package_
+                      .filter((item) => item.rating > 4)
+                      .map((val, index) => (
+                        <PackageCard
+                          key={index}
+                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                          name={val.name}
+                          property={val.property}
+                          count={val.count}
+                          total={val.total}
+                          class_={val.class}
+                          rating={val.rating}
+                        />
+                      ))}
+                </Slider>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider className={classes.divider} />
+              </Grid>
               <Grid item xs={12} style={{ display: "flex" }}>
                 <Typography variant="h4" gutterBottom>
                   Top Insurun
@@ -139,6 +177,7 @@ const Home = () => {
                           name={val.name}
                           id={val.id}
                           rating={val.rating}
+                          count={val.count}
                         />
                       ))}
                 </Slider>
@@ -146,33 +185,24 @@ const Home = () => {
               <Grid item xs={12}>
                 <Divider className={classes.divider} />
               </Grid>
+
               <Grid item xs={12} style={{ display: "flex" }}>
                 <Typography variant="h4" gutterBottom>
-                  Top Gedget
+                  Personalize Coin
                 </Typography>
                 <Box style={{ flexGrow: 1 }} />
                 <Button variant="text" size="small">
                   see more
                 </Button>
               </Grid>
-              <Grid item xs={12}>
-                <Slider {...setting} className={classes.slider}>
-                  {item &&
-                    item
-                      .filter((item) => item.rating > 4)
-                      .map((val, index) => (
-                        <HighlightCard
-                          path="detailshopping"
-                          key={index}
-                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
-                          head={val.highLights}
-                          price={val.price}
-                          name={val.name}
-                          id={val.id}
-                          rating={val.rating}
-                        />
-                      ))}
-                </Slider>
+              <Grid item xs={12} sx={{ marginBottom: "10px" }}>
+                {users &&
+                  users
+                    .filter((item) => item.id != currentUser.id)
+                    .slice(0, 1)
+                    .map((val, index) => (
+                      <AddCoinCard key={index} user={val} />
+                    ))}
               </Grid>
               <Grid item xs={12}>
                 <Divider className={classes.divider} />

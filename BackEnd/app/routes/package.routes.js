@@ -1,7 +1,7 @@
 const { authJwt } = require("../middleware");
-const detailController = require("../controllers/detail.controller");
+const packageController = require("../controllers/package.controller");
 
-module.exports = function (app) {
+module.exports = (app) => {
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,9 +10,5 @@ module.exports = function (app) {
     next();
   });
 
-  app.get(
-    "/api/detail/:id",
-    [authJwt.verifyToken],
-    detailController.userDetail
-  );
+  app.get("/api/package", [authJwt.verifyToken], packageController.allPackage);
 };
