@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SalesBox = ({ detail }) => {
+const SalesBox = ({ detail, type }) => {
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
@@ -54,9 +54,13 @@ const SalesBox = ({ detail }) => {
             BUY NOW!
           </Typography>
           <Box sx={{ display: "flex", marginBottom: "1rem" }}>
-            <Typography variant="h6">{detail.name}</Typography>
+            <Typography variant="h6">
+              {type == "insurance" ? detail.name : "Package " + detail.name}
+            </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            <Typography variant="h6">{detail.price} $</Typography>
+            <Typography variant="h6">
+              {type == "insurance" ? detail.price : detail.total} $
+            </Typography>
           </Box>
           <Button
             sx={{
@@ -69,7 +73,7 @@ const SalesBox = ({ detail }) => {
             variant="contained"
             color="success"
           >
-            Continue (${detail.price})
+            Continue (${type == "insurance" ? detail.price : detail.total})
           </Button>
         </Paper>
       </ThemeProvider>

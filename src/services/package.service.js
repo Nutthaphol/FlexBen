@@ -6,6 +6,13 @@ const getAllPackage = () => {
   return res;
 };
 
+const getDetailPackage = (id) => {
+  const res = httpClient.get("package/" + id);
+  console.log("service ", res);
+  return res;
+};
+
 export default {
   getAllPackage,
+  getDetailPackage,
 };

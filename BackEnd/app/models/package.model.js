@@ -3,6 +3,9 @@ const Package = [
     id: 1,
     name: "A",
     class: "A",
+    highLights: "Package Full Feature (PFF)",
+    description:
+      "นี้คือ Package สุดคุ้มที่ดีที่สุด พร้อมไปด้วยทุกอย่างที่คุณต้องการ แบบดีที่สุด ไม่ว่าจะเป็น Insurance ระดับ premium LifeStyle จัดเต็ม และเที่ยวกันอย่างราชา",
     property: [
       {
         type: "Insurance",
@@ -34,6 +37,9 @@ const Package = [
     id: 2,
     name: "B",
     class: "B",
+    highLights: "Package Full Feature (PFF)",
+    description:
+      "นี้คือ Package สุดคุ้มที่ดีที่สุด พร้อมไปด้วยทุกอย่างที่คุณต้องการ แบบดีที่สุด ไม่ว่าจะเป็น Insurance ระดับ premium LifeStyle จัดเต็ม และเที่ยวกันอย่างราชา",
     property: [
       {
         type: "Insurance",
@@ -60,6 +66,9 @@ const Package = [
     id: 3,
     name: "C",
     class: "C",
+    highLights: "Package Full Feature (PFF)",
+    description:
+      "นี้คือ Package สุดคุ้มที่ดีที่สุด พร้อมไปด้วยทุกอย่างที่คุณต้องการ แบบดีที่สุด ไม่ว่าจะเป็น Insurance ระดับ premium LifeStyle จัดเต็ม และเที่ยวกันอย่างราชา",
     property: [
       {
         type: "Insurance",
@@ -86,6 +95,9 @@ const Package = [
     id: 4,
     name: "D",
     class: "D",
+    highLights: "Package Full Feature (PFF)",
+    description:
+      "นี้คือ Package สุดคุ้มที่ดีที่สุด พร้อมไปด้วยทุกอย่างที่คุณต้องการ แบบดีที่สุด ไม่ว่าจะเป็น Insurance ระดับ premium LifeStyle จัดเต็ม และเที่ยวกันอย่างราชา",
     property: [
       {
         type: "Insurance",

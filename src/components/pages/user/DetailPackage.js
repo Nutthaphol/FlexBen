@@ -17,12 +17,12 @@ import {
 } from "@mui/material";
 
 import SalesBox from "../shared/salesBox";
-import InsuranceData from "../shared/dataDetail/InsuranceData";
 import insuranceService from "../../../services/insurance.service";
 import { Box } from "@mui/system";
 import { Star } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
-
+import packageService from "../../../services/package.service";
+import PackageData from "../shared/dataDetail/PackageData";
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DetailInsurance = (props) => {
+const DetailPackage = (props) => {
   const classes = useStyles();
   const [id, setId] = useState();
   const [detail, setDetail] = useState();
@@ -48,7 +48,8 @@ const DetailInsurance = (props) => {
       const id_ = props.match.params.id;
       setId(id_);
       console.log("fetch id ", id_);
-      const data = await insuranceService.getDetailInsurance(id_);
+      const data = await packageService.getDetailPackage(id_);
+      console.log(data.data);
       setDetail(data.data);
     };
 
@@ -57,25 +58,25 @@ const DetailInsurance = (props) => {
     }
   }, []);
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <div className={`page`}>
+    <div className={`page`}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
           {detail && (
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item md={8} xs={12}>
-                  <InsuranceData detail={detail} />
+                  <PackageData detail={detail} />
                 </Grid>
                 <Grid item md={4} xs={12}>
-                  <SalesBox detail={detail} type="insurance" />
+                  <SalesBox detail={detail} type="package" />
                 </Grid>
               </Grid>
             </Container>
           )}
-        </div>
-      </ThemeProvider>
-    </StyledEngineProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </div>
   );
 };
 
-export default DetailInsurance;
+export default DetailPackage;

@@ -9,6 +9,9 @@ import Home from "./components/pages/Home";
 import { UnauthorizedPage, NotFoundPage } from "./components/pages/error";
 import DetailInsurance from "./components/pages/user/DetailInsurance";
 import CoinDashboard from "./components/pages/user/CoinDashboard";
+import ListPackage from "./components/pages/user/ListPackage";
+import ListInsurance from "./components/pages/user/ListInsurance";
+import DetailPackage from "./components/pages/user/DetailPackage";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -106,6 +109,9 @@ function Routers() {
           path="/detailInsurance/:id"
           component={DetailInsurance}
         />
+        <UserRoute exact path="/detailPackage/:id" component={DetailPackage} />
+        <UserRoute exact path="/allPackages" component={ListPackage} />
+        <UserRoute exact path="/allInsurance" component={ListInsurance} />
       </Switch>
     </Container>
   );

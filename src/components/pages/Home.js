@@ -127,7 +127,7 @@ const Home = () => {
                   Top Package
                 </Typography>
                 <Box style={{ flexGrow: 1 }} />
-                <Button variant="text" size="small">
+                <Button variant="text" size="small" href="allPackages">
                   see more
                 </Button>
               </Grid>
@@ -138,6 +138,8 @@ const Home = () => {
                       .filter((item) => item.rating > 4)
                       .map((val, index) => (
                         <PackageCard
+                          path="detailPackage"
+                          id={val.id}
                           key={index}
                           image={`${process.env.REACT_APP_URL}image/${val.image}`}
                           name={val.name}
@@ -158,7 +160,7 @@ const Home = () => {
                   Top Insurun
                 </Typography>
                 <Box style={{ flexGrow: 1 }} />
-                <Button variant="text" size="small">
+                <Button variant="text" size="small" href="allInsurance">
                   see more
                 </Button>
               </Grid>

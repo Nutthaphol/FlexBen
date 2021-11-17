@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DataDetail = ({ detail }) => {
+const InsuranceData = ({ detail }) => {
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
@@ -159,4 +159,4 @@ const DataDetail = ({ detail }) => {
   );
 };
 
-export default DataDetail;
+export default InsuranceData;

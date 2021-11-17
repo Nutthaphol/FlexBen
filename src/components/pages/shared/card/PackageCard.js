@@ -71,12 +71,13 @@ const useStyles = makeStyles(() => ({
 
 const PackageCard = (props) => {
   const classes = useStyles();
-  const { image, name, property, count, total, class_, rating } = props;
+  const { image, name, property, count, total, class_, rating, path, id } =
+    props;
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Card className={classes.root}>
-          <CardActionArea>
+          <CardActionArea href={`${path}/${id}`}>
             <Box className={classes.coverMedia}>
               <Avatar
                 className={classes.avatar}
@@ -116,7 +117,10 @@ const PackageCard = (props) => {
                         }}
                       />
                     </Box>
-                    <Box sx={{ flexGrow: 1 }}>{val.type}</Box>
+                    <Box sx={{ flexGrow: 1 }}>
+                      {val.type} {"  "}
+                      {(index == 2) & (property.length > 3) && " (Other)"}
+                    </Box>
                     {val.price}
                   </Box>
                 ))}

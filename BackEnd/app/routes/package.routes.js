@@ -11,4 +11,9 @@ module.exports = (app) => {
   });
 
   app.get("/api/package", [authJwt.verifyToken], packageController.allPackage);
+  app.get(
+    "/api/package/:id",
+    [authJwt.verifyToken],
+    packageController.detailPackage
+  );
 };
