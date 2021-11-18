@@ -16,8 +16,10 @@ import {
   Card,
   CardActionArea,
   Typography,
+  CardMedia,
 } from "@mui/material";
 import { Apple, Image } from "@mui/icons-material";
+import { Box } from "@mui/system";
 
 const theme = createTheme();
 
@@ -25,12 +27,24 @@ const useStyles = makeStyles(() => ({
   card: {
     width: "100%",
     textAlign: "center",
-    "& :hover::before": {},
+    // "& :hover::before": {},
+
     "& :hover": {
-      transition: ".5s",
-      transform: "scale3d(1.05, 1.05, 1)",
-      //       color: "blue",
+      "&  .icon": {
+        transition: ".5s",
+        transform: "scale(1.10)",
+      },
     },
+
+    // "& :hover": {
+    //   "& .media": {
+    //     backgroundColor: "#b8b8b8",
+    //     transition: ".5s",
+    //     transform: "scale(1.10)",
+    //   },
+    // },
+
+    cursor: "pointer",
   },
 }));
 
@@ -40,21 +54,32 @@ const BlockCard = ({ name, link }) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Card className={classes.card}>
-          <CardActionArea>
-            <Apple sx={{ fontSize: "5rem" }} />
-            <Typography
-              variant="subtitle1"
-              gutterBottom
-              style={{
-                display: "-webkit-box",
-                overflow: "hidden",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 1,
-              }}
-            >
-              {name}
-            </Typography>
-          </CardActionArea>
+          <CardMedia
+            className={`media`}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              height: "120px",
+              justifyContent: "center",
+              border: "1px solid #b8b8b8",
+              margin: "20px",
+              borderRadius: "10px",
+            }}
+          >
+            <Apple className={`icon`} sx={{ fontSize: "5rem" }} />
+          </CardMedia>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            style={{
+              display: "-webkit-box",
+              overflow: "hidden",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 1,
+            }}
+          >
+            {name}
+          </Typography>
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

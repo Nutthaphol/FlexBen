@@ -158,14 +158,27 @@ const Header = (props) => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem component={Link} to="/coinDashboard">
+      <MenuItem
+        component={Link}
+        to="/coinDashboard"
+        onClick={() => setAnchorEl(null)}
+      >
         Wallet
       </MenuItem>
-      <MenuItem component={Link} to="/coinDashboard">
+      <MenuItem
+        component={Link}
+        to="/coinDashboard"
+        onClick={() => setAnchorEl(null)}
+      >
         History
       </MenuItem>
       <Divider sx={{ my: 0.5 }} />
-      <MenuItem component={Link} to="/login" onClick={logOut}>
+      <MenuItem
+        component={Link}
+        to="/login"
+        onClick={logOut}
+        onClick={() => setAnchorEl(null)}
+      >
         Logout
       </MenuItem>
     </Menu>

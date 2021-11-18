@@ -10,22 +10,24 @@ const Package = [
       {
         type: "Insurance",
         name: "Syn Mun Kong Insurance",
-        price: 10000,
+        isrId: 1,
+        icon: "Insurance.svg",
       },
       {
         type: "Life Style",
-        name: "Apple",
-        price: 10000,
+        name: "Life Style Coin",
+        description:
+          "Life Style Coin คือ เหรียญที่คุณสามารถนำไปใช้ช็อปปิ่งบริการต่างๆ ที่ทางองกรค์จัดเตรียมไว้ให้อย่างมากมาย ตามที่คุณต้องการ",
+        coinValue: 10000,
+        icon: "LifeStyleCoin.svg",
       },
       {
         type: "Travel",
-        name: "Mandarin",
-        price: 10000,
-      },
-      {
-        type: "Travel",
-        name: "Sea",
-        price: 5000,
+        name: "Travel Coin",
+        description:
+          "Travel Coin คือเหรียญที่คุณสามารถนำไปใช้จ่ายค่าเดินทาง ที่พัก บริการต่างๆ ตามสถานที่ต้องเที่ยว ต่างๆ ที่ต้องทางองกรค์ ได้ดิวไว้แล้ว ",
+        coinValue: 10000,
+        icon: "TravelCoin.svg",
       },
     ],
     total: 30000,
@@ -43,18 +45,25 @@ const Package = [
     property: [
       {
         type: "Insurance",
-        name: "Sub Syn Mun Kong Insurance",
-        price: 8000,
+        name: "Viriyah Insurance",
+        isrId: 2,
+        icon: "Insurance.svg",
       },
       {
         type: "Life Style",
-        name: "google",
-        price: 8500,
+        name: "Life Style Coin",
+        description:
+          "Life Style Coin คือ เหรียญที่คุณสามารถนำไปใช้ช็อปปิ่งบริการต่างๆ ที่ทางองกรค์จัดเตรียมไว้ให้อย่างมากมาย ตามที่คุณต้องการ",
+        coinValue: 8000,
+        icon: "LifeStyleCoin.svg",
       },
       {
         type: "Travel",
-        name: "Sub Mandarin",
-        price: 8500,
+        name: "Travel Coin",
+        description:
+          "Travel Coin คือเหรียญที่คุณสามารถนำไปใช้จ่ายค่าเดินทาง ที่พัก บริการต่างๆ ตามสถานที่ต้องเที่ยว ต่างๆ ที่ต้องทางองกรค์ ได้ดิวไว้แล้ว ",
+        coinValue: 8000,
+        icon: "TravelCoin.svg",
       },
     ],
     total: 25000,
@@ -72,18 +81,25 @@ const Package = [
     property: [
       {
         type: "Insurance",
-        name: "FWD",
-        price: 7500,
+        name: "Thai Life Insurance",
+        isrId: 3,
+        icon: "Insurance.svg",
       },
       {
         type: "Life Style",
-        name: "mi",
-        price: 5000,
+        name: "Life Style Coin",
+        description:
+          "Life Style Coin คือ เหรียญที่คุณสามารถนำไปใช้ช็อปปิ่งบริการต่างๆ ที่ทางองกรค์จัดเตรียมไว้ให้อย่างมากมาย ตามที่คุณต้องการ",
+        coinValue: 7000,
+        icon: "LifeStyleCoin.svg",
       },
       {
         type: "Travel",
-        name: "Sub Mandarin",
-        price: 7500,
+        name: "Travel Coin",
+        description:
+          "Travel Coin คือเหรียญที่คุณสามารถนำไปใช้จ่ายค่าเดินทาง ที่พัก บริการต่างๆ ตามสถานที่ต้องเที่ยว ต่างๆ ที่ต้องทางองกรค์ ได้ดิวไว้แล้ว ",
+        coinValue: 7000,
+        icon: "TravelCoin.svg",
       },
     ],
     total: 20000,
@@ -101,18 +117,25 @@ const Package = [
     property: [
       {
         type: "Insurance",
-        name: "Sub FWD",
-        price: 6500,
+        isrId: 4,
+        icon: "Insurance.svg",
       },
       {
         type: "Life Style",
-        name: "mi",
-        price: 4500,
+        name: "FWD",
+        name: "Life Style Coin",
+        description:
+          "Life Style Coin คือ เหรียญที่คุณสามารถนำไปใช้ช็อปปิ่งบริการต่างๆ ที่ทางองกรค์จัดเตรียมไว้ให้อย่างมากมาย ตามที่คุณต้องการ",
+        coinValue: 5000,
+        icon: "LifeStyleCoin.svg",
       },
       {
         type: "Travel",
-        name: "Sub Mandarin",
-        price: 7000,
+        name: "Travel Coin",
+        description:
+          "Travel Coin คือเหรียญที่คุณสามารถนำไปใช้จ่ายค่าเดินทาง ที่พัก บริการต่างๆ ตามสถานที่ต้องเที่ยว ต่างๆ ที่ต้องทางองกรค์ ได้ดิวไว้แล้ว ",
+        coinValue: 5000,
+        icon: "TravelCoin.svg",
       },
     ],
     total: 18000,

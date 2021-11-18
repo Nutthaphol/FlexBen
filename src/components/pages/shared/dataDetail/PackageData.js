@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   createTheme,
@@ -11,6 +11,7 @@ import SlideArrow from "../slideArrow";
 import {
   ArrowLeft,
   ArrowRight,
+  AssignmentTurnedIn,
   KeyboardArrowLeft,
   KeyboardArrowRight,
 } from "@mui/icons-material";
@@ -27,12 +28,18 @@ import {
   Grid,
   Icon,
   Link,
+  Container,
   Paper,
   Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { Box, display } from "@mui/system";
 import { Close, Done, DoneAll, Star } from "@mui/icons-material";
 import { amber, green, red } from "@mui/material/colors";
+import insuranceService from "../../../../services/insurance.service";
 
 const theme = createTheme();
 
@@ -63,7 +70,19 @@ const useStyles = makeStyles(() => ({
 const PackageData = (props) => {
   const { detail } = props;
   const classes = useStyles();
+  const [insurance, setInsurance] = useState();
 
+  useEffect(async () => {
+    const res = await insuranceService.getDetailInsurance(
+      detail.property[0].isrId
+    );
+    setInsurance(res.data);
+  }, []);
+
+  const makeBold = (item, keyword) => {
+    var re = new RegExp(keyword, "g");
+    return item.replace(re, "<i>" + keyword + "</i>");
+  };
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -101,30 +120,64 @@ const PackageData = (props) => {
             <span style={{ paddingLeft: "2.5rem" }} />
             {detail.description}
           </Typography>
-          <Grid
-            container
-            sx={{ marginTop: "10px" }}
-            spacing={5}
-            justifyContent="center"
-          >
+          <Typography variant="h5" sx={{ fontWeight: "600" }}>
+            รายละเอียด
+          </Typography>
+          <List>
             {detail.property.map((val, index) => (
-              <Grid item key={index}>
-                <Card sx={{ padding: "10px", borderRadius: "10px" }}>
-                  <CardMedia sx={{ bgcolor: "#595959", borderRadius: "10px" }}>
-                    <Icon className={classes.icons}>
-                      <img
-                        src={`${process.env.PUBLIC_URL}/assets/icons/LifeStyleCoin.svg`}
-                        width="100%"
-                      />
-                    </Icon>
-                  </CardMedia>
-                  <CardContent>
-                    <Typography variant="subtitle1">{val.type}</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <Icon fontSize="large">
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/icons/${val.icon}`}
+                      width="100%"
+                    />
+                  </Icon>
+                }
+              >
+                <ListItemIcon>
+                  <AssignmentTurnedIn color="success" />
+                </ListItemIcon>
+                <ListItemText
+                  primary={val.name}
+                  secondary={val.coinValue ? val.coinValue + " Coin" : val.type}
+                />
+              </ListItem>
             ))}
-          </Grid>
+          </List>
+          <Divider />
+          {detail.property.map((val, index) => (
+            <Box key={index}>
+              <Typography
+                variant="h6"
+                sx={{ marginTop: "20px", fontWeight: "550" }}
+              >
+                {val.type}
+              </Typography>
+              {(val.type.toLowerCase() == "insurance") &
+              (insurance != undefined) ? (
+                <Box sx={{ display: "flex" }}>
+                  <Typography variant="subtitle1">
+                    <span style={{ marginLeft: "2.5rem" }} />
+                    <span style={{ fontWeight: "600" }}>
+                      {insurance.name}
+                    </span>{" "}
+                    {insurance.description}
+                  </Typography>
+                </Box>
+              ) : (
+                <Box sx={{ display: "flex" }}>
+                  <Typography variant="subtitle1">
+                    <span style={{ marginLeft: "2.5rem" }} />
+                    <span style={{ fontWeight: "600" }}>{val.name}</span>{" "}
+                    {val.description}
+                  </Typography>
+                </Box>
+              )}
+              <Divider sx={{ marginTop: "20px" }} />
+            </Box>
+          ))}
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

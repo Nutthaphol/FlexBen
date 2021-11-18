@@ -20,6 +20,9 @@ import {
   Link,
   IconButton,
   Avatar,
+  List,
+  ListItem,
+  ListItemIcon,
 } from "@mui/material";
 import { amber, green } from "@mui/material/colors";
 import {
@@ -119,9 +122,9 @@ const PackageCard = (props) => {
                     </Box>
                     <Box sx={{ flexGrow: 1 }}>
                       {val.type} {"  "}
-                      {(index == 2) & (property.length > 3) && " (Other)"}
+                      {(index == 2) & (property.length > 3) ? " (Other)" : ""}
                     </Box>
-                    {val.price}
+                    {val.coinValue ? val.coinValue : "-"}
                   </Box>
                 ))}
             </Typography>

@@ -17,6 +17,10 @@ import {
   Divider,
   Grid,
   Link,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   Paper,
   Typography,
 } from "@mui/material";
@@ -89,7 +93,59 @@ const InsuranceData = ({ detail }) => {
             <Typography variant="h5" gutterBottom sx={{ marginTop: "1rem" }}>
               รายละเอียด
             </Typography>
-            <Typography variant="body2" sx={{ paddingLeft: "20px" }}>
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  {detail.protection != "No" ? (
+                    <DoneAll sx={{ color: green[500] }} />
+                  ) : (
+                    <Close sx={{ color: red[500] }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={detail.protection} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  {detail.maxCoverage != "No" ? (
+                    <DoneAll sx={{ color: green[500] }} />
+                  ) : (
+                    <Close sx={{ color: red[500] }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={detail.maxCoverage} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  {detail.medicalExpenses != "No" ? (
+                    <DoneAll sx={{ color: green[500] }} />
+                  ) : (
+                    <Close sx={{ color: red[500] }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={detail.medicalExpenses} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  {detail.reserve != "No" ? (
+                    <DoneAll sx={{ color: green[500] }} />
+                  ) : (
+                    <Close sx={{ color: red[500] }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={detail.reserve} />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  {detail.taxDeductible != "No" ? (
+                    <DoneAll sx={{ color: green[500] }} />
+                  ) : (
+                    <Close sx={{ color: red[500] }} />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={detail.taxDeductible} />
+              </ListItem>
+            </List>
+            {/* <Typography variant="body2" sx={{ paddingLeft: "20px" }}>
               <Grid container spacing={1} sx={{ padding: "! important" }}>
                 <Grid item>
                   {detail.protection != "No" ? (
@@ -136,7 +192,7 @@ const InsuranceData = ({ detail }) => {
                 </Grid>
                 <Grid item>สำรองจ่าย : {detail.taxDeductible}</Grid>
               </Grid>
-            </Typography>
+            </Typography> */}
             <Typography
               variant="h5"
               gutterBottom
