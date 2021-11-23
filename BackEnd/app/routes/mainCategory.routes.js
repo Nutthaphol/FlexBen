@@ -1,7 +1,7 @@
-const controller = require("../controllers/item.controller");
 const { authJwt } = require("../middleware");
+const mainCategoryController = require("../controllers/mainCategory.controller");
 
-module.exports = function (app) {
+module.exports = (app) => {
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,5 +10,9 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/getAllItem", [authJwt.verifyToken], controller.allItem);
+  app.get(
+    "/api/mainCategory",
+    [authJwt.verifyToken],
+    mainCategoryController.allMainCategory
+  );
 };

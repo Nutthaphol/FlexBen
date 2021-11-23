@@ -1,4 +1,4 @@
-const controller = require("../controllers/item.controller");
+const controller = require("../controllers/review.controller");
 const { authJwt } = require("../middleware");
 
 module.exports = function (app) {
@@ -10,5 +10,9 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/getAllItem", [authJwt.verifyToken], controller.allItem);
+  app.get(
+    "/api/review/getAllReviews",
+    [authJwt.verifyToken],
+    controller.getAllReview
+  );
 };

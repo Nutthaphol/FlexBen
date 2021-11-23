@@ -28,16 +28,13 @@ const theme = createTheme({});
 const useStyles = makeStyles(() => ({
   root: {
     margin: "1rem",
-    width: "100%",
+    // width: "100%",
     height: "auto",
   },
   coverMedia: {
-    // height: "25vh",
     display: "flex",
     alignItems: "center",
     backgroundColor: "#fff",
-    // borderBottom: "1px solid",
-    // borderTop: "1px solid",
   },
   cardMedia: {
     height: "12rem",
@@ -55,7 +52,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HighlightCard = (props) => {
+const ProductCard = (props) => {
   const { image, head, price, name, id, path, rating, count } = props;
   const classes = useStyles();
   return (
@@ -125,4 +122,4 @@ const HighlightCard = (props) => {
   );
 };
 
-export default HighlightCard;
+export default ProductCard;

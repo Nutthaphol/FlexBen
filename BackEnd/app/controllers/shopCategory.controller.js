@@ -1,9 +1,9 @@
 const db = require("../models");
-const Category = db.category;
+const ShopCategory = db.shopCategory;
 
-exports.allCategory = (req, res) => {
+exports.allShopCategory = (req, res) => {
   try {
-    res.status(200).send(Category);
+    res.status(200).send(ShopCategory);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

@@ -14,6 +14,8 @@ import {
   AssignmentTurnedIn,
   KeyboardArrowLeft,
   KeyboardArrowRight,
+  Lightbulb,
+  LightbulbTwoTone,
 } from "@mui/icons-material";
 
 import { makeStyles } from "@mui/styles";
@@ -46,6 +48,8 @@ const theme = createTheme();
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
+    boxShadow: "none",
+    border: "1px solid #404040",
   },
   cardMedia: {
     // position: "flex",
@@ -68,7 +72,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const PackageData = (props) => {
-  const { detail } = props;
+  const { detail, review } = props;
   const classes = useStyles();
   const [insurance, setInsurance] = useState();
 
@@ -88,11 +92,16 @@ const PackageData = (props) => {
       <ThemeProvider theme={theme}>
         <Card className={classes.root}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant={"h4"} sx={{ fontWeight: "700" }} gutterBottom>
+            <Typography
+              component={"span"}
+              variant={"h4"}
+              sx={{ fontWeight: "700" }}
+              gutterBottom
+            >
               PACKAGE {detail.name.toUpperCase()} !
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            <Typography variant="h5" gutterBottom>
+            <Typography component={"span"} variant="h5" gutterBottom>
               <Grid container spacing={1}>
                 <Grid item>
                   <Star sx={{ color: amber[500] }} />
@@ -112,18 +121,26 @@ const PackageData = (props) => {
           >
             <Divider sx={{ width: "100%" }} />
           </Box>
-          <Typography variant="h5" sx={{ fontWeight: "700" }} gutterBottom>
+          <Typography
+            component={"span"}
+            variant="h5"
+            sx={{ fontWeight: 600 }}
+            gutterBottom
+          >
             {detail.highLights}
           </Typography>
-          <Typography variant="subtitle1">
+          <Typography component={"span"} variant="subtitle1">
             {" "}
             <span style={{ paddingLeft: "2.5rem" }} />
             {detail.description}
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: "600" }}>
+          <br />
+          <Typography component={"span"} variant="h5" sx={{ fontWeight: 600 }}>
             รายละเอียด
           </Typography>
-          <List>
+          <List
+          // sx={{ width: "50%" }}
+          >
             {detail.property.map((val, index) => (
               <ListItem
                 key={index}
@@ -150,15 +167,27 @@ const PackageData = (props) => {
           {detail.property.map((val, index) => (
             <Box key={index}>
               <Typography
-                variant="h6"
-                sx={{ marginTop: "20px", fontWeight: "550" }}
+                component={"span"}
+                variant="subtitle1"
+                sx={{
+                  marginTop: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
+                <LightbulbTwoTone
+                  fontSize="small"
+                  sx={{
+                    color: amber[500],
+                  }}
+                />
+                <Box sx={{ flexGrow: 0.01 }} />
                 {val.type}
               </Typography>
               {(val.type.toLowerCase() == "insurance") &
               (insurance != undefined) ? (
                 <Box sx={{ display: "flex" }}>
-                  <Typography variant="subtitle1">
+                  <Typography component={"span"} variant="subtitle1">
                     <span style={{ marginLeft: "2.5rem" }} />
                     <span style={{ fontWeight: "600" }}>
                       {insurance.name}
@@ -168,7 +197,7 @@ const PackageData = (props) => {
                 </Box>
               ) : (
                 <Box sx={{ display: "flex" }}>
-                  <Typography variant="subtitle1">
+                  <Typography component={"span"} variant="subtitle1">
                     <span style={{ marginLeft: "2.5rem" }} />
                     <span style={{ fontWeight: "600" }}>{val.name}</span>{" "}
                     {val.description}
@@ -178,6 +207,7 @@ const PackageData = (props) => {
               <Divider sx={{ marginTop: "20px" }} />
             </Box>
           ))}
+          <br />
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

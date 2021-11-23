@@ -1,7 +1,7 @@
 import {
-  CATEGORY_FETCHING,
-  CATEGORY_FAILED,
-  CATEGORY_SUCCESS,
+  MAINCATEGORY_FETCHING,
+  MAINCATEGORY_FAILED,
+  MAINCATEGORY_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -12,12 +12,13 @@ const initialState = {
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
+
   switch (type) {
-    case CATEGORY_FETCHING:
+    case MAINCATEGORY_FETCHING:
       return { ...state, result: null, isFetching: true, isError: false };
-    case CATEGORY_FAILED:
+    case MAINCATEGORY_FAILED:
       return { ...state, result: null, isFetching: false, isError: true };
-    case CATEGORY_SUCCESS:
+    case MAINCATEGORY_SUCCESS:
       return { ...state, result: payload, isFetching: false, isError: false };
     default:
       return state;

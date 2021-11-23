@@ -32,6 +32,8 @@ const theme = createTheme();
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
+    boxShadow: "none",
+    border: "1px solid #404040",
   },
   cardMedia: {
     // position: "flex",

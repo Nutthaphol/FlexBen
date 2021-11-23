@@ -4,7 +4,7 @@ import itemService from "../services/item.service";
 
 export const getAllItem = () => async (dispatch) => {
   try {
-    const res = await itemService.getItem();
+    const res = await itemService.getAllItem();
     if (res) {
       dispatch({
         type: ITEM_SUCCESS,

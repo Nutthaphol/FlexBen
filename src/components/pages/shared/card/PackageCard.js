@@ -38,17 +38,14 @@ const theme = createTheme({});
 const useStyles = makeStyles(() => ({
   root: {
     margin: "1rem",
-    width: "100%",
+    width: "auto",
     height: "auto",
   },
   coverMedia: {
     position: "relative",
-    // height: "25vh",
     display: "flex",
     alignItems: "center",
     backgroundColor: "#fff",
-    // borderBottom: "1px solid",
-    // borderTop: "1px solid",
   },
   cardMedia: {
     height: "12rem",

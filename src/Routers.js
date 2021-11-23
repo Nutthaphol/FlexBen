@@ -12,6 +12,7 @@ import CoinDashboard from "./components/pages/user/CoinDashboard";
 import ListPackage from "./components/pages/user/ListPackage";
 import ListInsurance from "./components/pages/user/ListInsurance";
 import DetailPackage from "./components/pages/user/DetailPackage";
+import ShopingMall from "./components/pages/user/ShopingMall";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -112,6 +113,7 @@ function Routers() {
         <UserRoute exact path="/detailPackage/:id" component={DetailPackage} />
         <UserRoute exact path="/allPackages" component={ListPackage} />
         <UserRoute exact path="/allInsurance" component={ListInsurance} />
+        <UserRoute exact path="/shoppingMall" component={ShopingMall} />
       </Switch>
     </Container>
   );

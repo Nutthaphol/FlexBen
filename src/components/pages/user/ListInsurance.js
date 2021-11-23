@@ -17,7 +17,7 @@ import PackageCard from "../shared/card/PackageCard";
 import { getAllPackage } from "../../../actions/package";
 import { Box } from "@mui/system";
 import { getAllInsurance } from "../../../actions/insurance";
-import HighlightCard from "../shared/card/HighlightCard";
+import ProductCard from "../shared/card/ProductCard";
 
 const theme = createTheme();
 
@@ -93,7 +93,7 @@ const ListInsurance = () => {
                   })
                   .map((val, index) => (
                     <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
-                      <HighlightCard
+                      <ProductCard
                         path="detailInsurance"
                         image={`${process.env.REACT_APP_URL}image/insurance/${val.image}`}
                         head={val.highLights}

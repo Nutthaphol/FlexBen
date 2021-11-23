@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 
 import SalesBox from "../shared/salesBox";
+import ReviewsCard from "../shared/card/ReviewCard";
 import insuranceService from "../../../services/insurance.service";
 import { Box } from "@mui/system";
 import { Star } from "@mui/icons-material";
@@ -43,7 +44,7 @@ const DetailPackage = (props) => {
   const [id, setId] = useState();
   const [detail, setDetail] = useState();
 
-  useEffect(() => {
+  useEffect(async () => {
     const fetchData = async () => {
       const id_ = props.match.params.id;
       setId(id_);
@@ -64,10 +65,12 @@ const DetailPackage = (props) => {
           {detail && (
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
-                <Grid item md={8} xs={12}>
+                <Grid item lg={8} md={8} xs={12}>
                   <PackageData detail={detail} />
+                  <br />
+                  <ReviewsCard type={"package"} />
                 </Grid>
-                <Grid item md={4} xs={12}>
+                <Grid item lg={4} md={4} xs={12}>
                   <SalesBox detail={detail} type="package" />
                 </Grid>
               </Grid>

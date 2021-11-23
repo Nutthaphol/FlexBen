@@ -17,13 +17,13 @@ import Divider from "@mui/material/Divider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box } from "@mui/system";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, Typography, Icon } from "@mui/material";
 import { ChevronLeft } from "@mui/icons-material";
 import { indigo } from "@mui/material/colors";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const theme = createTheme();
+const theme = createTheme({});
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -70,6 +70,7 @@ const drawerUseStyles = makeStyles(() => ({
     whiteSpace: "nowrap",
   },
   toolbar: {
+    position: "relative",
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
@@ -117,10 +118,24 @@ const DrawerContainer = ({ open, setOpen }) => {
       }}
     >
       <div className={classes.toolbar}>
+        <div
+          style={{
+            width: "100%",
+            position: "absolute",
+            textAlign: "center",
+          }}
+        >
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/LOGO SCG.png`}
+            width="auto"
+            height="64px"
+          />
+        </div>
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeft />
         </IconButton>
       </div>
+      <Divider />
       <UserMenu />
       {isManager && (
         <Fragment>

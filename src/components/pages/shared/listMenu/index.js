@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from "react";
-import { ThemeProvider, StyledEngineProvider, createTheme } from "@mui/material/styles";
-import makeStyles from '@mui/styles/makeStyles';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createTheme,
+} from "@mui/material/styles";
+import makeStyles from "@mui/styles/makeStyles";
 import { NavLink } from "react-router-dom";
 import List from "@mui/material/List";
 import Collapse from "@mui/material/Collapse";
@@ -9,6 +13,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { Box } from "@mui/system";
+import { Typography } from "@mui/material";
 
 const theme = createTheme();
 
@@ -82,7 +88,9 @@ const ListMenu = (props) => {
                               }
                               activeclassname={classes.isActive}
                             >
-                              <ListItemIcon>{collapse.listItemIcon}</ListItemIcon>
+                              <ListItemIcon>
+                                {collapse.listItemIcon}
+                              </ListItemIcon>
                               <ListItemText primary={collapse.listItemText} />
                             </ListItem>
                           );
@@ -99,7 +107,24 @@ const ListMenu = (props) => {
                     activeclassname={classes.isActive}
                   >
                     <ListItemIcon>{value.listItemIcon}</ListItemIcon>
-                    <ListItemText primary={value.listItemText} />
+                    <ListItemText
+                      primary={
+                        <Box>
+                          {" "}
+                          <Typography
+                            variant="subtitle1"
+                            component="span"
+                            sx={{
+                              whiteSpace: "nowrap",
+                              textOverflow: "ellipsis",
+                              overflow: "hidden",
+                            }}
+                          >
+                            {value.listItemText}
+                          </Typography>
+                        </Box>
+                      }
+                    />
                   </ListItem>
                 )}
               </Fragment>

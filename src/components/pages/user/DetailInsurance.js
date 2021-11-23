@@ -22,6 +22,7 @@ import insuranceService from "../../../services/insurance.service";
 import { Box } from "@mui/system";
 import { Star } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
+import ReviewsCard from "../shared/card/ReviewCard";
 
 const theme = createTheme();
 
@@ -65,6 +66,8 @@ const DetailInsurance = (props) => {
               <Grid container spacing={4}>
                 <Grid item md={8} xs={12}>
                   <InsuranceData detail={detail} />
+                  <br />
+                  <ReviewsCard type="insurance" />
                 </Grid>
                 <Grid item md={4} xs={12}>
                   <SalesBox detail={detail} type="insurance" />

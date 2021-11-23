@@ -27,13 +27,12 @@ import { getAllInsurance } from "../../actions/insurance";
 import SlideArrow from "./shared/slideArrow";
 import Slider from "react-slick";
 import { getAllUsers, getUserProfile } from "../../actions/user";
-import HighlightCard from "./shared/card/HighlightCard";
-import { getCategory } from "../../actions/category";
+import ProductCard from "./shared/card/ProductCard";
 import BlockCard from "./shared/card/BlockCard";
-import { getAllItem } from "../../actions/item";
 import { getAllPackage } from "../../actions/package";
 import PackageCard from "./shared/card/PackageCard";
 import AddCoinCard from "./shared/card/AddCoinCard";
+import { getAllMainCategory } from "../../actions/mainCategory";
 
 const theme = createTheme();
 
@@ -55,8 +54,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { result: insurance } = useSelector((state) => state.insurance);
-  const { result: category } = useSelector((state) => state.category);
-  const { result: item } = useSelector((state) => state.item);
+  const { result: mainCategory } = useSelector((state) => state.mainCategory);
   const { result: package_ } = useSelector((state) => state.package_);
   const { user: currentUser } = useSelector((state) => state.auth);
   const { result: users } = useSelector((state) => state.users);
@@ -108,8 +106,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllInsurance());
-    dispatch(getCategory());
-    dispatch(getAllItem());
+    dispatch(getAllMainCategory());
     dispatch(getAllPackage());
     dispatch(getAllUsers());
     // if (currentUser) {
@@ -170,7 +167,7 @@ const Home = () => {
                     insurance
                       .filter((item) => item.rating > 4)
                       .map((val, index) => (
-                        <HighlightCard
+                        <ProductCard
                           path="detailInsurance"
                           key={index}
                           image={`${process.env.REACT_APP_URL}image/insurance/${val.image}`}
@@ -215,9 +212,14 @@ const Home = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Grid container spacing={5} sx={{ padding: "1rem" }}>
-                  {category &&
-                    category.map((val, index) => (
+                <Grid
+                  container
+                  spacing={5}
+                  sx={{ padding: "1rem" }}
+                  justifyContent="center"
+                >
+                  {mainCategory &&
+                    mainCategory.map((val, index) => (
                       <Grid
                         item
                         xs={12}
@@ -227,7 +229,7 @@ const Home = () => {
                         xl={2}
                         key={index}
                       >
-                        <BlockCard name={val.nameCategory} />
+                        <BlockCard name={val.name} />
                       </Grid>
                     ))}
                 </Grid>

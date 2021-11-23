@@ -27,8 +27,10 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     height: "auto",
     padding: "1rem",
-    boxShadow:
-      "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
+    boxShadow: "none",
+    border: "1px solid #404040",
+    // boxShadow:
+    //   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
 }));
 
@@ -66,7 +68,7 @@ const SalesBox = ({ detail, type }) => {
             sx={{
               marginTop: "1rem",
               padding: "1rem",
-              fontSize: "1.5rem",
+              fontSize: "1.25rem",
               fontWeight: "700",
             }}
             fullWidth
