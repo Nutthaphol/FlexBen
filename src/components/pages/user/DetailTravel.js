@@ -7,6 +7,7 @@ import {
 } from "@mui/material/styles";
 
 import { makeStyles } from "@mui/styles";
+
 import {
   Card,
   Container,
@@ -18,11 +19,9 @@ import {
 
 import SalesBox from "../shared/salesBox";
 import ReviewsCard from "../shared/card/ReviewCard";
-import { Box } from "@mui/system";
-import { Star } from "@mui/icons-material";
-import { amber, yellow } from "@mui/material/colors";
-import packageService from "../../../services/package.service";
-import PackageData from "../shared/dataDetail/PackageData";
+import ItemData from "../shared/dataDetail/ItemData";
+import travelService from "../../../services/travel.service";
+
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
@@ -38,7 +37,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DetailPackage = (props) => {
+const DetailTravel = (props) => {
   const classes = useStyles();
   const [id, setId] = useState();
   const [detail, setDetail] = useState();
@@ -48,7 +47,7 @@ const DetailPackage = (props) => {
       const id_ = props.match.params.id;
       setId(id_);
       console.log("fetch id ", id_);
-      const data = await packageService.getDetailPackage(id_);
+      const data = await travelService.getDetailTravel(id_);
       console.log(data.data);
       setDetail(data.data);
     };
@@ -57,6 +56,7 @@ const DetailPackage = (props) => {
       fetchData();
     }
   }, []);
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -65,12 +65,13 @@ const DetailPackage = (props) => {
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
-                  <PackageData detail={detail} />
+                  {/* use conponent of item  */}
+                  <ItemData detail={detail} />
                   <br />
-                  <ReviewsCard type={"package"} />
+                  <ReviewsCard type={"travel"} />
                 </Grid>
                 <Grid item lg={4} md={4} xs={12}>
-                  <SalesBox detail={detail} type="package" />
+                  <SalesBox detail={detail} type="travel" />
                 </Grid>
               </Grid>
             </Container>
@@ -81,4 +82,4 @@ const DetailPackage = (props) => {
   );
 };
 
-export default DetailPackage;
+export default DetailTravel;

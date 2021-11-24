@@ -12,7 +12,7 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PageviewIcon from "@mui/icons-material/Pageview";
 import HistoryIcon from "@mui/icons-material/History";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { LocalMall } from "@mui/icons-material";
+import { Backpack, LocalMall } from "@mui/icons-material";
 
 const UserMenu = () => {
   const dataListMenu = [
@@ -27,6 +27,12 @@ const UserMenu = () => {
       listItemText: "Shopping Mall",
       listLink: "/shoppingMall",
       listKey: "shoppingmall",
+    },
+    {
+      listItemIcon: <Backpack />,
+      listItemText: "Travel Shop",
+      listLink: "/travelShop",
+      listKey: "travelShop",
     },
   ];
 

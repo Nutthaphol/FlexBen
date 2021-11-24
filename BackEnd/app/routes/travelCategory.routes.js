@@ -1,5 +1,5 @@
-const controller = require("../controllers/item.controller");
 const { authJwt } = require("../middleware");
+const travelCategoryController = require("../controllers/travelCategory.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -10,6 +10,9 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/getAllItem", [authJwt.verifyToken], controller.allItem);
-  app.get("/api/item/:id", [authJwt.verifyToken], controller.detailItem);
+  app.get(
+    "/api/travelCategory",
+    [authJwt.verifyToken],
+    travelCategoryController.allTravelCategory
+  );
 };

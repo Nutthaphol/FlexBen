@@ -6,6 +6,12 @@ const getAllItem = () => {
   return res;
 };
 
+const getDetailItem = (id) => {
+  const res = httpClient.get("item/" + id);
+  return res;
+};
+
 export default {
   getAllItem,
+  getDetailItem,
 };

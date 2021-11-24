@@ -13,6 +13,9 @@ import ListPackage from "./components/pages/user/ListPackage";
 import ListInsurance from "./components/pages/user/ListInsurance";
 import DetailPackage from "./components/pages/user/DetailPackage";
 import ShopingMall from "./components/pages/user/ShopingMall";
+import DetailItem from "./components/pages/user/DetailItem";
+import TravelShop from "./components/pages/user/TravelShop";
+import DetailTravel from "./components/pages/user/DetailTravel";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -114,6 +117,9 @@ function Routers() {
         <UserRoute exact path="/allPackages" component={ListPackage} />
         <UserRoute exact path="/allInsurance" component={ListInsurance} />
         <UserRoute exact path="/shoppingMall" component={ShopingMall} />
+        <UserRoute exact path="/travelShop" component={TravelShop} />
+        <UserRoute exact path="/detailItem/:id" component={DetailItem} />
+        <UserRoute exact path="/detailTravel/:id" component={DetailTravel} />
       </Switch>
     </Container>
   );

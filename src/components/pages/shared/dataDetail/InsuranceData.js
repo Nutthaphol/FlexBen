@@ -10,18 +10,14 @@ import { makeStyles } from "@mui/styles";
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
-  CardHeader,
   CardMedia,
   Divider,
   Grid,
-  Link,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Paper,
   Typography,
 } from "@mui/material";
 import { Box, display } from "@mui/system";
@@ -33,7 +29,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
     boxShadow: "none",
-    border: "1px solid #404040",
+    border: "1px solid #D0D3D4",
   },
   cardMedia: {
     // position: "flex",
@@ -45,6 +41,7 @@ const useStyles = makeStyles(() => ({
     borderStyle: "solid",
     borderWidth: "1px 1px",
     marginTop: "1.5rem",
+    borderColor: "#D0D3D4",
   },
 }));
 

@@ -21,12 +21,11 @@ import {
   Icon,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllShopCategory } from "../../../actions/shopCategory";
-import { getAllItem } from "../../../actions/item";
+import { getAllTravelCategory } from "../../../actions/travelCategory";
+import { getAllTravel } from "../../../actions/travel";
 import ProductCard from "../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
-
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
@@ -51,17 +50,19 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ShopingMall = () => {
+const TravelShop = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { result: shopCategory } = useSelector((state) => state.shopCategory);
-  const { result: item } = useSelector((state) => state.item);
+  const { result: travelCategory } = useSelector(
+    (state) => state.travelCategory
+  );
+  const { result: travel } = useSelector((state) => state.travel);
   const [checked, setChecked] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    dispatch(getAllShopCategory());
-    dispatch(getAllItem());
+    dispatch(getAllTravelCategory());
+    dispatch(getAllTravel());
   }, []);
 
   const handleToggle = (value) => () => {
@@ -84,7 +85,7 @@ const ShopingMall = () => {
             <Grid container spacing={2} justifyContent="center">
               <Grid item xl={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head} sx={{}}>
-                  <Typography variant="h4">Shopping Mall</Typography>
+                  <Typography variant="h4">Tourist Attraction</Typography>
                   <Box sx={{ flexGrow: 1 }} />
                   <TextField
                     label="Search"
@@ -106,7 +107,7 @@ const ShopingMall = () => {
                   />
                 </Paper>
               </Grid>
-              {shopCategory && (
+              {travelCategory && (
                 <Grid item xl={2}>
                   <Paper className={classes.filter}>
                     <Typography variant="h6" gutterBottom>
@@ -118,8 +119,8 @@ const ShopingMall = () => {
                         width: "100%",
                       }}
                     >
-                      {shopCategory &&
-                        shopCategory.map((val, index) => (
+                      {travelCategory &&
+                        travelCategory.map((val, index) => (
                           <ListItem
                             key={index}
                             secondaryAction={
@@ -140,12 +141,12 @@ const ShopingMall = () => {
                 </Grid>
               )}
               <Grid item xl={10}>
-                {item && (
+                {travel && (
                   <Paper className={classes.main}>
                     <Grid container spacing={4}>
-                      {item
+                      {travel
                         .filter(
-                          (val) => val.name.toLowerCase().search(search) != -1
+                          (item) => item.name.toLowerCase().search(search) != -1
                         )
                         .filter((val) => {
                           if (checked.length != 0) {
@@ -164,7 +165,7 @@ const ShopingMall = () => {
                           >
                             <Box sx={{ width: "100%" }}>
                               <ProductCard
-                                path="detailItem"
+                                path="detailTravel"
                                 image={`${process.env.REACT_APP_URL}image/${val.image}`}
                                 head={val.highLights}
                                 price={val.price}
@@ -188,4 +189,4 @@ const ShopingMall = () => {
   );
 };
 
-export default ShopingMall;
+export default TravelShop;

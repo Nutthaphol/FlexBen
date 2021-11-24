@@ -1,4 +1,4 @@
-const controller = require("../controllers/item.controller");
+const controller = require("../controllers/travel.controller");
 const { authJwt } = require("../middleware");
 
 module.exports = function (app) {
@@ -10,6 +10,6 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/getAllItem", [authJwt.verifyToken], controller.allItem);
-  app.get("/api/item/:id", [authJwt.verifyToken], controller.detailItem);
+  app.get("/api/getAllTravel", [authJwt.verifyToken], controller.allTravel);
+  app.get("/api/travel/:id", [authJwt.verifyToken], controller.detailTravel);
 };

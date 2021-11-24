@@ -7,7 +7,9 @@ db.Insurance = require("../models/insurance.model.js");
 db.item = require("../models/item.model.js");
 db.shopCategory = require("../models/shopCategory.model.js");
 db.mainCategory = require("../models/mainCategory.model.js");
+db.travelCategory = require("../models/travelCategory.model.js");
 db.package = require("../models/package.model");
 db.review = require("../models/review.model");
+db.travel = require("../models/travel.model");
 
 module.exports = db;

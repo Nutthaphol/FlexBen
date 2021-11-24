@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
     boxShadow: "none",
-    border: "1px solid #404040",
+    border: "1px solid #D0D3D4",
   },
 }));
 

@@ -57,6 +57,7 @@ const useStyles = makeStyles(() => ({
   appBar: {
     backgroundColor: amber["A700"],
     zIndex: theme.zIndex.drawer + 1,
+    right: 0,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,

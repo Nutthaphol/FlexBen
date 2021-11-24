@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     height: "auto",
     padding: "1rem",
     boxShadow: "none",
-    border: "1px solid #404040",
+    border: "1px solid #D0D3D4",
     // boxShadow:
     //   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
@@ -57,11 +57,11 @@ const SalesBox = ({ detail, type }) => {
           </Typography>
           <Box sx={{ display: "flex", marginBottom: "1rem" }}>
             <Typography variant="h6">
-              {type == "insurance" ? detail.name : "Package " + detail.name}
+              {type == "package" ? "Package " + detail.name : detail.name}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Typography variant="h6">
-              {type == "insurance" ? detail.price : detail.total} $
+              {type == "package" ? detail.total : detail.price} $
             </Typography>
           </Box>
           <Button
@@ -75,7 +75,8 @@ const SalesBox = ({ detail, type }) => {
             variant="contained"
             color="success"
           >
-            Continue (${type == "insurance" ? detail.price : detail.total})
+            Continue ($
+            {type == "package" ? detail.total : detail.price} $ )
           </Button>
         </Paper>
       </ThemeProvider>

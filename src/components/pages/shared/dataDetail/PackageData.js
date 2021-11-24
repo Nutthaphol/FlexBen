@@ -49,7 +49,7 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
     boxShadow: "none",
-    border: "1px solid #404040",
+    border: "1px solid #D0D3D4",
   },
   cardMedia: {
     // position: "flex",
@@ -61,6 +61,7 @@ const useStyles = makeStyles(() => ({
     borderStyle: "solid",
     borderWidth: "1px 1px",
     marginTop: "1.5rem",
+    borderColor: "#D0D3D4",
   },
   icons: {
     padding: "10px",
