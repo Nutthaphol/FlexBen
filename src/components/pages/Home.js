@@ -113,6 +113,7 @@ const Home = () => {
     //   dispatch(getUserProfile());
     // }
   }, []);
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -177,6 +178,7 @@ const Home = () => {
                           id={val.id}
                           rating={val.rating}
                           count={val.count}
+                          type={val.type}
                         />
                       ))}
                 </Slider>

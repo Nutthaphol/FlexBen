@@ -23,6 +23,8 @@ import { Star } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
 import packageService from "../../../services/package.service";
 import PackageData from "../shared/dataDetail/PackageData";
+import Sticky from "react-stickynode";
+
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
@@ -70,7 +72,9 @@ const DetailPackage = (props) => {
                   <ReviewsCard type={"package"} />
                 </Grid>
                 <Grid item lg={4} md={4} xs={12}>
-                  <SalesBox detail={detail} type="package" />
+                  <Sticky enabled={true} top={70}>
+                    <SalesBox detail={detail} type="package" />
+                  </Sticky>
                 </Grid>
               </Grid>
             </Container>

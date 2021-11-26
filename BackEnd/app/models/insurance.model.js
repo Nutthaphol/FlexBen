@@ -2,6 +2,7 @@ const Insurance = [
   {
     id: 1,
     name: "Syn Mun Kong Insurance",
+    type: "Insurance",
     protection: "IPD, OPD, อุบัติเหตุ",
     maxCoverage: "150,000 / 200,000 / 300,000 / 400,000 / 500,000",
     medicalExpenses: "รายละเอียดตามแผนประกัน",
@@ -19,6 +20,7 @@ const Insurance = [
   {
     id: 2,
     name: "Viriyah Insurance",
+    type: "Insurance",
     protection: "IPD, อุบัติเหตุ",
     maxCoverage: "100,000 / 300,000 / 700,000",
     medicalExpenses: "จ่ายตามจริง",
@@ -36,6 +38,7 @@ const Insurance = [
   {
     id: 3,
     name: "Thai Life Insurance",
+    type: "Insurance",
     protection: "ชดเชยรายได้",
     maxCoverage: "100,000 / 150,000 / 200,000 / 300,000",
     medicalExpenses: "No",
@@ -53,6 +56,7 @@ const Insurance = [
   {
     id: 4,
     name: "FWD",
+    type: "Insurance",
     protection: "โรคร้ายแรง",
     maxCoverage: "200,000 / 500,000 / 1,000,000",
     medicalExpenses: "No",
@@ -70,6 +74,7 @@ const Insurance = [
   {
     id: 5,
     name: "Cigna",
+    type: "Insurance",
     protection: "IPD, OPD",
     maxCoverage: "150,000 / 200,000 / 300,000",
     medicalExpenses: "รายละเอียดตามแผนประกัน",

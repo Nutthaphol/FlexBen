@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #D0D3D4",
   },
   main: {
-    padding: "10px",
+    // padding: "10px",
     boxShadow: "none",
     border: "1px solid #D0D3D4",
     minHeight: "600px",
@@ -80,9 +80,9 @@ const ShopingMall = () => {
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
+          <Container maxWidth="none">
             <Grid container spacing={2} justifyContent="center">
-              <Grid item xl={12} sx={{ marginButtom: 20 }}>
+              <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head} sx={{}}>
                   <Typography variant="h4">Shopping Mall</Typography>
                   <Box sx={{ flexGrow: 1 }} />
@@ -94,12 +94,12 @@ const ShopingMall = () => {
                     }}
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment>
-                          <IconButton>
-                            <Icon>
-                              <Search />
-                            </Icon>
-                          </IconButton>
+                        <InputAdornment position="end">
+                          {/* <IconButton> */}
+                          <Icon>
+                            <Search />
+                          </Icon>
+                          {/* </IconButton> */}
                         </InputAdornment>
                       ),
                     }}
@@ -107,9 +107,9 @@ const ShopingMall = () => {
                 </Paper>
               </Grid>
               {shopCategory && (
-                <Grid item xl={2}>
+                <Grid item xl={2} lg={3}>
                   <Paper className={classes.filter}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" component="span" gutterBottom>
                       Category
                     </Typography>
                     <List
@@ -139,10 +139,10 @@ const ShopingMall = () => {
                   </Paper>
                 </Grid>
               )}
-              <Grid item xl={10}>
+              <Grid item xl={10} lg={9}>
                 {item && (
                   <Paper className={classes.main}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={1}>
                       {item
                         .filter(
                           (val) => val.name.toLowerCase().search(search) != -1
@@ -158,11 +158,18 @@ const ShopingMall = () => {
                         .map((val, index) => (
                           <Grid
                             item
-                            lg={3}
-                            sx={{ position: "relative" }}
+                            xl={3}
+                            lg={4}
+                            // sx={{ position: "relative" }}
                             key={index}
                           >
-                            <Box sx={{ width: "100%" }}>
+                            <Box
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                position: "relative",
+                              }}
+                            >
                               <ProductCard
                                 path="detailItem"
                                 image={`${process.env.REACT_APP_URL}image/${val.image}`}
@@ -172,6 +179,7 @@ const ShopingMall = () => {
                                 id={val.id}
                                 rating={val.rating}
                                 count={val.count}
+                                type={val.type}
                               />
                             </Box>
                           </Grid>

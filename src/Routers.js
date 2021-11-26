@@ -16,6 +16,7 @@ import ShopingMall from "./components/pages/user/ShopingMall";
 import DetailItem from "./components/pages/user/DetailItem";
 import TravelShop from "./components/pages/user/TravelShop";
 import DetailTravel from "./components/pages/user/DetailTravel";
+import Cart from "./components/pages/user/Cart";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -120,6 +121,7 @@ function Routers() {
         <UserRoute exact path="/travelShop" component={TravelShop} />
         <UserRoute exact path="/detailItem/:id" component={DetailItem} />
         <UserRoute exact path="/detailTravel/:id" component={DetailTravel} />
+        <UserRoute exact path="/Cart" component={Cart} />
       </Switch>
     </Container>
   );

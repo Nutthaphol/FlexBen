@@ -24,6 +24,8 @@ import { Star } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
 import ReviewsCard from "../shared/card/ReviewCard";
 
+import Sticky from "react-stickynode";
+
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
@@ -70,7 +72,9 @@ const DetailInsurance = (props) => {
                   <ReviewsCard type="insurance" />
                 </Grid>
                 <Grid item md={4} xs={12}>
-                  <SalesBox detail={detail} type="insurance" />
+                  <Sticky enabled={true} top={70}>
+                    <SalesBox detail={detail} type="insurance" />
+                  </Sticky>
                 </Grid>
               </Grid>
             </Container>

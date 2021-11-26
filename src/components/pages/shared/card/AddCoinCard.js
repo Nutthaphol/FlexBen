@@ -110,7 +110,7 @@ const AddCoinCard = (props) => {
                         />
                         <Box>
                           <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin.insuranceCoin}
+                            {user.coin[0].count}
                           </Typography>
                           <Typography
                             variant="subtitle1"
@@ -140,7 +140,7 @@ const AddCoinCard = (props) => {
                         <Box sx={{ flexGrow: 0.5 }} />
                         <Box>
                           <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin.lifeStyleCoin}
+                            {user.coin[1].count}
                           </Typography>
                           <Typography
                             variant="subtitle1"
@@ -170,7 +170,7 @@ const AddCoinCard = (props) => {
                         <Box sx={{ flexGrow: 0.5 }} />
                         <Box>
                           <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin.travelCoin}
+                            {user.coin[2].count}
                           </Typography>
                           <Typography
                             variant="subtitle1"

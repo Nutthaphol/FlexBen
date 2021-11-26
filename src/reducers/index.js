@@ -13,6 +13,7 @@ import package_ from "./package";
 import mainCategory from "./mainCategory";
 import travelCategory from "./travelCategory";
 import travel from "./travel";
+import cart from "./cart";
 
 const appReducer = combineReducers({
   auth,
@@ -29,6 +30,7 @@ const appReducer = combineReducers({
   mainCategory,
   travelCategory,
   travel,
+  cart,
 });
 
 const rootReducer = (state, action) => {

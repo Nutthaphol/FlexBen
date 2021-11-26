@@ -141,7 +141,6 @@ const PackageCard = (props) => {
             </Typography>
           </CardContent>
           <CardActions sx={{ display: "flex" }}>
-            {/* <Box sx={{ flexGrow: 1 }}>ซื้อแล้ว {count}</Box> */}
             <IconButton>
               <FavoriteBorder />
             </IconButton>

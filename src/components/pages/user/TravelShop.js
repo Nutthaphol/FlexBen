@@ -81,9 +81,9 @@ const TravelShop = () => {
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
+          <Container maxWidth="none">
             <Grid container spacing={2} justifyContent="center">
-              <Grid item xl={12} sx={{ marginButtom: 20 }}>
+              <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head} sx={{}}>
                   <Typography variant="h4">Tourist Attraction</Typography>
                   <Box sx={{ flexGrow: 1 }} />
@@ -95,7 +95,7 @@ const TravelShop = () => {
                     }}
                     InputProps={{
                       endAdornment: (
-                        <InputAdornment>
+                        <InputAdornment position="end">
                           <IconButton>
                             <Icon>
                               <Search />
@@ -108,7 +108,7 @@ const TravelShop = () => {
                 </Paper>
               </Grid>
               {travelCategory && (
-                <Grid item xl={2}>
+                <Grid item xl={2} lg={3}>
                   <Paper className={classes.filter}>
                     <Typography variant="h6" gutterBottom>
                       Category
@@ -140,10 +140,10 @@ const TravelShop = () => {
                   </Paper>
                 </Grid>
               )}
-              <Grid item xl={10}>
+              <Grid item xl={10} lg={9}>
                 {travel && (
                   <Paper className={classes.main}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={2}>
                       {travel
                         .filter(
                           (item) => item.name.toLowerCase().search(search) != -1
@@ -159,11 +159,18 @@ const TravelShop = () => {
                         .map((val, index) => (
                           <Grid
                             item
-                            lg={3}
+                            lg={4}
+                            xl={3}
                             sx={{ position: "relative" }}
                             key={index}
                           >
-                            <Box sx={{ width: "100%" }}>
+                            <Box
+                              sx={{
+                                width: "100%",
+                                height: "100%",
+                                position: "relative",
+                              }}
+                            >
                               <ProductCard
                                 path="detailTravel"
                                 image={`${process.env.REACT_APP_URL}image/${val.image}`}
@@ -173,6 +180,7 @@ const TravelShop = () => {
                                 id={val.id}
                                 rating={val.rating}
                                 count={val.count}
+                                type={val.type}
                               />
                             </Box>
                           </Grid>

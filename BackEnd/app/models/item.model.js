@@ -2,6 +2,7 @@ const Item = [
   {
     id: 1,
     name: "iphone 13 pro",
+    type: "LifeStyle",
     category: 1,
     highLights: "โปรสมชื่อ",
     description:
@@ -14,6 +15,7 @@ const Item = [
   {
     id: 2,
     name: "Iphone 13",
+    type: "LifeStyle",
     category: 1,
     highLights: "พลังพิเศษในมือคุณ",
     description:
@@ -26,6 +28,7 @@ const Item = [
   {
     id: 3,
     name: "MacBook Pro",
+    type: "LifeStyle",
     category: 1,
     highLights: "พลังสุดแรงเพื่อมือโปร",
     description:
@@ -38,6 +41,7 @@ const Item = [
   {
     id: 4,
     name: "MacBook Air",
+    type: "LifeStyle",
     category: 1,
     highLights: "พลังหนักๆ บนความบางเบา",
     description:
@@ -50,6 +54,7 @@ const Item = [
   {
     id: 5,
     name: "Apple Watch Series 7",
+    type: "LifeStyle",
     category: 1,
     highLights: "จัดเต็มแบบเต็มจอ",
     description:
@@ -62,6 +67,7 @@ const Item = [
   {
     id: 5,
     name: "Uniqlo AIRism",
+    type: "LifeStyle",
     category: 2,
     highLights: "MEN เสื้อยืด AIRism คอวี แขนสั้น",
     description:
@@ -74,6 +80,7 @@ const Item = [
   {
     id: 6,
     name: "Sony WH-1000XM4",
+    type: "LifeStyle",
     category: 3,
     highLights: "หูฟังตัดเสียงรบกวนแบบไร้สาย ",
     description:

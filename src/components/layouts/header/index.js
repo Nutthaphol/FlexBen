@@ -17,6 +17,7 @@ import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import IconButton from "@mui/material/IconButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
 import SvgIcon from "@mui/material/SvgIcon";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +29,9 @@ import {
   AccountBalanceWallet,
   AttachMoney,
   HealthAndSafety,
+  HistoryEdu,
   MonetizationOn,
+  ShoppingCart,
 } from "@mui/icons-material";
 
 const theme = createTheme();
@@ -164,13 +167,25 @@ const Header = (props) => {
         to="/coinDashboard"
         onClick={() => setAnchorEl(null)}
       >
+        <ListItemIcon>
+          <AccountBalanceWallet />
+        </ListItemIcon>
         Wallet
+      </MenuItem>
+      <MenuItem component={Link} to="/Cart" onClick={() => setAnchorEl(null)}>
+        <ListItemIcon>
+          <ShoppingCart />
+        </ListItemIcon>
+        Cart
       </MenuItem>
       <MenuItem
         component={Link}
         to="/coinDashboard"
         onClick={() => setAnchorEl(null)}
       >
+        <ListItemIcon>
+          <HistoryEdu />
+        </ListItemIcon>
         History
       </MenuItem>
       <Divider sx={{ my: 0.5 }} />

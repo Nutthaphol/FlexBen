@@ -21,6 +21,7 @@ import SalesBox from "../shared/salesBox";
 import ReviewsCard from "../shared/card/ReviewCard";
 import ItemData from "../shared/dataDetail/ItemData";
 import travelService from "../../../services/travel.service";
+import Sticky from "react-stickynode";
 
 const theme = createTheme();
 
@@ -71,7 +72,9 @@ const DetailTravel = (props) => {
                   <ReviewsCard type={"travel"} />
                 </Grid>
                 <Grid item lg={4} md={4} xs={12}>
-                  <SalesBox detail={detail} type="travel" />
+                  <Sticky enabled={true} top={70}>
+                    <SalesBox detail={detail} type="travel" />
+                  </Sticky>
                 </Grid>
               </Grid>
             </Container>

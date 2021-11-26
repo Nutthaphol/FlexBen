@@ -12,6 +12,7 @@ import {
   Chip,
   Link,
   IconButton,
+  Icon,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
 import {
@@ -53,7 +54,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProductCard = (props) => {
-  const { image, head, price, name, id, path, rating, count } = props;
+  const { image, head, price, name, id, path, rating, count, type } = props;
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
@@ -80,6 +81,7 @@ const ProductCard = (props) => {
                 overflow: "hidden",
                 WebkitBoxOrient: "vertical",
                 WebkitLineClamp: 2,
+                height: "2.5rem",
               }}
               variant="body2"
               color="text.secondary"
@@ -108,12 +110,32 @@ const ProductCard = (props) => {
             <Box sx={{ flexGrow: 1 }} />
             <Button
               variant="text"
-              sx={{ color: "black", fontSize: "1rem", fontWeight: "600" }}
+              sx={{
+                color: "black",
+                fontSize: "1rem",
+                fontWeight: "600",
+                alignItems: "center",
+              }}
               color="success"
               size="small"
               href={`${path}/${id}`}
             >
-              $ {price}
+              <Icon
+                sx={{
+                  marginRight: "5px",
+
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                fontSize="small"
+              >
+                <img
+                  src={`${process.env.PUBLIC_URL}/assets/icons/${type}Coin.svg`}
+                  width="100%"
+                  height="auto"
+                />
+              </Icon>
+              {price}
             </Button>
           </CardActions>
         </Card>

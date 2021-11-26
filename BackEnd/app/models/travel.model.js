@@ -2,6 +2,7 @@ const Travel = [
   {
     id: 1,
     name: "น้ำตกทีลอซู จังหวัดตาก",
+    type: "Travel",
     category: 4,
     highLights: "ได้รับการจัดอันดับให้เป็น 1 ใน 6 น้ำตกที่สวยที่สุดในโลก",
     description:
@@ -14,6 +15,7 @@ const Travel = [
   {
     id: 2,
     name: "ถนนข้าวสาร กรุงเทพมหานคร",
+    type: "Travel",
     category: 5,
     highLights: "Touropia ได้จัดให้ถนนข้าวสารเป็นถนนชื่อดังอันดับ 5 ของโลก",
     description:
@@ -26,6 +28,7 @@ const Travel = [
   {
     id: 3,
     name: "เกาะราชา จังหวัดภูเก็ต",
+    type: "Travel",
     category: 1,
     highLights:
       "National Geographic จัดให้เป็นหมู่เกาะที่สวยเป็นอันดับ10ของโลก",
@@ -39,6 +42,7 @@ const Travel = [
   {
     id: 4,
     name: "ดอยอินทนนท์ จังหวัดเชียงใหม่",
+    type: "Travel",
     category: 2,
     highLights: "เป็นภูเขาที่สูงที่สุดในประเทศไทย",
     description:
@@ -51,6 +55,7 @@ const Travel = [
   {
     id: 5,
     name: "ภูกระดึง จังหวัดเลย",
+    type: "Travel",
     category: 3,
     highLights: "สวยงามอย่าบอกใครเชียว",
     description:

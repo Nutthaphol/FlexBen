@@ -7,7 +7,7 @@ import {
 } from "@mui/material/styles";
 
 import { makeStyles } from "@mui/styles";
-import { Card, Typography } from "@mui/material";
+import { Card, Icon, Typography } from "@mui/material";
 import { AutoGraphSharp } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { amber } from "@mui/material/colors";
@@ -17,7 +17,6 @@ const theme = createTheme();
 const useStyles = makeStyles(() => ({
   root: {
     padding: "10px",
-    width: "100%",
     minWidth: "270px",
     position: "relative",
   },
@@ -32,7 +31,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const DataCard = (props) => {
-  const { section, value } = props;
+  const { section, value, type } = props;
 
   const classes = useStyles();
   return (
@@ -43,13 +42,24 @@ const DataCard = (props) => {
           <Typography variant="subtitle1" color="text.secondary" gutterBottom>
             {section}
           </Typography>
-          <Typography
-            variant="h2"
-            gutterBottom
-            sx={{ textAlign: "center", fontWeight: "700" }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: "20px",
+              marginBottom: "20px",
+              justifyContent: "center",
+            }}
           >
-            {value}
-          </Typography>
+            <Icon fontSize="large">
+              <img
+                src={`${process.env.PUBLIC_URL}/assets/icons/${type}Coin.svg`}
+                width="100%"
+              />
+            </Icon>
+            <Box sx={{ flexGrow: 0.03 }} />
+            <Typography variant="h4">{value}</Typography>
+          </Box>
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

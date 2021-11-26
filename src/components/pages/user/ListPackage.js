@@ -9,6 +9,7 @@ import {
   Autocomplete,
   Container,
   Grid,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -20,7 +21,7 @@ import { Box } from "@mui/system";
 const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
-  root: {},
+  root: { padding: "10px", boxShadow: "none", border: "1px solid #D0D3D4" },
 }));
 
 const ListPackage = () => {
@@ -49,12 +50,9 @@ const ListPackage = () => {
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="xl">
-            <Box sx={{ display: "flex" }}>
-              <Typography
-                variant="h4"
-                sx={{ marginBottom: "20px", flexGrow: 1 }}
-              >
+          <Container maxWidth="none">
+            <Paper className={classes.root} sx={{ display: "flex" }}>
+              <Typography variant="h4" sx={{ flexGrow: 1 }}>
                 All Packages
               </Typography>
               <Autocomplete
@@ -73,36 +71,45 @@ const ListPackage = () => {
                   <TextField size="small" {...params} label="Packages" />
                 )}
               />
-            </Box>
-
-            <Grid container spacing={10}>
-              {allPackages &&
-                allPackages
-                  .filter((item) => {
-                    if (search != null) {
-                      console.log("search ", search.label);
-                      const word = search.label
-                        .replace("Package ", "")
-                        .toLocaleLowerCase();
-                      return item.name.toLocaleLowerCase().search(word) != -1;
-                    } else {
-                      return true;
-                    }
-                  })
-                  .map((val, index) => (
-                    <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
-                      <PackageCard
-                        image={`${process.env.REACT_APP_URL}image/${val.image}`}
-                        name={val.name}
-                        property={val.property}
-                        count={val.count}
-                        total={val.total}
-                        class_={val.class}
-                        rating={val.rating}
-                      />
-                    </Grid>
-                  ))}
-            </Grid>
+            </Paper>
+            <Paper className={classes.root} sx={{ marginTop: "20px" }}>
+              <Grid container spacing={2}>
+                {allPackages &&
+                  allPackages
+                    .filter((item) => {
+                      if (search != null) {
+                        console.log("search ", search.label);
+                        const word = search.label
+                          .replace("Package ", "")
+                          .toLocaleLowerCase();
+                        return item.name.toLocaleLowerCase().search(word) != -1;
+                      } else {
+                        return true;
+                      }
+                    })
+                    .map((val, index) => (
+                      <Grid
+                        item
+                        key={index}
+                        xl={2}
+                        lg={3}
+                        md={4}
+                        sm={6}
+                        xs={12}
+                      >
+                        <PackageCard
+                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                          name={val.name}
+                          property={val.property}
+                          count={val.count}
+                          total={val.total}
+                          class_={val.class}
+                          rating={val.rating}
+                        />
+                      </Grid>
+                    ))}
+              </Grid>
+            </Paper>
           </Container>
         </ThemeProvider>
       </StyledEngineProvider>
