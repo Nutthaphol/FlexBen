@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   AssignmentTurnedIn,
   Favorite,
@@ -23,6 +23,8 @@ import {
   List,
   ListItem,
   ListItemIcon,
+  ListItemText,
+  Icon,
 } from "@mui/material";
 import { amber, green } from "@mui/material/colors";
 import {
@@ -71,7 +73,7 @@ const useStyles = makeStyles(() => ({
 
 const PackageCard = (props) => {
   const classes = useStyles();
-  const { image, name, property, count, total, class_, rating, path, id } =
+  const { image, name, property, count, price, class_, rating, path, id } =
     props;
   return (
     <StyledEngineProvider injectFirst>
@@ -95,36 +97,37 @@ const PackageCard = (props) => {
             </Box>
           </CardActionArea>
           <CardContent className={classes.cardContent}>
-            <Typography variant="h6" gutterBottom>
-              Package {name}
+            <Typography variant="h6" component="span">
+              {name}
             </Typography>
-            <Typography component="span" variant="body2" color="text.secondary">
+            <List sx={{ width: "100%" }}>
               {property &&
                 property.slice(0, 3).map((val, index) => (
-                  <Box sx={{ display: "flex" }} key={index}>
-                    <Box
-                      sx={{
-                        marginLeft: "0.25rem",
-                        flexGrow: 0.05,
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <AssignmentTurnedIn
-                        sx={{
-                          color: green[500],
-                          fontSize: "1rem",
-                        }}
-                      />
-                    </Box>
-                    <Box sx={{ flexGrow: 1 }}>
-                      {val.type} {"  "}
-                      {(index == 2) & (property.length > 3) ? " (Other)" : ""}
-                    </Box>
-                    {val.coinValue ? val.coinValue : "-"}
-                  </Box>
+                  <ListItem
+                    disablePadding
+                    key={index}
+                    secondaryAction={
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Typography variant="subtitle1" component="span">
+                          {val.limitCoin}
+                        </Typography>
+
+                        <Icon fontSize="small" sx={{ marginLeft: "10px" }}>
+                          <img
+                            width="100%"
+                            src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
+                          />
+                        </Icon>
+                      </Box>
+                    }
+                  >
+                    <ListItemIcon sx={{ margin: 0, minWidth: "25px" }}>
+                      <AssignmentTurnedIn fontSize="small" color="success" />
+                    </ListItemIcon>
+                    <ListItemText secondary={val.name} />
+                  </ListItem>
                 ))}
-            </Typography>
+            </List>
             <Typography
               variant="subtitle1"
               sx={{ marginTop: "0.5rem", color: amber[900] }}
@@ -151,7 +154,7 @@ const PackageCard = (props) => {
               color="success"
               sx={{ color: "black", fontSize: "1rem", fontWeight: "600" }}
             >
-              $ {total}
+              $ {price}
             </Button>
           </CardActions>
         </Card>

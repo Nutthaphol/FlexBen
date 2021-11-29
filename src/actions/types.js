@@ -2,6 +2,9 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
 
+export const CART_SUCCESS = "CART_SUCCESS";
+export const CART_FAIL = "CART_FAIL";
+
 export const USERS_FETCHING = "USERS_FETCHING";
 export const USERS_FAILED = "USERS_FAILED";
 export const USERS_SUCCESS = "USERS_SUCCESS";

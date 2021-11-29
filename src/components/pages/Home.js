@@ -118,7 +118,7 @@ const Home = () => {
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <Grid container className={classes.root}>
               <Grid item xs={12} style={{ display: "flex" }}>
                 <Typography variant="h4" gutterBottom>
@@ -143,7 +143,7 @@ const Home = () => {
                           name={val.name}
                           property={val.property}
                           count={val.count}
-                          total={val.total}
+                          price={val.price}
                           class_={val.class}
                           rating={val.rating}
                         />
@@ -171,7 +171,7 @@ const Home = () => {
                         <ProductCard
                           path="detailInsurance"
                           key={index}
-                          image={`${process.env.REACT_APP_URL}image/insurance/${val.image}`}
+                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
                           head={val.highLights}
                           price={val.price}
                           name={val.name}
@@ -196,7 +196,7 @@ const Home = () => {
                   see more
                 </Button>
               </Grid>
-              <Grid item xs={12} sx={{ marginBottom: "10px" }}>
+              {/* <Grid item xs={12} sx={{ marginBottom: "10px" }}>
                 {users &&
                   users
                     .filter((item) => item.id != currentUser.id)
@@ -204,7 +204,7 @@ const Home = () => {
                     .map((val, index) => (
                       <AddCoinCard key={index} user={val} />
                     ))}
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <Divider className={classes.divider} />
               </Grid>

@@ -73,7 +73,7 @@ const InsuranceData = ({ detail }) => {
             <CardMedia
               className={classes.cardMedia}
               component="img"
-              image={`${process.env.REACT_APP_URL}image/Insurance/${detail.image}`}
+              image={`${process.env.REACT_APP_URL}image/${detail.image}`}
             />
             <Box
               sx={{ marginTop: "20px", marginBottom: "20px", width: "100%" }}

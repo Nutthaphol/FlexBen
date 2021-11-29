@@ -91,18 +91,21 @@ const ListPackage = () => {
                       <Grid
                         item
                         key={index}
-                        xl={2}
+                        xl={3}
                         lg={3}
                         md={4}
                         sm={6}
                         xs={12}
                       >
                         <PackageCard
+                          path="detailPackage"
+                          id={val.id}
+                          key={index}
                           image={`${process.env.REACT_APP_URL}image/${val.image}`}
                           name={val.name}
                           property={val.property}
                           count={val.count}
-                          total={val.total}
+                          price={val.price}
                           class_={val.class}
                           rating={val.rating}
                         />

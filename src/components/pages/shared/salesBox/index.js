@@ -26,6 +26,7 @@ import {
 import { Box } from "@mui/system";
 import { Add, Close, Done, Remove } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
+import { postCart } from "../../../../actions/cart";
 
 const theme = createTheme();
 const useStyles = makeStyles(() => ({
@@ -54,7 +55,7 @@ const SalesBox = ({ detail, type }) => {
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
   const [open, setOpen] = useState(false);
-  const { value: cartValue } = useSelector((state) => state.cart);
+  const { cart: cartValue } = useSelector((state) => state.cart);
 
   const handleOnClickOpen = () => {
     setOpen(true);
@@ -65,16 +66,15 @@ const SalesBox = ({ detail, type }) => {
   };
 
   const handleOnClickToCart = () => {
-    const value = {
-      type: type,
-      id: detail.id,
-    };
+    for (let i = 0; i < count; i++) {
+      const value = {
+        type: type,
+        id: detail.id,
+      };
+      cartValue.push(value);
+    }
 
-    dispatch({
-      type: "ADD",
-      payload: value,
-    });
-
+    dispatch(postCart(cartValue));
     handleCloseOpen();
   };
 
@@ -114,7 +114,7 @@ const SalesBox = ({ detail, type }) => {
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {type != "package" && (
+              {type != "package" ? (
                 <Icon
                   sx={{
                     marginRight: "5px",
@@ -125,13 +125,15 @@ const SalesBox = ({ detail, type }) => {
                   fontSize="small"
                 >
                   <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/${type}Coin.svg`}
+                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
                     width="100%"
                     height="auto"
                   />
                 </Icon>
+              ) : (
+                "$ "
               )}
-              {type == "package" ? detail.total : detail.price}
+              {detail.price}
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -145,13 +147,38 @@ const SalesBox = ({ detail, type }) => {
               }}
             >
               <IconButton
+                sx={{
+                  // border: "1px solid #D0D3D4",
+                  padding: 0,
+                  marginRight: "10px",
+                }}
                 disabled={count === 1 ? true : false}
                 onClick={() => remove()}
               >
                 <Remove fontSize="small" />
               </IconButton>
-              <Typography variant="h6">{count}</Typography>
-              <IconButton onClick={() => add()}>
+              <Typography
+                variant="h6"
+                sx={
+                  {
+                    // border: "1px solid #D0D3D4",
+                    // paddingLeft: "20px",
+                    // paddingRight: "20px",
+                    // borderRadius: "4px",
+                  }
+                }
+              >
+                {count}
+              </Typography>
+              <IconButton
+                sx={{
+                  // border: "1px solid #D0D3D4",
+                  padding: 0,
+                  marginLeft: "10px",
+                }}
+                size="small"
+                onClick={() => add()}
+              >
                 <Add fontSize="small" />
               </IconButton>
             </Box>
@@ -165,7 +192,7 @@ const SalesBox = ({ detail, type }) => {
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {type != "package" && (
+              {type != "package" ? (
                 <Icon
                   sx={{
                     marginRight: "5px",
@@ -176,13 +203,15 @@ const SalesBox = ({ detail, type }) => {
                   fontSize="small"
                 >
                   <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/${type}Coin.svg`}
+                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
                     width="100%"
                     height="auto"
                   />
                 </Icon>
+              ) : (
+                "$ "
               )}
-              {count * (type == "package" ? detail.total : detail.price)}{" "}
+              {count * detail.price}
             </Typography>
           </Box>
 
@@ -199,7 +228,7 @@ const SalesBox = ({ detail, type }) => {
             color="success"
           >
             Continue ($
-            {type == "package" ? detail.total : detail.price} $ )
+            {count * detail.price} )
           </Button>
           <Dialog
             onClose={handleCloseOpen}

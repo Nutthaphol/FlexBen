@@ -1,18 +1,24 @@
-const initialState = {
-  value: [],
-};
+import { CART_SUCCESS, CART_FAIL } from "../actions/types";
+
+const cart = JSON.parse(localStorage.getItem("cart"));
+
+const initialState = cart ? { cart } : { cart: [] };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
-  console.log("action ", payload);
-  switch (type) {
-    case "ADD":
-      const tmp = [...state.value];
-      tmp.push(payload);
 
-      return { ...state, value: tmp };
-    case "REMOVE":
-      return { ...state, value: payload };
+  switch (type) {
+    case CART_SUCCESS:
+      return {
+        ...state,
+        cart: payload.cart,
+      };
+    case CART_FAIL:
+      return {
+        ...state,
+        cart: [],
+      };
+
     default:
       return state;
   }

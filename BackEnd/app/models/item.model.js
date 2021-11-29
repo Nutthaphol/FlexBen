@@ -1,6 +1,6 @@
 const Item = [
   {
-    id: 1,
+    id: 2001,
     name: "iphone 13 pro",
     type: "LifeStyle",
     category: 1,
@@ -13,7 +13,7 @@ const Item = [
     image: "/item/tmp.png",
   },
   {
-    id: 2,
+    id: 2002,
     name: "Iphone 13",
     type: "LifeStyle",
     category: 1,
@@ -26,20 +26,20 @@ const Item = [
     image: "/item/tmp.png",
   },
   {
-    id: 3,
+    id: 2003,
     name: "MacBook Pro",
     type: "LifeStyle",
     category: 1,
     highLights: "พลังสุดแรงเพื่อมือโปร",
     description:
-      "MacBook Pro ที่ทรงพลังยิ่งกว่าครั้งไหนๆ มาถึงแล้ว ด้วยชิป M1 Pro หรือ M1 Max ที่เร็วสุดขั้ว และยังเป็น Apple Silicon ตัวแรกที่ออกแบบมาสำหรับมือโปร เพื่อให้คุณได้สัมผัสกับประสิทธิภาพการทำงานสุดล้ำและแบตเตอรี่ที่ใช้งานได้นานอย่างยอดเยี่ยม ยิ่งไปกว่านั้นยังมีจอภาพ Liquid Retina XDR ที่สวยงามน่าทึ่ง พร้อมด้วยกล้องและระบบเสียงที่ดีที่สุดเท่าที่เคยมีมาในโน้ตบุ๊ก Mac และยังมีครบทุกพอร์ตที่คุณต้องการด้วย เรียกว่าเป็นครั้งแรกในโน้ตบุ๊กระดับเดียวกัน ซึ่งบอกเลยว่า MacBook Pro เครื่องนี้คือเหลือร้ายเลยล่ะ",
+      "MacBook Pro ที่ทรงพลังยิ่งกว่าครั้งไหนๆ มาถึงแล้ว ด้วยชิป M1 Pro หรือ M1 Max ที่เร็วสุดขั้ว และยังเป็น Apple Silicon ตัวแรกที่ออกแบบมาสำหรับมือโปร เพื่อให้คุณได้สัมผัสกับประสิทธิภาพการทำงานสุดล้ำและแบตเตอรี่ที่ใช้งานได้นานอย่างยอดเยี่ยม ยิ่งไปกว่านั้นยังมีจอภาพ Liquid R200etina XDR ที่สวยงามน่าทึ่ง พร้อมด้วยกล้องและระบบเสียงที่ดีที่สุดเท่าที่เคยมีมาในโน้ตบุ๊ก Mac และยังมีครบทุกพอร์ตที่คุณต้องการด้วย เรียกว่าเป็นครั้งแรกในโน้ตบุ๊กระดับเดียวกัน ซึ่งบอกเลยว่า MacBook Pro เครื่องนี้คือเหลือร้ายเลยล่ะ",
     rating: 3.8,
     price: 12000,
     count: 1000,
     image: "/item/tmp.png",
   },
   {
-    id: 4,
+    id: 2004,
     name: "MacBook Air",
     type: "LifeStyle",
     category: 1,
@@ -52,7 +52,7 @@ const Item = [
     image: "/item/tmp.png",
   },
   {
-    id: 5,
+    id: 2005,
     name: "Apple Watch Series 7",
     type: "LifeStyle",
     category: 1,
@@ -65,7 +65,7 @@ const Item = [
     image: "/item/tmp.png",
   },
   {
-    id: 5,
+    id: 2005,
     name: "Uniqlo AIRism",
     type: "LifeStyle",
     category: 2,
@@ -78,7 +78,7 @@ const Item = [
     image: "/item/tmp.png",
   },
   {
-    id: 6,
+    id: 2006,
     name: "Sony WH-1000XM4",
     type: "LifeStyle",
     category: 3,

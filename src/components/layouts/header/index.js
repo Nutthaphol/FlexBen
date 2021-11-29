@@ -142,8 +142,8 @@ const Header = (props) => {
     setAnchorEl(null);
   };
 
-  const logOut = () => {
-    dispatch(logout());
+  const logOut = async () => {
+    await dispatch(logout());
   };
 
   const menuId = "primary-search-account-menu";
@@ -190,10 +190,12 @@ const Header = (props) => {
       </MenuItem>
       <Divider sx={{ my: 0.5 }} />
       <MenuItem
+        onClick={() => {
+          logOut();
+          setAnchorEl(null);
+        }}
         component={Link}
         to="/login"
-        onClick={logOut}
-        onClick={() => setAnchorEl(null)}
       >
         Logout
       </MenuItem>

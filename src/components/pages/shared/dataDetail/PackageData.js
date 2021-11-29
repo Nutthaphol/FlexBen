@@ -75,14 +75,8 @@ const useStyles = makeStyles(() => ({
 const PackageData = (props) => {
   const { detail, review } = props;
   const classes = useStyles();
-  const [insurance, setInsurance] = useState();
 
-  useEffect(async () => {
-    const res = await insuranceService.getDetailInsurance(
-      detail.property[0].isrId
-    );
-    setInsurance(res.data);
-  }, []);
+  useEffect(async () => {}, []);
 
   const makeBold = (item, keyword) => {
     var re = new RegExp(keyword, "g");
@@ -146,12 +140,18 @@ const PackageData = (props) => {
               <ListItem
                 key={index}
                 secondaryAction={
-                  <Icon fontSize="large">
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/icons/${val.icon}`}
-                      width="100%"
-                    />
-                  </Icon>
+                  <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Typography variant="h5" component="span">
+                      {val.limitCoin}
+                    </Typography>
+
+                    <Icon fontSize="large" sx={{ marginLeft: "10px" }}>
+                      <img
+                        width="100%"
+                        src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
+                      />
+                    </Icon>
+                  </Box>
                 }
               >
                 <ListItemIcon>
@@ -165,7 +165,7 @@ const PackageData = (props) => {
             ))}
           </List>
           <Divider />
-          {detail.property.map((val, index) => (
+          {/* {detail.property.map((val, index) => (
             <Box key={index}>
               <Typography
                 component={"span"}
@@ -207,7 +207,7 @@ const PackageData = (props) => {
               )}
               <Divider sx={{ marginTop: "20px" }} />
             </Box>
-          ))}
+          ))} */}
           <br />
         </Card>
       </ThemeProvider>

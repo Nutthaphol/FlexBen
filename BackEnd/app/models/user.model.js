@@ -18,24 +18,7 @@ const Users = [
     follower: 29078,
     following: 84392,
     authorities: ["ROLE_USER", "ROLE_ADMIN"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 2,
@@ -56,24 +39,7 @@ const Users = [
     follower: 86753,
     following: 32454,
     authorities: ["ROLE_USER", "ROLE_MANAGER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 3,
@@ -94,24 +60,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 4,
@@ -132,24 +81,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 5,
@@ -170,24 +102,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 6,
@@ -208,24 +123,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 7,
@@ -246,24 +144,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 8,
@@ -284,24 +165,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 9,
@@ -322,24 +186,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 10,
@@ -360,24 +207,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 11,
@@ -398,24 +228,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 12,
@@ -436,24 +249,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 13,
@@ -474,24 +270,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 14,
@@ -512,24 +291,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 15,
@@ -550,24 +312,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 16,
@@ -588,24 +333,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 17,
@@ -626,24 +354,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 18,
@@ -664,24 +375,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 19,
@@ -702,24 +396,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 20,
@@ -740,24 +417,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 21,
@@ -778,24 +438,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 22,
@@ -816,24 +459,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 23,
@@ -854,24 +480,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 24,
@@ -892,24 +501,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 25,
@@ -930,24 +522,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 26,
@@ -968,24 +543,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 27,
@@ -1006,24 +564,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 28,
@@ -1044,24 +585,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 29,
@@ -1082,24 +606,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
   {
     id: 30,
@@ -1120,24 +627,7 @@ const Users = [
     follower: 9732,
     following: 4356,
     authorities: ["ROLE_USER"],
-    coin: [
-      {
-        type: "Insurance",
-        count: 10000,
-      },
-      {
-        type: "LifeStyle",
-        count: 8000,
-      },
-      {
-        type: "Travel",
-        count: 9000,
-      },
-      {
-        type: "Mock",
-        count: 0,
-      },
-    ],
+    coin: 500000,
   },
 ];
 module.exports = Users;

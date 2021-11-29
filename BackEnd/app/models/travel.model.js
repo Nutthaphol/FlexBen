@@ -1,6 +1,6 @@
 const Travel = [
   {
-    id: 1,
+    id: 3001,
     name: "น้ำตกทีลอซู จังหวัดตาก",
     type: "Travel",
     category: 4,
@@ -13,7 +13,7 @@ const Travel = [
     image: "/travel/tlz.png",
   },
   {
-    id: 2,
+    id: 3002,
     name: "ถนนข้าวสาร กรุงเทพมหานคร",
     type: "Travel",
     category: 5,
@@ -26,7 +26,7 @@ const Travel = [
     image: "/travel/ksr.png",
   },
   {
-    id: 3,
+    id: 3003,
     name: "เกาะราชา จังหวัดภูเก็ต",
     type: "Travel",
     category: 1,
@@ -40,7 +40,7 @@ const Travel = [
     image: "/travel/krch.png",
   },
   {
-    id: 4,
+    id: 3004,
     name: "ดอยอินทนนท์ จังหวัดเชียงใหม่",
     type: "Travel",
     category: 2,
@@ -53,7 +53,7 @@ const Travel = [
     image: "/travel/itn.png",
   },
   {
-    id: 5,
+    id: 3005,
     name: "ภูกระดึง จังหวัดเลย",
     type: "Travel",
     category: 3,
