@@ -18,8 +18,9 @@ import {
 import { Box } from "@mui/system";
 import { Star } from "@mui/icons-material";
 import { amber } from "@mui/material/colors";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

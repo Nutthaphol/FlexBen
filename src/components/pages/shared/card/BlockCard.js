@@ -20,8 +20,9 @@ import {
 } from "@mui/material";
 import { Apple, Image } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   card: {

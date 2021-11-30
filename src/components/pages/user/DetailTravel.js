@@ -22,8 +22,9 @@ import ReviewsCard from "../shared/card/ReviewCard";
 import ItemData from "../shared/dataDetail/ItemData";
 import travelService from "../../../services/travel.service";
 import Sticky from "react-stickynode";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   paper: {

@@ -23,8 +23,9 @@ import {
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React from "react";
+import Themplates from "../theme";
 
-const theme = createTheme({});
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

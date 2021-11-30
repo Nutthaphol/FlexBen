@@ -34,8 +34,9 @@ import {
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Box, fontSize } from "@mui/system";
+import Themplates from "../theme";
 
-const theme = createTheme({});
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

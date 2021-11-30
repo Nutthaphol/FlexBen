@@ -25,8 +25,9 @@ import { amber, yellow } from "@mui/material/colors";
 import ReviewsCard from "../shared/card/ReviewCard";
 
 import Sticky from "react-stickynode";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   paper: {

@@ -11,8 +11,9 @@ import { Card, Icon, Typography } from "@mui/material";
 import { AutoGraphSharp } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { amber } from "@mui/material/colors";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -27,8 +27,9 @@ import { Box } from "@mui/system";
 import { Add, Close, Done, Remove } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { postCart } from "../../../../actions/cart";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
     // position: "-webkit-sticky",
@@ -141,16 +142,19 @@ const SalesBox = ({ detail, type }) => {
             <Box sx={{ flexGrow: 1 }} />
             <Box
               sx={{
-                position: "relative",
                 display: "flex",
                 alignItems: "center",
+                borderRadius: "4px",
+                border: "1px solid #D0D3D4 ",
+                minWidth: "72px",
+                padding: "none",
               }}
             >
               <IconButton
                 sx={{
-                  // border: "1px solid #D0D3D4",
                   padding: 0,
-                  marginRight: "10px",
+                  borderRadius: 0,
+                  borderRight: "1px solid #D0D3D4 ",
                 }}
                 disabled={count === 1 ? true : false}
                 onClick={() => remove()}
@@ -159,14 +163,7 @@ const SalesBox = ({ detail, type }) => {
               </IconButton>
               <Typography
                 variant="h6"
-                sx={
-                  {
-                    // border: "1px solid #D0D3D4",
-                    // paddingLeft: "20px",
-                    // paddingRight: "20px",
-                    // borderRadius: "4px",
-                  }
-                }
+                sx={{ flexGrow: 1, textAlign: "center" }}
               >
                 {count}
               </Typography>
@@ -174,7 +171,8 @@ const SalesBox = ({ detail, type }) => {
                 sx={{
                   // border: "1px solid #D0D3D4",
                   padding: 0,
-                  marginLeft: "10px",
+                  borderRadius: 0,
+                  borderLeft: "1px solid #D0D3D4 ",
                 }}
                 size="small"
                 onClick={() => add()}

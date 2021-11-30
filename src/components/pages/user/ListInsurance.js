@@ -19,8 +19,9 @@ import { getAllPackage } from "../../../actions/package";
 import { Box } from "@mui/system";
 import { getAllInsurance } from "../../../actions/insurance";
 import ProductCard from "../shared/card/ProductCard";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: { padding: "10px", boxShadow: "none", border: "1px solid #D0D3D4" },

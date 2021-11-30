@@ -17,8 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import PackageCard from "../shared/card/PackageCard";
 import { getAllPackage } from "../../../actions/package";
 import { Box } from "@mui/system";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: { padding: "10px", boxShadow: "none", border: "1px solid #D0D3D4" },

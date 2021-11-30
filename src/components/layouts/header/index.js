@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import {
   ThemeProvider,
@@ -33,8 +33,9 @@ import {
   MonetizationOn,
   ShoppingCart,
 } from "@mui/icons-material";
+import Themplates from "../../pages/shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const HeartIcon = (props) => {
   return (
@@ -138,6 +139,7 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
   const isMenuOpen = Boolean(anchorEl);
+  const [cart, setCart] = useState();
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -145,6 +147,12 @@ const Header = (props) => {
   const logOut = async () => {
     await dispatch(logout());
   };
+
+  useEffect(() => {
+    const callCart = JSON.parse(localStorage.getItem("cart"));
+
+    setCart(callCart);
+  }, []);
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -174,7 +182,9 @@ const Header = (props) => {
       </MenuItem>
       <MenuItem component={Link} to="/Cart" onClick={() => setAnchorEl(null)}>
         <ListItemIcon>
-          <ShoppingCart />
+          <Badge badgeContent={cart && cart.length} color="error">
+            <ShoppingCart />
+          </Badge>
         </ListItemIcon>
         Cart
       </MenuItem>

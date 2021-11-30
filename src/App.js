@@ -22,8 +22,9 @@ import { ChevronLeft } from "@mui/icons-material";
 import { indigo } from "@mui/material/colors";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Themplates from "./components/pages/shared/theme";
 
-const theme = createTheme({});
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles((theme) => ({
   "@global": {

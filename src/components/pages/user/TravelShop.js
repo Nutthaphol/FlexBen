@@ -26,7 +26,8 @@ import { getAllTravel } from "../../../actions/travel";
 import ProductCard from "../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
-const theme = createTheme();
+import Themplates from "../shared/theme";
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {},

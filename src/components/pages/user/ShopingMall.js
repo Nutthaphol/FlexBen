@@ -26,8 +26,9 @@ import { getAllItem } from "../../../actions/item";
 import ProductCard from "../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {},

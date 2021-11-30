@@ -23,9 +23,12 @@ import {
   TableCell,
   Button,
   IconButton,
+  TableHead,
 } from "@mui/material";
 import {
+  Add,
   Delete,
+  Remove,
   ShoppingCart,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
@@ -41,14 +44,16 @@ import packageService from "../../../services/package.service";
 import { Box } from "@mui/system";
 import { postCart } from "../../../actions/cart";
 import Sticky from "react-stickynode";
+import Themplates from "../shared/theme";
+import { amber } from "@mui/material/colors";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
     boxShadow: "none",
     border: "1px solid #D0D3D4",
-    padding: "20px",
+    padding: "1rem",
   },
 }));
 const Cart = (props) => {
@@ -60,7 +65,6 @@ const Cart = (props) => {
 
   useEffect(async () => {
     const preData = async () => {
-      console.log("JSON", JSON.parse(localStorage.getItem("cart")));
       const value = JSON.parse(localStorage.getItem("cart")) || [];
       const data_ = [];
 
@@ -102,20 +106,14 @@ const Cart = (props) => {
             return res.data;
           });
         }
-        console.log("type", type);
-        console.log("tmp", tmp);
+
         data_.push(tmp);
       }
-      // console.log("preData", preData);
-      // console.log("countData", countData);
+
       setData(data_);
       setNumber(countData);
     };
-    // const data_ = await preData();
     preData();
-
-    // setData(data_);
-    // console.log("data_", data_);
   }, []);
 
   const subtotal = (type) => {
@@ -143,29 +141,87 @@ const Cart = (props) => {
     return total_;
   };
 
-  const removeData = (index) => {
+  const removeData = (id) => {
     let data_ = [...data];
+
+    const index = data_
+      .map((e) => {
+        return e.id;
+      })
+      .indexOf(id);
+
+    const newCart = cartValue.filter((item) => item.id != id);
+
+    localStorage.removeItem("cart");
+
+    dispath(postCart(newCart));
+
     data_.splice(index, 1);
-    cartValue.splice(index, 1);
+
+    setData(data_);
+  };
+
+  const addNumber = (id) => {
+    const number_ = { ...number };
+    number_[id] += 1;
+    setNumber(number_);
+
+    const tmp = cartValue.find((item) => item.id == id);
+    cartValue.push(tmp);
     localStorage.removeItem("cart");
 
     dispath(postCart(cartValue));
-    setData(data_);
+  };
+
+  const removeNumber = (id) => {
+    const number_ = { ...number };
+    number_[id] -= 1;
+    setNumber(number_);
+    console.log("cartValue", cartValue);
+    const index = cartValue
+      .map((e) => {
+        return e.id;
+      })
+      .indexOf(id);
+
+    cartValue.splice(index, 1);
+
+    localStorage.removeItem("cart");
+
+    dispath(postCart(cartValue));
+  };
+
+  const totalList = () => {
+    let list_ = 0;
+    for (const [key, val] of Object.entries(number)) {
+      list_ += val;
+    }
+
+    return list_;
+  };
+
+  const lastPrice = () => {
+    let price = 0;
+    for (let i = 0; i < data.length; i++) {
+      price += data[i].price * number[data[i].id];
+    }
+    return price;
   };
 
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          {console.log("render")}
           {data != undefined ? (
             <Container maxWidth="xl">
-              {console.log("render true", data)}
               <Paper className={classes.root}>
                 <Typography
                   variant="h4"
                   gutterBottom
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   My Cart{" "}
                   <ShoppingCartOutlined
@@ -178,34 +234,182 @@ const Cart = (props) => {
               <Grid container spacing={2}>
                 <Grid item xl={8}>
                   <Paper className={classes.root}>
-                    <List>
-                      {console.log("data map", data)}
-                      {data.map((val, index) => (
-                        <div key={index}>
-                          <ListItem
-                            secondaryAction={
-                              <IconButton
-                                onClick={(index) => removeData(index)}
-                              >
-                                <Delete />
-                              </IconButton>
-                            }
-                          >
-                            <ListItemAvatar>
-                              <Avatar
-                                alt={val.name}
-                                src={`${process.env.REACT_APP_URL}image/${val.image}`}
-                              />
-                            </ListItemAvatar>
-                            <ListItemText
-                              primary={val.name}
-                              secondary={`จำนวน ${number[val.id]}`}
-                            />
-                          </ListItem>
-                          <Divider />
-                        </div>
-                      ))}
-                    </List>
+                    <Table>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="center">
+                            <Typography variant="h6" component="span">
+                              สินค้า
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Typography variant="h6" component="span">
+                              ราคา
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Typography variant="h6" component="span">
+                              จำนวน
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="center">
+                            <Typography variant="h6" component="span">
+                              ราคารวม
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="right">
+                            <Typography variant="h6" component="span">
+                              Action
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {number &&
+                          data.map((val, index) => (
+                            <TableRow key={index}>
+                              <TableCell align="center">
+                                <ListItem
+                                  disablePadding
+                                  alignItems="flex-start"
+                                >
+                                  <ListItemAvatar>
+                                    <Avatar
+                                      sx={{
+                                        width: 64,
+                                        height: 64,
+                                        marginRight: "10px",
+                                      }}
+                                      variant="rounded"
+                                    >
+                                      <img
+                                        src={`${process.env.REACT_APP_URL}image/${val.image}`}
+                                        width="auto"
+                                        height="100%"
+                                      />
+                                    </Avatar>
+                                  </ListItemAvatar>
+                                  <ListItemText
+                                    sx={{ marginTop: "5px" }}
+                                    primary={
+                                      <Fragment>
+                                        <Typography
+                                          variant="h6"
+                                          component="span"
+                                        >
+                                          {val.name}
+                                        </Typography>
+                                      </Fragment>
+                                    }
+                                  />
+                                </ListItem>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Box
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Icon
+                                    sx={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      marginRight: "5px",
+                                    }}
+                                    fontSize="small"
+                                  >
+                                    <img
+                                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                      width="100%"
+                                    />
+                                  </Icon>
+                                  <Typography
+                                    variant="subtitle1"
+                                    component="span"
+                                  >
+                                    {val.price}{" "}
+                                  </Typography>
+                                </Box>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    border: "1px solid #D0D3D4",
+                                    borderRadius: "4px",
+                                    width: "auto",
+                                  }}
+                                >
+                                  <IconButton
+                                    disabled={number[val.id] > 1 ? false : true}
+                                    onClick={() => removeNumber(val.id)}
+                                    sx={{
+                                      borderRight: "1px solid #D0D3D4",
+                                      borderRadius: "0px",
+                                    }}
+                                  >
+                                    <Remove fontSize="small" />
+                                  </IconButton>
+                                  <Typography
+                                    variant="subtitle1"
+                                    component="span"
+                                    sx={{
+                                      // paddingLeft: "10px",
+                                      // paddingRight: "10px",
+                                      flexGrow: 1,
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    {number && number[val.id]}
+                                  </Typography>
+                                  <IconButton
+                                    onClick={() => addNumber(val.id)}
+                                    sx={{
+                                      borderLeft: "1px solid #D0D3D4",
+                                      borderRadius: "0px",
+                                    }}
+                                  >
+                                    <Add fontSize="small" />
+                                  </IconButton>
+                                </Box>
+                              </TableCell>
+                              <TableCell align="center">
+                                <Box
+                                  display="flex"
+                                  alignItems="center"
+                                  justifyContent="center"
+                                >
+                                  <Icon
+                                    sx={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      marginRight: "5px",
+                                    }}
+                                    fontSize="small"
+                                  >
+                                    <img
+                                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                      width="100%"
+                                    />
+                                  </Icon>
+                                  <Typography
+                                    variant="subtitle1"
+                                    component="span"
+                                  >
+                                    {val.price * (number ? number[val.id] : 1)}{" "}
+                                  </Typography>
+                                </Box>
+                              </TableCell>
+                              <TableCell align="right">
+                                <IconButton onClick={() => removeData(val.id)}>
+                                  <Delete fontSize="small" color="error" />
+                                </IconButton>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    </Table>
                   </Paper>
                 </Grid>
                 <Grid item xl={4}>
@@ -216,56 +420,79 @@ const Cart = (props) => {
                       </Typography>
                       <Table>
                         <TableBody>
-                          {["insurance", "package", "lifestyle", "travel"].map(
-                            (val, index) => (
-                              <TableRow key={index}>
-                                <TableCell sx={{ borderBottom: "none" }}>
-                                  <Typography
-                                    variant="subtitle2"
-                                    component="span"
-                                    color="text.secondary"
-                                  >
-                                    ประเภท {val}({subtotal(val)})
-                                  </Typography>
-                                </TableCell>
-                                <TableCell
-                                  align="right"
+                          <TableRow>
+                            <TableCell align="left">
+                              <Typography
+                                variant="subtitle1"
+                                component="span"
+                                color="text.secondary"
+                              >
+                                ยอดรวม ({number && totalList()})
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="flex-end"
+                              >
+                                <Icon
                                   sx={{
-                                    borderBottom: "none",
                                     display: "flex",
                                     alignItems: "center",
+                                    marginRight: "5px",
                                   }}
+                                  fontSize="small"
                                 >
-                                  <Typography
-                                    variant="subtitle1"
-                                    component="span"
-                                    sx={{ fontWeight: "600" }}
-                                  >
-                                    {val == "package" && "$"} {total(val)}
-                                  </Typography>
-                                  {val == "package" ? (
-                                    ""
-                                  ) : (
-                                    <Icon
-                                      sx={{
-                                        marginRight: "5px",
-
-                                        display: "flex",
-                                        alignItems: "center",
-                                      }}
-                                      fontSize="small"
-                                    >
-                                      <img
-                                        src={`${process.env.PUBLIC_URL}/assets/icons/${val}Coin.svg`}
-                                        width="100%"
-                                        height="auto"
-                                      />
-                                    </Icon>
-                                  )}
-                                </TableCell>
-                              </TableRow>
-                            )
-                          )}
+                                  <img
+                                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                    width="100%"
+                                  />
+                                </Icon>
+                                <Typography
+                                  variant="subtitle1"
+                                  component="span"
+                                >
+                                  {data && number && lastPrice()}
+                                </Typography>
+                              </Box>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell align="left">
+                              <Typography variant="h6" component="span">
+                                ทั้งหมด ({number && totalList()})
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Box
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="flex-end"
+                              >
+                                <Icon
+                                  sx={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    marginRight: "5px",
+                                  }}
+                                  fontSize="small"
+                                >
+                                  <img
+                                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                    width="100%"
+                                  />
+                                </Icon>
+                                <Typography
+                                  variant="h6"
+                                  sx={{ color: amber[700] }}
+                                  component="span"
+                                >
+                                  {data && number && lastPrice()}
+                                </Typography>
+                              </Box>
+                            </TableCell>
+                          </TableRow>
                         </TableBody>
                       </Table>
 

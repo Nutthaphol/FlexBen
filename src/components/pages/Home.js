@@ -33,8 +33,9 @@ import { getAllPackage } from "../../actions/package";
 import PackageCard from "./shared/card/PackageCard";
 import AddCoinCard from "./shared/card/AddCoinCard";
 import { getAllMainCategory } from "../../actions/mainCategory";
+import Themplates from "./shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

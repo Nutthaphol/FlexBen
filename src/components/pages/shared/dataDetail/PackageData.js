@@ -42,8 +42,9 @@ import { Box, display } from "@mui/system";
 import { Close, Done, DoneAll, Star } from "@mui/icons-material";
 import { amber, green, red } from "@mui/material/colors";
 import insuranceService from "../../../../services/insurance.service";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

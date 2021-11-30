@@ -28,8 +28,9 @@ import PaperTable from "../shared/card/PaperTable";
 import { Box } from "@mui/system";
 import { Adb } from "@mui/icons-material";
 import { getUserProfile } from "../../../actions/user";
+import Themplates from "../shared/theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {},

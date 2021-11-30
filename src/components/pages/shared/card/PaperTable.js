@@ -11,8 +11,9 @@ import { Button, Card, Grid, Paper, Typography } from "@mui/material";
 import { amber } from "@mui/material/colors";
 import { Adb } from "@mui/icons-material";
 import { Box } from "@mui/system";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {

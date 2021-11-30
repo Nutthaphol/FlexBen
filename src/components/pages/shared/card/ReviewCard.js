@@ -22,8 +22,9 @@ import userService from "../../../../services/user.service";
 import dayjs from "dayjs";
 import { StarRate } from "@mui/icons-material";
 import { amber } from "@mui/material/colors";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
