@@ -11,5 +11,6 @@ db.travelCategory = require("../models/travelCategory.model.js");
 db.package = require("../models/package.model");
 db.review = require("../models/review.model");
 db.travel = require("../models/travel.model");
+db.history = require("../models/history.model");
 
 module.exports = db;

@@ -24,6 +24,12 @@ import {
   Button,
   IconButton,
   TableHead,
+  TableContainer,
+  Dialog,
+  Card,
+  CardHeader,
+  CardContent,
+  CardActions,
 } from "@mui/material";
 import {
   Add,
@@ -46,6 +52,7 @@ import { postCart } from "../../../actions/cart";
 import Sticky from "react-stickynode";
 import Themplates from "../shared/theme";
 import { amber } from "@mui/material/colors";
+import { getUserProfile } from "../../../actions/user";
 
 const theme = createTheme(Themplates);
 
@@ -60,8 +67,11 @@ const Cart = (props) => {
   const classes = useStyles();
   const dispath = useDispatch();
   const { cart: cartValue } = useSelector((state) => state.cart);
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const { result: userProfile } = useSelector((state) => state.userProfile);
   const [data, setData] = useState();
   const [number, setNumber] = useState();
+  const [open, setOpen] = useState(false);
 
   useEffect(async () => {
     const preData = async () => {
@@ -114,6 +124,10 @@ const Cart = (props) => {
       setNumber(countData);
     };
     preData();
+
+    if (currentUser) {
+      dispath(getUserProfile(currentUser.id));
+    }
   }, []);
 
   const subtotal = (type) => {
@@ -208,13 +222,23 @@ const Cart = (props) => {
     return price;
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOnclickOpen = () => {
+    setOpen(true);
+  };
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           {data != undefined ? (
             <Container maxWidth="xl">
-              <Paper className={classes.root}>
+              <Paper
+                className={classes.root}
+                sx={{ display: "flex", alignItems: "center" }}
+              >
                 <Typography
                   variant="h4"
                   gutterBottom
@@ -229,190 +253,212 @@ const Cart = (props) => {
                     sx={{ marginLeft: "10px" }}
                   />
                 </Typography>
+                <Box sx={{ flexGrow: 1 }} />
+                <Typography
+                  variant="h5"
+                  component="div"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  My Coin
+                  <Icon sx={{ marginRight: "10px", marginLeft: "10px" }}>
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                      width="100%"
+                    />
+                  </Icon>
+                  {userProfile.coin}
+                </Typography>
               </Paper>
               <br />
               <Grid container spacing={2}>
-                <Grid item xl={8}>
+                <Grid item lg={9} xs={12}>
                   <Paper className={classes.root}>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell align="center">
-                            <Typography variant="h6" component="span">
-                              สินค้า
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="center">
-                            <Typography variant="h6" component="span">
-                              ราคา
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="center">
-                            <Typography variant="h6" component="span">
-                              จำนวน
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="center">
-                            <Typography variant="h6" component="span">
-                              ราคารวม
-                            </Typography>
-                          </TableCell>
-                          <TableCell align="right">
-                            <Typography variant="h6" component="span">
-                              Action
-                            </Typography>
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {number &&
-                          data.map((val, index) => (
-                            <TableRow key={index}>
-                              <TableCell align="center">
-                                <ListItem
-                                  disablePadding
-                                  alignItems="flex-start"
-                                >
-                                  <ListItemAvatar>
-                                    <Avatar
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center">
+                              <Typography variant="h6" component="span">
+                                สินค้า
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="center">
+                              <Typography variant="h6" component="span">
+                                ราคา
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="center">
+                              <Typography variant="h6" component="span">
+                                จำนวน
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="center">
+                              <Typography variant="h6" component="span">
+                                ราคารวม
+                              </Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                              <Typography variant="h6" component="span">
+                                Action
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {number &&
+                            data.map((val, index) => (
+                              <TableRow key={index}>
+                                <TableCell align="center">
+                                  <ListItem
+                                    disablePadding
+                                    alignItems="flex-start"
+                                  >
+                                    <ListItemAvatar>
+                                      <Avatar
+                                        sx={{
+                                          width: 64,
+                                          height: 64,
+                                          marginRight: "10px",
+                                        }}
+                                        variant="rounded"
+                                      >
+                                        <img
+                                          src={`${process.env.REACT_APP_URL}image/${val.image}`}
+                                          width="auto"
+                                          height="100%"
+                                        />
+                                      </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                      sx={{ marginTop: "5px" }}
+                                      primary={
+                                        <Fragment>
+                                          <Typography
+                                            variant="h6"
+                                            component="span"
+                                          >
+                                            {val.name}
+                                          </Typography>
+                                        </Fragment>
+                                      }
+                                    />
+                                  </ListItem>
+                                </TableCell>
+                                <TableCell align="center">
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                  >
+                                    <Icon
                                       sx={{
-                                        width: 64,
-                                        height: 64,
-                                        marginRight: "10px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginRight: "5px",
                                       }}
-                                      variant="rounded"
+                                      fontSize="small"
                                     >
                                       <img
-                                        src={`${process.env.REACT_APP_URL}image/${val.image}`}
-                                        width="auto"
-                                        height="100%"
+                                        src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                        width="100%"
                                       />
-                                    </Avatar>
-                                  </ListItemAvatar>
-                                  <ListItemText
-                                    sx={{ marginTop: "5px" }}
-                                    primary={
-                                      <Fragment>
-                                        <Typography
-                                          variant="h6"
-                                          component="span"
-                                        >
-                                          {val.name}
-                                        </Typography>
-                                      </Fragment>
-                                    }
-                                  />
-                                </ListItem>
-                              </TableCell>
-                              <TableCell align="center">
-                                <Box
-                                  display="flex"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Icon
+                                    </Icon>
+                                    <Typography
+                                      variant="subtitle1"
+                                      component="span"
+                                    >
+                                      {val.price}{" "}
+                                    </Typography>
+                                  </Box>
+                                </TableCell>
+                                <TableCell align="center">
+                                  <Box
                                     sx={{
                                       display: "flex",
                                       alignItems: "center",
-                                      marginRight: "5px",
+                                      border: "1px solid #D0D3D4",
+                                      borderRadius: "4px",
+                                      width: "auto",
                                     }}
-                                    fontSize="small"
                                   >
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                                      width="100%"
-                                    />
-                                  </Icon>
-                                  <Typography
-                                    variant="subtitle1"
-                                    component="span"
+                                    <IconButton
+                                      disabled={
+                                        number[val.id] > 1 ? false : true
+                                      }
+                                      onClick={() => removeNumber(val.id)}
+                                      sx={{
+                                        borderRight: "1px solid #D0D3D4",
+                                        borderRadius: "0px",
+                                      }}
+                                    >
+                                      <Remove fontSize="small" />
+                                    </IconButton>
+                                    <Typography
+                                      variant="subtitle1"
+                                      component="span"
+                                      sx={{
+                                        // paddingLeft: "10px",
+                                        // paddingRight: "10px",
+                                        flexGrow: 1,
+                                        textAlign: "center",
+                                      }}
+                                    >
+                                      {number && number[val.id]}
+                                    </Typography>
+                                    <IconButton
+                                      onClick={() => addNumber(val.id)}
+                                      sx={{
+                                        borderLeft: "1px solid #D0D3D4",
+                                        borderRadius: "0px",
+                                      }}
+                                    >
+                                      <Add fontSize="small" />
+                                    </IconButton>
+                                  </Box>
+                                </TableCell>
+                                <TableCell align="center">
+                                  <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="center"
                                   >
-                                    {val.price}{" "}
-                                  </Typography>
-                                </Box>
-                              </TableCell>
-                              <TableCell align="center">
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    border: "1px solid #D0D3D4",
-                                    borderRadius: "4px",
-                                    width: "auto",
-                                  }}
-                                >
+                                    <Icon
+                                      sx={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        marginRight: "5px",
+                                      }}
+                                      fontSize="small"
+                                    >
+                                      <img
+                                        src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                                        width="100%"
+                                      />
+                                    </Icon>
+                                    <Typography
+                                      variant="subtitle1"
+                                      component="span"
+                                    >
+                                      {val.price *
+                                        (number ? number[val.id] : 1)}{" "}
+                                    </Typography>
+                                  </Box>
+                                </TableCell>
+                                <TableCell align="right">
                                   <IconButton
-                                    disabled={number[val.id] > 1 ? false : true}
-                                    onClick={() => removeNumber(val.id)}
-                                    sx={{
-                                      borderRight: "1px solid #D0D3D4",
-                                      borderRadius: "0px",
-                                    }}
+                                    onClick={() => removeData(val.id)}
                                   >
-                                    <Remove fontSize="small" />
+                                    <Delete fontSize="small" color="error" />
                                   </IconButton>
-                                  <Typography
-                                    variant="subtitle1"
-                                    component="span"
-                                    sx={{
-                                      // paddingLeft: "10px",
-                                      // paddingRight: "10px",
-                                      flexGrow: 1,
-                                      textAlign: "center",
-                                    }}
-                                  >
-                                    {number && number[val.id]}
-                                  </Typography>
-                                  <IconButton
-                                    onClick={() => addNumber(val.id)}
-                                    sx={{
-                                      borderLeft: "1px solid #D0D3D4",
-                                      borderRadius: "0px",
-                                    }}
-                                  >
-                                    <Add fontSize="small" />
-                                  </IconButton>
-                                </Box>
-                              </TableCell>
-                              <TableCell align="center">
-                                <Box
-                                  display="flex"
-                                  alignItems="center"
-                                  justifyContent="center"
-                                >
-                                  <Icon
-                                    sx={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      marginRight: "5px",
-                                    }}
-                                    fontSize="small"
-                                  >
-                                    <img
-                                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                                      width="100%"
-                                    />
-                                  </Icon>
-                                  <Typography
-                                    variant="subtitle1"
-                                    component="span"
-                                  >
-                                    {val.price * (number ? number[val.id] : 1)}{" "}
-                                  </Typography>
-                                </Box>
-                              </TableCell>
-                              <TableCell align="right">
-                                <IconButton onClick={() => removeData(val.id)}>
-                                  <Delete fontSize="small" color="error" />
-                                </IconButton>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                      </TableBody>
-                    </Table>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                   </Paper>
                 </Grid>
-                <Grid item xl={4}>
+                <Grid item lg={3} xs={12}>
                   <Sticky enabled={true} top={70}>
                     <Paper className={classes.root}>
                       <Typography variant="h5" sx={{ fontWeight: "600" }}>
@@ -420,7 +466,7 @@ const Cart = (props) => {
                       </Typography>
                       <Table>
                         <TableBody>
-                          <TableRow>
+                          {/* <TableRow>
                             <TableCell align="left">
                               <Typography
                                 variant="subtitle1"
@@ -457,7 +503,7 @@ const Cart = (props) => {
                                 </Typography>
                               </Box>
                             </TableCell>
-                          </TableRow>
+                          </TableRow> */}
                           <TableRow>
                             <TableCell align="left">
                               <Typography variant="h6" component="span">
@@ -496,7 +542,12 @@ const Cart = (props) => {
                         </TableBody>
                       </Table>
 
-                      <Button fullWidth variant="contained" color="success">
+                      <Button
+                        fullWidth
+                        variant="contained"
+                        color="success"
+                        onClick={handleOnclickOpen}
+                      >
                         Check out
                       </Button>
                     </Paper>
@@ -506,6 +557,150 @@ const Cart = (props) => {
             </Container>
           ) : (
             console.log("data", data)
+          )}
+
+          {userProfile && (
+            <Dialog open={open} onClose={handleClose}>
+              <Card sx={{ minWidth: "480px" }}>
+                <CardContent>
+                  <Typography
+                    variant="h5"
+                    compoennt="div"
+                    sx={{ fontWeight: "600" }}
+                  >
+                    Order confirmation
+                  </Typography>
+                  <List>
+                    <ListItem
+                      secondaryAction={
+                        <Typography variant="subtitle1" component="span">
+                          {number && totalList()} รายการ
+                        </Typography>
+                      }
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography varaint="subtitle1" component="span">
+                            รายการสั่งซื้อทั้งหมด
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem
+                      secondaryAction={
+                        <Typography
+                          variant="subtitle1"
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          {number && lastPrice()}{" "}
+                          <Icon
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <img
+                              width="100%"
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            />
+                          </Icon>
+                        </Typography>
+                      }
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography varaint="subtitle1" component="span">
+                            ยอดการสั่งซื้อ
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem
+                      secondaryAction={
+                        <Typography
+                          variant="subtitle1"
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          {userProfile.coin}{" "}
+                          <Icon
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <img
+                              width="100%"
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            />
+                          </Icon>
+                        </Typography>
+                      }
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography varaint="subtitle1" component="span">
+                            จำนวน Coin ที่มี
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem
+                      secondaryAction={
+                        <Typography
+                          variant="subtitle1"
+                          component="span"
+                          sx={{ display: "flex", alignItems: "center" }}
+                        >
+                          {number && userProfile.coin - lastPrice()}{" "}
+                          <Icon
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              marginLeft: "10px",
+                            }}
+                          >
+                            <img
+                              width="100%"
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            />
+                          </Icon>
+                        </Typography>
+                      }
+                    >
+                      <ListItemText
+                        primary={
+                          <Typography varaint="subtitle1" component="span">
+                            จำนวน Coin คงเหลือ
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                  </List>
+                </CardContent>
+                <CardActions sx={{ display: "flex", justifyContent: "center" }}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ minWidth: "120px" }}
+                    onClick={handleClose}
+                  >
+                    Confirm
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    sx={{ minWidth: "120px" }}
+                    onClick={handleClose}
+                  >
+                    Cancel
+                  </Button>
+                </CardActions>
+              </Card>
+            </Dialog>
           )}
         </ThemeProvider>
       </StyledEngineProvider>

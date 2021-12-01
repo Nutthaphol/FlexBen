@@ -180,7 +180,7 @@ const Header = (props) => {
         </ListItemIcon>
         Wallet
       </MenuItem>
-      <MenuItem component={Link} to="/Cart" onClick={() => setAnchorEl(null)}>
+      <MenuItem component={Link} to="/cart" onClick={() => setAnchorEl(null)}>
         <ListItemIcon>
           <Badge badgeContent={cart && cart.length} color="error">
             <ShoppingCart />
@@ -190,7 +190,7 @@ const Header = (props) => {
       </MenuItem>
       <MenuItem
         component={Link}
-        to="/coinDashboard"
+        to="/history"
         onClick={() => setAnchorEl(null)}
       >
         <ListItemIcon>

@@ -197,7 +197,7 @@ const Home = () => {
                   see more
                 </Button>
               </Grid>
-              {/* <Grid item xs={12} sx={{ marginBottom: "10px" }}>
+              <Grid item xs={12} sx={{ marginBottom: "10px" }}>
                 {users &&
                   users
                     .filter((item) => item.id != currentUser.id)
@@ -205,7 +205,7 @@ const Home = () => {
                     .map((val, index) => (
                       <AddCoinCard key={index} user={val} />
                     ))}
-              </Grid> */}
+              </Grid>
               <Grid item xs={12}>
                 <Divider className={classes.divider} />
               </Grid>

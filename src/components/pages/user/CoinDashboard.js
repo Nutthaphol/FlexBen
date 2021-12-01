@@ -65,7 +65,7 @@ const CoinDashboard = () => {
                 Coin Dashboard
               </Typography>
               <Grid container spacing={2} justifyContent="space-between">
-                {userProfile.coin.map((val, index) => (
+                {/* {userProfile.coin.map((val, index) => (
                   <Grid item key={index}>
                     <DataCard
                       section={val.type + " Coin"}
@@ -73,19 +73,19 @@ const CoinDashboard = () => {
                       type={val.type}
                     />
                   </Grid>
-                ))}
-                {/* <Grid item>
-                <DataCard section="Insurance คงเหลือ" value={10000} />
-              </Grid>
-              <Grid item>
-                <DataCard section="Insurance คงเหลือ" value={10000} />
-              </Grid>
-              <Grid item>
-                <DataCard section="Insurance คงเหลือ" value={10000} />
-              </Grid>
-              <Grid item>
-                <DataCard section="Insurance คงเหลือ" value={10000} /> 
-              </Grid>*/}
+                ))} */}
+                <Grid item>
+                  <DataCard section="Insurance คงเหลือ" value={10000} />
+                </Grid>
+                <Grid item>
+                  <DataCard section="Insurance คงเหลือ" value={10000} />
+                </Grid>
+                <Grid item>
+                  <DataCard section="Insurance คงเหลือ" value={10000} />
+                </Grid>
+                <Grid item>
+                  <DataCard section="Insurance คงเหลือ" value={10000} />
+                </Grid>
               </Grid>
               {/* <Box sx={{ mt: 6 }} /> */}
               <Paper className={classes.paper}>
@@ -95,7 +95,7 @@ const CoinDashboard = () => {
                 <Table>
                   <TableBody>
                     {[1, 2, 3, 4].map((item, index) => (
-                      <TableRow>
+                      <TableRow key={index}>
                         <TableCell>
                           <ListItem>
                             <ListItemIcon>

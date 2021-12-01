@@ -8,6 +8,7 @@ import { makeStyles } from "@mui/styles";
 import {
   Button,
   Card,
+  CardActions,
   CardContent,
   Grid,
   Icon,
@@ -26,16 +27,24 @@ const useStyles = makeStyles(() => ({
     //     backgroundColor:
     //       "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
   },
-  cardContent: {
-    //     padding: 0,
-    //     paddingBottom: 0,
-  },
   icons: {
-    fontSize: "3.5rem",
-    border: "2px solid transparent",
+    fontSize: "2rem",
+    border: "1px solid #fff",
     background: "linear-gradient(orange, violet)",
     //     borderImage:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
     borderRadius: "50%",
+  },
+  card: {
+    padding: "0.5rem",
+    boxShadow: "none",
+    border: "2px solid #D0D3D4",
+  },
+  cardContent: {
+    textAlign: "center",
+    padding: "10px",
+    "& .css-46bh2p-MuiCardContent-root:last-child": {
+      paddingBottom: "10px",
+    },
   },
 }));
 const AddCoinCard = (props) => {
@@ -45,175 +54,176 @@ const AddCoinCard = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Card className={classes.root}>
-          <CardContent className={classes.cardContent}>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="center"
+            alignItems="center"
+          >
             <Grid
-              container
-              spacing={2}
-              justifyContent="center"
-              alignItems="center"
+              item
+              md={4}
+              xs={12}
+              sx={{
+                textAlign: "center",
+              }}
             >
-              <Grid
-                item
-                md={4}
-                xs={12}
-                sx={{
-                  textAlign: "center",
-                  borderRight: "3px dashed #006100",
+              <img
+                width="100"
+                style={{
+                  borderRadius: "50%",
+                  border: "3px solid transparent",
+                  background: "linear-gradient(blue, violet)",
                 }}
-              >
-                <img
-                  width="100"
-                  style={{
-                    borderRadius: "50%",
-                    border: "3px solid transparent",
-                    background: "linear-gradient(blue, violet)",
-                  }}
-                  src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
-                />
-                <Typography variant="h5" gutterBottom>
-                  {user.firstname + " " + user.lastname}
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                  {user.position}
-                </Typography>
-              </Grid>
-              <Grid item md={8} xs={12}>
-                <Grid container spacing={8}>
-                  <Grid item xs={12}>
-                    <Grid
-                      container
-                      direction="row"
-                      justifyContent="flex-end"
-                      alignItems="center"
-                      spacing={8}
-                    >
-                      <Grid
-                        item
-                        lg={4}
-                        md={6}
-                        xs={12}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
+                src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
+              />
+              <Typography variant="h5" gutterBottom>
+                {user.firstname + " " + user.lastname}
+              </Typography>
+              <Typography variant="h6" gutterBottom>
+                {user.position}
+              </Typography>
+            </Grid>
+            <Grid item md={8} xs={12}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Grid container spacing={4} justifyContent="space-between">
+                    <Grid item xs={12} md={4}>
+                      <Card
+                        className={classes.card}
+                        sx={{ textAlign: "center" }}
                       >
-                        <Icon className={classes.icons}>
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/icons/InsuranceCoin.svg`}
-                            width="100%"
-                          />
-                        </Icon>
-                        <Box
-                          sx={{
-                            flexGrow: 0.5,
-                          }}
-                        />
-                        <Box>
-                          <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin[0].count}
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                          >
-                            ISR
-                          </Typography>
-                        </Box>
-                      </Grid>
-                      <Grid
-                        item
-                        lg={4}
-                        md={6}
-                        xs={12}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Icon className={classes.icons}>
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/icons/LifeStyleCoin.svg`}
-                            width="100%"
-                          />
-                        </Icon>
-                        <Box sx={{ flexGrow: 0.5 }} />
-                        <Box>
-                          <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin[1].count}
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                          >
-                            LIPE
-                          </Typography>
-                        </Box>
-                      </Grid>
-                      <Grid
-                        item
-                        lg={4}
-                        md={6}
-                        xs={12}
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-                        <Icon className={classes.icons}>
-                          <img
-                            src={`${process.env.PUBLIC_URL}/assets/icons/TravelCoin.svg`}
-                            width="100%"
-                          />
-                        </Icon>
-                        <Box sx={{ flexGrow: 0.5 }} />
-                        <Box>
-                          <Typography variant="h5" sx={{ fontWeight: "600" }}>
-                            {user.coin[2].count}
-                          </Typography>
-                          <Typography
-                            variant="subtitle1"
-                            color="text.secondary"
-                          >
-                            TRV
-                          </Typography>
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid
-                      container
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      spacing={2}
-                    >
-                      <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
-                        <Button sx={{ color: "black", textTransform: "none" }}>
-                          <Typography variant="h6">
-                            Personalize Select
-                          </Typography>
-                        </Button>
-                      </Grid>
-                      <Grid item xs={12} md={3}>
-                        <Button
-                          variant="contained"
-                          color="success"
-                          size="small"
-                          fullWidth
+                        <Typography
+                          sx={{ textAlign: "center" }}
+                          variant="subtitle1"
+                          component="div"
+                          gutterBottom
                         >
-                          Buy
-                        </Button>
-                      </Grid>
+                          Coin ทั้งหมด
+                        </Typography>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            fontWeight: "600",
+                            textAlign: "center",
+                            alignItems: "center",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                          component="div"
+                          gutterBottom
+                        >
+                          <Icon
+                            className={classes.icons}
+                            sx={{ marginRight: "10px" }}
+                          >
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                              width="100%"
+                            />
+                          </Icon>
+                          {user.coin}
+                        </Typography>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card
+                        className={classes.card}
+                        sx={{ textAlign: "center" }}
+                      >
+                        <Typography
+                          sx={{ textAlign: "center" }}
+                          variant="subtitle1"
+                          component="div"
+                          gutterBottom
+                        >
+                          Insurance lock
+                        </Typography>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            fontWeight: "600",
+                            textAlign: "center",
+                            alignItems: "center",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                          component="div"
+                          gutterBottom
+                        >
+                          <Icon
+                            className={classes.icons}
+                            sx={{ marginRight: "10px" }}
+                          >
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                              width="100%"
+                            />
+                          </Icon>
+                          {user.insurancelock}
+                        </Typography>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <Card
+                        className={classes.card}
+                        sx={{ textAlign: "center" }}
+                      >
+                        <Typography
+                          sx={{ textAlign: "center" }}
+                          variant="subtitle1"
+                          component="div"
+                          gutterBottom
+                        >
+                          Lifestyle & Travel
+                        </Typography>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            fontWeight: "600",
+                            textAlign: "center",
+                            alignItems: "center",
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                          component="div"
+                          gutterBottom
+                        >
+                          <Icon
+                            className={classes.icons}
+                            sx={{ marginRight: "10px" }}
+                          >
+                            <img
+                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                              width="100%"
+                            />
+                          </Icon>
+                          {user.coin - user.insurancelock}
+                        </Typography>
+                      </Card>
                     </Grid>
                   </Grid>
                 </Grid>
+                <Grid item xs={12}>
+                  <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Button>
+                      <Typography variant="h6" component="span">
+                        Personalize Select
+                      </Typography>
+                    </Button>
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Button variant="contained" color="success">
+                      Buy Now
+                    </Button>
+                  </Box>
+                </Grid>
               </Grid>
             </Grid>
-          </CardContent>
+          </Grid>
         </Card>
       </ThemeProvider>
     </StyledEngineProvider>

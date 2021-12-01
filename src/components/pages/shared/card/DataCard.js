@@ -54,7 +54,7 @@ const DataCard = (props) => {
           >
             <Icon fontSize="large">
               <img
-                src={`${process.env.PUBLIC_URL}/assets/icons/${type}Coin.svg`}
+                src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
                 width="100%"
               />
             </Icon>
