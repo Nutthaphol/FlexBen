@@ -22,7 +22,11 @@ import Themplates from "../shared/theme";
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
-  root: { padding: "10px", boxShadow: "none", border: "1px solid #D0D3D4" },
+  root: {
+    padding: "10px",
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
+  },
 }));
 
 const ListPackage = () => {
@@ -73,47 +77,41 @@ const ListPackage = () => {
                 )}
               />
             </Paper>
-            <Paper className={classes.root} sx={{ marginTop: "20px" }}>
-              <Grid container spacing={2}>
-                {allPackages &&
-                  allPackages
-                    .filter((item) => {
-                      if (search != null) {
-                        console.log("search ", search.label);
-                        const word = search.label
-                          .replace("Package ", "")
-                          .toLocaleLowerCase();
-                        return item.name.toLocaleLowerCase().search(word) != -1;
-                      } else {
-                        return true;
-                      }
-                    })
-                    .map((val, index) => (
-                      <Grid
-                        item
+            <br />
+            <br />
+            {/* <Paper className={classes.root} sx={{ marginTop: "20px" }}> */}
+            <Grid container spacing={10}>
+              {allPackages &&
+                allPackages
+                  .filter((item) => {
+                    if (search != null) {
+                      console.log("search ", search.label);
+                      const word = search.label
+                        .replace("Package ", "")
+                        .toLocaleLowerCase();
+                      return item.name.toLocaleLowerCase().search(word) != -1;
+                    } else {
+                      return true;
+                    }
+                  })
+                  .map((val, index) => (
+                    <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
+                      <PackageCard
+                        path="detailPackage"
+                        id={val.id}
                         key={index}
-                        xl={3}
-                        lg={3}
-                        md={4}
-                        sm={6}
-                        xs={12}
-                      >
-                        <PackageCard
-                          path="detailPackage"
-                          id={val.id}
-                          key={index}
-                          image={`${process.env.REACT_APP_URL}image/${val.image}`}
-                          name={val.name}
-                          property={val.property}
-                          count={val.count}
-                          price={val.price}
-                          class_={val.class}
-                          rating={val.rating}
-                        />
-                      </Grid>
-                    ))}
-              </Grid>
-            </Paper>
+                        image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                        name={val.name}
+                        property={val.property}
+                        count={val.count}
+                        price={val.price}
+                        class_={val.class}
+                        rating={val.rating}
+                      />
+                    </Grid>
+                  ))}
+            </Grid>
+            {/* </Paper> */}
           </Container>
         </ThemeProvider>
       </StyledEngineProvider>

@@ -24,6 +24,8 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: "16px",
     paddingBottom: "16px",
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
     //     backgroundColor:
     //       "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
   },

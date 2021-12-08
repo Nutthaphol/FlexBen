@@ -25,7 +25,7 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
   },
   cardMedia: {
@@ -79,13 +79,23 @@ const ItemData = ({ detail }) => {
             >
               <Divider sx={{ width: "100%" }} />
             </Box>
-            <Typography variant="h5" sx={{ fontWeight: "700" }} gutterBottom>
-              {detail.highLights}
+            <Typography variant="h5" sx={{ fontWeight: "500" }} gutterBottom>
+              {`${detail.name}, (${detail.brand})`}
             </Typography>
             <Typography variant="subtitle1">
               {" "}
               <span style={{ paddingLeft: "2.5rem" }} />
-              {detail.description}
+              {detail.detail}
+            </Typography>
+            <br />
+            <Divider />
+            <br />
+            <Typography variant="h5" sx={{ fontWeight: "500" }} gutterBottom>
+              Warranty
+            </Typography>
+            <Typography variant="subtitle1">
+              <span style={{ paddingLeft: "2.5rem" }} />
+              {detail.warranty} ปี : {detail.warrantyDetail}
             </Typography>
             {/* <Typography variant="h5" gutterBottom sx={{ marginTop: "1rem" }}>
               รายละเอียด

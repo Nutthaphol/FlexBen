@@ -32,13 +32,11 @@ import Themplates from "../theme";
 const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
-    // position: "-webkit-sticky",
-    // position: "sticky",
     top: "100px",
     width: "100%",
     height: "auto",
     padding: "1rem",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     // boxShadow:
     //   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
@@ -90,7 +88,7 @@ const SalesBox = ({ detail, type }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={classes.root} elevation={15}>
+        <Paper className={classes.root}>
           <Typography
             variant="h5"
             sx={{
@@ -181,6 +179,45 @@ const SalesBox = ({ detail, type }) => {
               </IconButton>
             </Box>
           </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6">ส่วนลด</Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Typography
+              variant="h6"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              {detail.discount} %
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant="h6">ค่าขนส่ง</Typography>
+            <Box sx={{ flexGrow: 1 }} />
+            <Typography
+              variant="h6"
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              {type != "package" ? (
+                <Icon
+                  sx={{
+                    marginRight: "5px",
+
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  fontSize="small"
+                >
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                    width="100%"
+                    height="auto"
+                  />
+                </Icon>
+              ) : (
+                "$ "
+              )}
+              {detail.deliveryCost}
+            </Typography>
+          </Box>
           <Box
             sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
           >
@@ -209,7 +246,8 @@ const SalesBox = ({ detail, type }) => {
               ) : (
                 "$ "
               )}
-              {count * detail.price}
+              {detail.deliveryCost +
+                count * (detail.price - (detail.price * detail.discount) / 100)}
             </Typography>
           </Box>
 

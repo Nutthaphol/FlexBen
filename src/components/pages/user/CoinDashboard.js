@@ -36,11 +36,14 @@ const useStyles = makeStyles(() => ({
   root: {},
   paper: {
     // position: "relative",
-    padding: "20px",
+    padding: "10px",
     // width: "100%",
     // height: "auto",
-    marginTop: "50px",
+    // marginTop: "50px",
     overflow: "scroll",
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
+    padding: "1rem",
   },
 }));
 
@@ -64,30 +67,33 @@ const CoinDashboard = () => {
               <Typography variant="h4" gutterBottom>
                 Coin Dashboard
               </Typography>
-              <Grid container spacing={2} justifyContent="space-between">
-                {/* {userProfile.coin.map((val, index) => (
+              <Paper className={classes.paper}>
+                <Grid container spacing={2} justifyContent="space-between">
+                  {/* {userProfile.coin.map((val, index) => (
                   <Grid item key={index}>
-                    <DataCard
-                      section={val.type + " Coin"}
-                      value={val.count}
-                      type={val.type}
-                    />
+                  <DataCard
+                  section={val.type + " Coin"}
+                  value={val.count}
+                  type={val.type}
+                  />
                   </Grid>
                 ))} */}
-                <Grid item>
-                  <DataCard section="Insurance คงเหลือ" value={10000} />
+                  <Grid item>
+                    <DataCard section="Insurance คงเหลือ" value={10000} />
+                  </Grid>
+                  <Grid item>
+                    <DataCard section="Insurance คงเหลือ" value={10000} />
+                  </Grid>
+                  <Grid item>
+                    <DataCard section="Insurance คงเหลือ" value={10000} />
+                  </Grid>
+                  <Grid item>
+                    <DataCard section="Insurance คงเหลือ" value={10000} />
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <DataCard section="Insurance คงเหลือ" value={10000} />
-                </Grid>
-                <Grid item>
-                  <DataCard section="Insurance คงเหลือ" value={10000} />
-                </Grid>
-                <Grid item>
-                  <DataCard section="Insurance คงเหลือ" value={10000} />
-                </Grid>
-              </Grid>
-              {/* <Box sx={{ mt: 6 }} /> */}
+                {/* <Box sx={{ mt: 6 }} /> */}
+              </Paper>
+              <br />
               <Paper className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                   รายละเอียด

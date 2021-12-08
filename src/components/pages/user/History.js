@@ -30,11 +30,16 @@ import travelService from "../../../services/travel.service";
 import insuranceService from "../../../services/insurance.service";
 import packageService from "../../../services/package.service";
 import { Box } from "@mui/system";
+import dayjs from "dayjs";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
-  root: { boxShadow: "none", border: "1px solid #D0D3D4", padding: "1rem" },
+  root: {
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
+    padding: "1rem",
+  },
 }));
 
 const History = () => {
@@ -73,6 +78,7 @@ const History = () => {
           });
         }
         tmp.number = history.list[i].number;
+        tmp.date = history.list[i].date;
         data_.push(tmp);
       }
 
@@ -133,6 +139,10 @@ const History = () => {
                                 }
                               />
                             </ListItem>
+                          </TableCell>
+                          <TableCell align="center">
+                            buy when:{" "}
+                            <i>{dayjs(val.date).format("MMM DD, YYYY")}</i>
                           </TableCell>
                           <TableCell align="center">
                             <Box

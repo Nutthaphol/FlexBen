@@ -29,7 +29,7 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
   },
   cardMedia: {

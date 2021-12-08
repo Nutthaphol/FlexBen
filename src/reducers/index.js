@@ -15,6 +15,7 @@ import travelCategory from "./travelCategory";
 import travel from "./travel";
 import cart from "./cart";
 import history from "./history";
+import delivery from "./delivery";
 
 const appReducer = combineReducers({
   auth,
@@ -33,6 +34,7 @@ const appReducer = combineReducers({
   travel,
   cart,
   history,
+  delivery,
 });
 
 const rootReducer = (state, action) => {

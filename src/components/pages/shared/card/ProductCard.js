@@ -29,9 +29,11 @@ const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    margin: "1rem",
+    // margin: "1rem",
     // width: "100%",
     height: "auto",
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
   },
   coverMedia: {
     display: "flex",

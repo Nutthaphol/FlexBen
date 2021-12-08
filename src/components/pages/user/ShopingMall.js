@@ -34,18 +34,18 @@ const useStyles = makeStyles(() => ({
   root: {},
   filter: {
     padding: "10px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
   },
   main: {
     // padding: "10px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     minHeight: "600px",
   },
   head: {
     padding: "20px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     display: "flex",
     alignItems: "center",
@@ -142,51 +142,51 @@ const ShopingMall = () => {
               )}
               <Grid item xl={10} lg={9}>
                 {item && (
-                  <Paper className={classes.main}>
-                    <Grid container spacing={1}>
-                      {item
-                        .filter(
-                          (val) => val.name.toLowerCase().search(search) != -1
-                        )
-                        .filter((val) => {
-                          if (checked.length != 0) {
-                            return checked.includes(val.category);
-                          } else {
-                            return true;
-                          }
-                        })
+                  // <Paper className={classes.main}>
+                  <Grid container spacing={6}>
+                    {item
+                      .filter(
+                        (val) => val.name.toLowerCase().search(search) != -1
+                      )
+                      .filter((val) => {
+                        if (checked.length != 0) {
+                          return checked.includes(val.category);
+                        } else {
+                          return true;
+                        }
+                      })
 
-                        .map((val, index) => (
-                          <Grid
-                            item
-                            xl={3}
-                            lg={4}
-                            // sx={{ position: "relative" }}
-                            key={index}
+                      .map((val, index) => (
+                        <Grid
+                          item
+                          xl={3}
+                          lg={4}
+                          // sx={{ position: "relative" }}
+                          key={index}
+                        >
+                          <Box
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              position: "relative",
+                            }}
                           >
-                            <Box
-                              sx={{
-                                width: "100%",
-                                height: "100%",
-                                position: "relative",
-                              }}
-                            >
-                              <ProductCard
-                                path="detailItem"
-                                image={`${process.env.REACT_APP_URL}image/${val.image}`}
-                                head={val.highLights}
-                                price={val.price}
-                                name={val.name}
-                                id={val.id}
-                                rating={val.rating}
-                                count={val.count}
-                                type={val.type}
-                              />
-                            </Box>
-                          </Grid>
-                        ))}
-                    </Grid>
-                  </Paper>
+                            <ProductCard
+                              path="detailItem"
+                              image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                              head={val.brand}
+                              price={val.price}
+                              name={val.name}
+                              id={val.id}
+                              rating={val.rating}
+                              count={val.count}
+                              type={val.type}
+                            />
+                          </Box>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  // </Paper>
                 )}
               </Grid>
             </Grid>

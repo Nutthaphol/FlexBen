@@ -10,9 +10,17 @@ import Filter3Icon from "@mui/icons-material/Filter3";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import { Article } from "@mui/icons-material";
 
 const AdminMenu = () => {
-  const dataListMenu = [];
+  const dataListMenu = [
+    {
+      listItemIcon: <Article />,
+      listItemText: "add Order",
+      listLink: "/admin/FormOrder",
+      listKey: "FormOrder",
+    },
+  ];
 
   return <ListMenu dataListMenu={dataListMenu} />;
 };

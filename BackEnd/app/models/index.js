@@ -12,5 +12,6 @@ db.package = require("../models/package.model");
 db.review = require("../models/review.model");
 db.travel = require("../models/travel.model");
 db.history = require("../models/history.model");
+db.delivery = require("../models/delivery.model");
 
 module.exports = db;

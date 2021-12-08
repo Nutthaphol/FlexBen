@@ -51,18 +51,24 @@ import { Box } from "@mui/system";
 import { postCart } from "../../../actions/cart";
 import Sticky from "react-stickynode";
 import Themplates from "../shared/theme";
-import { amber } from "@mui/material/colors";
+import { amber, red } from "@mui/material/colors";
 import { getUserProfile } from "../../../actions/user";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     padding: "1rem",
   },
+  highLights: {
+    color: amber[700],
+    fontWeight: 600,
+    fontSize: "1.25rem",
+  },
 }));
+
 const Cart = (props) => {
   const classes = useStyles();
   const dispath = useDispatch();
@@ -338,6 +344,17 @@ const Cart = (props) => {
                                             component="span"
                                           >
                                             {val.name}
+                                          </Typography>
+                                        </Fragment>
+                                      }
+                                      secondary={
+                                        <Fragment>
+                                          <Typography
+                                            variant="subtitle"
+                                            component="span"
+                                            color="text.secondary"
+                                          >
+                                            {val.highLights || val.brand}
                                           </Typography>
                                         </Fragment>
                                       }
@@ -648,12 +665,17 @@ const Cart = (props) => {
                         }
                       />
                     </ListItem>
+                    <Divider />
                     <ListItem
                       secondaryAction={
                         <Typography
-                          variant="subtitle1"
+                          // variant="h5"
                           component="span"
-                          sx={{ display: "flex", alignItems: "center" }}
+                          className={classes.highLights}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
                         >
                           {number && userProfile.coin - lastPrice()}{" "}
                           <Icon
@@ -673,7 +695,11 @@ const Cart = (props) => {
                     >
                       <ListItemText
                         primary={
-                          <Typography varaint="subtitle1" component="span">
+                          <Typography
+                            // varaint="h5"
+                            component="span"
+                            className={classes.highLights}
+                          >
                             จำนวน Coin คงเหลือ
                           </Typography>
                         }

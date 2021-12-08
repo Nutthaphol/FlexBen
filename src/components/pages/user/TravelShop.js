@@ -33,18 +33,18 @@ const useStyles = makeStyles(() => ({
   root: {},
   filter: {
     padding: "10px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
   },
   main: {
     padding: "10px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     minHeight: "600px",
   },
   head: {
     padding: "20px",
-    boxShadow: "none",
+    boxShadow: "0 0 1px 1px D0D3D4",
     border: "1px solid #D0D3D4",
     display: "flex",
     alignItems: "center",
@@ -85,7 +85,7 @@ const TravelShop = () => {
           <Container maxWidth="none">
             <Grid container spacing={2} justifyContent="center">
               <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
-                <Paper className={classes.head} sx={{}}>
+                <Paper className={classes.head}>
                   <Typography variant="h4">Tourist Attraction</Typography>
                   <Box sx={{ flexGrow: 1 }} />
                   <TextField
@@ -143,51 +143,51 @@ const TravelShop = () => {
               )}
               <Grid item xl={10} lg={9}>
                 {travel && (
-                  <Paper className={classes.main}>
-                    <Grid container spacing={2}>
-                      {travel
-                        .filter(
-                          (item) => item.name.toLowerCase().search(search) != -1
-                        )
-                        .filter((val) => {
-                          if (checked.length != 0) {
-                            return checked.includes(val.category);
-                          } else {
-                            return true;
-                          }
-                        })
+                  // <Paper className={classes.main}>
+                  <Grid container spacing={6}>
+                    {travel
+                      .filter(
+                        (item) => item.name.toLowerCase().search(search) != -1
+                      )
+                      .filter((val) => {
+                        if (checked.length != 0) {
+                          return checked.includes(val.category);
+                        } else {
+                          return true;
+                        }
+                      })
 
-                        .map((val, index) => (
-                          <Grid
-                            item
-                            lg={4}
-                            xl={3}
-                            sx={{ position: "relative" }}
-                            key={index}
+                      .map((val, index) => (
+                        <Grid
+                          item
+                          lg={4}
+                          xl={3}
+                          sx={{ position: "relative" }}
+                          key={index}
+                        >
+                          <Box
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                              position: "relative",
+                            }}
                           >
-                            <Box
-                              sx={{
-                                width: "100%",
-                                height: "100%",
-                                position: "relative",
-                              }}
-                            >
-                              <ProductCard
-                                path="detailTravel"
-                                image={`${process.env.REACT_APP_URL}image/${val.image}`}
-                                head={val.highLights}
-                                price={val.price}
-                                name={val.name}
-                                id={val.id}
-                                rating={val.rating}
-                                count={val.count}
-                                type={val.type}
-                              />
-                            </Box>
-                          </Grid>
-                        ))}
-                    </Grid>
-                  </Paper>
+                            <ProductCard
+                              path="detailTravel"
+                              image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                              head={val.highLights}
+                              price={val.price}
+                              name={val.name}
+                              id={val.id}
+                              rating={val.rating}
+                              count={val.count}
+                              type={val.type}
+                            />
+                          </Box>
+                        </Grid>
+                      ))}
+                  </Grid>
+                  // </Paper>
                 )}
               </Grid>
             </Grid>
