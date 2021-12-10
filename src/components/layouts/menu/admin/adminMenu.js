@@ -16,9 +16,15 @@ const AdminMenu = () => {
   const dataListMenu = [
     {
       listItemIcon: <Article />,
-      listItemText: "add Order",
-      listLink: "/admin/FormOrder",
-      listKey: "FormOrder",
+      listItemText: "Add Item Lifestyle",
+      listLink: "/admin/FormLifeStyle",
+      listKey: "FormLifeStyle",
+    },
+    {
+      listItemIcon: <Article />,
+      listItemText: "Add Item Travel",
+      listLink: "/admin/FormTravel",
+      listKey: "FormTravel",
     },
   ];
 

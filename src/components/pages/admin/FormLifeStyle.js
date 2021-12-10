@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  Fragment,
+  useCallback,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -32,14 +38,20 @@ import {
   Clear,
   QueueOutlined,
   Remove,
+  AddAPhoto,
+  Image,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
 } from "@mui/icons-material";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { border, Box, width } from "@mui/system";
 import { getAllShopCategory } from "../../../actions/shopCategory";
+import "./index.css";
 
 import * as XLSX from "xlsx";
 import { getAllDelivery } from "../../../actions/delivery";
+import { useDropzone } from "react-dropzone";
 
 const theme = createTheme(Themplates);
 
@@ -58,6 +70,25 @@ const useStyles = makeStyles(() => ({
     fontSize: "24px",
     marginBottom: "24px",
     fontWeight: "400",
+  },
+  placeholder: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    address: "absolute",
+    alignItems: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+    color: "rgb(99, 115, 129)",
+    backgroundColor: "rgb(244, 246, 248)",
+    transition: "opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+  },
+  placeholderImageProfile: {
+    color: "rgb(255, 255, 255)",
+    backgroundColor: "rgba(22, 28, 36, .50)",
+  },
+  placeholderLabel: {
+    color: "rgb(255, 255, 255)",
   },
 }));
 
@@ -94,81 +125,6 @@ const deliveryType = [
   "R/2-R/3 Link",
 ];
 
-const columns: GridColDef[] = [
-  {
-    field: "name",
-    headerName: "Name",
-    width: 120,
-  },
-  {
-    field: "quantity",
-    headerName: "QTY",
-    width: 120,
-  },
-  {
-    field: "detail",
-    headerName: "Detail",
-    width: 120,
-  },
-  {
-    field: "category",
-    headerName: "Category",
-    width: 120,
-  },
-  {
-    field: "price",
-    headerName: "Price",
-    width: 120,
-  },
-  {
-    field: "discount",
-    headerName: "Discount",
-    width: 120,
-  },
-  {
-    field: "netPrice",
-    headerName: "Net price",
-    width: 120,
-  },
-  {
-    field: "warranty",
-    headerName: "Warranty",
-    width: 120,
-  },
-  {
-    field: "warrantyDetail",
-    headerName: "Warranty detail",
-    width: 120,
-  },
-  {
-    field: "deliveryType",
-    headerName: "Delivery type",
-    width: 120,
-  },
-  {
-    field: "deliveryTime",
-    headerName: "Delivery time",
-    width: 120,
-  },
-  {
-    field: "deliveryCost",
-    headerName: "Delivery cost",
-    width: 120,
-  },
-];
-
-// data.reduce(
-//   (prev, cur, index) =>
-//     prev +
-//     (cur.divisionNumber +
-//       cur.department.reduce(
-//         (prev2, cur2) =>
-//           prev2 +
-//           (cur2.departmentNumber +
-//             cur2.section.reduce((prev3, cur3) => prev3 + cur3.sectionNumber))
-//       ))
-// );
-
 const deliveryTime = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const deliveryCost = [0, 10, 20, 30, 40, 50, 60, 70];
 
@@ -182,12 +138,31 @@ const FormOrder = () => {
   const [order, setOrder] = useState({ ...strucOrder });
   const [data, setData] = useState();
   const [external, setExternal] = useState();
-  const [dialog, setDialog] = useState(false);
+  const [preview, setPreview] = useState(false);
+  const [imagePreview, setImagePreview] = useState();
+  const [files, setFiles] = useState([]);
 
   useEffect(() => {
     dispatch(getAllShopCategory());
     dispatch(getAllDelivery());
   }, []);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    let formData = new FormData();
+    acceptedFiles.map((file) => formData.append("image", file));
+    setFiles(
+      acceptedFiles.map((file) =>
+        Object.assign(file, { preview: URL.createObjectURL(file) })
+      )
+    );
+    // setUploads(acceptedFiles);
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: "image/jpeg, image/png",
+    onDrop,
+    maxFiles: 3,
+  });
 
   const onKeyDown = (keyEvent) => {
     if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
@@ -238,40 +213,124 @@ const FormOrder = () => {
           deliveryType: row["delivery type"],
           deliveryTime: row["delivery time"],
           deliveryCost: row["delivery cost"],
+          image1: row["image1"],
+          image2: row["image2"],
+          image3: row["image3"],
         };
       });
       file = null;
-      const perData: GridRowsProp = tmpData;
+      const perData = tmpData;
       setExternal(perData);
-      setDialog(true);
     });
-  };
-
-  const handleOnClose = () => {
-    setDialog(false);
-  };
-
-  const handleOnClickDialog = () => {
-    setDialog(true);
   };
 
   const handleOnClickClearFile = () => {
     setExternal(null);
   };
 
-  // const handleOnClickAddOrder = () => {
-  //   let order_ = [...order];
-  //   order_.push({ ...strucOrder });
-  //   order_[order_.length - 1].id = order_[order_.length - 2].id + 1;
+  const columns = [
+    {
+      field: "name",
+      headerName: "Name",
+      width: 120,
+    },
+    {
+      field: "quantity",
+      headerName: "QTY",
+      width: 120,
+    },
+    {
+      field: "detail",
+      headerName: "Detail",
+      width: 120,
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      width: 120,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      width: 120,
+    },
+    {
+      field: "discount",
+      headerName: "Discount",
+      width: 120,
+    },
+    {
+      field: "netPrice",
+      headerName: "Net price",
+      width: 120,
+    },
+    {
+      field: "warranty",
+      headerName: "Warranty",
+      width: 120,
+    },
+    {
+      field: "warrantyDetail",
+      headerName: "Warranty detail",
+      width: 120,
+    },
+    {
+      field: "deliveryType",
+      headerName: "Delivery type",
+      width: 120,
+    },
+    {
+      field: "deliveryTime",
+      headerName: "Delivery time",
+      width: 120,
+    },
+    {
+      field: "deliveryCost",
+      headerName: "Delivery cost",
+      width: 120,
+    },
+    {
+      field: "image",
+      headerName: "Image",
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
 
-  //   setOrder(order_);
-  // };
-  // const handleOnClickRemoveOrder = (index) => {
-  //   let order_ = [...order];
-  //   console.log("index", index);
-  //   order_.splice(index, 1);
-  //   setOrder(order_);
-  // };
+          const api: GridApi = params.api;
+          const thisRow: Record<string, GridCellValue> = {};
+
+          // c.field !== "__check__" &&
+          api
+            .getAllColumns()
+            .filter((c) => !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+
+          const tmp = params.id;
+
+          console.log("thisRow", thisRow);
+          console.log("tmp", tmp);
+
+          setImagePreview(params.id);
+          setPreview(true);
+        };
+
+        return (
+          <Button
+            onClick={onClick}
+            startIcon={<Image />}
+            color="warning"
+            variant="contained"
+            size="small"
+            sx={{ textTransform: "none" }}
+          >
+            See
+          </Button>
+        );
+      },
+    },
+  ];
 
   return (
     <div className={`page`}>
@@ -280,7 +339,7 @@ const FormOrder = () => {
           <Container maxWidth="xl">
             <Paper className={classes.root}>
               <Typography variant="h4" component="div" gutterBottom>
-                เพิ่มรายการสินค้า
+                เพิ่มรายการสินค้า Lifestyle
               </Typography>
               <Box
                 display="flex"
@@ -304,16 +363,6 @@ const FormOrder = () => {
                     }}
                   />
                 </Button>
-                {/* <Button
-                  startIcon={<Add />}
-                  component="label"
-                  variant="contained"
-                  // style={{ backgroundColor: "#1769aa" }}
-                  color="success"
-                  onClick={() => handleOnClickAddOrder()}
-                >
-                  Add Order
-                </Button> */}
               </Box>
               <br />
               <br />
@@ -366,6 +415,50 @@ const FormOrder = () => {
                       ลงทะเบียน
                     </Button>
                   </Box>
+                  <Dialog open={preview} onClose={() => setPreview(false)}>
+                    <DialogContent>
+                      {external && (
+                        <Grid
+                          container
+                          spacing={2}
+                          display="flex"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                            <img
+                              style={{ maxWidth: "200px", height: "100%" }}
+                              src={external
+                                .filter((item) => item.id == imagePreview)
+                                .map((e) => {
+                                  return e.image1;
+                                })}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                            <img
+                              style={{ maxWidth: "200px", height: "100%" }}
+                              src={external
+                                .filter((item) => item.id == imagePreview)
+                                .map((e) => {
+                                  return e.image2;
+                                })}
+                            />
+                          </Grid>
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                            <img
+                              style={{ maxWidth: "200px", height: "100%" }}
+                              src={external
+                                .filter((item) => item.id == imagePreview)
+                                .map((e) => {
+                                  return e.image3;
+                                })}
+                            />
+                          </Grid>
+                        </Grid>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                 </Box>
               ) : (
                 <Formik
@@ -402,23 +495,6 @@ const FormOrder = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        {/* <Grid item xs={12}>
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Button
-                            component="label"
-                            variant="contained"
-                            color="error"
-                            disabled={order.length <= 1 ? true : false}
-                            onClick={() => handleOnClickRemoveOrder(index)}
-                          >
-                            <Clear />
-                          </Button> 
-                    </Box>
-                  </Grid>*/}
                         <Grid item md={10}>
                           <Field
                             component={TextField}
@@ -495,13 +571,6 @@ const FormOrder = () => {
                           </Box>
                         </Grid>
                         <Grid item md={12}>
-                          {/* <Typography
-                      className={classes.typography}
-                      variant="p"
-                      component="div"
-                    >
-                      รายละเอียดสินค้า
-                    </Typography> */}
                           <Field
                             name={`detail`}
                             component={TextField}
@@ -721,6 +790,7 @@ const FormOrder = () => {
                               delivery.map((val, index) => (
                                 <MenuItem key={index} value={val.id}>
                                   {val.name}
+                                  {console.log("val", val)}
                                 </MenuItem>
                               ))}
                           </Field>
@@ -763,6 +833,59 @@ const FormOrder = () => {
                         </Grid>
                       </Grid>
                       <br />
+                      <Divider />
+                      <br />
+                      <Typography className={classes.typography}>
+                        อัพโหลดรูปภาพ
+                      </Typography>
+                      <Grid container spacing={6}>
+                        <Grid item lg={6}>
+                          <Box>
+                            <Box {...getRootProps({ className: "dropzone" })}>
+                              <Box className="inner-dropzone">
+                                <input {...getInputProps()} />
+                                <div
+                                  className={`placeholder ${
+                                    classes.placeholder
+                                  } ${
+                                    files.length != 0 &&
+                                    classes.placeholderImageProfile
+                                  }`}
+                                >
+                                  <AddAPhoto />
+                                  <Typography
+                                    style={{
+                                      marginTop: 8,
+                                      backgroundColor: "transparent",
+                                    }}
+                                    className={`${
+                                      files != 0 && classes.placeholderLabel
+                                    }`}
+                                    variant="body2"
+                                  >
+                                    Upload Photo
+                                  </Typography>
+                                </div>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </Grid>
+                        <Grid item lg={6}>
+                          <Grid container spacing={2}>
+                            {/* {thumbs} */}
+                            {files.map((file) => (
+                              <Grid item>
+                                <img
+                                  key={file.name}
+                                  src={file.preview}
+                                  className={classes.uploadImage}
+                                  height="144px"
+                                />
+                              </Grid>
+                            ))}
+                          </Grid>
+                        </Grid>
+                      </Grid>
                       <br />
                       <Box display="flex" justifyContent="flex-end">
                         <Button
@@ -784,13 +907,6 @@ const FormOrder = () => {
                 </Formik>
               )}
             </Paper>
-
-            {/* <Dialog open={dialog} onClose={() => handleOnClose()}>
-              <DialogTitle>Data imported</DialogTitle>
-              <DialogContent sx={{ width: "700px", midheight: "300px" }}>
-                <DataGrid columns={columns} rows={external} />
-              </DialogContent>
-            </Dialog> */}
           </Container>
         </ThemeProvider>
       </StyledEngineProvider>

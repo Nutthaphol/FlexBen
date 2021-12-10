@@ -13,5 +13,6 @@ db.review = require("../models/review.model");
 db.travel = require("../models/travel.model");
 db.history = require("../models/history.model");
 db.delivery = require("../models/delivery.model");
+db.facilities = require("../models/facilities.model");
 
 module.exports = db;

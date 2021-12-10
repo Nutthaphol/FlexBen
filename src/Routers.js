@@ -18,7 +18,8 @@ import TravelShop from "./components/pages/user/TravelShop";
 import DetailTravel from "./components/pages/user/DetailTravel";
 import Cart from "./components/pages/user/Cart";
 import History from "./components/pages/user/History";
-import FormOrder from "./components/pages/admin/FormOrder";
+import FormLifeStyle from "./components/pages/admin/FormLifeStyle";
+import FormTravel from "./components/pages/admin/FormTravel";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -126,7 +127,12 @@ function Routers() {
         <UserRoute exact path="/cart" component={Cart} />
         <UserRoute exact path="/history" component={History} />
 
-        <AdminRoute exact path="/admin/FormOrder" component={FormOrder} />
+        <AdminRoute
+          exact
+          path="/admin/FormLifeStyle"
+          component={FormLifeStyle}
+        />
+        <AdminRoute exact path="/admin/FormTravel" component={FormTravel} />
       </Switch>
     </Container>
   );

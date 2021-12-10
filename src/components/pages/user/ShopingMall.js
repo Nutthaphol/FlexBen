@@ -155,7 +155,6 @@ const ShopingMall = () => {
                           return true;
                         }
                       })
-
                       .map((val, index) => (
                         <Grid
                           item
