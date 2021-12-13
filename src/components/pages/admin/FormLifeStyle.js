@@ -42,6 +42,7 @@ import {
   Image,
   KeyboardArrowLeft,
   KeyboardArrowRight,
+  CancelRounded,
 } from "@mui/icons-material";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Field, FieldArray, Form, Formik } from "formik";
@@ -128,7 +129,7 @@ const deliveryType = [
 const deliveryTime = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const deliveryCost = [0, 10, 20, 30, 40, 50, 60, 70];
 
-const FormOrder = () => {
+const FormLifeStyle = () => {
   const classes = useStyles();
   const formRef = useRef();
   const dispatch = useDispatch();
@@ -193,7 +194,7 @@ const FormOrder = () => {
       };
     });
     promise.then((data) => {
-      const tmpData = data.map((row, index) => {
+      const perData = data.map((row, index) => {
         console.log("row", row);
         return {
           id: index + 1,
@@ -219,7 +220,6 @@ const FormOrder = () => {
         };
       });
       file = null;
-      const perData = tmpData;
       setExternal(perData);
     });
   };
@@ -296,8 +296,10 @@ const FormOrder = () => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
 
-          const api: GridApi = params.api;
-          const thisRow: Record<string, GridCellValue> = {};
+          const api = params.api;
+          const thisRow = {};
+          // const api: GridApi = params.api;
+          // const thisRow: Record<string, GridCellValue> = {};
 
           // c.field !== "__check__" &&
           api
@@ -878,7 +880,8 @@ const FormOrder = () => {
                                 <img
                                   key={file.name}
                                   src={file.preview}
-                                  className={classes.uploadImage}
+                                  // className={classes.uploadImage}
+                                  sx={{ position: "absolute" }}
                                   height="144px"
                                 />
                               </Grid>
@@ -914,4 +917,4 @@ const FormOrder = () => {
   );
 };
 
-export default FormOrder;
+export default FormLifeStyle;

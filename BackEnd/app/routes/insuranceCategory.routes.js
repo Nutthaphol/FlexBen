@@ -1,5 +1,5 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/shopCategory.controller");
+const controller = require("../controllers/insuranceCategory.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -11,8 +11,8 @@ module.exports = function (app) {
   });
 
   app.get(
-    "/api/shopCategory",
+    "/api/insuranceCategory",
     [authJwt.verifyToken],
-    controller.allShopCategory
+    controller.allInsuranceCategory
   );
 };

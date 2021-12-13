@@ -29,7 +29,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  Icon,
 } from "@mui/material";
 import { Select, SimpleFileUpload, Switch, TextField } from "formik-mui";
 import {
@@ -43,6 +42,7 @@ import {
   Image,
   KeyboardArrowLeft,
   KeyboardArrowRight,
+  CancelRounded,
   Close,
 } from "@mui/icons-material";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
@@ -50,12 +50,11 @@ import { Field, FieldArray, Form, Formik } from "formik";
 import { border, Box, width } from "@mui/system";
 import { getAllShopCategory } from "../../../actions/shopCategory";
 import "./index.css";
+
 import * as XLSX from "xlsx";
 import { getAllDelivery } from "../../../actions/delivery";
 import { useDropzone } from "react-dropzone";
-import { getAllTravelCategory } from "../../../actions/travelCategory";
-import { green } from "@mui/material/colors";
-import { getAllFacilities } from "../../../actions/facilities";
+import { getAllInsuranceCategory } from "../../../actions/insuranceCategory";
 
 const theme = createTheme(Themplates);
 
@@ -96,47 +95,36 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const dataStruc = {
+const strucInsurance = {
   name: "",
-  quantity: 0,
+  company: "",
   detail: "",
   category: "",
-  // roomSpace: {
-  //   size: "",
-  //   subroom: "",
-  // },
-  facilities: [],
-  location: {
-    houseNO: "",
-    road: "",
-    subDistrict: "",
-    district: "",
-    province: "",
-    code: "",
-  },
-  nearby: [""],
+  protection: [""],
+  protectionPeriod: "",
   price: 0,
   discount: 0,
   netPrice: 0,
 };
 
-const FormTravel = () => {
+const period = [1, 3, 5, 7, 10, 15, 20, 30];
+
+const FormInsurance = () => {
   const classes = useStyles();
   const formRef = useRef();
   const dispatch = useDispatch();
 
-  const { result: category } = useSelector((state) => state.travelCategory);
-  const { result: facilities } = useSelector((state) => state.facilities);
+  const { result: category } = useSelector((state) => state.insuranceCategory);
 
+  const [preview, setPreview] = useState(false);
+  const [imagePreview, setImagePreview] = useState();
   const [files, setFiles] = useState([]);
   const [external, setExternal] = useState();
-  const [room, setRoom] = useState({ ...dataStruc });
-  const [imagePreview, setImagePreview] = useState();
-  const [preview, setPreview] = useState(false);
+  const [insurance, setInsurance] = useState({ ...strucInsurance });
+  const [data, setData] = useState();
 
   useEffect(() => {
-    dispatch(getAllTravelCategory());
-    dispatch(getAllFacilities());
+    dispatch(getAllInsuranceCategory());
   }, []);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -150,25 +138,14 @@ const FormTravel = () => {
     // setUploads(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: "image/jpeg, image/png",
     onDrop,
     maxFiles: 3,
   });
 
-  const onKeyDown = (keyEvent) => {
-    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-      keyEvent.preventDefault();
-    }
-  };
-
-  const removeIcon = (
-    <IconButton>
-      <Remove />
-    </IconButton>
-  );
-
   const handleImportFile = (file) => {
+    console.log(file);
     setExternal(null);
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -189,22 +166,18 @@ const FormTravel = () => {
         reject(error);
       };
     });
-
     promise.then((data) => {
-      const preData = data.map((row, index) => {
+      const perData = data.map((row, index) => {
+        console.log("row", row);
         return {
           id: index + 1,
           name: row["name"],
-          quantity: row["quantity"],
+          company: row["company"],
           detail: row["detail"],
-          category:
-            category &&
-            category.find((item) => item.id == row["category"]).name,
-          facilities: row["facilities"].split(",").map((e) => {
-            return facilities && facilities.find((item) => item.id == e).name;
-          }),
-          location: row["location"],
-          nearby: row["nearby"],
+          category: category
+            ? category.find((item) => item.name == row["category"]).id
+            : row["category"],
+          protection: row["protection"].split(","),
           price: row["price"],
           discount: row["discount"],
           netPrice: row["netPrice"],
@@ -214,12 +187,18 @@ const FormTravel = () => {
         };
       });
       file = null;
-      setExternal(preData);
+      setExternal(perData);
     });
   };
 
   const handleOnClickClearFile = () => {
     setExternal(null);
+  };
+
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
   };
 
   const columns = [
@@ -229,8 +208,8 @@ const FormTravel = () => {
       width: 120,
     },
     {
-      field: "quantity",
-      headerName: "จำนวน",
+      field: "company",
+      headerName: "บริษัท",
       width: 120,
     },
     {
@@ -244,18 +223,13 @@ const FormTravel = () => {
       width: 120,
     },
     {
-      field: "facilities",
-      headerName: "สิ่งอำนวยความสะดวก",
+      field: "protection",
+      headerName: "การคุมครอง",
       width: 120,
     },
     {
-      field: "location",
-      headerName: "ที่ตั้ง",
-      width: 120,
-    },
-    {
-      field: "nearby",
-      headerName: "สถานที่ใกล้เคียง",
+      field: "protectionPeriod",
+      headerName: "ระยะเวลาคุ้มครอง",
       width: 120,
     },
     {
@@ -279,12 +253,10 @@ const FormTravel = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-
           const api = params.api;
           const thisRow = {};
-          // const api: GridApi = params.api;
-          // const thisRow: Record<string, GridCellValue> = {};
-
+          //   const api: GridApi = params.api;
+          //   const thisRow: Record<string, GridCellValue> = {};
           // c.field !== "__check__" &&
           api
             .getAllColumns()
@@ -292,16 +264,12 @@ const FormTravel = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           const tmp = params.id;
-
           console.log("thisRow", thisRow);
           console.log("tmp", tmp);
-
           setImagePreview(params.id);
           setPreview(true);
         };
-
         return (
           <Button
             onClick={onClick}
@@ -317,7 +285,6 @@ const FormTravel = () => {
       },
     },
   ];
-
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -325,7 +292,7 @@ const FormTravel = () => {
           <Container maxWidth="xl">
             <Paper className={classes.root}>
               <Typography variant="h4" component="div" gutterBottom>
-                เพิ่มรายการสินค้า Travel
+                เพิ่มรายการประกัน Insurance
               </Typography>
               <Box
                 display="flex"
@@ -447,7 +414,18 @@ const FormTravel = () => {
                   </Dialog>
                 </Box>
               ) : (
-                <Formik initialValues={room}>
+                <Formik
+                  initialValues={insurance}
+                  innerRef={formRef}
+                  enableReinitialize
+                  onSubmit={(values, setSubmitting) => {
+                    try {
+                      setData(values);
+                    } catch (error) {
+                      console.log("error form order ", error);
+                    }
+                  }}
+                >
                   {({
                     values,
                     errors,
@@ -459,9 +437,10 @@ const FormTravel = () => {
                     <Form autoComplete="off" onKeyDown={onKeyDown}>
                       <Typography
                         className={classes.typography}
+                        variant="p"
                         component="div"
                       >
-                        รายละเอียดที่พักและจำนวน
+                        รายละเอียด
                       </Typography>
                       <Grid
                         container
@@ -469,79 +448,23 @@ const FormTravel = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item md={10}>
+                        <Grid item md={8}>
                           <Field
                             component={TextField}
                             name={`name`}
+                            // size="small"
                             fullWidth
-                            label={`ชื่อที่พัก`}
+                            label={`ชื่อประกัน`}
                           />
                         </Grid>
-                        <Grid item md={2}>
-                          <Box
-                            sx={{
-                              // midwidth: "360px",
-                              width: "100%",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                border: "1px solid #D0D3D4",
-                                borderRadius: "4px",
-                                width: "100%",
-                                height: "56px",
-                              }}
-                            >
-                              <IconButton
-                                name="quantity"
-                                sx={{
-                                  borderRight: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                disabled={values.quantity <= 0 ? true : false}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity - 1
-                                  );
-                                }}
-                              >
-                                <Remove />
-                              </IconButton>
-                              <Typography
-                                variant="p"
-                                component="div"
-                                sx={{
-                                  minWidth: "80px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                {values.quantity}
-                              </Typography>
-                              <IconButton
-                                name={`quantity`}
-                                sx={{
-                                  borderLeft: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity + 1
-                                  );
-                                }}
-                              >
-                                <Add />
-                              </IconButton>
-                            </Box>
-                          </Box>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`company`}
+                            // size="small"
+                            fullWidth
+                            label={`บริษัท`}
+                          />
                         </Grid>
                         <Grid item md={12}>
                           <Field
@@ -550,7 +473,7 @@ const FormTravel = () => {
                             fullWidth
                             multiline
                             rows={2}
-                            label={`รายละเอียด`}
+                            label={`รายละเอียดสินค้า`}
                           />
                         </Grid>
                       </Grid>
@@ -559,6 +482,7 @@ const FormTravel = () => {
                       <br />
                       <Typography
                         className={classes.typography}
+                        variant="p"
                         component="div"
                         gutterBottom
                       >
@@ -571,8 +495,9 @@ const FormTravel = () => {
                         justifyContent="center"
                       >
                         {category &&
-                          category.map((item, index) => (
-                            <Grid item key={index}>
+                          // console.log("category", category) &&
+                          category.map((item, index2) => (
+                            <Grid item key={index2}>
                               <Box
                                 sx={{
                                   display: "flex",
@@ -641,263 +566,28 @@ const FormTravel = () => {
                       <br />
                       <Divider />
                       <br />
-                      {/* <Typography
-                        className={classes.typography}
-                        component="div"
-                      >
-                        ขนาดและยูนิต
-                      </Typography>
-                      <Grid container spacing={2}>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            fullWidth
-                            name={`roomSpace.size`}
-                            label={`ขนาด`}
-                            type="number"
-                          />
-                        </Grid>
-                        <Grid item md={8}>
-                          <Field
-                            component={TextField}
-                            fullWidth
-                            name={`roomSpace.subroom`}
-                            label={`ยูนิต`}
-                          />
-                        </Grid>
-                      </Grid>
-                      <br />
-                      <Divider />
-                      <br /> */}
-                      <FieldArray name={"facilities"}>
+                      <FieldArray name={"protection"}>
                         {({ push, remove }) => (
                           <Fragment>
                             <Typography
                               className={classes.typography}
                               component={`div`}
                             >
-                              สิ่งอำนวยความสะดวก
-                            </Typography>
-                            <Grid
-                              container
-                              spacing={2}
-                              alignItems={`center`}
-                              justifyContent={`center`}
-                            >
-                              {facilities &&
-                                facilities.map((item, index) => (
-                                  <Grid item key={index}>
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        minWidth: "240px",
-                                      }}
-                                    >
-                                      {values.facilities
-                                        .map((e) => {
-                                          return e.id;
-                                        })
-                                        .indexOf(item.id) != -1 ? (
-                                        <Card
-                                          sx={{
-                                            height: "60px",
-                                            //   maxWidth: "160px",
-                                            width: "100%",
-                                            borderRadius: "50px",
-                                            boxShadow:
-                                              "0px 0px 3px 3px #61CAFF",
-                                            // backgroundColor: "#B8E7FF",
-                                          }}
-                                        >
-                                          <CardActionArea
-                                            sx={{
-                                              textAlign: "center",
-                                              height: "100%",
-                                            }}
-                                            onClick={() =>
-                                              remove(
-                                                values.facilities
-                                                  .map((e) => {
-                                                    return e.id;
-                                                  })
-                                                  .indexOf(item.id)
-                                              )
-                                            }
-                                          >
-                                            <Typography
-                                              variant="h6"
-                                              component="div"
-                                            >
-                                              {item.name}
-                                            </Typography>
-                                            <Icon>
-                                              <img
-                                                src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
-                                                width={`100%`}
-                                              />
-                                            </Icon>
-                                          </CardActionArea>
-                                        </Card>
-                                      ) : (
-                                        <Card
-                                          sx={{
-                                            height: "60px",
-                                            //   maxWidth: "160px",
-                                            width: "100%",
-                                            borderRadius: "50px",
-                                            boxShadow:
-                                              "0px 0px 1px 1px #D0D3D4",
-                                          }}
-                                        >
-                                          <CardActionArea
-                                            sx={{
-                                              textAlign: "center",
-                                              height: "100%",
-                                            }}
-                                            onClick={() =>
-                                              push({ id: item.id })
-                                            }
-                                          >
-                                            <Typography
-                                              variant="h6"
-                                              component="div"
-                                            >
-                                              {item.name}
-                                            </Typography>
-                                            <Icon>
-                                              <img
-                                                src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
-                                                width={`100%`}
-                                              />
-                                            </Icon>
-                                          </CardActionArea>
-                                        </Card>
-                                      )}
-                                    </Box>
-                                  </Grid>
-                                ))}
-                              {/* {values.facilities.map((val, index) => (
-                                <Grid item md={4} key={index}>
-                                  <Field
-                                    component={TextField}
-                                    name={`facilities[${index}]`}
-                                    fullWidth
-                                    InputProps={{
-                                      endAdornment: (
-                                        <IconButton
-                                          color="error"
-                                          disabled={
-                                            values.facilities.length <= 1
-                                              ? true
-                                              : false
-                                          }
-                                          onClick={() => remove(index)}
-                                        >
-                                          <Close />
-                                        </IconButton>
-                                      ),
-                                    }}
-                                    label={`อันดับ (${index + 1})`}
-                                  />
-                                </Grid>
-                              ))} */}
-                              {/* <Grid item>
-                                <IconButton
-                                  color="success"
-                                  onClick={() => push("")}
-                                >
-                                  <Add fontSize="large" />
-                                </IconButton>
-                              </Grid> */}
-                            </Grid>
-                          </Fragment>
-                        )}
-                      </FieldArray>
-                      <br />
-                      <Divider />
-                      <br />
-                      <Typography
-                        className={classes.typography}
-                        component={`div`}
-                      >
-                        สถานที่ตั้ง
-                      </Typography>
-                      <Grid container spacing={2}>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.houseNO`}
-                            fullWidth
-                            label={`บ้านเลขที่`}
-                          />
-                        </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.road`}
-                            fullWidth
-                            label={`ถนน`}
-                          />
-                        </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.subDistrict`}
-                            fullWidth
-                            label={`ตำบล/แขวง`}
-                          />
-                        </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.district`}
-                            fullWidth
-                            label={`อำเภอ/เขต`}
-                          />
-                        </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.province`}
-                            fullWidth
-                            label={`จังหวัด`}
-                          />
-                        </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`location.code`}
-                            fullWidth
-                            label={`รหัสไปรษณีย์`}
-                          />
-                        </Grid>
-                      </Grid>
-                      <br />
-                      <Divider />
-                      <br />
-                      <FieldArray name={"nearby"}>
-                        {({ push, remove }) => (
-                          <Fragment>
-                            <Typography
-                              className={classes.typography}
-                              component={`div`}
-                            >
-                              สถานที่ใกล้เคียง
+                              สิทการคุ้มครอง
                             </Typography>
                             <Grid container spacing={2} alignItems={`center`}>
-                              {values.nearby.map((val, index) => (
+                              {values.protection.map((val, index) => (
                                 <Grid item md={4} key={index}>
                                   <Field
                                     component={TextField}
-                                    name={`nearby[${index}]`}
+                                    name={`protection[${index}]`}
                                     fullWidth
                                     InputProps={{
                                       endAdornment: (
                                         <IconButton
                                           color="error"
                                           disabled={
-                                            values.nearby.length <= 1
+                                            values.protection.length <= 1
                                               ? true
                                               : false
                                           }
@@ -907,7 +597,7 @@ const FormTravel = () => {
                                         </IconButton>
                                       ),
                                     }}
-                                    label={`สถานที่ที่ (${index + 1})`}
+                                    label={`การคุ้มครองที่ (${index + 1})`}
                                   />
                                 </Grid>
                               ))}
@@ -923,6 +613,37 @@ const FormTravel = () => {
                           </Fragment>
                         )}
                       </FieldArray>
+                      <br />
+                      <Divider />
+                      <br />
+                      <Typography
+                        className={classes.typography}
+                        variant="p"
+                        component="div"
+                        gutterBottom
+                      >
+                        ระยะเวลาคุ้มครอง
+                      </Typography>
+                      <Grid container spacing={2}>
+                        <Grid item xl={4}>
+                          <Field
+                            component={Select}
+                            formControl={{
+                              sx: { width: "100%", size: "small" },
+                            }}
+                            // size="small"
+                            name={`protectionPeriod`}
+                            label={`ระยะเวลาคุ้มครอง`}
+                          >
+                            {period &&
+                              period.map((val, index) => (
+                                <MenuItem key={index} value={val}>
+                                  {val}
+                                </MenuItem>
+                              ))}
+                          </Field>
+                        </Grid>
+                      </Grid>
                       <br />
                       <Divider />
                       <br />
@@ -1039,4 +760,4 @@ const FormTravel = () => {
   );
 };
 
-export default FormTravel;
+export default FormInsurance;

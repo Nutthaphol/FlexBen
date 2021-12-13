@@ -26,6 +26,12 @@ const AdminMenu = () => {
       listLink: "/admin/FormTravel",
       listKey: "FormTravel",
     },
+    {
+      listItemIcon: <Article />,
+      listItemText: "Add Item Insurance",
+      listLink: "/admin/FormInsurance",
+      listKey: "FormInsurance",
+    },
   ];
 
   return <ListMenu dataListMenu={dataListMenu} />;

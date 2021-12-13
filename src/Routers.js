@@ -20,6 +20,7 @@ import Cart from "./components/pages/user/Cart";
 import History from "./components/pages/user/History";
 import FormLifeStyle from "./components/pages/admin/FormLifeStyle";
 import FormTravel from "./components/pages/admin/FormTravel";
+import FormInsurance from "./components/pages/admin/FormInsurance";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -133,6 +134,11 @@ function Routers() {
           component={FormLifeStyle}
         />
         <AdminRoute exact path="/admin/FormTravel" component={FormTravel} />
+        <AdminRoute
+          exact
+          path="/admin/FormInsurance"
+          component={FormInsurance}
+        />
       </Switch>
     </Container>
   );

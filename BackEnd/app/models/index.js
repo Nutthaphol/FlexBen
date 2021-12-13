@@ -14,5 +14,6 @@ db.travel = require("../models/travel.model");
 db.history = require("../models/history.model");
 db.delivery = require("../models/delivery.model");
 db.facilities = require("../models/facilities.model");
+db.insuranceCategory = require("../models/insuranceCategory.model");
 
 module.exports = db;

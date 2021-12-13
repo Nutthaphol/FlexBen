@@ -41,6 +41,7 @@ require("./app/routes/travel.routes")(app);
 require("./app/routes/history.routes")(app);
 require("./app/routes/delivery.routes")(app);
 require("./app/routes/facilities.routes")(app);
+require("./app/routes/insuranceCategory.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
