@@ -113,6 +113,7 @@ const dataStruc = {
     district: "",
     province: "",
     code: "",
+    country: "",
   },
   nearby: [""],
   price: 0,
@@ -870,6 +871,14 @@ const FormTravel = () => {
                             name={`location.code`}
                             fullWidth
                             label={`รหัสไปรษณีย์`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.country`}
+                            fullWidth
+                            label={`ประเทศ`}
                           />
                         </Grid>
                       </Grid>

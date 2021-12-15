@@ -19,6 +19,8 @@ import {
   IconButton,
   Dialog,
   DialogContent,
+  Icon,
+  CardActionArea,
 } from "@mui/material";
 import { Box, width } from "@mui/system";
 import {
@@ -33,6 +35,7 @@ import Slider from "react-slick";
 import ShowImage from "../showImage/ShowImage";
 import { getAllDelivery } from "../../../../actions/delivery";
 import SlideArrow from "../slideArrow";
+import { getAllFacilities } from "../../../../actions/facilities";
 
 const theme = createTheme(Themplates);
 
@@ -54,13 +57,19 @@ const useStyles = makeStyles(() => ({
     marginTop: "1.5rem",
     borderColor: "#D0D3D4",
   },
+  headTyphography: {
+    fontSize: "24px",
+    marginBottom: "24px",
+    fontWeight: "400",
+  },
 }));
 
-const ItemData = ({ detail }) => {
+const TravelData = (props) => {
+  const { detail } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { result: delivery } = useSelector((state) => state.delivery);
+  const { result: facilities } = useSelector((state) => state.facilities);
 
   const [rating, setRating] = useState();
   const [open, setOpen] = useState(false);
@@ -69,7 +78,7 @@ const ItemData = ({ detail }) => {
   const [slide2, setSlide2] = useState(0);
 
   useEffect(async () => {
-    dispatch(getAllDelivery());
+    dispatch(getAllFacilities());
 
     if (rating == null) {
       const review = await reviewService.getAllReviews().then((response) => {
@@ -81,7 +90,7 @@ const ItemData = ({ detail }) => {
         let count = 0;
         if (review) {
           review
-            .filter((item) => item.type == "lifestyle")
+            .filter((item) => item.type == "travel")
             .map((item) => {
               rating = rating + item.rating;
               count++;
@@ -116,7 +125,6 @@ const ItemData = ({ detail }) => {
     nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
     prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
   };
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -159,8 +167,12 @@ const ItemData = ({ detail }) => {
           <br />
           <Divider />
           <br />
-          <Typography variant="h5" component="div">
-            {detail.name} ({detail.brand})
+          <Typography
+            variant="h5"
+            component="div"
+            className={classes.headTyphography}
+          >
+            {detail.name} ({detail.location.province})
           </Typography>
           <Typography variant="subtitle1" component="span">
             <Box component="span" margin="16px" />
@@ -170,72 +182,96 @@ const ItemData = ({ detail }) => {
           <br />
           <Divider />
           <br />
-          <Typography variant="h5" component="div">
-            การรับประกัน
+          <Typography
+            variant="h5"
+            component="div"
+            className={classes.headTyphography}
+          >
+            สิ่งอำนวนความสะดวก
           </Typography>
-          <Typography variant="subtitle1" component="span">
-            <Box component="span" margin="16px" />
-            {detail.warranty} ปี: {detail.warrantyDetail}
-          </Typography>
-          <br />
+          <Grid
+            container
+            spacing={2}
+            alignItems={`center`}
+            justifyContent={`center`}
+          >
+            {facilities &&
+              facilities.map((item, index) => (
+                <Grid item key={index}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "160px",
+                    }}
+                  >
+                    <Card
+                      sx={{
+                        height: "50px",
+                        //   maxWidth: "160px",
+                        width: "100%",
+                        borderRadius: "50px",
+                        boxShadow: "0px 0px 1px 1px #D0D3D4",
+                        // backgroundColor: "#B8E7FF",
+                        textAlign: "center",
+                        height: "100%",
+                      }}
+                    >
+                      <Typography
+                        variant="subtitle1"
+                        component="div"
+                        sx={{
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                          marginRight: "15px",
+                          marginLeft: "15px",
+                        }}
+                      >
+                        {item.name}
+                      </Typography>
+                      <Icon fontSize="small">
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
+                          width={`100%`}
+                        />
+                      </Icon>
+                    </Card>
+                  </Box>
+                </Grid>
+              ))}
+          </Grid>
           <br />
           <Divider />
           <br />
-          <Typography variant="h5" component="div">
-            การขนส่ง
+          <Typography
+            variant="h5"
+            component="div"
+            className={classes.headTyphography}
+          >
+            ที่อยู่
           </Typography>
           <Typography variant="subtitle1" component="div">
             <Box component="span" margin="16px" />
-            ระบบขนส่งแบบ{" "}
-            {delivery &&
-              delivery.find((item) => item.id == detail.deliveryType).name}
+            {detail.location.houseNO} ถนน{detail.location.road} ตำบล/แขวง
+            {detail.location.subDistrict} อำเภอ/เขต{detail.location.district}{" "}
+            จังหวัด{detail.location.province} {detail.location.code} <br />{" "}
           </Typography>
           <Typography variant="subtitle1" component="div">
             <Box component="span" margin="16px" />
-            ใช้ระยะเวลาในการส่ง {detail.deliveryTime} วัน
+            ประเทศ{detail.location.country}
           </Typography>
           <Typography variant="subtitle1" component="div">
             <Box component="span" margin="16px" />
-            ค่าจัดส่ง {detail.deliveryCost} Coin
+            สถานที่ใกล้เคียง:{" "}
+            {detail.nearby.map((val) => {
+              return val;
+            })}
           </Typography>
         </Paper>
-        <Dialog open={open} onClose={() => setOpen(false)}>
-          <DialogContent>
-            <Box sx={{ padding: "20px" }}>
-              {
-                <Slider
-                  {...settings2}
-                  style={{ display: "flex" }}
-                  ref={(slider) => slide2 == slider}
-                >
-                  {detail.image.map((val, index) => (
-                    <Fragment key={index}>
-                      <Box
-                        display="flex"
-                        justifyContent="center"
-                        sx={{
-                          cursor: "pointer",
-                          maxHeight: 500,
-                          overflow: "auto",
-                        }}
-                      >
-                        <img
-                          style={{ overflow: "auto" }}
-                          src={`${process.env.REACT_APP_URL}image/${val}`}
-                          height="100%"
-                        />
-                      </Box>
-                    </Fragment>
-                  ))}
-                </Slider>
-              }
-              <br />
-            </Box>
-          </DialogContent>
-        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );
 };
 
-export default ItemData;
+export default TravelData;

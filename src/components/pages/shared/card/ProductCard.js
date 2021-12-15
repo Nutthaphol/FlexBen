@@ -22,7 +22,8 @@ import {
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import reviewService from "../../../../services/review.service";
 import Themplates from "../theme";
 
 const theme = createTheme(Themplates);
@@ -57,7 +58,36 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProductCard = (props) => {
-  const { image, head, price, name, id, path, rating, count, type } = props;
+  const { image, head, price, name, id, path, count, type } = props;
+
+  const [rating, setRating] = useState();
+
+  useEffect(async () => {
+    if (rating == null) {
+      const review = await reviewService.getAllReviews().then((response) => {
+        return response.data;
+      });
+
+      const compRating = () => {
+        let rating = 0;
+        let count = 0;
+        if (review) {
+          review
+            .filter((item) => item.type == type)
+            .map((item) => {
+              rating = rating + item.rating;
+              count++;
+            });
+          rating = rating / count;
+        }
+        return rating.toFixed(2);
+      };
+
+      const avgRat = compRating();
+      setRating(avgRat);
+    }
+  }, [rating]);
+
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>

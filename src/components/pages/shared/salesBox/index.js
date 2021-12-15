@@ -246,8 +246,11 @@ const SalesBox = ({ detail, type }) => {
               ) : (
                 "$ "
               )}
-              {detail.deliveryCost +
-                count * (detail.price - (detail.price * detail.discount) / 100)}
+              {detail.deliveryCost
+                ? detail.deliveryCost
+                : 0 +
+                  count *
+                    (detail.price - (detail.price * detail.discount) / 100)}
             </Typography>
           </Box>
 
@@ -264,7 +267,12 @@ const SalesBox = ({ detail, type }) => {
             color="success"
           >
             Continue ($
-            {count * detail.price} )
+            {detail.deliveryCost
+              ? detail.deliveryCost
+              : 0 +
+                count *
+                  (detail.price - (detail.price * detail.discount) / 100)}{" "}
+            )
           </Button>
           <Dialog
             onClose={handleCloseOpen}

@@ -23,6 +23,7 @@ import ItemData from "../shared/dataDetail/ItemData";
 import travelService from "../../../services/travel.service";
 import Sticky from "react-stickynode";
 import Themplates from "../shared/theme";
+import TravelData from "../shared/dataDetail/TravelData";
 
 const theme = createTheme(Themplates);
 
@@ -68,7 +69,7 @@ const DetailTravel = (props) => {
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
                   {/* use conponent of item  */}
-                  <ItemData detail={detail} />
+                  <TravelData detail={detail} />
                   <br />
                   <ReviewsCard type={"travel"} />
                 </Grid>

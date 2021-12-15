@@ -100,7 +100,12 @@ const strucInsurance = {
   company: "",
   detail: "",
   category: "",
-  protection: [""],
+  protection: [
+    {
+      name: "",
+      condition: "",
+    },
+  ],
   protectionPeriod: "",
   price: 0,
   discount: 0,
@@ -169,15 +174,17 @@ const FormInsurance = () => {
     promise.then((data) => {
       const perData = data.map((row, index) => {
         console.log("row", row);
+
         return {
           id: index + 1,
           name: row["name"],
           company: row["company"],
           detail: row["detail"],
           category: category
-            ? category.find((item) => item.name == row["category"]).id
+            ? category.find((item) => item.id == row["category"]).name
             : row["category"],
           protection: row["protection"].split(","),
+          protectionPeriod: row["protectionPeriod"],
           price: row["price"],
           discount: row["discount"],
           netPrice: row["netPrice"],
@@ -224,8 +231,8 @@ const FormInsurance = () => {
     },
     {
       field: "protection",
-      headerName: "การคุมครอง",
-      width: 120,
+      headerName: "ความคุ้มครอง",
+      width: 360,
     },
     {
       field: "protectionPeriod",
@@ -577,38 +584,82 @@ const FormInsurance = () => {
                             </Typography>
                             <Grid container spacing={2} alignItems={`center`}>
                               {values.protection.map((val, index) => (
-                                <Grid item md={4} key={index}>
-                                  <Field
-                                    component={TextField}
-                                    name={`protection[${index}]`}
-                                    fullWidth
-                                    InputProps={{
-                                      endAdornment: (
-                                        <IconButton
-                                          color="error"
-                                          disabled={
-                                            values.protection.length <= 1
-                                              ? true
-                                              : false
-                                          }
-                                          onClick={() => remove(index)}
-                                        >
-                                          <Close />
-                                        </IconButton>
-                                      ),
-                                    }}
-                                    label={`การคุ้มครองที่ (${index + 1})`}
-                                  />
-                                </Grid>
+                                <Fragment key={index}>
+                                  <Grid item md={4}>
+                                    <Field
+                                      component={TextField}
+                                      name={`protection[${index}].name`}
+                                      fullWidth
+                                      // InputProps={{
+                                      //   endAdornment: (
+                                      //     <IconButton
+                                      //       color="error"
+                                      //       disabled={
+                                      //         values.protection.length <= 1
+                                      //           ? true
+                                      //           : false
+                                      //       }
+                                      //       onClick={() => remove(index)}
+                                      //     >
+                                      //       <Close />
+                                      //     </IconButton>
+                                      //   ),
+                                      // }}
+                                      label={`หัวข้อความคุมครองที่ (${
+                                        index + 1
+                                      })`}
+                                    />
+                                  </Grid>
+                                  <Grid item md={7}>
+                                    <Field
+                                      component={TextField}
+                                      name={`protection[${index}].condition`}
+                                      fullWidth
+                                      // InputProps={{
+                                      //   endAdornment: (
+                                      //     <IconButton
+                                      //       color="error"
+                                      //       disabled={
+                                      //         values.protection.length <= 1
+                                      //           ? true
+                                      //           : false
+                                      //       }
+                                      //       onClick={() => remove(index)}
+                                      //     >
+                                      //       <Close />
+                                      //     </IconButton>
+                                      //   ),
+                                      // }}
+                                      label={`เนื้อหาความคุ้มครองที่ (${
+                                        index + 1
+                                      })`}
+                                    />
+                                  </Grid>
+                                  <Grid item md={1}>
+                                    {index != values.protection.length - 1 ? (
+                                      <IconButton
+                                        color="error"
+                                        onClick={() => remove(index)}
+                                      >
+                                        <Close fontSize="large" />
+                                      </IconButton>
+                                    ) : (
+                                      <IconButton
+                                        color="success"
+                                        onClick={() =>
+                                          push({
+                                            name: "",
+                                            condition: "",
+                                          })
+                                        }
+                                      >
+                                        <Add fontSize="large" />
+                                      </IconButton>
+                                    )}
+                                  </Grid>
+                                </Fragment>
                               ))}
-                              <Grid item>
-                                <IconButton
-                                  color="success"
-                                  onClick={() => push("")}
-                                >
-                                  <Add fontSize="large" />
-                                </IconButton>
-                              </Grid>
+                              {/* <Grid item md={1}></Grid> */}
                             </Grid>
                           </Fragment>
                         )}
@@ -747,7 +798,7 @@ const FormInsurance = () => {
                           ลงทะเบียน
                         </Button>
                       </Box>
-                      {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
+                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>
