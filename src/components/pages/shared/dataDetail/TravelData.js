@@ -202,7 +202,7 @@ const TravelData = (props) => {
                     sx={{
                       display: "flex",
                       justifyContent: "center",
-                      width: "160px",
+                      width: "200px",
                     }}
                   >
                     <Card
@@ -264,11 +264,45 @@ const TravelData = (props) => {
           <Typography variant="subtitle1" component="div">
             <Box component="span" margin="16px" />
             สถานที่ใกล้เคียง:{" "}
-            {detail.nearby.map((val) => {
-              return val;
+            {detail.nearby.map((val, index) => {
+              return index == 0 ? val : ", " + val;
             })}
           </Typography>
         </Paper>
+        <Dialog open={open} onClose={() => setOpen(false)}>
+          <DialogContent>
+            <Box sx={{ padding: "20px" }}>
+              {
+                <Slider
+                  {...settings2}
+                  style={{ display: "flex" }}
+                  ref={(slider) => slide2 == slider}
+                >
+                  {detail.image.map((val, index) => (
+                    <Fragment key={index}>
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        sx={{
+                          cursor: "pointer",
+                          maxHeight: 500,
+                          overflow: "auto",
+                        }}
+                      >
+                        <img
+                          style={{ overflow: "auto" }}
+                          src={`${process.env.REACT_APP_URL}image/${val}`}
+                          height="100%"
+                        />
+                      </Box>
+                    </Fragment>
+                  ))}
+                </Slider>
+              }
+              <br />
+            </Box>
+          </DialogContent>
+        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );

@@ -65,7 +65,7 @@ const DetailInsurance = (props) => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           {detail && (
-            <Container maxWidth="lg" sx={{ display: "flex" }}>
+            <Container maxWidth="xl" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item md={8} xs={12}>
                   <InsuranceData detail={detail} />

@@ -103,12 +103,11 @@ const ListInsurance = () => {
                     <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
                       <ProductCard
                         path="detailInsurance"
-                        image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                        image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
                         head={val.highLights}
                         price={val.price}
                         name={val.name}
                         id={val.id}
-                        rating={val.rating}
                         count={val.count}
                         type={val.type}
                       />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 
 import {
   createTheme,
@@ -19,12 +19,24 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Paper,
+  Dialog,
+  DialogContent,
 } from "@mui/material";
 import { Box, display } from "@mui/system";
-import { Close, Done, DoneAll, Star } from "@mui/icons-material";
+import {
+  Close,
+  Done,
+  DoneAll,
+  Star,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+} from "@mui/icons-material";
 import { amber, green, red } from "@mui/material/colors";
 import Themplates from "../theme";
-
+import reviewService from "../../../../services/review.service";
+import Slider from "react-slick";
+import SlideArrow from "../slideArrow";
 const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,168 +60,187 @@ const useStyles = makeStyles(() => ({
 
 const InsuranceData = ({ detail }) => {
   const classes = useStyles();
+
+  const [slide1, setSlide1] = useState(0);
+  const [slide2, setSlide2] = useState(0);
+  const [rating, setRating] = useState();
+  const [open, setOpen] = useState(false);
+
+  useEffect(async () => {
+    if (rating == null) {
+      const review = await reviewService.getAllReviews().then((response) => {
+        return response.data;
+      });
+
+      const compRating = () => {
+        let rating = 0;
+        let count = 0;
+        if (review) {
+          review
+            .filter((item) => item.type == "lifestyle")
+            .map((item) => {
+              rating = rating + item.rating;
+              count++;
+            });
+          rating = rating / count;
+        }
+        return rating.toFixed(2);
+      };
+
+      const avgRat = compRating();
+      setRating(avgRat);
+    }
+  }, [rating]);
+
+  const settings1 = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    beforeChange: (current, next) => setSlide1(next),
+    afterChange: (current) => setSlide2(current),
+  };
+
+  const settings2 = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: slide1,
+    nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
+    prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
+  };
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Card className={classes.root}>
-          <CardContent>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Paper className={classes.root}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Typography variant={"h4"} sx={{ fontWeight: "700" }} gutterBottom>
+              {detail.name.toUpperCase()}
               <Typography
-                variant={"h4"}
+                variant={"h6"}
                 sx={{ fontWeight: "700" }}
-                gutterBottom
+                color="text.secondary"
+                component="div"
               >
-                {detail.name.toUpperCase()}
+                {detail.company}
               </Typography>
-              <Box sx={{ flexGrow: 1 }} />
-              <Typography variant="h5" gutterBottom>
-                <Grid container spacing={1}>
-                  <Grid item>
-                    <Star sx={{ color: amber[500] }} />
-                  </Grid>
-                  <Grid item>{detail.rating}</Grid>
-                </Grid>
-              </Typography>
-            </Box>
-            <CardMedia
-              className={classes.cardMedia}
-              component="img"
-              image={`${process.env.REACT_APP_URL}image/${detail.image}`}
-            />
-            <Box
-              sx={{ marginTop: "20px", marginBottom: "20px", width: "100%" }}
-              className={classes.divider}
-            >
-              <Divider sx={{ width: "100%" }} />
-            </Box>
-            <Typography variant="h5" sx={{ fontWeight: "700" }} gutterBottom>
-              {detail.highLights}
             </Typography>
-            <Typography variant="subtitle1">
-              {" "}
-              <span style={{ paddingLeft: "2.5rem" }} />
-              {detail.description}
-            </Typography>
-            <Typography variant="h5" gutterBottom sx={{ marginTop: "1rem" }}>
-              รายละเอียด
-            </Typography>
-            <List>
-              <ListItem>
-                <ListItemIcon>
-                  {detail.protection != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={detail.protection} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  {detail.maxCoverage != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={detail.maxCoverage} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  {detail.medicalExpenses != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={detail.medicalExpenses} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  {detail.reserve != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={detail.reserve} />
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  {detail.taxDeductible != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={detail.taxDeductible} />
-              </ListItem>
-            </List>
-            {/* <Typography variant="body2" sx={{ paddingLeft: "20px" }}>
-              <Grid container spacing={1} sx={{ padding: "! important" }}>
+            <Box sx={{ flexGrow: 1 }} />
+            <Typography variant="h5" gutterBottom>
+              <Grid container spacing={1}>
                 <Grid item>
-                  {detail.protection != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
+                  <Star sx={{ color: amber[500] }} />
                 </Grid>
-                <Grid item>คุ้มครอง​ : {detail.protection}</Grid>
-                <Box sx={{ width: "100%" }} />
-                <Grid item>
-                  {detail.maxCoverage != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </Grid>
-                <Grid item>ความคุ้มครองสูงสุด : {detail.maxCoverage}</Grid>
-                <Box sx={{ width: "100%" }} />
-                <Grid item>
-                  {detail.medicalExpenses != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </Grid>
-                <Grid item>ค่ารักษาพยาบาล : {detail.medicalExpenses}</Grid>
-                <Box sx={{ width: "100%" }} />
-                <Grid item>
-                  {detail.reserve != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </Grid>
-                <Grid item>สำรองจ่าย : {detail.reserve}</Grid>
-                <Box sx={{ width: "100%" }} />
-                <Grid item>
-                  {detail.taxDeductible != "No" ? (
-                    <DoneAll sx={{ color: green[500] }} />
-                  ) : (
-                    <Close sx={{ color: red[500] }} />
-                  )}
-                </Grid>
-                <Grid item>สำรองจ่าย : {detail.taxDeductible}</Grid>
+                <Grid item>{rating && rating}</Grid>
               </Grid>
-            </Typography> */}
-            <Typography
-              variant="h5"
-              gutterBottom
-              sx={{ marginTop: "1rem", display: "flex" }}
-            >
-              เว็บไซต์
             </Typography>
-            <Button
-              variant="outlined"
-              href={detail.site}
-              target="_blank"
-              size="small"
-            >
-              www.{detail.name.replace(/\s+/g, "_")}.com
+          </Box>
+          <Box sx={{ border: "1px solid #D0D3D4", padding: "20px" }}>
+            <Slider {...settings1} style={{ display: "flex" }}>
+              {detail.image.map((val, index) => (
+                <Fragment key={index}>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    sx={{ cursor: "pointer", maxHeight: 400 }}
+                    onClick={() => setOpen(true)}
+                  >
+                    <img
+                      style={{ overflow: "auto" }}
+                      src={`${process.env.REACT_APP_URL}image/${val}`}
+                      height={400}
+                    />
+                  </Box>
+                </Fragment>
+              ))}
+            </Slider>
+            <br />
+          </Box>
+          <br />
+          <Divider />
+          <br />
+          <Typography variant="h5" component="div">
+            {detail.name} จาก {detail.company}
+          </Typography>
+          <Typography variant="subtitle1" component="span">
+            <Box component="span" margin="16px" />
+            {detail.detail}
+          </Typography>
+          <br />
+          <br />
+          <Divider />
+          <br />
+          <Typography variant="h5" component="div">
+            ความคุ้มครอง
+          </Typography>
+          <List>
+            {detail.protection.map((val, index) => (
+              <ListItem key={index} secondaryAction={<i>{val.content} </i>}>
+                <b>{val.section}:</b>
+              </ListItem>
+            ))}
+          </List>
+          <br />
+          <Divider />
+          <br />
+          <Typography variant="h5" component="div">
+            เงื่อนไขความคุ้มครอง
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="span"
+            sx={{ display: "flex" }}
+          >
+            <Box component="span" margin="16px" />
+            ระเวลาในการคุ้มครองนาน {detail.protectionPeriod} ปี
+            <Box sx={{ flexGrow: 1 }} />
+            <Button variant="contained" href={detail.link} target="_blank">
+              คลิก เพื่อดูเงื่อนไขโดยละเอียด
             </Button>
-          </CardContent>
-        </Card>
+          </Typography>
+          <br />
+          <br />
+        </Paper>
+        <Dialog open={open} onClose={() => setOpen(false)}>
+          <DialogContent>
+            <Box sx={{ padding: "20px" }}>
+              {
+                <Slider
+                  {...settings2}
+                  style={{ display: "flex" }}
+                  ref={(slider) => slide2 == slider}
+                >
+                  {detail.image.map((val, index) => (
+                    <Fragment key={index}>
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        sx={{
+                          maxHeight: 500,
+                          overflow: "auto",
+                          height: "100%",
+                        }}
+                      >
+                        <img
+                          style={{ overflow: "auto" }}
+                          src={`${process.env.REACT_APP_URL}image/${val}`}
+                          height="100%"
+                        />
+                      </Box>
+                    </Fragment>
+                  ))}
+                </Slider>
+              }
+              <br />
+            </Box>
+          </DialogContent>
+        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );

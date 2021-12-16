@@ -143,7 +143,7 @@ const ShopingMall = () => {
               <Grid item xl={10} lg={9}>
                 {item && (
                   // <Paper className={classes.main}>
-                  <Grid container spacing={6}>
+                  <Grid container spacing={3}>
                     {item
                       .filter(
                         (val) => val.name.toLowerCase().search(search) != -1

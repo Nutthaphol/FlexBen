@@ -39,7 +39,7 @@
     "url-join": "^4.0.1",
     "web-vitals": "^1.0.1",
     "xlsx": "^0.17.4",
-    "yup": "^0.32.9"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

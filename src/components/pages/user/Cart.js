@@ -329,7 +329,7 @@ const Cart = (props) => {
                                         variant="rounded"
                                       >
                                         <img
-                                          src={`${process.env.REACT_APP_URL}image/${val.image}`}
+                                          src={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
                                           width="auto"
                                           height="100%"
                                         />
@@ -354,7 +354,9 @@ const Cart = (props) => {
                                             component="span"
                                             color="text.secondary"
                                           >
-                                            {val.highLights || val.brand}
+                                            {val.company ||
+                                              val.brand ||
+                                              val.location.province}
                                           </Typography>
                                         </Fragment>
                                       }

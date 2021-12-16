@@ -107,6 +107,7 @@ const strucInsurance = {
     },
   ],
   protectionPeriod: "",
+  link: "",
   price: 0,
   discount: 0,
   netPrice: 0,
@@ -185,6 +186,7 @@ const FormInsurance = () => {
             : row["category"],
           protection: row["protection"].split(","),
           protectionPeriod: row["protectionPeriod"],
+          link: row["link"],
           price: row["price"],
           discount: row["discount"],
           netPrice: row["netPrice"],
@@ -237,6 +239,11 @@ const FormInsurance = () => {
     {
       field: "protectionPeriod",
       headerName: "ระยะเวลาคุ้มครอง",
+      width: 120,
+    },
+    {
+      field: "link",
+      headerName: "เงื่อนไขความคุ้มครอง",
       width: 120,
     },
     {
@@ -580,7 +587,7 @@ const FormInsurance = () => {
                               className={classes.typography}
                               component={`div`}
                             >
-                              สิทการคุ้มครอง
+                              ความคุ้มครอง
                             </Typography>
                             <Grid container spacing={2} alignItems={`center`}>
                               {values.protection.map((val, index) => (
@@ -673,7 +680,7 @@ const FormInsurance = () => {
                         component="div"
                         gutterBottom
                       >
-                        ระยะเวลาคุ้มครอง
+                        ระยะเวลาและเงื่อนไขความคุ้มครอง
                       </Typography>
                       <Grid container spacing={2}>
                         <Grid item xl={4}>
@@ -685,6 +692,24 @@ const FormInsurance = () => {
                             // size="small"
                             name={`protectionPeriod`}
                             label={`ระยะเวลาคุ้มครอง`}
+                          >
+                            {period &&
+                              period.map((val, index) => (
+                                <MenuItem key={index} value={val}>
+                                  {val}
+                                </MenuItem>
+                              ))}
+                          </Field>
+                        </Grid>
+                        <Grid item xl={8}>
+                          <Field
+                            component={Select}
+                            formControl={{
+                              sx: { width: "100%", size: "small" },
+                            }}
+                            // size="small"
+                            name={`link`}
+                            label={`ลิงค์รายละเอียด`}
                           >
                             {period &&
                               period.map((val, index) => (

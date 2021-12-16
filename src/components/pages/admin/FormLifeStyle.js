@@ -53,6 +53,7 @@ import "./index.css";
 import * as XLSX from "xlsx";
 import { getAllDelivery } from "../../../actions/delivery";
 import { useDropzone } from "react-dropzone";
+import * as Yup from "yup";
 
 const theme = createTheme(Themplates);
 
@@ -334,6 +335,23 @@ const FormLifeStyle = () => {
     },
   ];
 
+  const validate = Yup.object().shape({
+    name: Yup.string().required("Please enter name"),
+    quantity: Yup.number().required().min(1),
+    detail: Yup.string().required("Please enter detail"),
+    category: Yup.number().required().min(1),
+    price: Yup.number().required().min(1),
+    discount: Yup.number().required(),
+    netPrice: Yup.number().required(),
+    brand: Yup.string().required("Please enter brand name"),
+    skuCode: Yup.string().required(),
+    warranty: Yup.number().required(),
+    warrantyDetail: Yup.string().required("Please enter warranty detail"),
+    deliveryType: Yup.string().required("Please enter delivery type"),
+    deliveryTime: Yup.number().required("Please enter delivery time"),
+    deliveryCost: Yup.number().required("Please enter delivery cost"),
+  });
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -427,7 +445,12 @@ const FormLifeStyle = () => {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                          <Grid
+                            item
+                            xs={12}
+                            xs={12}
+                            sx={{ textAlign: "center" }}
+                          >
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -437,7 +460,12 @@ const FormLifeStyle = () => {
                                 })}
                             />
                           </Grid>
-                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                          <Grid
+                            item
+                            xs={12}
+                            xs={12}
+                            sx={{ textAlign: "center" }}
+                          >
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -447,7 +475,12 @@ const FormLifeStyle = () => {
                                 })}
                             />
                           </Grid>
-                          <Grid item xs={12} sx={{ textAlign: "center" }}>
+                          <Grid
+                            item
+                            xs={12}
+                            xs={12}
+                            sx={{ textAlign: "center" }}
+                          >
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -465,6 +498,7 @@ const FormLifeStyle = () => {
               ) : (
                 <Formik
                   initialValues={order}
+                  validationSchema={validate}
                   innerRef={formRef}
                   enableReinitialize
                   onSubmit={(values, setSubmitting) => {
@@ -497,16 +531,15 @@ const FormLifeStyle = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item md={10}>
+                        <Grid item xs={12} sm={7} md={8} lg={10}>
                           <Field
                             component={TextField}
                             name={`name`}
-                            // size="small"
                             fullWidth
                             label={`ชื่อสินค้า`}
                           />
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={12} sm={5} md={4} lg={2}>
                           <Box
                             sx={{
                               // midwidth: "360px",
@@ -572,7 +605,7 @@ const FormLifeStyle = () => {
                             </Box>
                           </Box>
                         </Grid>
-                        <Grid item md={12}>
+                        <Grid item xs={12} md={12}>
                           <Field
                             name={`detail`}
                             component={TextField}
@@ -603,12 +636,20 @@ const FormLifeStyle = () => {
                         {category &&
                           // console.log("category", category) &&
                           category.map((item, index2) => (
-                            <Grid item key={index2}>
+                            <Grid
+                              item
+                              xl={2}
+                              lg={3}
+                              md={4}
+                              sm={6}
+                              xs={12}
+                              key={index2}
+                            >
                               <Box
                                 sx={{
                                   display: "flex",
                                   justifyContent: "center",
-                                  minWidth: "240px",
+                                  minWidth: "180px",
                                 }}
                               >
                                 {values.category == item.id ? (
@@ -680,7 +721,7 @@ const FormLifeStyle = () => {
                         ราคาและสต๊อก
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={TextField}
                             onChange={(e) => {
@@ -692,14 +733,13 @@ const FormLifeStyle = () => {
                               );
                             }}
                             name={`price`}
-                            // size="small"
                             fullWidth
                             type="number"
                             InputProps={{ inputProps: { min: 0 } }}
                             label={`ราคาสินค้าต่อชิ้น (Coin)`}
                           />
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={TextField}
                             onChange={(e) => {
@@ -711,38 +751,38 @@ const FormLifeStyle = () => {
                               );
                             }}
                             name={`discount`}
-                            // size="small"
                             fullWidth
                             type="number"
                             InputProps={{ inputProps: { min: 0 } }}
                             label={`ส่วนลด (%)`}
                           />
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={TextField}
                             name={`netPrice`}
                             value={values.netPrice}
                             // disabled
-                            // size="small"
+
                             fullWidth
                             label={`ราคาสุทธิ (Coin)`}
                           />
                         </Grid>
-                        <Grid item xl={8}>
+                        <Grid item xs={12} md={8}>
                           <Field
                             component={TextField}
                             name={`brand`}
                             fullWidth
                             label={`แบรนด์`}
-                            // size="small" fullWidth label={`Brand`}
+                            fullWidth
+                            label={`Brand`}
                           />
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={TextField}
                             name={`skuCode`}
-                            // size="small"
+                            // size="mdall"
                             fullWidth
                             label={`SKU Code`}
                           />
@@ -759,32 +799,29 @@ const FormLifeStyle = () => {
                         การรับประกันและการจัดส่ง
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xl={2}>
+                        <Grid item xs={12} md={2}>
                           <Field
                             component={TextField}
                             name={`warranty`}
-                            // size="small"
                             fullWidth
                             type="number"
                             label={`Warranty`}
                           />
                         </Grid>
-                        <Grid item xl={10}>
+                        <Grid item xs={12} md={10}>
                           <Field
                             component={TextField}
                             name={`warrantyDetail`}
-                            // size="small"
                             fullWidth
                             label={`Warranty Detail`}
                           />
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={Select}
                             formControl={{
                               sx: { width: "100%", size: "small" },
                             }}
-                            // size="small"
                             name={`deliveryType`}
                             label={`Delivery Type`}
                           >
@@ -797,13 +834,12 @@ const FormLifeStyle = () => {
                               ))}
                           </Field>
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={Select}
                             formControl={{
                               sx: { width: "100%", size: "small" },
                             }}
-                            // size="small"
                             name={`deliveryTime`}
                             label={`Delivery Time`}
                           >
@@ -815,13 +851,12 @@ const FormLifeStyle = () => {
                               ))}
                           </Field>
                         </Grid>
-                        <Grid item xl={4}>
+                        <Grid item xs={12} md={4}>
                           <Field
                             component={Select}
                             formControl={{
                               sx: { width: "100%", size: "small" },
                             }}
-                            // size="small"
                             name={`deliveryCost`}
                             label={`Delivery Cost`}
                           >
@@ -841,7 +876,7 @@ const FormLifeStyle = () => {
                         อัพโหลดรูปภาพ
                       </Typography>
                       <Grid container spacing={6}>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} lg={6}>
                           <Box>
                             <Box {...getRootProps({ className: "dropzone" })}>
                               <Box className="inner-dropzone">
@@ -872,11 +907,11 @@ const FormLifeStyle = () => {
                             </Box>
                           </Box>
                         </Grid>
-                        <Grid item lg={6}>
+                        <Grid item xs={12} lg={6}>
                           <Grid container spacing={2}>
                             {/* {thumbs} */}
                             {files.map((file) => (
-                              <Grid item>
+                              <Grid item xs={12}>
                                 <img
                                   key={file.name}
                                   src={file.preview}
@@ -904,7 +939,7 @@ const FormLifeStyle = () => {
                         </Button>
                       </Box>
 
-                      {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
+                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>

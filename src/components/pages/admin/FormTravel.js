@@ -32,6 +32,7 @@ import {
   Icon,
 } from "@mui/material";
 import { Select, SimpleFileUpload, Switch, TextField } from "formik-mui";
+import * as Yup from "yup";
 import {
   Add,
   Category,
@@ -319,6 +320,27 @@ const FormTravel = () => {
     },
   ];
 
+  const validate = Yup.object().shape({
+    name: Yup.string().required("Please enter name"),
+    quantity: Yup.number().required().min(1),
+    detail: Yup.string().required("Please enter detail"),
+    category: Yup.number().required().min(1),
+    price: Yup.number().required().min(1),
+    discount: Yup.number().required(),
+    netPrice: Yup.number().required(),
+    location: Yup.object().shape({
+      houseNO: Yup.string().required("Please enter houseNO"),
+      road: Yup.string().required("Please enter road"),
+      subDistrict: Yup.string().required("Please enter sub-district"),
+      district: Yup.string().required("Please enter district"),
+      province: Yup.string().required("Please enter province"),
+      code: Yup.string().required("Please enter code"),
+      country: Yup.string().required("Please enter country"),
+    }),
+    facilities: Yup.array().required().min(1),
+    nearby: Yup.array().required().min(1),
+  });
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -448,7 +470,7 @@ const FormTravel = () => {
                   </Dialog>
                 </Box>
               ) : (
-                <Formik initialValues={room}>
+                <Formik initialValues={room} validationSchema={validate}>
                   {({
                     values,
                     errors,
@@ -1035,7 +1057,7 @@ const FormTravel = () => {
                           ลงทะเบียน
                         </Button>
                       </Box>
-                      {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
+                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                     </Form>
                   )}
                 </Formik>
