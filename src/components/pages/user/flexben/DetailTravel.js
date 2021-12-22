@@ -17,13 +17,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import SalesBox from "../shared/salesBox";
-import ReviewsCard from "../shared/card/ReviewCard";
-import ItemData from "../shared/dataDetail/ItemData";
-import travelService from "../../../services/travel.service";
+import SalesBox from "../../shared/salesBox";
+import ReviewsCard from "../../shared/card/ReviewCard";
+import ItemData from "../../shared/dataDetail/ItemData";
+import travelService from "../../../../services/travel.service";
 import Sticky from "react-stickynode";
-import Themplates from "../shared/theme";
-import TravelData from "../shared/dataDetail/TravelData";
+import Themplates from "../../shared/theme";
+import TravelData from "../../shared/dataDetail/TravelData";
 
 const theme = createTheme(Themplates);
 

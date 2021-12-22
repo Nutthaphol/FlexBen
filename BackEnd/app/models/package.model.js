@@ -27,7 +27,7 @@ const Package = [
     price: 30000,
     rating: 4.5,
     count: 100,
-    image: "/package_/tmp.png",
+    image: ["/package_/tmp.png"],
   },
   {
     id: 11002,
@@ -57,7 +57,7 @@ const Package = [
     price: 25000,
     rating: 4.5,
     count: 100,
-    image: "/package_/tmp.png",
+    image: ["/package_/tmp.png"],
   },
   {
     id: 11003,
@@ -87,7 +87,7 @@ const Package = [
     price: 20000,
     rating: 4.5,
     count: 100,
-    image: "/package_/tmp.png",
+    image: ["/package_/tmp.png"],
   },
   {
     id: 11004,
@@ -118,7 +118,7 @@ const Package = [
     price: 18000,
     rating: 4.5,
     count: 100,
-    image: "/package_/tmp.png",
+    image: ["/package_/tmp.png"],
   },
 ];
 

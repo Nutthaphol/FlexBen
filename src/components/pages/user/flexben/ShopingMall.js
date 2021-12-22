@@ -21,20 +21,20 @@ import {
   Icon,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTravelCategory } from "../../../actions/travelCategory";
-import { getAllTravel } from "../../../actions/travel";
-import ProductCard from "../shared/card/ProductCard";
+import { getAllShopCategory } from "../../../../actions/shopCategory";
+import { getAllItem } from "../../../../actions/item";
+import ProductCard from "../../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
+
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {},
   filter: {
-    padding: "10px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   main: {
     padding: "10px",
@@ -43,27 +43,27 @@ const useStyles = makeStyles(() => ({
     minHeight: "600px",
   },
   head: {
-    padding: "20px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     display: "flex",
-    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  sectionText: {
+    fontWeight: 600,
   },
 }));
 
-const TravelShop = () => {
+const ShopingMall = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { result: travelCategory } = useSelector(
-    (state) => state.travelCategory
-  );
-  const { result: travel } = useSelector((state) => state.travel);
+  const { result: shopCategory } = useSelector((state) => state.shopCategory);
+  const { result: item } = useSelector((state) => state.item);
   const [checked, setChecked] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    dispatch(getAllTravelCategory());
-    dispatch(getAllTravel());
+    dispatch(getAllShopCategory());
+    dispatch(getAllItem());
   }, []);
 
   const handleToggle = (value) => () => {
@@ -86,7 +86,9 @@ const TravelShop = () => {
             <Grid container spacing={2} justifyContent="center">
               <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head}>
-                  <Typography variant="h4">Tourist Attraction</Typography>
+                  <Typography variant="h4" className={classes.sectionText}>
+                    Shopping Mall
+                  </Typography>
                   <Box sx={{ flexGrow: 1 }} />
                   <TextField
                     label="Search"
@@ -97,21 +99,21 @@ const TravelShop = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          <IconButton>
-                            <Icon>
-                              <Search />
-                            </Icon>
-                          </IconButton>
+                          {/* <IconButton> */}
+                          <Icon>
+                            <Search />
+                          </Icon>
+                          {/* </IconButton> */}
                         </InputAdornment>
                       ),
                     }}
                   />
                 </Paper>
               </Grid>
-              {travelCategory && (
+              {shopCategory && (
                 <Grid item xl={2} lg={3}>
                   <Paper className={classes.filter}>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" component="span" gutterBottom>
                       Category
                     </Typography>
                     <List
@@ -120,8 +122,8 @@ const TravelShop = () => {
                         width: "100%",
                       }}
                     >
-                      {travelCategory &&
-                        travelCategory.map((val, index) => (
+                      {shopCategory &&
+                        shopCategory.map((val, index) => (
                           <ListItem
                             key={index}
                             secondaryAction={
@@ -142,12 +144,12 @@ const TravelShop = () => {
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>
-                {travel && (
+                {item && (
                   // <Paper className={classes.main}>
-                  <Grid container spacing={6}>
-                    {travel
+                  <Grid container spacing={3}>
+                    {item
                       .filter(
-                        (item) => item.name.toLowerCase().search(search) != -1
+                        (val) => val.name.toLowerCase().search(search) != -1
                       )
                       .filter((val) => {
                         if (checked.length != 0) {
@@ -156,13 +158,12 @@ const TravelShop = () => {
                           return true;
                         }
                       })
-
                       .map((val, index) => (
                         <Grid
                           item
-                          lg={4}
                           xl={3}
-                          sx={{ position: "relative" }}
+                          lg={4}
+                          // sx={{ position: "relative" }}
                           key={index}
                         >
                           <Box
@@ -173,9 +174,9 @@ const TravelShop = () => {
                             }}
                           >
                             <ProductCard
-                              path="detailTravel"
+                              path="detailItem"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.highLights}
+                              head={val.brand}
                               price={val.price}
                               name={val.name}
                               id={val.id}
@@ -198,4 +199,4 @@ const TravelShop = () => {
   );
 };
 
-export default TravelShop;
+export default ShopingMall;

@@ -17,12 +17,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import SalesBox from "../shared/salesBox";
-import ReviewsCard from "../shared/card/ReviewCard";
-import itemService from "../../../services/item.service";
-import ItemData from "../shared/dataDetail/ItemData";
+import SalesBox from "../../shared/salesBox";
+import ReviewsCard from "../../shared/card/ReviewCard";
+import itemService from "../../../../services/item.service";
+import ItemData from "../../shared/dataDetail/ItemData";
 import Sticky from "react-stickynode";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({

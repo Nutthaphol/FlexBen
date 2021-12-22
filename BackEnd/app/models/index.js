@@ -15,5 +15,11 @@ db.history = require("../models/history.model");
 db.delivery = require("../models/delivery.model");
 db.facilities = require("../models/facilities.model");
 db.insuranceCategory = require("../models/insuranceCategory.model");
+db.Icons = require("../models/Icons.model");
+db.health = require("../models/health.model");
+db.healthCheck = require("../models/healthCheck.model");
+db.healthCheckCategory = require("../models/healthCheckCategory.model");
+db.rightTreatment = require("../models/rightTreatment.model");
+db.treatmentType = require("../models/treatmentType.model");
 
 module.exports = db;

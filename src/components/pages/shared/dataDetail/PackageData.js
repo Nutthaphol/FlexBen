@@ -109,7 +109,7 @@ const PackageData = (props) => {
           <CardMedia
             className={classes.cardMedia}
             component="img"
-            image={`${process.env.REACT_APP_URL}image/${detail.image}`}
+            image={`${process.env.REACT_APP_URL}image/${detail.image[0]}`}
           />
           <Box
             sx={{ marginTop: "20px", marginBottom: "20px", width: "100%" }}

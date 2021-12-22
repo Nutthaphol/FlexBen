@@ -4,6 +4,8 @@ const Themplates = {
   typography: {
     // fontFamily: "sukhumvit",
     fontFamily: [
+      "Open Sans",
+      "Roboto",
       "-apple-system",
       "BlinkMacSystemFont",
       '"Segoe UI"',
@@ -17,6 +19,11 @@ const Themplates = {
     ].join(","),
   },
   components: {
+    // MuiButton: {
+    //   "&:hover": {
+    //     background: "none",
+    //   },
+    // },
     // MuiCssBaseline: {
     //   styleOverrides: `
     //     @font-face {

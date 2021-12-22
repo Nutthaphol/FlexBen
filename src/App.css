@@ -50,14 +50,23 @@ html {
   padding-top: 100px;
   width: 100%;
 }
+
+.card {
+  box-shadow: rgb(3 0 71 / 9%) 0px 1px 3px;
+  padding: 1.25 rem;
+}
+
 .dashboard-page {
-  background-color: #0d1117;
-  color: #c9d1d9;
+  /* background-color: #0d1117;
+  color: #c9d1d9; */
+  background-color: rgb(3 0 71 / 9%) 0px 1px 3px;
 }
 
 body {
   /* background-color: #fbfcfa; */
-  background-color: #f6fcff;
+  /* background-color: #f6fcff; */
+  /* background-color: #fafafb; */
+  background-color: #f6f9fc;
   margin: 0;
 }
 

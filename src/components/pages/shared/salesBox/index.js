@@ -36,8 +36,8 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     height: "auto",
     padding: "1rem",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+
     // boxShadow:
     //   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },

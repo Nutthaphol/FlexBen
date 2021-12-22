@@ -16,6 +16,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Themplates from "../theme";
+import { useEffect } from "react";
 
 const theme = createTheme(Themplates);
 
@@ -42,6 +43,9 @@ const ListMenu = (props) => {
   const classes = useStyles();
   const [dataListMenu] = useState(props.dataListMenu);
   const [openCollapse, setOpenCollapse] = React.useState(-1);
+  // const [select, setSelect] = useState();
+
+  useEffect(() => {}, []);
 
   const handleClickCollapse = (index) => {
     if (openCollapse === index) {
@@ -49,6 +53,11 @@ const ListMenu = (props) => {
     } else {
       setOpenCollapse(index);
     }
+  };
+
+  const handleOnClickSelect = () => {
+    // const path = window.location.pathname;
+    // setSelect(path);
   };
 
   return (
@@ -88,11 +97,28 @@ const ListMenu = (props) => {
                                   : classes.nestedClose
                               }
                               activeclassname={classes.isActive}
+                              // selected={
+                              //   collapse.listLink == select ? true : false
+                              // }
                             >
                               <ListItemIcon>
                                 {collapse.listItemIcon}
                               </ListItemIcon>
-                              <ListItemText primary={collapse.listItemText} />
+                              <ListItemText
+                                primary={
+                                  <Typography
+                                    variant="subtitle1"
+                                    component="span"
+                                    sx={{
+                                      whiteSpace: "nowrap",
+                                      textOverflow: "ellipsis",
+                                      overflow: "hidden",
+                                    }}
+                                  >
+                                    {collapse.listItemText}
+                                  </Typography>
+                                }
+                              />
                             </ListItem>
                           );
                         })}
@@ -106,6 +132,7 @@ const ListMenu = (props) => {
                     button
                     key={value.listKey}
                     activeclassname={classes.isActive}
+                    // selected={value.listLink == select ? true : false}
                   >
                     <ListItemIcon>{value.listItemIcon}</ListItemIcon>
                     <ListItemText

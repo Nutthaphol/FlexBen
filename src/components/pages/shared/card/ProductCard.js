@@ -33,27 +33,43 @@ const useStyles = makeStyles(() => ({
     // margin: "1rem",
     // width: "100%",
     height: "auto",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    borderRadius: "16px",
   },
   coverMedia: {
+    position: "relative",
     display: "flex",
+    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    background: "#fff",
+    height: "16rem",
+    "&:hover": {
+      background: "none",
+    },
   },
   cardMedia: {
     height: "12rem",
-    width: "100%",
+    // padding: "1rem",
+    background: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   cardContent: {
     position: "relative",
     paddingBottom: 0,
+    borderBottom: "1px solid rgb(224, 224, 224)",
   },
   typograpphy: {
     fontWeight: "400",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
+  },
+  imageDisplay: {
+    textAlign: "center",
+    height: "100%",
+    width: "auto",
   },
 }));
 
@@ -95,11 +111,7 @@ const ProductCard = (props) => {
         <Card className={classes.root}>
           <CardActionArea href={`${path}/${id}`}>
             <Box className={classes.coverMedia}>
-              <CardMedia
-                className={classes.cardMedia}
-                component="img"
-                image={image}
-              />
+              <img src={`${image}`} className={classes.imageDisplay} />
             </Box>
           </CardActionArea>
           <CardContent className={classes.cardContent}>
@@ -108,7 +120,6 @@ const ProductCard = (props) => {
             </Typography>
             <Typography
               component="span"
-              // className={classes.typograpphy}
               sx={{
                 display: "-webkit-box",
                 overflow: "hidden",

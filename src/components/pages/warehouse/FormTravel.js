@@ -29,8 +29,10 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
+  Icon,
 } from "@mui/material";
 import { Select, SimpleFileUpload, Switch, TextField } from "formik-mui";
+import * as Yup from "yup";
 import {
   Add,
   Category,
@@ -42,7 +44,6 @@ import {
   Image,
   KeyboardArrowLeft,
   KeyboardArrowRight,
-  CancelRounded,
   Close,
 } from "@mui/icons-material";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
@@ -50,18 +51,18 @@ import { Field, FieldArray, Form, Formik } from "formik";
 import { border, Box, width } from "@mui/system";
 import { getAllShopCategory } from "../../../actions/shopCategory";
 import "./index.css";
-
 import * as XLSX from "xlsx";
 import { getAllDelivery } from "../../../actions/delivery";
 import { useDropzone } from "react-dropzone";
-import { getAllInsuranceCategory } from "../../../actions/insuranceCategory";
+import { getAllTravelCategory } from "../../../actions/travelCategory";
+import { green } from "@mui/material/colors";
+import { getAllFacilities } from "../../../actions/facilities";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "0 0 1px 1px #D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1.75rem",
   },
   catPaper: {
@@ -95,42 +96,48 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const strucInsurance = {
+const dataStruc = {
   name: "",
-  company: "",
+  quantity: 0,
   detail: "",
   category: "",
-  protection: [
-    {
-      name: "",
-      condition: "",
-    },
-  ],
-  protectionPeriod: "",
-  link: "",
+  // roomSpace: {
+  //   size: "",
+  //   subroom: "",
+  // },
+  facilities: [],
+  location: {
+    houseNO: "",
+    road: "",
+    subDistrict: "",
+    district: "",
+    province: "",
+    code: "",
+    country: "",
+  },
+  nearby: [""],
   price: 0,
   discount: 0,
   netPrice: 0,
 };
 
-const period = [1, 3, 5, 7, 10, 15, 20, 30];
-
-const FormInsurance = () => {
+const FormTravel = () => {
   const classes = useStyles();
   const formRef = useRef();
   const dispatch = useDispatch();
 
-  const { result: category } = useSelector((state) => state.insuranceCategory);
+  const { result: category } = useSelector((state) => state.travelCategory);
+  const { result: facilities } = useSelector((state) => state.facilities);
 
-  const [preview, setPreview] = useState(false);
-  const [imagePreview, setImagePreview] = useState();
   const [files, setFiles] = useState([]);
   const [external, setExternal] = useState();
-  const [insurance, setInsurance] = useState({ ...strucInsurance });
-  const [data, setData] = useState();
+  const [room, setRoom] = useState({ ...dataStruc });
+  const [imagePreview, setImagePreview] = useState();
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
-    dispatch(getAllInsuranceCategory());
+    dispatch(getAllTravelCategory());
+    dispatch(getAllFacilities());
   }, []);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -144,14 +151,25 @@ const FormInsurance = () => {
     // setUploads(acceptedFiles);
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: "image/jpeg, image/png",
     onDrop,
     maxFiles: 3,
   });
 
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  };
+
+  const removeIcon = (
+    <IconButton>
+      <Remove />
+    </IconButton>
+  );
+
   const handleImportFile = (file) => {
-    console.log(file);
     setExternal(null);
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -172,21 +190,22 @@ const FormInsurance = () => {
         reject(error);
       };
     });
-    promise.then((data) => {
-      const perData = data.map((row, index) => {
-        console.log("row", row);
 
+    promise.then((data) => {
+      const preData = data.map((row, index) => {
         return {
           id: index + 1,
           name: row["name"],
-          company: row["company"],
+          quantity: row["quantity"],
           detail: row["detail"],
-          category: category
-            ? category.find((item) => item.id == row["category"]).name
-            : row["category"],
-          protection: row["protection"].split(","),
-          protectionPeriod: row["protectionPeriod"],
-          link: row["link"],
+          category:
+            category &&
+            category.find((item) => item.id == row["category"]).name,
+          facilities: row["facilities"].split(",").map((e) => {
+            return facilities && facilities.find((item) => item.id == e).name;
+          }),
+          location: row["location"],
+          nearby: row["nearby"],
           price: row["price"],
           discount: row["discount"],
           netPrice: row["netPrice"],
@@ -196,18 +215,12 @@ const FormInsurance = () => {
         };
       });
       file = null;
-      setExternal(perData);
+      setExternal(preData);
     });
   };
 
   const handleOnClickClearFile = () => {
     setExternal(null);
-  };
-
-  const onKeyDown = (keyEvent) => {
-    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-      keyEvent.preventDefault();
-    }
   };
 
   const columns = [
@@ -217,8 +230,8 @@ const FormInsurance = () => {
       width: 120,
     },
     {
-      field: "company",
-      headerName: "บริษัท",
+      field: "quantity",
+      headerName: "จำนวน",
       width: 120,
     },
     {
@@ -232,18 +245,18 @@ const FormInsurance = () => {
       width: 120,
     },
     {
-      field: "protection",
-      headerName: "ความคุ้มครอง",
-      width: 360,
-    },
-    {
-      field: "protectionPeriod",
-      headerName: "ระยะเวลาคุ้มครอง",
+      field: "facilities",
+      headerName: "สิ่งอำนวยความสะดวก",
       width: 120,
     },
     {
-      field: "link",
-      headerName: "เงื่อนไขความคุ้มครอง",
+      field: "location",
+      headerName: "ที่ตั้ง",
+      width: 120,
+    },
+    {
+      field: "nearby",
+      headerName: "สถานที่ใกล้เคียง",
       width: 120,
     },
     {
@@ -267,10 +280,12 @@ const FormInsurance = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
+
           const api = params.api;
           const thisRow = {};
-          //   const api: GridApi = params.api;
-          //   const thisRow: Record<string, GridCellValue> = {};
+          // const api: GridApi = params.api;
+          // const thisRow: Record<string, GridCellValue> = {};
+
           // c.field !== "__check__" &&
           api
             .getAllColumns()
@@ -278,12 +293,16 @@ const FormInsurance = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
+
           const tmp = params.id;
+
           console.log("thisRow", thisRow);
           console.log("tmp", tmp);
+
           setImagePreview(params.id);
           setPreview(true);
         };
+
         return (
           <Button
             onClick={onClick}
@@ -299,6 +318,28 @@ const FormInsurance = () => {
       },
     },
   ];
+
+  const validate = Yup.object().shape({
+    name: Yup.string().required("Please enter name"),
+    quantity: Yup.number().required().min(1),
+    detail: Yup.string().required("Please enter detail"),
+    category: Yup.number().required().min(1),
+    price: Yup.number().required().min(1),
+    discount: Yup.number().required(),
+    netPrice: Yup.number().required(),
+    location: Yup.object().shape({
+      houseNO: Yup.string().required("Please enter houseNO"),
+      road: Yup.string().required("Please enter road"),
+      subDistrict: Yup.string().required("Please enter sub-district"),
+      district: Yup.string().required("Please enter district"),
+      province: Yup.string().required("Please enter province"),
+      code: Yup.string().required("Please enter code"),
+      country: Yup.string().required("Please enter country"),
+    }),
+    facilities: Yup.array().required().min(1),
+    nearby: Yup.array().required().min(1),
+  });
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -306,7 +347,7 @@ const FormInsurance = () => {
           <Container maxWidth="xl">
             <Paper className={classes.root}>
               <Typography variant="h4" component="div" gutterBottom>
-                เพิ่มรายการประกัน Insurance
+                เพิ่มรายการสินค้า Travel
               </Typography>
               <Box
                 display="flex"
@@ -428,18 +469,7 @@ const FormInsurance = () => {
                   </Dialog>
                 </Box>
               ) : (
-                <Formik
-                  initialValues={insurance}
-                  innerRef={formRef}
-                  enableReinitialize
-                  onSubmit={(values, setSubmitting) => {
-                    try {
-                      setData(values);
-                    } catch (error) {
-                      console.log("error form order ", error);
-                    }
-                  }}
-                >
+                <Formik initialValues={room} validationSchema={validate}>
                   {({
                     values,
                     errors,
@@ -451,10 +481,9 @@ const FormInsurance = () => {
                     <Form autoComplete="off" onKeyDown={onKeyDown}>
                       <Typography
                         className={classes.typography}
-                        variant="p"
                         component="div"
                       >
-                        รายละเอียด
+                        รายละเอียดที่พักและจำนวน
                       </Typography>
                       <Grid
                         container
@@ -462,23 +491,79 @@ const FormInsurance = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item md={8}>
+                        <Grid item md={10}>
                           <Field
                             component={TextField}
                             name={`name`}
-                            // size="small"
                             fullWidth
-                            label={`ชื่อประกัน`}
+                            label={`ชื่อที่พัก`}
                           />
                         </Grid>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            name={`company`}
-                            // size="small"
-                            fullWidth
-                            label={`บริษัท`}
-                          />
+                        <Grid item md={2}>
+                          <Box
+                            sx={{
+                              // midwidth: "360px",
+                              width: "100%",
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                border: "1px solid #D0D3D4",
+                                borderRadius: "4px",
+                                width: "100%",
+                                height: "56px",
+                              }}
+                            >
+                              <IconButton
+                                name="quantity"
+                                sx={{
+                                  borderRight: "1px solid #D0D3D4",
+                                  borderRadius: "0px",
+                                  height: "100%",
+                                }}
+                                disabled={values.quantity <= 0 ? true : false}
+                                onClick={() => {
+                                  setFieldValue(
+                                    `quantity`,
+                                    values.quantity - 1
+                                  );
+                                }}
+                              >
+                                <Remove />
+                              </IconButton>
+                              <Typography
+                                variant="p"
+                                component="div"
+                                sx={{
+                                  minWidth: "80px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                {values.quantity}
+                              </Typography>
+                              <IconButton
+                                name={`quantity`}
+                                sx={{
+                                  borderLeft: "1px solid #D0D3D4",
+                                  borderRadius: "0px",
+                                  height: "100%",
+                                }}
+                                onClick={() => {
+                                  setFieldValue(
+                                    `quantity`,
+                                    values.quantity + 1
+                                  );
+                                }}
+                              >
+                                <Add />
+                              </IconButton>
+                            </Box>
+                          </Box>
                         </Grid>
                         <Grid item md={12}>
                           <Field
@@ -487,7 +572,7 @@ const FormInsurance = () => {
                             fullWidth
                             multiline
                             rows={2}
-                            label={`รายละเอียดสินค้า`}
+                            label={`รายละเอียด`}
                           />
                         </Grid>
                       </Grid>
@@ -496,7 +581,6 @@ const FormInsurance = () => {
                       <br />
                       <Typography
                         className={classes.typography}
-                        variant="p"
                         component="div"
                         gutterBottom
                       >
@@ -509,9 +593,8 @@ const FormInsurance = () => {
                         justifyContent="center"
                       >
                         {category &&
-                          // console.log("category", category) &&
-                          category.map((item, index2) => (
-                            <Grid item key={index2}>
+                          category.map((item, index) => (
+                            <Grid item key={index}>
                               <Box
                                 sx={{
                                   display: "flex",
@@ -580,93 +663,175 @@ const FormInsurance = () => {
                       <br />
                       <Divider />
                       <br />
-                      <FieldArray name={"protection"}>
+                      {/* <Typography
+                        className={classes.typography}
+                        component="div"
+                      >
+                        ขนาดและยูนิต
+                      </Typography>
+                      <Grid container spacing={2}>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            fullWidth
+                            name={`roomSpace.size`}
+                            label={`ขนาด`}
+                            type="number"
+                          />
+                        </Grid>
+                        <Grid item md={8}>
+                          <Field
+                            component={TextField}
+                            fullWidth
+                            name={`roomSpace.subroom`}
+                            label={`ยูนิต`}
+                          />
+                        </Grid>
+                      </Grid>
+                      <br />
+                      <Divider />
+                      <br /> */}
+                      <FieldArray name={"facilities"}>
                         {({ push, remove }) => (
                           <Fragment>
                             <Typography
                               className={classes.typography}
                               component={`div`}
                             >
-                              ความคุ้มครอง
+                              สิ่งอำนวยความสะดวก
                             </Typography>
-                            <Grid container spacing={2} alignItems={`center`}>
-                              {values.protection.map((val, index) => (
-                                <Fragment key={index}>
-                                  <Grid item md={4}>
-                                    <Field
-                                      component={TextField}
-                                      name={`protection[${index}].name`}
-                                      fullWidth
-                                      // InputProps={{
-                                      //   endAdornment: (
-                                      //     <IconButton
-                                      //       color="error"
-                                      //       disabled={
-                                      //         values.protection.length <= 1
-                                      //           ? true
-                                      //           : false
-                                      //       }
-                                      //       onClick={() => remove(index)}
-                                      //     >
-                                      //       <Close />
-                                      //     </IconButton>
-                                      //   ),
-                                      // }}
-                                      label={`หัวข้อความคุมครองที่ (${
-                                        index + 1
-                                      })`}
-                                    />
+                            <Grid
+                              container
+                              spacing={2}
+                              alignItems={`center`}
+                              justifyContent={`center`}
+                            >
+                              {facilities &&
+                                facilities.map((item, index) => (
+                                  <Grid item key={index}>
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        minWidth: "240px",
+                                      }}
+                                    >
+                                      {values.facilities
+                                        .map((e) => {
+                                          return e.id;
+                                        })
+                                        .indexOf(item.id) != -1 ? (
+                                        <Card
+                                          sx={{
+                                            height: "60px",
+                                            //   maxWidth: "160px",
+                                            width: "100%",
+                                            borderRadius: "50px",
+                                            boxShadow:
+                                              "0px 0px 3px 3px #61CAFF",
+                                            // backgroundColor: "#B8E7FF",
+                                          }}
+                                        >
+                                          <CardActionArea
+                                            sx={{
+                                              textAlign: "center",
+                                              height: "100%",
+                                            }}
+                                            onClick={() =>
+                                              remove(
+                                                values.facilities
+                                                  .map((e) => {
+                                                    return e.id;
+                                                  })
+                                                  .indexOf(item.id)
+                                              )
+                                            }
+                                          >
+                                            <Typography
+                                              variant="h6"
+                                              component="div"
+                                            >
+                                              {item.name}
+                                            </Typography>
+                                            <Icon>
+                                              <img
+                                                src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
+                                                width={`100%`}
+                                              />
+                                            </Icon>
+                                          </CardActionArea>
+                                        </Card>
+                                      ) : (
+                                        <Card
+                                          sx={{
+                                            height: "60px",
+                                            //   maxWidth: "160px",
+                                            width: "100%",
+                                            borderRadius: "50px",
+                                            boxShadow:
+                                              "0px 0px 1px 1px #D0D3D4",
+                                          }}
+                                        >
+                                          <CardActionArea
+                                            sx={{
+                                              textAlign: "center",
+                                              height: "100%",
+                                            }}
+                                            onClick={() =>
+                                              push({ id: item.id })
+                                            }
+                                          >
+                                            <Typography
+                                              variant="h6"
+                                              component="div"
+                                            >
+                                              {item.name}
+                                            </Typography>
+                                            <Icon>
+                                              <img
+                                                src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
+                                                width={`100%`}
+                                              />
+                                            </Icon>
+                                          </CardActionArea>
+                                        </Card>
+                                      )}
+                                    </Box>
                                   </Grid>
-                                  <Grid item md={7}>
-                                    <Field
-                                      component={TextField}
-                                      name={`protection[${index}].condition`}
-                                      fullWidth
-                                      // InputProps={{
-                                      //   endAdornment: (
-                                      //     <IconButton
-                                      //       color="error"
-                                      //       disabled={
-                                      //         values.protection.length <= 1
-                                      //           ? true
-                                      //           : false
-                                      //       }
-                                      //       onClick={() => remove(index)}
-                                      //     >
-                                      //       <Close />
-                                      //     </IconButton>
-                                      //   ),
-                                      // }}
-                                      label={`เนื้อหาความคุ้มครองที่ (${
-                                        index + 1
-                                      })`}
-                                    />
-                                  </Grid>
-                                  <Grid item md={1}>
-                                    {index != values.protection.length - 1 ? (
-                                      <IconButton
-                                        color="error"
-                                        onClick={() => remove(index)}
-                                      >
-                                        <Close fontSize="large" />
-                                      </IconButton>
-                                    ) : (
-                                      <IconButton
-                                        color="success"
-                                        onClick={() =>
-                                          push({
-                                            name: "",
-                                            condition: "",
-                                          })
-                                        }
-                                      >
-                                        <Add fontSize="large" />
-                                      </IconButton>
-                                    )}
-                                  </Grid>
-                                </Fragment>
-                              ))}
-                              {/* <Grid item md={1}></Grid> */}
+                                ))}
+                              {/* {values.facilities.map((val, index) => (
+                                <Grid item md={4} key={index}>
+                                  <Field
+                                    component={TextField}
+                                    name={`facilities[${index}]`}
+                                    fullWidth
+                                    InputProps={{
+                                      endAdornment: (
+                                        <IconButton
+                                          color="error"
+                                          disabled={
+                                            values.facilities.length <= 1
+                                              ? true
+                                              : false
+                                          }
+                                          onClick={() => remove(index)}
+                                        >
+                                          <Close />
+                                        </IconButton>
+                                      ),
+                                    }}
+                                    label={`อันดับ (${index + 1})`}
+                                  />
+                                </Grid>
+                              ))} */}
+                              {/* <Grid item>
+                                <IconButton
+                                  color="success"
+                                  onClick={() => push("")}
+                                >
+                                  <Add fontSize="large" />
+                                </IconButton>
+                              </Grid> */}
                             </Grid>
                           </Fragment>
                         )}
@@ -676,50 +841,118 @@ const FormInsurance = () => {
                       <br />
                       <Typography
                         className={classes.typography}
-                        variant="p"
-                        component="div"
-                        gutterBottom
+                        component={`div`}
                       >
-                        ระยะเวลาและเงื่อนไขความคุ้มครอง
+                        สถานที่ตั้ง
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xl={4}>
+                        <Grid item md={4}>
                           <Field
-                            component={Select}
-                            formControl={{
-                              sx: { width: "100%", size: "small" },
-                            }}
-                            // size="small"
-                            name={`protectionPeriod`}
-                            label={`ระยะเวลาคุ้มครอง`}
-                          >
-                            {period &&
-                              period.map((val, index) => (
-                                <MenuItem key={index} value={val}>
-                                  {val}
-                                </MenuItem>
-                              ))}
-                          </Field>
+                            component={TextField}
+                            name={`location.houseNO`}
+                            fullWidth
+                            label={`บ้านเลขที่`}
+                          />
                         </Grid>
-                        <Grid item xl={8}>
+                        <Grid item md={4}>
                           <Field
-                            component={Select}
-                            formControl={{
-                              sx: { width: "100%", size: "small" },
-                            }}
-                            // size="small"
-                            name={`link`}
-                            label={`ลิงค์รายละเอียด`}
-                          >
-                            {period &&
-                              period.map((val, index) => (
-                                <MenuItem key={index} value={val}>
-                                  {val}
-                                </MenuItem>
-                              ))}
-                          </Field>
+                            component={TextField}
+                            name={`location.road`}
+                            fullWidth
+                            label={`ถนน`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.subDistrict`}
+                            fullWidth
+                            label={`ตำบล/แขวง`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.district`}
+                            fullWidth
+                            label={`อำเภอ/เขต`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.province`}
+                            fullWidth
+                            label={`จังหวัด`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.code`}
+                            fullWidth
+                            label={`รหัสไปรษณีย์`}
+                          />
+                        </Grid>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`location.country`}
+                            fullWidth
+                            label={`ประเทศ`}
+                          />
                         </Grid>
                       </Grid>
+                      <br />
+                      <Divider />
+                      <br />
+                      <FieldArray name={"nearby"}>
+                        {({ push, remove }) => (
+                          <Fragment>
+                            <Typography
+                              className={classes.typography}
+                              component={`div`}
+                            >
+                              สถานที่ใกล้เคียง
+                            </Typography>
+                            <Grid container spacing={2} alignItems={`center`}>
+                              {values.nearby.map((val, index) => (
+                                <Grid item md={4} key={index}>
+                                  <Field
+                                    component={TextField}
+                                    name={`nearby[${index}]`}
+                                    fullWidth
+                                    InputProps={{
+                                      endAdornment: (
+                                        <IconButton
+                                          color="error"
+                                          disabled={
+                                            values.nearby.length <= 1
+                                              ? true
+                                              : false
+                                          }
+                                          onClick={() => remove(index)}
+                                        >
+                                          <Close />
+                                        </IconButton>
+                                      ),
+                                    }}
+                                    label={`สถานที่ที่ (${index + 1})`}
+                                  />
+                                </Grid>
+                              ))}
+                              <Grid item>
+                                <IconButton
+                                  color="success"
+                                  onClick={() => push("")}
+                                >
+                                  <Add fontSize="large" />
+                                </IconButton>
+                              </Grid>
+                            </Grid>
+                          </Fragment>
+                        )}
+                      </FieldArray>
                       <br />
                       <Divider />
                       <br />
@@ -836,4 +1069,4 @@ const FormInsurance = () => {
   );
 };
 
-export default FormInsurance;
+export default FormTravel;

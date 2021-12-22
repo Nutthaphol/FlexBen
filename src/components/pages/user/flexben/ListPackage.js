@@ -14,39 +14,39 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import PackageCard from "../shared/card/PackageCard";
-import { getAllPackage } from "../../../actions/package";
+import PackageCard from "../../shared/card/PackageCard";
+import { getAllPackage } from "../../../../actions/package";
 import { Box } from "@mui/system";
-import { getAllInsurance } from "../../../actions/insurance";
-import ProductCard from "../shared/card/ProductCard";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: "10px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+  },
+  sectionText: {
+    fontWeight: 600,
   },
 }));
 
-const ListInsurance = () => {
+const ListPackage = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [search, setSearch] = useState(null);
   const [inputAC, setInputAC] = useState("");
-  const { result: allInsurance } = useSelector((state) => state.insurance);
+  const { result: allPackages } = useSelector((state) => state.package_);
 
   useEffect(() => {
-    dispatch(getAllInsurance());
+    dispatch(getAllPackage());
   }, []);
 
   const labelAutocomp = () => {
     let listLabel = [];
-    if (allInsurance) {
-      for (let i = 0; i < allInsurance.length; i++) {
-        const label = allInsurance[i].name;
+    if (allPackages) {
+      for (let i = 0; i < allPackages.length; i++) {
+        const label = allPackages[i].name;
         listLabel.push({ label: "Package " + label });
       }
     }
@@ -58,12 +58,12 @@ const ListInsurance = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="none">
-            <Paper className={classes.root} sx={{ display: "flex" }}>
-              <Typography
-                variant="h4"
-                sx={{ marginBottom: "20px", flexGrow: 1 }}
-              >
-                All Insurance
+            <Paper
+              className={classes.root}
+              sx={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <Typography variant="h4" className={classes.sectionText}>
+                Packages Shop
               </Typography>
               <Autocomplete
                 disablePortal
@@ -85,9 +85,9 @@ const ListInsurance = () => {
             <br />
             <br />
             {/* <Paper className={classes.root} sx={{ marginTop: "20px" }}> */}
-            <Grid container spacing={10}>
-              {allInsurance &&
-                allInsurance
+            <Grid container spacing={3}>
+              {allPackages &&
+                allPackages
                   .filter((item) => {
                     if (search != null) {
                       console.log("search ", search.label);
@@ -101,15 +101,17 @@ const ListInsurance = () => {
                   })
                   .map((val, index) => (
                     <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
-                      <ProductCard
-                        path="detailInsurance"
-                        image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                        head={val.highLights}
-                        price={val.price}
-                        name={val.name}
+                      <PackageCard
+                        path="detailPackage"
                         id={val.id}
+                        key={index}
+                        image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                        name={val.name}
+                        property={val.property}
                         count={val.count}
-                        type={val.type}
+                        price={val.price}
+                        class_={val.class}
+                        rating={val.rating}
                       />
                     </Grid>
                   ))}
@@ -122,4 +124,4 @@ const ListInsurance = () => {
   );
 };
 
-export default ListInsurance;
+export default ListPackage;

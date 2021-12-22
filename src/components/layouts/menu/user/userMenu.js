@@ -12,9 +12,17 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import PageviewIcon from "@mui/icons-material/Pageview";
 import HistoryIcon from "@mui/icons-material/History";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Backpack, LocalMall } from "@mui/icons-material";
+import {
+  Backpack,
+  Dashboard,
+  HealthAndSafety,
+  Inventory2,
+  LocalMall,
+  SelfImprovement,
+  Shop2,
+} from "@mui/icons-material";
 
-const UserMenu = () => {
+const UserMenu = ({ open }) => {
   const dataListMenu = [
     {
       listItemIcon: <HomeIcon />,
@@ -23,20 +31,54 @@ const UserMenu = () => {
       listKey: "home",
     },
     {
-      listItemIcon: <LocalMall />,
-      listItemText: "Shopping Mall",
-      listLink: "/shoppingMall",
-      listKey: "shoppingmall",
+      listItemIcon: <Shop2 />,
+      listItemText: "Shop",
+      listLink: "",
+      listKey: "Shop",
+      collapse: [
+        {
+          listItemIcon: <Inventory2 />,
+          listItemText: "Package Shop",
+          listLink: "/allPackages",
+          listKey: "allpackages",
+        },
+        {
+          listItemIcon: <SelfImprovement />,
+          listItemText: "Insurance Shop",
+          listLink: "/allInsurance",
+          listKey: "allinsurance",
+        },
+        {
+          listItemIcon: <LocalMall />,
+          listItemText: "Shopping Mall",
+          listLink: "/shoppingMall",
+          listKey: "shoppingmall",
+        },
+        {
+          listItemIcon: <Backpack />,
+          listItemText: "Travel Shop",
+          listLink: "/travelShop",
+          listKey: "travelShop",
+        },
+      ],
     },
     {
-      listItemIcon: <Backpack />,
-      listItemText: "Travel Shop",
-      listLink: "/travelShop",
-      listKey: "travelShop",
+      listItemIcon: <HealthAndSafety />,
+      listItemText: "Health",
+      listLink: "",
+      listKey: "health",
+      collapse: [
+        {
+          listItemIcon: <Dashboard />,
+          listItemText: "Dashboard",
+          listLink: "/health/Dashboard",
+          listKey: "healthDashboard",
+        },
+      ],
     },
   ];
 
-  return <ListMenu dataListMenu={dataListMenu} />;
+  return <ListMenu dataListMenu={dataListMenu} open={open} />;
 };
 
 export default UserMenu;

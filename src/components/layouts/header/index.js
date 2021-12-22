@@ -59,16 +59,19 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
   appBar: {
-    backgroundColor: amber["A700"],
+    backgroundColor: "#FFCD2E",
     zIndex: theme.zIndex.drawer + 1,
     right: 0,
+    boxShadow: "0px 2px 3px -1px rgb(0 0 0 / 20%)",
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    display: "flex",
+    justifyContent: "space-between",
   },
   appBarShift: {
-    backgroundColor: amber["A700"],
+    backgroundColor: "#FFCD2E",
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
@@ -78,6 +81,20 @@ const useStyles = makeStyles(() => ({
   },
   menuButton: {
     marginRight: 36,
+    "&:hover": {
+      background: "none",
+    },
+    "& .MuiSvgIcon-root:hover": {
+      color: "#e3f2fd",
+    },
+  },
+  menuProfile: {
+    "&:hover": {
+      background: "none",
+    },
+    "& .MuiAvatar-root:hover": {
+      boxShadow: "0 0 2px 2px #e3f2fd",
+    },
   },
   hide: {
     display: "none",
@@ -108,8 +125,8 @@ const useStyles = makeStyles(() => ({
   toolbar: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
+    justifyContent: "space-between",
+    padding: theme.spacing(0, 2),
     ...theme.mixins.toolbar,
   },
   content: {
@@ -130,6 +147,9 @@ const useStyles = makeStyles(() => ({
   },
   grow: {
     flexGrow: 1,
+  },
+  leftSpace: {
+    display: "flex",
   },
 }));
 
@@ -222,33 +242,34 @@ const Header = (props) => {
               [classes.appBarShift]: props.open,
             })}
           >
-            <Toolbar>
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={props.handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, {
-                  [classes.hide]: props.open && classes.hide,
-                })}
-                size="large"
-              >
-                <MenuIcon />
-              </IconButton>
-              <Button
-                to="/home"
-                component={NavLink}
-                sx={{
-                  display: { xs: "none", sm: "flex" },
-                  fontSize: "1.75rem",
-                  fontWeight: 900,
-                  color: "white",
-                  textShadow: "2px 4px 3px rgba(0,0,0,0.3)",
-                }}
-              >
-                Flexible benefit
-              </Button>
-              <Box sx={{ flexGrow: 1 }} />
+            <Toolbar className={classes.toolbar}>
+              <Box className={classes.leftSpace}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  onClick={props.handleDrawerOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton, {
+                    [classes.hide]: props.open && classes.hide,
+                  })}
+                  size="large"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Button
+                  to="/home"
+                  component={NavLink}
+                  sx={{
+                    display: { xs: "none", sm: "flex" },
+                    fontSize: "2rem",
+                    fontWeight: 900,
+                    color: "white",
+                    textShadow: "0px 1px 1px rgba(0,0,0,0.3)",
+                  }}
+                >
+                  Flexible benefit
+                </Button>
+              </Box>
               <div style={{ display: "flex", marginLeft: 20 }}>
                 <IconButton
                   edge="end"
@@ -258,6 +279,7 @@ const Header = (props) => {
                   color="inherit"
                   onClick={(event) => setAnchorEl(event.currentTarget)}
                   size="large"
+                  className={classes.menuProfile}
                 >
                   <Avatar
                     alt={currentUser.username}

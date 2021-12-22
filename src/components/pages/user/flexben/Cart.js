@@ -39,27 +39,26 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPackage } from "../../../actions/package";
-import { getAllInsurance } from "../../../actions/insurance";
-import { getAllItem } from "../../../actions/item";
-import { getAllTravel } from "../../../actions/travel";
-import itemService from "../../../services/item.service";
-import travelService from "../../../services/travel.service";
-import insuranceService from "../../../services/insurance.service";
-import packageService from "../../../services/package.service";
+import { getAllPackage } from "../../../../actions/package";
+import { getAllInsurance } from "../../../../actions/insurance";
+import { getAllItem } from "../../../../actions/item";
+import { getAllTravel } from "../../../../actions/travel";
+import itemService from "../../../../services/item.service";
+import travelService from "../../../../services/travel.service";
+import insuranceService from "../../../../services/insurance.service";
+import packageService from "../../../../services/package.service";
 import { Box } from "@mui/system";
-import { postCart } from "../../../actions/cart";
+import { postCart } from "../../../../actions/cart";
 import Sticky from "react-stickynode";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
 import { amber, red } from "@mui/material/colors";
-import { getUserProfile } from "../../../actions/user";
+import { getUserProfile } from "../../../../actions/user";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1rem",
   },
   highLights: {
@@ -355,8 +354,10 @@ const Cart = (props) => {
                                             color="text.secondary"
                                           >
                                             {val.company ||
+                                              (val.location &&
+                                                val.location.province) ||
                                               val.brand ||
-                                              val.location.province}
+                                              "Package"}
                                           </Typography>
                                         </Fragment>
                                       }

@@ -29,6 +29,7 @@ exports.signin = (req, res) => {
         username: result.username,
         roles: authorities,
         image: result.image,
+        background: result.background,
         accessToken: token,
       });
     } else {

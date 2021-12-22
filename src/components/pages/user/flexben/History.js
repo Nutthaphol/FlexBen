@@ -5,7 +5,7 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
 import {
   Container,
   Icon,
@@ -24,11 +24,11 @@ import {
   TableCell,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getHistoryProfile } from "../../../actions/history";
-import itemService from "../../../services/item.service";
-import travelService from "../../../services/travel.service";
-import insuranceService from "../../../services/insurance.service";
-import packageService from "../../../services/package.service";
+import { getHistoryProfile } from "../../../../actions/history";
+import itemService from "../../../../services/item.service";
+import travelService from "../../../../services/travel.service";
+import insuranceService from "../../../../services/insurance.service";
+import packageService from "../../../../services/package.service";
 import { Box } from "@mui/system";
 import dayjs from "dayjs";
 
@@ -36,8 +36,7 @@ const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1rem",
   },
 }));

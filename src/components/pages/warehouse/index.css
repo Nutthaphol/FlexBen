@@ -1,0 +1,39 @@
+.dropzone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-width: 2px;
+  border-radius: 2px;
+  border-color: #eeeeee;
+  border-style: dashed;
+  background-color: #fafafa;
+  color: #bdbdbd;
+  outline: none;
+  transition: border 0.24s ease-in-out;
+  width: 100%;
+  height: 144px;
+  margin: auto;
+  /* border-radius: 50%; */
+  padding: 8px;
+  border: 1px dashed rgba(145, 158, 171, 0.32);
+}
+
+.inner-dropzone {
+  cursor: pointer;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  display: flex;
+  overflow: hidden;
+  /* border-radius: 50%; */
+  position: relative;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+.inner-dropzone:hover .placeholder {
+  z-index: 9;
+}

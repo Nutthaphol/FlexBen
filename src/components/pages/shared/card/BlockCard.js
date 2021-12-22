@@ -29,9 +29,9 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     textAlign: "center",
     // "& :hover::before": {},
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
-
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    borderRadius: "16px",
+    borderRadius: "16px",
     "& :hover": {
       "&  .icon": {
         transition: ".5s",

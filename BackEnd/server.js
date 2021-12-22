@@ -21,6 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/image", express.static("./app/image"));
+app.use("/icon", express.static("./app/icon"));
 
 // simple route
 app.get("/", (req, res) => {
@@ -42,6 +43,12 @@ require("./app/routes/history.routes")(app);
 require("./app/routes/delivery.routes")(app);
 require("./app/routes/facilities.routes")(app);
 require("./app/routes/insuranceCategory.routes")(app);
+require("./app/routes/icons.routes")(app);
+require("./app/routes/health.routes")(app);
+require("./app/routes/healthCheck.routes")(app);
+require("./app/routes/healthCheckCategory.routes")(app);
+require("./app/routes/rightTreatment.routes")(app);
+require("./app/routes/treatmentType.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -10,19 +10,31 @@ import Filter3Icon from "@mui/icons-material/Filter3";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { Article, GroupWork } from "@mui/icons-material";
+import { Article } from "@mui/icons-material";
 
-const AdminMenu = () => {
+const WarehouseMenu = () => {
   const dataListMenu = [
     {
-      listItemIcon: <GroupWork />,
-      listItemText: "Create package",
-      listLink: "/admin/FormPackage",
-      listKey: "FormPackage",
+      listItemIcon: <Article />,
+      listItemText: "Add Item Lifestyle",
+      listLink: "/warehouse/FormLifeStyle",
+      listKey: "FormLifeStyle",
+    },
+    {
+      listItemIcon: <Article />,
+      listItemText: "Add Item Travel",
+      listLink: "/warehouse/FormTravel",
+      listKey: "FormTravel",
+    },
+    {
+      listItemIcon: <Article />,
+      listItemText: "Add Item Insurance",
+      listLink: "/warehouse/FormInsurance",
+      listKey: "FormInsurance",
     },
   ];
 
   return <ListMenu dataListMenu={dataListMenu} />;
 };
 
-export default AdminMenu;
+export default WarehouseMenu;

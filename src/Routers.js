@@ -7,20 +7,22 @@ import { useSelector } from "react-redux";
 import Login from "./components/pages/LoginPage";
 import Home from "./components/pages/Home";
 import { UnauthorizedPage, NotFoundPage } from "./components/pages/error";
-import DetailInsurance from "./components/pages/user/DetailInsurance";
-import CoinDashboard from "./components/pages/user/CoinDashboard";
-import ListPackage from "./components/pages/user/ListPackage";
-import ListInsurance from "./components/pages/user/ListInsurance";
-import DetailPackage from "./components/pages/user/DetailPackage";
-import ShopingMall from "./components/pages/user/ShopingMall";
-import DetailItem from "./components/pages/user/DetailItem";
-import TravelShop from "./components/pages/user/TravelShop";
-import DetailTravel from "./components/pages/user/DetailTravel";
-import Cart from "./components/pages/user/Cart";
-import History from "./components/pages/user/History";
-import FormLifeStyle from "./components/pages/admin/FormLifeStyle";
-import FormTravel from "./components/pages/admin/FormTravel";
-import FormInsurance from "./components/pages/admin/FormInsurance";
+import DetailInsurance from "./components/pages/user/flexben/DetailInsurance";
+import CoinDashboard from "./components/pages/user/flexben/CoinDashboard";
+import ListPackage from "./components/pages/user/flexben/ListPackage";
+import ListInsurance from "./components/pages/user/flexben/ListInsurance";
+import DetailPackage from "./components/pages/user/flexben/DetailPackage";
+import ShopingMall from "./components/pages/user/flexben/ShopingMall";
+import DetailItem from "./components/pages/user/flexben/DetailItem";
+import TravelShop from "./components/pages/user/flexben/TravelShop";
+import DetailTravel from "./components/pages/user/flexben/DetailTravel";
+import Cart from "./components/pages/user/flexben/Cart";
+import History from "./components/pages/user/flexben/History";
+import FormLifeStyle from "./components/pages/warehouse/FormLifeStyle";
+import FormTravel from "./components/pages/warehouse/FormTravel";
+import FormInsurance from "./components/pages/warehouse/FormInsurance";
+import FormPackage from "./components/pages/admin/FormPackage";
+import Dashbord from "./components/pages/user/health/Dashbord";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -67,6 +69,25 @@ function Routers() {
           {...rest}
           render={(props) =>
             currentUser.roles.includes("ROLE_MANAGER") === true ? (
+              <Component {...props} />
+            ) : (
+              <Redirect to="/unauthorized" />
+            )
+          }
+        />
+      );
+    } else {
+      return <RedirectLogin />;
+    }
+  };
+
+  const WarehouseRoute = ({ component: Component, ...rest }) => {
+    if (currentUser) {
+      return (
+        <Route
+          {...rest}
+          render={(props) =>
+            currentUser.roles.includes("ROLE_WAREHOUSE") === true ? (
               <Component {...props} />
             ) : (
               <Redirect to="/unauthorized" />
@@ -127,18 +148,25 @@ function Routers() {
         <UserRoute exact path="/detailTravel/:id" component={DetailTravel} />
         <UserRoute exact path="/cart" component={Cart} />
         <UserRoute exact path="/history" component={History} />
+        <UserRoute exact path="/history" component={History} />
+        <UserRoute exact path="/Health/Dashboard" component={Dashbord} />
 
-        <AdminRoute
+        <WarehouseRoute
           exact
-          path="/admin/FormLifeStyle"
+          path="/warehouse/FormLifeStyle"
           component={FormLifeStyle}
         />
-        <AdminRoute exact path="/admin/FormTravel" component={FormTravel} />
-        <AdminRoute
+        <WarehouseRoute
           exact
-          path="/admin/FormInsurance"
+          path="/warehouse/FormTravel"
+          component={FormTravel}
+        />
+        <WarehouseRoute
+          exact
+          path="/warehouse/FormInsurance"
           component={FormInsurance}
         />
+        <AdminRoute exact path="/admin/FormPackage" component={FormPackage} />
       </Switch>
     </Container>
   );

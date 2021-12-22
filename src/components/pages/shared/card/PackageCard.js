@@ -43,8 +43,8 @@ const useStyles = makeStyles(() => ({
     // margin: "1rem",
     width: "auto",
     height: "auto",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    borderRadius: "16px",
   },
   coverMedia: {
     position: "relative",
@@ -58,7 +58,8 @@ const useStyles = makeStyles(() => ({
   },
   cardContent: {
     position: "relative",
-    paddingBottom: 0,
+    paddingBottom: 6,
+    borderBottom: "1px solid rgb(224, 224, 224)",
   },
   typograpphy: {
     fontWeight: "400",
@@ -127,7 +128,9 @@ const PackageCard = (props) => {
                     <ListItemIcon sx={{ margin: 0, minWidth: "25px" }}>
                       <AssignmentTurnedIn fontSize="small" color="success" />
                     </ListItemIcon>
-                    <ListItemText secondary={val.name} />
+                    <ListItemText
+                      secondary={<Typography>{val.name}</Typography>}
+                    />
                   </ListItem>
                 ))}
             </List>
@@ -146,7 +149,12 @@ const PackageCard = (props) => {
               </Box>
             </Typography>
           </CardContent>
-          <CardActions sx={{ display: "flex" }}>
+          <CardActions
+            disableSpacing
+            sx={{
+              display: "flex",
+            }}
+          >
             <IconButton>
               <FavoriteBorder />
             </IconButton>
@@ -158,7 +166,7 @@ const PackageCard = (props) => {
               href={`${path}/${id}`}
               sx={{ color: "black", fontSize: "1rem", fontWeight: "600" }}
             >
-              $ {price}
+              <Typography>$ {price}</Typography>
             </Button>
           </CardActions>
         </Card>

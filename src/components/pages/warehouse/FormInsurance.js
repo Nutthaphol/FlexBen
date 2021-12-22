@@ -43,6 +43,7 @@ import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
   CancelRounded,
+  Close,
 } from "@mui/icons-material";
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Field, FieldArray, Form, Formik } from "formik";
@@ -53,14 +54,15 @@ import "./index.css";
 import * as XLSX from "xlsx";
 import { getAllDelivery } from "../../../actions/delivery";
 import { useDropzone } from "react-dropzone";
-import * as Yup from "yup";
+import { getAllInsuranceCategory } from "../../../actions/insuranceCategory";
 
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    boxShadow: "0 0 1px 1px #D0D3D4",
-    border: "1px solid #D0D3D4",
+    // boxShadow: "0 0 1px 1px #D0D3D4",
+    // border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1.75rem",
   },
   catPaper: {
@@ -94,59 +96,42 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const strucOrder = {
+const strucInsurance = {
   name: "",
-  quantity: 0,
+  company: "",
   detail: "",
-  category: -1,
+  category: "",
+  protection: [
+    {
+      name: "",
+      condition: "",
+    },
+  ],
+  protectionPeriod: "",
+  link: "",
   price: 0,
   discount: 0,
   netPrice: 0,
-  brand: "",
-  skuCode: "",
-  warranty: 0,
-  warrantyDetail: "",
-  deliveryType: "",
-  deliveryTime: "",
-  deliveryCost: "",
 };
 
-const deliveryType = [
-  "Outbound delivery",
-  "Outbound delivery without reference",
-  "Returns delivery",
-  "Replenishment delivery",
-  "Outbound deliveries from projects",
-  "Outbound delivery for subcontractor",
-  "Inbound delivery",
-  "WMS outbound delivery",
-  "WMS inbound delivery",
-  "Replenishment WMS",
-  "Customer returns WMS",
-  "Delivery for stock transfer",
-  "R/2-R/3 Link",
-];
+const period = [1, 3, 5, 7, 10, 15, 20, 30];
 
-const deliveryTime = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const deliveryCost = [0, 10, 20, 30, 40, 50, 60, 70];
-
-const FormLifeStyle = () => {
+const FormInsurance = () => {
   const classes = useStyles();
   const formRef = useRef();
   const dispatch = useDispatch();
 
-  const { result: category } = useSelector((state) => state.shopCategory);
-  const { result: delivery } = useSelector((state) => state.delivery);
-  const [order, setOrder] = useState({ ...strucOrder });
-  const [data, setData] = useState();
-  const [external, setExternal] = useState();
+  const { result: category } = useSelector((state) => state.insuranceCategory);
+
   const [preview, setPreview] = useState(false);
   const [imagePreview, setImagePreview] = useState();
   const [files, setFiles] = useState([]);
+  const [external, setExternal] = useState();
+  const [insurance, setInsurance] = useState({ ...strucInsurance });
+  const [data, setData] = useState();
 
   useEffect(() => {
-    dispatch(getAllShopCategory());
-    dispatch(getAllDelivery());
+    dispatch(getAllInsuranceCategory());
   }, []);
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -165,12 +150,6 @@ const FormLifeStyle = () => {
     onDrop,
     maxFiles: 3,
   });
-
-  const onKeyDown = (keyEvent) => {
-    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
-      keyEvent.preventDefault();
-    }
-  };
 
   const handleImportFile = (file) => {
     console.log(file);
@@ -197,24 +176,21 @@ const FormLifeStyle = () => {
     promise.then((data) => {
       const perData = data.map((row, index) => {
         console.log("row", row);
+
         return {
           id: index + 1,
           name: row["name"],
-          quantity: row["quantity"],
+          company: row["company"],
           detail: row["detail"],
           category: category
-            ? category.find((item) => item.name == row["category"]).id
+            ? category.find((item) => item.id == row["category"]).name
             : row["category"],
+          protection: row["protection"].split(","),
+          protectionPeriod: row["protectionPeriod"],
+          link: row["link"],
           price: row["price"],
           discount: row["discount"],
           netPrice: row["netPrice"],
-          brand: row["brand"],
-          skuCode: row["sku code"],
-          warranty: row["warranty"],
-          warrantyDetail: row["warranty detail"],
-          deliveryType: row["delivery type"],
-          deliveryTime: row["delivery time"],
-          deliveryCost: row["delivery cost"],
           image1: row["image1"],
           image2: row["image2"],
           image3: row["image3"],
@@ -229,65 +205,61 @@ const FormLifeStyle = () => {
     setExternal(null);
   };
 
+  const onKeyDown = (keyEvent) => {
+    if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
+      keyEvent.preventDefault();
+    }
+  };
+
   const columns = [
     {
       field: "name",
-      headerName: "Name",
+      headerName: "ชื่อ",
       width: 120,
     },
     {
-      field: "quantity",
-      headerName: "QTY",
+      field: "company",
+      headerName: "บริษัท",
       width: 120,
     },
     {
       field: "detail",
-      headerName: "Detail",
+      headerName: "รายละเอียด",
       width: 120,
     },
     {
       field: "category",
-      headerName: "Category",
+      headerName: "หมวดหมู่",
+      width: 120,
+    },
+    {
+      field: "protection",
+      headerName: "ความคุ้มครอง",
+      width: 360,
+    },
+    {
+      field: "protectionPeriod",
+      headerName: "ระยะเวลาคุ้มครอง",
+      width: 120,
+    },
+    {
+      field: "link",
+      headerName: "เงื่อนไขความคุ้มครอง",
       width: 120,
     },
     {
       field: "price",
-      headerName: "Price",
+      headerName: "ราคาต่อห้อง",
       width: 120,
     },
     {
       field: "discount",
-      headerName: "Discount",
+      headerName: "ส่วนลด",
       width: 120,
     },
     {
       field: "netPrice",
-      headerName: "Net price",
-      width: 120,
-    },
-    {
-      field: "warranty",
-      headerName: "Warranty",
-      width: 120,
-    },
-    {
-      field: "warrantyDetail",
-      headerName: "Warranty detail",
-      width: 120,
-    },
-    {
-      field: "deliveryType",
-      headerName: "Delivery type",
-      width: 120,
-    },
-    {
-      field: "deliveryTime",
-      headerName: "Delivery time",
-      width: 120,
-    },
-    {
-      field: "deliveryCost",
-      headerName: "Delivery cost",
+      headerName: "ราคาสุทธิ",
       width: 120,
     },
     {
@@ -296,12 +268,10 @@ const FormLifeStyle = () => {
       renderCell: (params) => {
         const onClick = (e) => {
           e.stopPropagation(); // don't select this row after clicking
-
           const api = params.api;
           const thisRow = {};
-          // const api: GridApi = params.api;
-          // const thisRow: Record<string, GridCellValue> = {};
-
+          //   const api: GridApi = params.api;
+          //   const thisRow: Record<string, GridCellValue> = {};
           // c.field !== "__check__" &&
           api
             .getAllColumns()
@@ -309,16 +279,12 @@ const FormLifeStyle = () => {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-
           const tmp = params.id;
-
           console.log("thisRow", thisRow);
           console.log("tmp", tmp);
-
           setImagePreview(params.id);
           setPreview(true);
         };
-
         return (
           <Button
             onClick={onClick}
@@ -334,24 +300,6 @@ const FormLifeStyle = () => {
       },
     },
   ];
-
-  const validate = Yup.object().shape({
-    name: Yup.string().required("Please enter name"),
-    quantity: Yup.number().required().min(1),
-    detail: Yup.string().required("Please enter detail"),
-    category: Yup.number().required().min(1),
-    price: Yup.number().required().min(1),
-    discount: Yup.number().required(),
-    netPrice: Yup.number().required(),
-    brand: Yup.string().required("Please enter brand name"),
-    skuCode: Yup.string().required(),
-    warranty: Yup.number().required(),
-    warrantyDetail: Yup.string().required("Please enter warranty detail"),
-    deliveryType: Yup.string().required("Please enter delivery type"),
-    deliveryTime: Yup.number().required("Please enter delivery time"),
-    deliveryCost: Yup.number().required("Please enter delivery cost"),
-  });
-
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -359,7 +307,7 @@ const FormLifeStyle = () => {
           <Container maxWidth="xl">
             <Paper className={classes.root}>
               <Typography variant="h4" component="div" gutterBottom>
-                เพิ่มรายการสินค้า Lifestyle
+                เพิ่มรายการประกัน Insurance
               </Typography>
               <Box
                 display="flex"
@@ -445,12 +393,7 @@ const FormLifeStyle = () => {
                           justifyContent="center"
                           alignItems="center"
                         >
-                          <Grid
-                            item
-                            xs={12}
-                            xs={12}
-                            sx={{ textAlign: "center" }}
-                          >
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -460,12 +403,7 @@ const FormLifeStyle = () => {
                                 })}
                             />
                           </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            xs={12}
-                            sx={{ textAlign: "center" }}
-                          >
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -475,12 +413,7 @@ const FormLifeStyle = () => {
                                 })}
                             />
                           </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            xs={12}
-                            sx={{ textAlign: "center" }}
-                          >
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external
@@ -497,8 +430,7 @@ const FormLifeStyle = () => {
                 </Box>
               ) : (
                 <Formik
-                  initialValues={order}
-                  validationSchema={validate}
+                  initialValues={insurance}
                   innerRef={formRef}
                   enableReinitialize
                   onSubmit={(values, setSubmitting) => {
@@ -523,7 +455,7 @@ const FormLifeStyle = () => {
                         variant="p"
                         component="div"
                       >
-                        สินค้าและจำนวน
+                        รายละเอียด
                       </Typography>
                       <Grid
                         container
@@ -531,81 +463,25 @@ const FormLifeStyle = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item xs={12} sm={7} md={8} lg={10}>
+                        <Grid item md={8}>
                           <Field
                             component={TextField}
                             name={`name`}
+                            // size="small"
                             fullWidth
-                            label={`ชื่อสินค้า`}
+                            label={`ชื่อประกัน`}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={5} md={4} lg={2}>
-                          <Box
-                            sx={{
-                              // midwidth: "360px",
-                              width: "100%",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                border: "1px solid #D0D3D4",
-                                borderRadius: "4px",
-                                width: "100%",
-                                height: "56px",
-                              }}
-                            >
-                              <IconButton
-                                name="quantity"
-                                sx={{
-                                  borderRight: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                disabled={values.quantity <= 0 ? true : false}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity - 1
-                                  );
-                                }}
-                              >
-                                <Remove />
-                              </IconButton>
-                              <Typography
-                                variant="p"
-                                component="div"
-                                sx={{
-                                  minWidth: "80px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                {values.quantity}
-                              </Typography>
-                              <IconButton
-                                name={`quantity`}
-                                sx={{
-                                  borderLeft: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity + 1
-                                  );
-                                }}
-                              >
-                                <Add />
-                              </IconButton>
-                            </Box>
-                          </Box>
+                        <Grid item md={4}>
+                          <Field
+                            component={TextField}
+                            name={`company`}
+                            // size="small"
+                            fullWidth
+                            label={`บริษัท`}
+                          />
                         </Grid>
-                        <Grid item xs={12} md={12}>
+                        <Grid item md={12}>
                           <Field
                             name={`detail`}
                             component={TextField}
@@ -636,20 +512,12 @@ const FormLifeStyle = () => {
                         {category &&
                           // console.log("category", category) &&
                           category.map((item, index2) => (
-                            <Grid
-                              item
-                              xl={2}
-                              lg={3}
-                              md={4}
-                              sm={6}
-                              xs={12}
-                              key={index2}
-                            >
+                            <Grid item key={index2}>
                               <Box
                                 sx={{
                                   display: "flex",
                                   justifyContent: "center",
-                                  minWidth: "180px",
+                                  minWidth: "240px",
                                 }}
                               >
                                 {values.category == item.id ? (
@@ -713,78 +581,133 @@ const FormLifeStyle = () => {
                       <br />
                       <Divider />
                       <br />
+                      <FieldArray name={"protection"}>
+                        {({ push, remove }) => (
+                          <Fragment>
+                            <Typography
+                              className={classes.typography}
+                              component={`div`}
+                            >
+                              ความคุ้มครอง
+                            </Typography>
+                            <Grid container spacing={2} alignItems={`center`}>
+                              {values.protection.map((val, index) => (
+                                <Fragment key={index}>
+                                  <Grid item md={4}>
+                                    <Field
+                                      component={TextField}
+                                      name={`protection[${index}].name`}
+                                      fullWidth
+                                      // InputProps={{
+                                      //   endAdornment: (
+                                      //     <IconButton
+                                      //       color="error"
+                                      //       disabled={
+                                      //         values.protection.length <= 1
+                                      //           ? true
+                                      //           : false
+                                      //       }
+                                      //       onClick={() => remove(index)}
+                                      //     >
+                                      //       <Close />
+                                      //     </IconButton>
+                                      //   ),
+                                      // }}
+                                      label={`หัวข้อความคุมครองที่ (${
+                                        index + 1
+                                      })`}
+                                    />
+                                  </Grid>
+                                  <Grid item md={7}>
+                                    <Field
+                                      component={TextField}
+                                      name={`protection[${index}].condition`}
+                                      fullWidth
+                                      // InputProps={{
+                                      //   endAdornment: (
+                                      //     <IconButton
+                                      //       color="error"
+                                      //       disabled={
+                                      //         values.protection.length <= 1
+                                      //           ? true
+                                      //           : false
+                                      //       }
+                                      //       onClick={() => remove(index)}
+                                      //     >
+                                      //       <Close />
+                                      //     </IconButton>
+                                      //   ),
+                                      // }}
+                                      label={`เนื้อหาความคุ้มครองที่ (${
+                                        index + 1
+                                      })`}
+                                    />
+                                  </Grid>
+                                  <Grid item md={1}>
+                                    {index != values.protection.length - 1 ? (
+                                      <IconButton
+                                        color="error"
+                                        onClick={() => remove(index)}
+                                      >
+                                        <Close fontSize="large" />
+                                      </IconButton>
+                                    ) : (
+                                      <IconButton
+                                        color="success"
+                                        onClick={() =>
+                                          push({
+                                            name: "",
+                                            condition: "",
+                                          })
+                                        }
+                                      >
+                                        <Add fontSize="large" />
+                                      </IconButton>
+                                    )}
+                                  </Grid>
+                                </Fragment>
+                              ))}
+                              {/* <Grid item md={1}></Grid> */}
+                            </Grid>
+                          </Fragment>
+                        )}
+                      </FieldArray>
+                      <br />
+                      <Divider />
+                      <br />
                       <Typography
                         className={classes.typography}
                         variant="p"
                         component="div"
+                        gutterBottom
                       >
-                        ราคาและสต๊อก
+                        ระยะเวลาและเงื่อนไขความคุ้มครอง
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xl={4}>
                           <Field
-                            component={TextField}
-                            onChange={(e) => {
-                              setFieldValue(`price`, e.target.value);
-                              setFieldValue(
-                                `netPrice`,
-                                e.target.value -
-                                  (e.target.value * values.discount) / 100
-                              );
+                            component={Select}
+                            formControl={{
+                              sx: { width: "100%", size: "small" },
                             }}
-                            name={`price`}
-                            fullWidth
-                            type="number"
-                            InputProps={{ inputProps: { min: 0 } }}
-                            label={`ราคาสินค้าต่อชิ้น (Coin)`}
-                          />
+                            // size="small"
+                            name={`protectionPeriod`}
+                            label={`ระยะเวลาคุ้มครอง`}
+                          >
+                            {period &&
+                              period.map((val, index) => (
+                                <MenuItem key={index} value={val}>
+                                  {val}
+                                </MenuItem>
+                              ))}
+                          </Field>
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item xl={8}>
                           <Field
                             component={TextField}
-                            onChange={(e) => {
-                              setFieldValue(`discount`, e.target.value);
-                              setFieldValue(
-                                `netPrice`,
-                                values.price -
-                                  (values.price * e.target.value) / 100
-                              );
-                            }}
-                            name={`discount`}
                             fullWidth
-                            type="number"
-                            InputProps={{ inputProps: { min: 0 } }}
-                            label={`ส่วนลด (%)`}
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Field
-                            component={TextField}
-                            name={`netPrice`}
-                            value={values.netPrice}
-                            // disabled
-
-                            fullWidth
-                            label={`ราคาสุทธิ (Coin)`}
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={8}>
-                          <Field
-                            component={TextField}
-                            name={`brand`}
-                            fullWidth
-                            label={`แบรนด์`}
-                            fullWidth
-                            label={`Brand`}
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Field
-                            component={TextField}
-                            name={`skuCode`}
-                            // size="mdall"
-                            fullWidth
-                            label={`SKU Code`}
+                            name={`link`}
+                            label={`ลิงค์รายละเอียด`}
                           />
                         </Grid>
                       </Grid>
@@ -793,80 +716,34 @@ const FormLifeStyle = () => {
                       <br />
                       <Typography
                         className={classes.typography}
-                        variant="p"
-                        component="div"
+                        component={`div`}
                       >
-                        การรับประกันและการจัดส่ง
+                        ราคาและส่วนลด
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xs={12} md={2}>
+                        <Grid item md={4}>
                           <Field
                             component={TextField}
-                            name={`warranty`}
+                            name={`price`}
                             fullWidth
-                            type="number"
-                            label={`Warranty`}
+                            label={`ราคาต่อห้อง`}
                           />
                         </Grid>
-                        <Grid item xs={12} md={10}>
+                        <Grid item md={4}>
                           <Field
                             component={TextField}
-                            name={`warrantyDetail`}
+                            name={`discount`}
                             fullWidth
-                            label={`Warranty Detail`}
+                            label={`ส่วนลด`}
                           />
                         </Grid>
-                        <Grid item xs={12} md={4}>
+                        <Grid item md={4}>
                           <Field
-                            component={Select}
-                            formControl={{
-                              sx: { width: "100%", size: "small" },
-                            }}
-                            name={`deliveryType`}
-                            label={`Delivery Type`}
-                          >
-                            {delivery &&
-                              delivery.map((val, index) => (
-                                <MenuItem key={index} value={val.id}>
-                                  {val.name}
-                                  {console.log("val", val)}
-                                </MenuItem>
-                              ))}
-                          </Field>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Field
-                            component={Select}
-                            formControl={{
-                              sx: { width: "100%", size: "small" },
-                            }}
-                            name={`deliveryTime`}
-                            label={`Delivery Time`}
-                          >
-                            {deliveryTime &&
-                              deliveryTime.map((val, index) => (
-                                <MenuItem key={index} value={val}>
-                                  {val}
-                                </MenuItem>
-                              ))}
-                          </Field>
-                        </Grid>
-                        <Grid item xs={12} md={4}>
-                          <Field
-                            component={Select}
-                            formControl={{
-                              sx: { width: "100%", size: "small" },
-                            }}
-                            name={`deliveryCost`}
-                            label={`Delivery Cost`}
-                          >
-                            {deliveryCost &&
-                              deliveryCost.map((val, index) => (
-                                <MenuItem key={index} value={val}>
-                                  {val}
-                                </MenuItem>
-                              ))}
-                          </Field>
+                            component={TextField}
+                            name={`netPrice`}
+                            fullWidth
+                            label={`ราคาสุทธิ`}
+                          />
                         </Grid>
                       </Grid>
                       <br />
@@ -876,7 +753,7 @@ const FormLifeStyle = () => {
                         อัพโหลดรูปภาพ
                       </Typography>
                       <Grid container spacing={6}>
-                        <Grid item xs={12} lg={6}>
+                        <Grid item lg={6}>
                           <Box>
                             <Box {...getRootProps({ className: "dropzone" })}>
                               <Box className="inner-dropzone">
@@ -907,16 +784,15 @@ const FormLifeStyle = () => {
                             </Box>
                           </Box>
                         </Grid>
-                        <Grid item xs={12} lg={6}>
+                        <Grid item lg={6}>
                           <Grid container spacing={2}>
                             {/* {thumbs} */}
                             {files.map((file) => (
-                              <Grid item xs={12}>
+                              <Grid item>
                                 <img
                                   key={file.name}
                                   src={file.preview}
-                                  // className={classes.uploadImage}
-                                  sx={{ position: "absolute" }}
+                                  className={classes.uploadImage}
                                   height="144px"
                                 />
                               </Grid>
@@ -938,7 +814,6 @@ const FormLifeStyle = () => {
                           ลงทะเบียน
                         </Button>
                       </Box>
-
                       <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                     </Form>
                   )}
@@ -952,4 +827,4 @@ const FormLifeStyle = () => {
   );
 };
 
-export default FormLifeStyle;
+export default FormInsurance;

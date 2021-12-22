@@ -17,12 +17,20 @@ import Divider from "@mui/material/Divider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box } from "@mui/system";
-import { IconButton, Typography, Icon } from "@mui/material";
-import { ChevronLeft } from "@mui/icons-material";
+import {
+  IconButton,
+  Typography,
+  Icon,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from "@mui/material";
+import { AdminPanelSettings, ChevronLeft, NoteAlt } from "@mui/icons-material";
 import { indigo } from "@mui/material/colors";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Themplates from "./components/pages/shared/theme";
+import WarehouseMenu from "./components/layouts/menu/warehouse/warehouseMenu";
 
 const theme = createTheme(Themplates);
 
@@ -90,6 +98,7 @@ const DrawerContainer = ({ open, setOpen }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isManager, setIsManager] = useState(false);
+  const [isWarehouse, setIsWarehouse] = useState(false);
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -99,6 +108,7 @@ const DrawerContainer = ({ open, setOpen }) => {
     if (currentUser) {
       setIsAdmin(currentUser.roles.includes("ROLE_ADMIN"));
       setIsManager(currentUser.roles.includes("ROLE_MANAGER"));
+      setIsWarehouse(currentUser.roles.includes("ROLE_WAREHOUSE"));
     }
   }, [currentUser]);
 
@@ -137,7 +147,7 @@ const DrawerContainer = ({ open, setOpen }) => {
         </IconButton>
       </div>
       <Divider />
-      <UserMenu />
+      <UserMenu open={open} />
       {isManager && (
         <Fragment>
           <Divider />
@@ -147,7 +157,25 @@ const DrawerContainer = ({ open, setOpen }) => {
       {isAdmin && (
         <Fragment>
           <Divider />
-          <AdminMenu open={open} />
+          <ListItem>
+            <ListItemIcon>
+              <AdminPanelSettings color="error" />
+            </ListItemIcon>
+            <ListItemText primary={"admin"} />
+          </ListItem>
+          <AdminMenu />
+        </Fragment>
+      )}
+      {isWarehouse && (
+        <Fragment>
+          <Divider />
+          <ListItem>
+            <ListItemIcon>
+              <NoteAlt color="info" />
+            </ListItemIcon>
+            <ListItemText primary={"Warehouse"} />
+          </ListItem>
+          <WarehouseMenu />
         </Fragment>
       )}
     </Drawer>
@@ -156,7 +184,7 @@ const DrawerContainer = ({ open, setOpen }) => {
 
 function App() {
   useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState();
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   // useEffect(() => {}, []);

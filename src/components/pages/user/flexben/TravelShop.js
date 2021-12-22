@@ -21,48 +21,49 @@ import {
   Icon,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllShopCategory } from "../../../actions/shopCategory";
-import { getAllItem } from "../../../actions/item";
-import ProductCard from "../shared/card/ProductCard";
+import { getAllTravelCategory } from "../../../../actions/travelCategory";
+import { getAllTravel } from "../../../../actions/travel";
+import ProductCard from "../../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
-import Themplates from "../shared/theme";
-
+import Themplates from "../../shared/theme";
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {},
   filter: {
-    padding: "10px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   main: {
-    // padding: "10px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
     minHeight: "600px",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   head: {
-    padding: "20px",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    padding: "1.25rem",
     display: "flex",
-    alignItems: "center",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    justifyContent: "space-between",
+  },
+  sectionText: {
+    fontWeight: 600,
   },
 }));
 
-const ShopingMall = () => {
+const TravelShop = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { result: shopCategory } = useSelector((state) => state.shopCategory);
-  const { result: item } = useSelector((state) => state.item);
+  const { result: travelCategory } = useSelector(
+    (state) => state.travelCategory
+  );
+  const { result: travel } = useSelector((state) => state.travel);
   const [checked, setChecked] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    dispatch(getAllShopCategory());
-    dispatch(getAllItem());
+    dispatch(getAllTravelCategory());
+    dispatch(getAllTravel());
   }, []);
 
   const handleToggle = (value) => () => {
@@ -84,8 +85,10 @@ const ShopingMall = () => {
           <Container maxWidth="none">
             <Grid container spacing={2} justifyContent="center">
               <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
-                <Paper className={classes.head} sx={{}}>
-                  <Typography variant="h4">Shopping Mall</Typography>
+                <Paper className={classes.head}>
+                  <Typography variant="h4" className={classes.sectionText}>
+                    Tourist Attraction
+                  </Typography>
                   <Box sx={{ flexGrow: 1 }} />
                   <TextField
                     label="Search"
@@ -96,21 +99,21 @@ const ShopingMall = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          {/* <IconButton> */}
-                          <Icon>
-                            <Search />
-                          </Icon>
-                          {/* </IconButton> */}
+                          <IconButton>
+                            <Icon>
+                              <Search />
+                            </Icon>
+                          </IconButton>
                         </InputAdornment>
                       ),
                     }}
                   />
                 </Paper>
               </Grid>
-              {shopCategory && (
+              {travelCategory && (
                 <Grid item xl={2} lg={3}>
                   <Paper className={classes.filter}>
-                    <Typography variant="h6" component="span" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                       Category
                     </Typography>
                     <List
@@ -119,8 +122,8 @@ const ShopingMall = () => {
                         width: "100%",
                       }}
                     >
-                      {shopCategory &&
-                        shopCategory.map((val, index) => (
+                      {travelCategory &&
+                        travelCategory.map((val, index) => (
                           <ListItem
                             key={index}
                             secondaryAction={
@@ -141,12 +144,12 @@ const ShopingMall = () => {
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>
-                {item && (
+                {travel && (
                   // <Paper className={classes.main}>
                   <Grid container spacing={3}>
-                    {item
+                    {travel
                       .filter(
-                        (val) => val.name.toLowerCase().search(search) != -1
+                        (item) => item.name.toLowerCase().search(search) != -1
                       )
                       .filter((val) => {
                         if (checked.length != 0) {
@@ -155,12 +158,13 @@ const ShopingMall = () => {
                           return true;
                         }
                       })
+
                       .map((val, index) => (
                         <Grid
                           item
-                          xl={3}
                           lg={4}
-                          // sx={{ position: "relative" }}
+                          xl={3}
+                          sx={{ position: "relative" }}
                           key={index}
                         >
                           <Box
@@ -171,9 +175,9 @@ const ShopingMall = () => {
                             }}
                           >
                             <ProductCard
-                              path="detailItem"
+                              path="detailTravel"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.brand}
+                              head={val.location.province}
                               price={val.price}
                               name={val.name}
                               id={val.id}
@@ -196,4 +200,4 @@ const ShopingMall = () => {
   );
 };
 
-export default ShopingMall;
+export default TravelShop;

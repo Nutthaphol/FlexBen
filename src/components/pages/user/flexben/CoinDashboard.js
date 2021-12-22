@@ -22,13 +22,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import DataCard from "../shared/card/DataCard";
-import { getDetail } from "../../../actions/detail";
-import PaperTable from "../shared/card/PaperTable";
+import DataCard from "../../shared/card/DataCard";
+import { getDetail } from "../../../../actions/detail";
+import PaperTable from "../../shared/card/PaperTable";
 import { Box } from "@mui/system";
 import { Adb } from "@mui/icons-material";
-import { getUserProfile } from "../../../actions/user";
-import Themplates from "../shared/theme";
+import { getUserProfile } from "../../../../actions/user";
+import Themplates from "../../shared/theme";
 
 const theme = createTheme(Themplates);
 
@@ -41,8 +41,7 @@ const useStyles = makeStyles(() => ({
     // height: "auto",
     // marginTop: "50px",
     overflow: "scroll",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1rem",
   },
 }));

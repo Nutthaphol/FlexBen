@@ -20,8 +20,7 @@ const useStyles = makeStyles(() => ({
     padding: "10px",
     minWidth: "270px",
     position: "relative",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   propsIcons: {
     position: "absolute",
