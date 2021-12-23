@@ -9,4 +9,10 @@ module.exports = function (app) {
     );
     next();
   });
+
+  app.get(
+    "/api/healthProfile/:id",
+    [authJwt.verifyToken],
+    controller.getHealthProfile
+  );
 };

@@ -9,4 +9,10 @@ module.exports = function (app) {
     );
     next();
   });
+
+  app.get(
+    "/api/getHealthCheckUser/:id",
+    [authJwt.verifyToken],
+    controller.getHealthCheckUser
+  );
 };

@@ -50,10 +50,34 @@ const HealthData = [
     ],
     exercise: [
       {
-        date: dayjs(new Date(2021, 12)),
-        weight: 64,
+        date: dayjs(new Date(2021, 8)),
+        weight: 76.1,
         height: 172,
         time: 34,
+      },
+      {
+        date: dayjs(new Date(2021, 9)),
+        weight: 72.2,
+        height: 172,
+        time: 32,
+      },
+      {
+        date: dayjs(new Date(2021, 10)),
+        weight: 70.4,
+        height: 172,
+        time: 40,
+      },
+      {
+        date: dayjs(new Date(2021, 11)),
+        weight: 67.4,
+        height: 172,
+        time: 29,
+      },
+      {
+        date: dayjs(new Date(2021, 12)),
+        weight: 64.1,
+        height: 172,
+        time: 33,
       },
     ],
   },
