@@ -13,6 +13,7 @@ import {
   Card,
   Container,
   Grid,
+  Icon,
   Paper,
   Typography,
 } from "@mui/material";
@@ -31,9 +32,51 @@ import healthCheckService from "../../../../services/healthCheck.service";
 import dayjs from "dayjs";
 import GaugeChart from "react-gauge-chart";
 import BowTieCard1 from "../../shared/card/BowTieCard1";
+import BowTieCard2 from "../../shared/card/BowTieCard2";
 import healthServices from "../../../../services/health.services";
+import ReactApexChart from "react-apexcharts";
+import Message from "../../shared/textBox/Message";
 
 const theme = createTheme(Themplates);
+
+export const TrendRiskHistoryData = {
+  series: [
+    {
+      name: "ป่วยหนัก",
+      data: [45, 52, 38, 24, 33, 26, 21, 20, 60, 80, 15, 10],
+    },
+    {
+      name: "ป่วยบ่อย",
+      data: [65, 72, 58, 44, 53, 46, 41, 40, 8, 10, 35, 30],
+    },
+    {
+      name: "ป่วย",
+      data: [56, 27, 85, 44, 35, 64, 14, 4, 8, 10, 50, 3],
+    },
+    {
+      name: "ป่วยเล็กน้อย",
+      data: [45, 62, 48, 34, 43, 36, 31, 30, 18, 20, 25, 20],
+    },
+    {
+      name: "ไม่ป่วยเลย",
+      data: [35, 42, 48, 64, 43, 46, 21, 20, 28, 20, 45, 30],
+    },
+  ],
+  categories: [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
+};
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -230,6 +273,78 @@ const Dashbord = () => {
       return data;
     }
   };
+
+  const setChartDataTrendWeight = (key) => {
+    if (health && key == "option") {
+      const option = {
+        chart: { type: "area", toolbar: { show: false } },
+        xaxis: {
+          categories: health.exercise.reduce((prev, curr) => {
+            prev.push(dayjs(curr.date).format("MMM"));
+            return prev;
+          }, []),
+        },
+      };
+
+      return option;
+    }
+    if (health && key == "series") {
+      const series = [
+        {
+          name: "Weight",
+          data: health.exercise.reduce((prev, curr) => {
+            prev.push(curr.weight);
+            return prev;
+          }, []),
+        },
+      ];
+      return series;
+    }
+  };
+
+  const setChartDataTrendExercise = (key) => {
+    if (health && key == "option") {
+      const option = {
+        chart: { type: "area", toolbar: { show: false } },
+        xaxis: {
+          categories: health.exercise.reduce((prev, curr) => {
+            prev.push(dayjs(curr.date).format("MMM"));
+            return prev;
+          }, []),
+        },
+      };
+
+      return option;
+    }
+    if (health && key == "series") {
+      const series = [
+        {
+          name: "Exercise-HRS",
+          data: health.exercise.reduce((prev, curr) => {
+            prev.push(curr.time);
+            return prev;
+          }, []),
+        },
+      ];
+      return series;
+    }
+  };
+
+  const statusExercise = () => {
+    if (health) {
+      const hrs = health.exercise.at(-1).time;
+
+      if (hrs > 30) {
+        return "สม่ำเสมอ";
+      } else if (hrs > 20) {
+        return "บ่อยครั้ง";
+      } else if (hrs > 10) {
+        return "ค่อนข้างน้อย";
+      } else {
+        return "น้อยมาก";
+      }
+    }
+  };
   return (
     // <div className={``}>
     <StyledEngineProvider injectFirst>
@@ -249,7 +364,7 @@ const Dashbord = () => {
                   <Grid
                     item
                     lg={2}
-                    // md={4}
+                    md={3}
                     // sm={6}
                     // xs={12}
                     sx={{
@@ -275,7 +390,7 @@ const Dashbord = () => {
                       </Box>
                     </Box>
                   </Grid>
-                  <Grid item lg={9}>
+                  <Grid item lg={9} md={8}>
                     <Grid
                       container
                       alignItems="flex-end"
@@ -319,7 +434,7 @@ const Dashbord = () => {
                       justifyContent="space-between"
                       sx={{ marginBottom: "14px" }}
                     >
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -339,7 +454,7 @@ const Dashbord = () => {
                           </Typography>
                         </Box>
                       </Grid>
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -356,7 +471,7 @@ const Dashbord = () => {
                           </Typography>
                         </Box>
                       </Grid>
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -375,7 +490,7 @@ const Dashbord = () => {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2} justifyContent="space-between">
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -392,7 +507,7 @@ const Dashbord = () => {
                           </Typography>
                         </Box>
                       </Grid>
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -412,7 +527,7 @@ const Dashbord = () => {
                           </Typography>
                         </Box>
                       </Grid>
-                      <Grid item xl={4}>
+                      <Grid item xl={4} lg={3} md={3}>
                         <Box
                           sx={{
                             display: "flex",
@@ -515,7 +630,7 @@ const Dashbord = () => {
                   ))}
                 </Box>
               </Paper>
-              <Grid container spacing={4}>
+              <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
                 <Grid item md={6} xs={12}>
                   <BowTieCard1
                     category={`Weight`}
@@ -543,11 +658,141 @@ const Dashbord = () => {
                   />
                 </Grid>
               </Grid>
+              {health && (
+                <Paper className={classes.card}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      className={classes.headText}
+                      component="div"
+                      gutterButton
+                    >
+                      Trend นำ้หนัก
+                    </Typography>
+                  </Box>
 
-              <br />
-              <br />
-              <br />
-              <br />
+                  <ReactApexChart
+                    options={setChartDataTrendWeight("option")}
+                    series={setChartDataTrendWeight("series")}
+                    type="area"
+                    height="300px"
+                  />
+                </Paper>
+              )}
+
+              <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
+                <Grid item md={6} xs={12}>
+                  <BowTieCard2
+                    category={`การออกกำลังกาย`}
+                    typeBow={2}
+                    value={statusExercise()}
+                    imageIcon={`weight-scale.svg`}
+                  />
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <BowTieCard2
+                    category={`การออกกำลังกาย`}
+                    typeBow={2}
+                    value={health && health.exercise.at(-1).time}
+                    unit={"HRS"}
+                    imageIcon={`bmi.svg`}
+                  />
+                </Grid>
+              </Grid>
+
+              {health && (
+                <Paper className={classes.card}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      className={classes.headText}
+                      component="div"
+                      gutterButton
+                    >
+                      Trend การออกกำลังกาย
+                    </Typography>
+                  </Box>
+
+                  <ReactApexChart
+                    options={setChartDataTrendExercise("option")}
+                    series={setChartDataTrendExercise("series")}
+                    type="area"
+                    height="300px"
+                  />
+                </Paper>
+              )}
+
+              {health && (
+                <Paper className={classes.card}>
+                  <Box sx={{ marginLeft: "60px" }}>
+                    <Message message={health.healthStatus.family} />
+                  </Box>
+                  <Box
+                    sx={{ marginTop: "10px", textAlign: "end", width: "60px" }}
+                  >
+                    <Icon sx={{ fontSize: "5rem" }}>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/assets/icons/other/family.svg`}
+                        width="100%"
+                      />
+                    </Icon>
+                  </Box>
+                  <Box sx={{ marginLeft: "60px" }}>
+                    <Message message={health.healthStatus.myself} />
+                  </Box>
+                  <Box
+                    sx={{ marginTop: "10px", textAlign: "end", width: "60px" }}
+                  >
+                    <Icon sx={{ fontSize: "5rem" }}>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/assets/icons/other/boy.svg`}
+                        width="100%"
+                      />
+                    </Icon>
+                  </Box>
+                </Paper>
+              )}
+
+              {health && (
+                <Paper className={classes.card}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "flex-start",
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      className={classes.headText}
+                      component="div"
+                      gutterButton
+                    >
+                      ความรู้สึกทางร่างกายของเราเอง
+                    </Typography>
+                  </Box>
+
+                  <ReactApexChart
+                    options={setChartDataTrendExercise("option")}
+                    series={setChartDataTrendExercise("series")}
+                    type="area"
+                    height="300px"
+                  />
+                </Paper>
+              )}
+
               <br />
               <br />
               <br />
