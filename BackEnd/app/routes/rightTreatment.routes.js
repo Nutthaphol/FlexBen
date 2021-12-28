@@ -9,4 +9,10 @@ module.exports = function (app) {
     );
     next();
   });
+
+  app.get(
+    "/api/RightTreatmen/getAllRightTreatment",
+    [authJwt.verifyToken],
+    controller.getRightTreatment
+  );
 };

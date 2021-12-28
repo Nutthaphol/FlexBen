@@ -1,8 +1,8 @@
 import { httpClient } from "./httpClient";
 
-const getHealthProfile = (id) => {
+const getAllRightTreatment = () => {
   const res = httpClient
-    .get("health/getHealthProfile/" + id)
+    .get("RightTreatmen/getAllRightTreatment")
     .then((response) => {
       return response.data;
     });
@@ -10,5 +10,5 @@ const getHealthProfile = (id) => {
 };
 
 export default {
-  getHealthProfile,
+  getAllRightTreatment,
 };

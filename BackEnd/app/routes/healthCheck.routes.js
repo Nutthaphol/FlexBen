@@ -11,7 +11,7 @@ module.exports = function (app) {
   });
 
   app.get(
-    "/api/getHealthCheckUser/:id",
+    "/api/healthCheck/getHealthCheckUser/:id",
     [authJwt.verifyToken],
     controller.getHealthCheckUser
   );
