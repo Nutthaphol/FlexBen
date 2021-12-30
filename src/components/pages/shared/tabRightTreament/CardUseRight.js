@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createTheme,
   ThemeProvider,
@@ -36,6 +36,7 @@ const useStyles = makeStyles(() => ({
     border: "1px solid rgba(0, 0, 0, 0.12);",
     padding: "1rem",
     marginBottom: "1rem",
+    backgroundColor: "rgba(255, 255, 255, 0.12)",
   },
   icon: {
     fontSize: "4rem",
@@ -46,7 +47,10 @@ const useStyles = makeStyles(() => ({
   },
   mainText: {
     fontWeight: "600",
-    color: "#2F4F4F",
+    color: "#fff",
+  },
+  subText: {
+    color: "rgba(255, 255, 255, 0.7)",
   },
   progress: {
     height: "10px",
@@ -55,16 +59,18 @@ const useStyles = makeStyles(() => ({
       backgroundColor:
         theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
     },
-    // [`& .${linearProgressClasses.bar}`]: {
-    //   borderRadius: 5,
-    //   backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
-    // },
+    [`& .${linearProgressClasses.bar}`]: {
+      borderRadius: 5,
+      backgroundColor: theme.palette.mode === "light" ? "#1a90ff" : "#308fe8",
+    },
   },
 }));
 
 const CardUseRight = (props) => {
-  const { icon, category, describtion, cover, maxCost, expenss } = props;
+  const { icon, category, description, method, usedP, final, unit } = props;
   const classes = useStyles();
+
+  useEffect(() => {}, []);
 
   return (
     <div>
@@ -123,13 +129,13 @@ const CardUseRight = (props) => {
                 >
                   {category}
                 </Typography>
-                {describtion && (
+                {description && (
                   <Typography
                     variant="subtitle1"
                     component="div"
-                    color="text.secondary"
+                    className={classes.subText}
                   >
-                    {describtion}
+                    {description}
                   </Typography>
                 )}
               </Grid>
@@ -146,28 +152,34 @@ const CardUseRight = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Box sx={{ width: "100%", displaty: "flext" }}>
-                    <LinearProgress
-                      className={classes.progress}
-                      variant="determinate"
-                      value={cover}
-                      sx={{
-                        [`& .${linearProgressClasses.bar}`]: {
-                          borderRadius: 5,
-                          backgroundColor:
-                            cover < 50
-                              ? lightGreen[500]
-                              : cover < 75
-                              ? yellow[700]
-                              : cover < 100
-                              ? orange[500]
-                              : red[500],
-                        },
-                      }}
-                    />
-                  </Box>
-                  <Typography sx={{ margin: "10px" }} variant="subtitle1">
-                    {cover}%
+                  <Tooltip title="เปอร์เซ็นการใช้งาน">
+                    <Box sx={{ width: "100%", displaty: "flext" }}>
+                      <LinearProgress
+                        className={classes.progress}
+                        variant="determinate"
+                        value={usedP}
+                        sx={{
+                          [`& .${linearProgressClasses.bar}`]: {
+                            borderRadius: 5,
+                            backgroundColor:
+                              usedP < 50
+                                ? lightGreen[500]
+                                : usedP < 75
+                                ? yellow[700]
+                                : usedP < 100
+                                ? orange[500]
+                                : red[500],
+                          },
+                        }}
+                      />
+                    </Box>
+                  </Tooltip>
+                  <Typography
+                    sx={{ margin: "10px" }}
+                    variant="subtitle1"
+                    className={classes.subText}
+                  >
+                    {usedP.toFixed(2)}%
                   </Typography>
                 </Box>
               </Grid>
@@ -194,7 +206,7 @@ const CardUseRight = (props) => {
                       variant="h5"
                       component="div"
                     >
-                      {maxCost && expenss ? maxCost - expenss : "-"} บาท
+                      {final + " " + unit}
                     </Typography>
                   </Tooltip>
                 </Box>

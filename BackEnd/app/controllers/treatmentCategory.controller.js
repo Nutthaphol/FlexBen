@@ -1,10 +1,10 @@
 const db = require("../models");
-const treatmentType = db.treatmentType;
+const treatmentCategory = db.treatmentCategory;
 
-exports.getTreatmentType = (req, res) => {
+exports.getTreatmentCategory = (req, res) => {
   try {
-    if (treatmentType) {
-      res.status(200).send(treatmentType);
+    if (treatmentCategory) {
+      res.status(200).send(treatmentCategory);
     } else {
       res.status(404).send({ message: "treatment type not fount" });
     }

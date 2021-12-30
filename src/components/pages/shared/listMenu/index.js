@@ -17,6 +17,9 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 import Themplates from "../theme";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { amber } from "@mui/material/colors";
 
 const theme = createTheme(Themplates);
 
@@ -30,22 +33,47 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "center",
     },
+    "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
+      backgroundColor: amber[500],
+    },
   },
   nestedClose: {
     "& .MuiListItemIcon-root": {
       display: "flex",
       justifyContent: "flex-start",
     },
+    "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
+      backgroundColor: amber[500],
+    },
+  },
+  selected: {
+    "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
+      backgroundColor: amber[500],
+    },
+  },
+  selected2: {
+    "&.MuiListItem-root.Mui-selected": {
+      backgroundColor: amber[50],
+      borderLeft: "4px solid",
+      borderLeftColor: amber[500],
+    },
   },
 }));
 
 const ListMenu = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const path = useSelector((state) => state.navigation);
   const [dataListMenu] = useState(props.dataListMenu);
   const [openCollapse, setOpenCollapse] = React.useState(-1);
   // const [select, setSelect] = useState();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const path_ = window.location.pathname;
+    if (path != path_) {
+      dispatch({ type: "CLICK", path: path_ });
+    }
+  }, []);
 
   const handleClickCollapse = (index) => {
     if (openCollapse === index) {
@@ -55,9 +83,10 @@ const ListMenu = (props) => {
     }
   };
 
-  const handleOnClickSelect = () => {
-    // const path = window.location.pathname;
-    // setSelect(path);
+  const handleOnClickSelect = (value) => {
+    dispatch({ type: "CLICK", path: value });
+    console.log("value", value);
+    console.log("path", path);
   };
 
   return (
@@ -73,6 +102,14 @@ const ListMenu = (props) => {
                       onClick={() => handleClickCollapse(index)}
                       activeclassname={classes.isActive}
                       key={value.listKey}
+                      selected={
+                        value.collapse.find(
+                          (item) => item.listLink == path.path
+                        )
+                          ? true
+                          : false
+                      }
+                      className={classes.selected2}
                     >
                       <ListItemIcon>{value.listItemIcon}</ListItemIcon>
                       <ListItemText primary={value.listItemText} />
@@ -97,9 +134,12 @@ const ListMenu = (props) => {
                                   : classes.nestedClose
                               }
                               activeclassname={classes.isActive}
-                              // selected={
-                              //   collapse.listLink == select ? true : false
-                              // }
+                              selected={
+                                collapse.listLink == path.path ? true : false
+                              }
+                              onClick={() =>
+                                handleOnClickSelect(collapse.listLink)
+                              }
                             >
                               <ListItemIcon>
                                 {collapse.listItemIcon}
@@ -130,9 +170,11 @@ const ListMenu = (props) => {
                     component={NavLink}
                     to={value.listLink}
                     button
+                    className={classes.selected}
                     key={value.listKey}
                     activeclassname={classes.isActive}
-                    // selected={value.listLink == select ? true : false}
+                    selected={value.listLink == path.path ? true : false}
+                    onClick={() => handleOnClickSelect(value.listLink)}
                   >
                     <ListItemIcon>{value.listItemIcon}</ListItemIcon>
                     <ListItemText

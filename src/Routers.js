@@ -23,6 +23,7 @@ import FormTravel from "./components/pages/warehouse/FormTravel";
 import FormInsurance from "./components/pages/warehouse/FormInsurance";
 import FormPackage from "./components/pages/admin/FormPackage";
 import Dashbord from "./components/pages/user/health/Dashbord";
+import HistoryTreatment from "./components/pages/user/health/HistoryTreatment";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -149,7 +150,12 @@ function Routers() {
         <UserRoute exact path="/cart" component={Cart} />
         <UserRoute exact path="/history" component={History} />
         <UserRoute exact path="/history" component={History} />
-        <UserRoute exact path="/Health/Dashboard" component={Dashbord} />
+        <UserRoute exact path="/health/Dashboard" component={Dashbord} />
+        <UserRoute
+          exact
+          path="/health/HistoryTreatment"
+          component={HistoryTreatment}
+        />
 
         <WarehouseRoute
           exact

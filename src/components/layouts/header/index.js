@@ -158,6 +158,7 @@ const Header = (props) => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const path = useSelector((state) => state.navigation);
   const isMenuOpen = Boolean(anchorEl);
   const [cart, setCart] = useState();
   const handleMenuClose = () => {
@@ -173,6 +174,10 @@ const Header = (props) => {
 
     setCart(callCart);
   }, []);
+
+  const handleOnClickPath = (path) => {
+    dispatch({ type: "CLICK", path: path });
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -191,16 +196,26 @@ const Header = (props) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <MenuItem
+        onClick={() => {
+          setAnchorEl(null);
+          handleOnClickPath("/coinDashboard");
+        }}
         component={Link}
         to="/coinDashboard"
-        onClick={() => setAnchorEl(null)}
       >
         <ListItemIcon>
           <AccountBalanceWallet />
         </ListItemIcon>
         Wallet
       </MenuItem>
-      <MenuItem component={Link} to="/cart" onClick={() => setAnchorEl(null)}>
+      <MenuItem
+        onClick={() => {
+          handleOnClickPath("/cart");
+          setAnchorEl(null);
+        }}
+        component={Link}
+        to="/cart"
+      >
         <ListItemIcon>
           <Badge badgeContent={cart && cart.length} color="error">
             <ShoppingCart />
@@ -209,9 +224,12 @@ const Header = (props) => {
         Cart
       </MenuItem>
       <MenuItem
+        onClick={() => {
+          handleOnClickPath("/history");
+          setAnchorEl(null);
+        }}
         component={Link}
         to="/history"
-        onClick={() => setAnchorEl(null)}
       >
         <ListItemIcon>
           <HistoryEdu />

@@ -20,6 +20,6 @@ db.health = require("../models/health.model");
 db.healthCheck = require("../models/healthCheck.model");
 db.healthCheckCategory = require("../models/healthCheckCategory.model");
 db.rightTreatment = require("../models/rightTreatment.model");
-db.treatmentType = require("../models/treatmentType.model");
+db.treatmentCategory = require("../models/treatmentCategory.model");
 
 module.exports = db;

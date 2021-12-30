@@ -1,4 +1,4 @@
-const controller = require("../controllers/treatmentType.controller");
+const controller = require("../controllers/treatmentCategory.controller");
 const { authJwt } = require("../middleware");
 
 module.exports = function (app) {
@@ -11,8 +11,8 @@ module.exports = function (app) {
   });
 
   app.get(
-    "/api/treatmentType",
+    "/api/treatmentCategory",
     [authJwt.verifyToken],
-    controller.getTreatmentType
+    controller.getTreatmentCategory
   );
 };

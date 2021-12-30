@@ -20,6 +20,10 @@ const useStyles = makeStyles(() => ({
     minHeight: "140px",
     contain: "content",
     padding: 0,
+    backgroundColor: "#121212",
+    color: "#fff",
+    backgroundImage:
+      "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
   },
   Arrow: {
     backgroundColor: "#7da6ee",
@@ -42,11 +46,11 @@ const useStyles = makeStyles(() => ({
   },
   mainText: {
     fontWeight: "400",
-    color: "rgb(34, 86, 127)",
+    color: "#42a5f5",
   },
   unit: {
     fontWeight: "700",
-    color: "rgba(34, 86, 127, 0.9)",
+    color: "#0288d1",
   },
   chartBox: {
     position: "absolute",

@@ -20,6 +20,7 @@ import {
   LocalMall,
   SelfImprovement,
   Shop2,
+  Spa,
 } from "@mui/icons-material";
 
 const UserMenu = ({ open }) => {
@@ -73,6 +74,12 @@ const UserMenu = ({ open }) => {
           listItemText: "Dashboard",
           listLink: "/health/Dashboard",
           listKey: "healthDashboard",
+        },
+        {
+          listItemIcon: <Spa />,
+          listItemText: "History treatment",
+          listLink: "/health/HistoryTreatment",
+          listKey: "healthHistoryTreatment",
         },
       ],
     },

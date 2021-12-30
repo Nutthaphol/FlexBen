@@ -40,7 +40,12 @@ import ReactApexChart from "react-apexcharts";
 import Message from "../../shared/textBox/Message";
 import TabCustomRight from "../../shared/tabRightTreament";
 import rightTreatmentService from "../../../../services/rightTreatment.service";
+import Profile from "../../shared/card/Profile";
+import CoverPhoto from "../../shared/card/CoverPhoto";
 
+// Themplates.palette = {
+//   mode: "dark",
+// };
 const theme = createTheme(Themplates);
 
 export const TrendRiskHistoryData = {
@@ -97,25 +102,32 @@ const useStyles = makeStyles(() => ({
     height: "300px",
     width: "100%",
   },
-  containers: {
-    position: "relative",
-    width: "100%",
-    alignItems: "center",
-    display: "block",
-    marginTop: "60px",
-  },
+  // containers: {
+  //   // position: "relative",
+  //   // width: "100%",
+  //   // alignItems: "center",
+  //   // display: "block",
+  // },
   cardProfile: {
     padding: "1.25rem",
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     position: "relative",
     margin: "-50px 0 40px",
     minHeight: "160px",
+    backgroundColor: "#121212",
+    color: "#fff",
+    backgroundImage:
+      "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
   },
   card: {
     padding: "1.25rem",
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     position: "relative",
     margin: "0px 0 40px",
+    backgroundColor: "#121212",
+    color: "#fff",
+    backgroundImage:
+      "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
   },
   boxProfile: {
     width: "180px",
@@ -131,6 +143,7 @@ const useStyles = makeStyles(() => ({
     margin: 0,
     padding: 0,
     lineHight: 0,
+    color: "rgba(255, 255, 255, 0.7)",
   },
   buttonOne: {
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
@@ -145,6 +158,13 @@ const useStyles = makeStyles(() => ({
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+  },
+  frameProfile: {
+    padding: "10px",
+    background: "#fff",
+    borderRadius: "8px",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    backgroundColor: "#303030",
   },
 }));
 
@@ -280,12 +300,20 @@ const Dashbord = () => {
   const setChartDataTrendWeight = (key) => {
     if (health && key == "option") {
       const option = {
-        chart: { type: "area", toolbar: { show: false } },
+        chart: {
+          type: "area",
+          toolbar: { show: false },
+          background: "transparant",
+          foreColor: "rgba(255, 255, 255, 0.7)",
+        },
         xaxis: {
           categories: health.exercise.reduce((prev, curr) => {
             prev.push(dayjs(curr.date).format("MMM"));
             return prev;
           }, []),
+        },
+        tooltip: {
+          theme: "dark",
         },
       };
 
@@ -308,12 +336,20 @@ const Dashbord = () => {
   const setChartDataTrendExercise = (key) => {
     if (health && key == "option") {
       const option = {
-        chart: { type: "area", toolbar: { show: false } },
+        chart: {
+          type: "area",
+          toolbar: { show: false },
+          background: "transparant",
+          foreColor: "rgba(255, 255, 255, 0.7)",
+        },
         xaxis: {
           categories: health.exercise.reduce((prev, curr) => {
             prev.push(dayjs(curr.date).format("MMM"));
             return prev;
           }, []),
+        },
+        tooltip: {
+          theme: "dark",
         },
       };
 
@@ -336,7 +372,12 @@ const Dashbord = () => {
   const setChartSensation = (type) => {
     if (type == "options") {
       const option = {
-        chart: { type: "bar", toolbar: { show: false } },
+        chart: {
+          type: "area",
+          toolbar: { show: false },
+          background: "transparant",
+          foreColor: "rgba(255, 255, 255, 0.7)",
+        },
         plotOptions: {
           bar: {
             horizontal: false,
@@ -354,6 +395,9 @@ const Dashbord = () => {
         },
         xaxis: {
           categories: TrendRiskHistoryData.categories,
+        },
+        tooltip: {
+          theme: "dark",
         },
       };
       return option;
@@ -383,225 +427,10 @@ const Dashbord = () => {
       <ThemeProvider theme={theme}>
         <div className={`dashboard-page`}>
           {userProfile ? (
-            <Box className={classes.containers}>
-              {/* className={classes.containers} */}
-              <Box
-                className={classes.boxBackground}
-                style={{
-                  backgroundImage: `url(${process.env.REACT_APP_URL}image${userProfile.background})`,
-                }}
-              ></Box>
+            <Box>
+              <CoverPhoto image={userProfile.background} />
               <Container maxWidth="xl">
-                <Paper className={classes.cardProfile}>
-                  <Grid container>
-                    <Grid
-                      item
-                      lg={2}
-                      md={3}
-                      // sm={6}
-                      // xs={12}
-                      sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        margin: "0 40px",
-                      }}
-                    >
-                      <Box className={classes.boxProfile}>
-                        <Box
-                          sx={{
-                            padding: "10px",
-                            background: "#fff",
-                            borderRadius: "8px",
-                            boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-                          }}
-                        >
-                          <img
-                            src={`${process.env.REACT_APP_URL}image/profile/${userProfile.image}`}
-                            width="100%"
-                            className={classes.profile}
-                          />
-                        </Box>
-                      </Box>
-                    </Grid>
-                    <Grid item lg={9} md={8}>
-                      <Grid
-                        container
-                        alignItems="flex-end"
-                        spacing={2}
-                        sx={{ marginBottom: "16px" }}
-                      >
-                        <Grid item>
-                          <Typography
-                            variant="h5"
-                            component="div"
-                            gutterBottom
-                            className={classes.headText}
-                            sx={{ margin: 0 }}
-                          >
-                            {`${userProfile.firstname} ${userProfile.lastname}`}
-                          </Typography>
-                        </Grid>
-                        <Grid item>
-                          <Button
-                            className={classes.buttonOne}
-                            variant="contained"
-                          >
-                            แก้ไขข้อมูลส่วนตัว
-                          </Button>
-                        </Grid>
-                        <Grid item>
-                          <Typography
-                            variant="subtitle2"
-                            component="div"
-                            gutterBottom
-                            className={classes.subText}
-                            color="text.secondary"
-                          >
-                            เลขประจำตัวพนักงาน: {userProfile.employeeCode}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                      <Grid
-                        container
-                        spacing={2}
-                        justifyContent="space-between"
-                        sx={{ marginBottom: "14px" }}
-                      >
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <AccountBox
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              ตำแหน่งงาน: {userProfile.position}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Group
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              แผนก: {userProfile.department}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Phone
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              เบอร์ติดต่อ: {userProfile.mobileNumber}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                      <Grid
-                        container
-                        spacing={2}
-                        justifyContent="space-between"
-                      >
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <Group
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              ฝ่าย: {userProfile.department}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <HomeWork
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              บริษัท: {userProfile.company}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                        <Grid item xl={4} lg={3} md={3}>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                            }}
-                          >
-                            <HistoryToggleOff
-                              color="info"
-                              className={classes.iconsSpace}
-                            />
-                            <Typography
-                              variant="subtitle2"
-                              color="text.secondary"
-                              className={classes.textPreData}
-                            >
-                              ผลตรวจล่าสุด:{" "}
-                              {lastHealthCheck
-                                ? dayjs(lastHealthCheck.dateTest).format(
-                                    "DD / MMMM / YYYY"
-                                  )
-                                : "-"}
-                            </Typography>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Paper>
+                <Profile profile={userProfile} lastHealth={lastHealthCheck} />
 
                 <Paper className={classes.card}>
                   <Grid container>
@@ -669,9 +498,7 @@ const Dashbord = () => {
                         <Circle
                           sx={{ color: val.color, margin: "0 4px 0 20px" }}
                         />
-                        <Typography variant="body2" color="text.secondary">
-                          {val.meaning}
-                        </Typography>
+                        <Typography variant="body2">{val.meaning}</Typography>
                       </Box>
                     ))}
                   </Box>
@@ -816,34 +643,6 @@ const Dashbord = () => {
                         />
                       </Icon>
                     </Box>
-                  </Paper>
-                )}
-
-                {health && (
-                  <Paper className={classes.card}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        width: "100%",
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        className={classes.headText}
-                        component="div"
-                        gutterBottom
-                      >
-                        ความรู้สึกทางร่างกายของเราเอง
-                      </Typography>
-                    </Box>
-
-                    <ReactApexChart
-                      options={setChartDataTrendExercise("option")}
-                      series={setChartDataTrendExercise("series")}
-                      type="area"
-                      height="300px"
-                    />
                   </Paper>
                 )}
 

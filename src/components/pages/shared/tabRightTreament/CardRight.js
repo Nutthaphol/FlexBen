@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   createTheme,
   ThemeProvider,
@@ -19,7 +19,7 @@ import { makeStyles, styled } from "@mui/styles";
 import { blue } from "@mui/material/colors";
 import { Box } from "@mui/system";
 
-const theme = createTheme(Themplates);
+// const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -27,6 +27,7 @@ const useStyles = makeStyles(() => ({
     border: "1px solid rgba(0, 0, 0, 0.12);",
     padding: "1rem",
     marginBottom: "1rem",
+    backgroundColor: "rgba(255, 255, 255, 0.12)",
   },
   icon: {
     fontSize: "4rem",
@@ -37,13 +38,17 @@ const useStyles = makeStyles(() => ({
   },
   mainText: {
     fontWeight: "600",
-    color: "#2F4F4F",
+    color: "#fff",
+  },
+  subText: {
+    color: "rgba(255, 255, 255, 0.7)",
   },
 }));
 
 const CardRight = (props) => {
-  const { icon, category, describtion, cover, time } = props;
+  const { icon, category, description, cover, period, theme } = props;
   const classes = useStyles();
+
   return (
     <div>
       <StyledEngineProvider injectFirst>
@@ -96,14 +101,14 @@ const CardRight = (props) => {
                   variant="h5"
                   component="div"
                 >
-                  {category}
+                  {category && category}
                 </Typography>
                 <Typography
                   variant="subtitle1"
                   component="div"
-                  color="text.secondary"
+                  className={classes.subText}
                 >
-                  {describtion && describtion}
+                  {description && description}
                 </Typography>
               </Grid>
               <Grid
@@ -143,7 +148,7 @@ const CardRight = (props) => {
                       variant="h5"
                       component="div"
                     >
-                      {time && time}
+                      {period && period}
                     </Typography>
                   </Box>
                 </Tooltip>

@@ -48,7 +48,7 @@ require("./app/routes/health.routes")(app);
 require("./app/routes/healthCheck.routes")(app);
 require("./app/routes/healthCheckCategory.routes")(app);
 require("./app/routes/rightTreatment.routes")(app);
-require("./app/routes/treatmentType.routes")(app);
+require("./app/routes/treatmentCategory.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

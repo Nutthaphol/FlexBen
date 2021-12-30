@@ -11,53 +11,73 @@ import { useState } from "react";
 import { Tab, Tabs, Typography } from "@mui/material";
 import CardRight from "./CardRight";
 import CardUseRight from "./CardUseRight";
-import treatmentTypeService from "../../../../services/treatmentType.service";
+import treatmentCategoryService from "../../../../services/treatmentCategory.service";
+import Themplates from "../theme";
 
-const theme = createTheme();
+const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   firstTab: {
-    // borderStyle: "solid",
-    // borderColor: "#D0D3D4",
-    // borderWidth: "1px 1px 0px 1px",
     margin: "1px 1px 0px",
+    fontWeight: 600,
+    fontSize: "1rem",
+    color: "#fff",
+    "&.MuiButtonBase-root.MuiTab-root.Mui-selected": {
+      color: "#0288d1",
+    },
   },
   seconTab: {
+    color: "#fff",
     minWidth: "120px",
+    fontWeight: 600,
+    fontSize: "1rem",
+    "&.MuiButtonBase-root.MuiTab-root.Mui-selected": {
+      color: "#ab47bc",
+    },
   },
   text: {
     fontWeight: "600",
+    color: "#fff",
+  },
+  indicator1: {
+    backgroundColor: "#0288d1",
+    height: "3px",
+  },
+  indicator2: {
+    backgroundColor: "#ab47bc",
+    height: "3px",
   },
 }));
 
 const TabCustomRight = (props) => {
   const { right, useRight } = props;
   const classes = useStyles();
-  const [treatmentType, setTreatmentType] = useState();
+  const [treatmentCategory, setTreatmentCategory] = useState();
   const [tabCategorieTreatment, setTabCategorieTreatment] = useState(1);
-  const [tabRightUser, setTabRightUser] = useState([
-    "employee",
-    "employee",
-    "employee",
-  ]);
+  const [tabRightUser, setTabRightUser] = useState([1, 1, 1]);
   const [infoRight, setInfoRight] = useState();
   const [infoUseRight, setInfoUseRight] = useState();
 
   useEffect(async () => {
     if (!infoRight && right) {
       dataRight(tabCategorieTreatment, tabRightUser[tabCategorieTreatment - 1]);
-    }
-    if (!infoUseRight && useRight && right) {
       dataUseRight(
         tabCategorieTreatment,
         tabRightUser[tabCategorieTreatment - 1]
       );
     }
-    if (!treatmentType) {
-      const treatmentType_ = await treatmentTypeService.getTreatmentType();
-      setTreatmentType(treatmentType_);
+    // if (!infoUseRight && useRight && right) {
+    //   dataUseRight(
+    //     tabCategorieTreatment,
+    //     tabRightUser[tabCategorieTreatment - 1]
+    //   );
+    // }
+    if (!treatmentCategory) {
+      const treatmentCategory_ =
+        await treatmentCategoryService.getTreatmentCategory();
+      setTreatmentCategory(treatmentCategory_);
     }
-  }, [infoRight, right, useRight, infoUseRight, treatmentType]);
+  }, [infoRight, right, useRight, infoUseRight, treatmentCategory]);
 
   const handelOnChangeTabCategory = (value) => {
     setTabCategorieTreatment(value);
@@ -67,84 +87,85 @@ const TabCustomRight = (props) => {
   const handelOnChangeTabRightUser = (value, index) => {
     const right_ = [...tabRightUser];
     right_[index] = value;
-    setTabRightUser(right_);
     dataRight(tabCategorieTreatment, value);
     dataUseRight(tabCategorieTreatment, value);
+    setTabRightUser(right_);
   };
 
   const dataRight = (category, rightUser) => {
-    const dataRight = right.right
-      .filter((item) => item.type == category)
-      .map((item) => {
-        var tmp = null;
-        if (rightUser == "employee") {
-          tmp = item.employee;
-          tmp = tmp.reduce((prev, curr) => {
-            curr.icon = "participant.svg";
-            prev.push(curr);
-            return prev;
-          }, []);
-        } else if (rightUser == "family") {
-          tmp = item.family;
-          tmp = tmp.reduce((prev, curr) => {
-            curr.icon = "big-family.svg";
-            prev.push(curr);
-            return prev;
-          }, []);
-        } else {
-          tmp = [];
+    let tmpData;
+    if (right) {
+      const right_ = right.right;
+      tmpData = right_.reduce((prev, curr) => {
+        if (curr.category == category && curr.rightUser == rightUser) {
+          curr.icon = rightUser == 1 ? "participant.svg" : "big-family.svg";
+          prev.push(curr);
         }
-        return tmp;
-      });
-    setInfoRight(dataRight[0]);
+        return prev;
+      }, []);
+    }
+    setInfoRight([...tmpData]);
   };
 
   const dataUseRight = (category, rightUser) => {
-    const data = useRight
-      .filter((item) => item.right == rightUser && item.category == category)
-      .map((val) => {
-        return val;
+    let tmpData = [];
+    if (useRight && right) {
+      // filter category and type
+      const filter1 = right.right
+        .filter(
+          (item) => item.rightUser == rightUser && item.category == category
+        )
+        .map((val) => {
+          return val;
+        });
+      console.log("filter1", filter1);
+
+      filter1.map((val) => {
+        let createData = {};
+        const tmp = useRight.filter(
+          (item) =>
+            item.category == category &&
+            item.right == val.type &&
+            item.rightUser == rightUser
+        );
+        createData.icon = rightUser == 1 ? "participant.svg" : "big-family.svg";
+        createData.category = category;
+        createData.right = val.type;
+        createData.count = tmp.length;
+        createData.expess = tmp.reduce((prev, curr) => prev + curr.expess, 0);
+        createData.countMethod = val.countMethod;
+        createData.cover = val.cover;
+        createData.period = val.period;
+        createData.description = val.description;
+        createData.unitCover = val.unitCover;
+        createData.unitPeriod = val.unitPeriod;
+        createData.usedP =
+          createData.countMethod == "time"
+            ? (createData.count * 100) / createData.period
+            : (createData.expess * 100) / createData.period;
+        createData.final =
+          createData.countMethod == "time"
+            ? createData.period - createData.count
+            : createData.period - createData.expess;
+        tmpData.push({ ...createData });
       });
-
-    const detail = right.right.filter((item) => item.type == category);
-
-    const maxCost =
-      rightUser == "employee"
-        ? detail[0].employee[0].maxCost
-        : rightUser == "family"
-        ? detail[0].family[0].maxCost
-        : "";
-
-    const dataUseRight = {};
-    dataUseRight.icon =
-      rightUser == "employee"
-        ? "participant.svg"
-        : rightUser == "family"
-        ? "big-family.svg"
-        : "";
-    dataUseRight.category =
-      treatmentType && treatmentType.find((item) => item.type == category).name;
-    dataUseRight.describtion =
-      rightUser == "employee"
-        ? detail[0].employee[0].detail
-        : rightUser == "family"
-        ? detail[0].family[0].detail
-        : "";
-    dataUseRight.expenss = data.reduce((prev, curr) => prev + curr.expenss, 0);
-    dataUseRight.cover = (dataUseRight.expenss * 100) / maxCost;
-    dataUseRight.cover =
-      dataUseRight.cover > 100 ? 100 : dataUseRight.cover.toFixed(2);
-    dataUseRight.maxCost = maxCost;
-
-    console.log("dataUseRight.cover", dataUseRight.cover);
-    setInfoUseRight(dataUseRight);
+    }
+    console.log("tmpData", tmpData);
+    setInfoUseRight([...tmpData]);
   };
   return (
     <div>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderBottom: "1px solid",
+              borderColor: "rgba(255, 255, 255, 0.12)",
+            }}
+          >
             <Tabs
+              classes={{ indicator: classes.indicator1 }}
               value={tabCategorieTreatment}
               onChange={(e, value_) => handelOnChangeTabCategory(value_)}
             >
@@ -155,6 +176,7 @@ const TabCustomRight = (props) => {
           </Box>
           <Box>
             <Tabs
+              classes={{ indicator: classes.indicator2 }}
               sx={{ padding: "0 2rem" }}
               value={tabRightUser[tabCategorieTreatment - 1]}
               onChange={(e, value_) =>
@@ -163,16 +185,8 @@ const TabCustomRight = (props) => {
               textColor="secondary"
               indicatorColor="secondary"
             >
-              <Tab
-                className={classes.seconTab}
-                label="พนักงาน"
-                value="employee"
-              />
-              <Tab
-                className={classes.seconTab}
-                label="ครอบครัว"
-                value="family"
-              />
+              <Tab className={classes.seconTab} label="พนักงาน" value={1} />
+              <Tab className={classes.seconTab} label="ครอบครัว" value={2} />
             </Tabs>
           </Box>
           <br />
@@ -190,15 +204,26 @@ const TabCustomRight = (props) => {
               <CardRight
                 key={index}
                 icon={val.icon && val.icon}
-                category={val.category && val.category}
-                describtion={val.detail && val.detail}
-                cover={
-                  val.maxCost &&
-                  `${val.maxCost} ${
-                    typeof val.maxCost == "number" ? val.unit : ""
-                  }`
+                category={
+                  treatmentCategory.find((item) => item.id == val.category).name
                 }
-                time={val.quantity && `${val.quantity} ครั้ง`}
+                description={val.description}
+                cover={
+                  typeof val.cover == "number"
+                    ? val.cover
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                      " " +
+                      val.unitCover
+                    : val.cover
+                }
+                period={
+                  val.period &&
+                  val.period.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+                    " " +
+                    val.unitPeriod
+                }
+                theme={theme}
               />
             ))}
           <br />
@@ -210,16 +235,22 @@ const TabCustomRight = (props) => {
           >
             ใช้ไป
           </Typography>
-          {infoUseRight && (
-            <CardUseRight
-              icon={infoUseRight.icon}
-              category={infoUseRight.category}
-              cover={infoUseRight.cover}
-              maxCost={infoUseRight.maxCost}
-              expenss={infoUseRight.expenss}
-              describtion={infoUseRight.describtion}
-            />
-          )}
+          {infoUseRight &&
+            infoUseRight.map((val, index) => (
+              <CardUseRight
+                key={index}
+                icon={val.icon}
+                category={
+                  treatmentCategory.find((item) => item.id == val.category).name
+                }
+                description={val.description}
+                usedP={val.usedP}
+                method={val.countMethod}
+                final={val.final}
+                unit={val.unitPeriod}
+                theme={theme}
+              />
+            ))}
         </ThemeProvider>
       </StyledEngineProvider>
     </div>

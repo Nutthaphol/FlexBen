@@ -18,6 +18,7 @@ import history from "./history";
 import delivery from "./delivery";
 import facilities from "./facilities";
 import insuranceCategory from "./insuranceCategory";
+import navigation from "./navigation";
 
 const appReducer = combineReducers({
   auth,
@@ -39,6 +40,7 @@ const appReducer = combineReducers({
   delivery,
   facilities,
   insuranceCategory,
+  navigation,
 });
 
 const rootReducer = (state, action) => {
