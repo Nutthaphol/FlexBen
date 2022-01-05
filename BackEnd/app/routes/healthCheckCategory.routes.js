@@ -9,4 +9,9 @@ module.exports = function (app) {
     );
     next();
   });
+  app.get(
+    "/api/HealthCheckCategory",
+    [authJwt.verifyToken],
+    controller.getHealthCheckCategory
+  );
 };

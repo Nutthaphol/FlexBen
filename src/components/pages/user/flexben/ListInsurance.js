@@ -158,43 +158,47 @@ const ListInsurance = () => {
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>
-                {allInsurance &&
-                  allInsurance
-                    .filter((item) => {
-                      if (search != null) {
-                        console.log("search ", search.label);
-                        const word = search.label
-                          .replace("Package ", "")
-                          .toLocaleLowerCase();
-                        return item.name.toLocaleLowerCase().search(word) != -1;
-                      } else {
-                        return true;
-                      }
-                    })
-                    .map((val, index) => (
-                      <Grid
-                        item
-                        key={index}
-                        xl={3}
-                        lg={3}
-                        md={4}
-                        sm={6}
-                        xs={12}
-                      >
-                        <Box className={classes.boxMap}>
-                          <ProductCard
-                            path="detailInsurance"
-                            image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                            head={val.highLights}
-                            price={val.price}
-                            name={val.name}
-                            id={val.id}
-                            count={val.count}
-                            type={val.type}
-                          />
-                        </Box>
-                      </Grid>
-                    ))}
+                <Grid container spacing={3}>
+                  {allInsurance &&
+                    allInsurance
+                      .filter((item) => {
+                        if (search != null) {
+                          console.log("search ", search.label);
+                          const word = search.label
+                            .replace("Package ", "")
+                            .toLocaleLowerCase();
+                          return (
+                            item.name.toLocaleLowerCase().search(word) != -1
+                          );
+                        } else {
+                          return true;
+                        }
+                      })
+                      .map((val, index) => (
+                        <Grid
+                          item
+                          key={index}
+                          xl={3}
+                          lg={3}
+                          md={4}
+                          sm={6}
+                          xs={12}
+                        >
+                          <Box className={classes.boxMap}>
+                            <ProductCard
+                              path="detailInsurance"
+                              image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                              head={val.highLights}
+                              price={val.price}
+                              name={val.name}
+                              id={val.id}
+                              count={val.count}
+                              type={val.type}
+                            />
+                          </Box>
+                        </Grid>
+                      ))}
+                </Grid>
               </Grid>
             </Grid>
             <br />

@@ -121,7 +121,7 @@ const Profile = (props) => {
                   <Box
                     sx={{}}
                     className={
-                      theme == "light"
+                      themes == "light"
                         ? classes.frameProfileW
                         : classes.frameProfile
                     }
@@ -163,7 +163,7 @@ const Profile = (props) => {
                       component="div"
                       gutterBottom
                       className={
-                        theme == "light" ? classes.subTextW : classes.subText
+                        themes == "light" ? classes.subTextW : classes.subText
                       }
                     >
                       เลขประจำตัวพนักงาน: {profile.employeeCode}

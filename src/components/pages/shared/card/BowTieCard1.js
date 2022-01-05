@@ -66,7 +66,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BowTieCard1 = ({ category, imageIcon, value, unit, data, stack }) => {
+const BowTieCard1 = ({
+  category,
+  imageIcon,
+  value,
+  unit,
+  data,
+  stack,
+  themes,
+}) => {
   //   const [series, setSeries] = useState(data.series);
   //   const [option, setOption] = useState(data.option);
   const chartRef = useRef();

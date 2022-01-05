@@ -25,6 +25,16 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     display: "flex",
   },
+  rootW: {
+    position: "relative",
+    width: "100%",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    contain: "content",
+    padding: 0,
+    minHeight: "160px",
+    alignItems: "center",
+    display: "flex",
+  },
   Arrow: {
     backgroundColor: "#7da6ee",
     boxShadow: "rgb(3 0 100 / 80%) 0px 2px 4px",
@@ -88,6 +98,7 @@ const BowTieCard2 = ({
   unit,
   typeBow,
   longText = false,
+  themes = "dark",
 }) => {
   const chartRef = useRef();
   const classes = useStyles();
@@ -95,7 +106,7 @@ const BowTieCard2 = ({
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Box sx={{ position: "relative" }}>
-          <Paper className={classes.root}>
+          <Paper className={themes == "light" ? classes.rootW : classes.root}>
             {typeBow == 1 ? (
               <Box className={classes.Arrow}>
                 <Typography variant="subtitle1" component="div">

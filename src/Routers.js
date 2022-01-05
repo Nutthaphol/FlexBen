@@ -23,7 +23,8 @@ import FormTravel from "./components/pages/warehouse/FormTravel";
 import FormInsurance from "./components/pages/warehouse/FormInsurance";
 import FormPackage from "./components/pages/admin/FormPackage";
 import Dashbord from "./components/pages/user/health/Dashbord";
-import HistoryTreatment from "./components/pages/user/health/HistoryTreatment";
+import TreatmentHistory from "./components/pages/user/health/TreatmentHistory";
+import HealthHistory from "./components/pages/user/health/HealthHistory";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -137,24 +138,29 @@ function Routers() {
         <UserRoute exact path="/coinDashboard" component={CoinDashboard} />
         <UserRoute
           exact
-          path="/detailInsurance/:id"
+          path="*/detailInsurance/:id"
           component={DetailInsurance}
         />
-        <UserRoute exact path="/detailPackage/:id" component={DetailPackage} />
+        <UserRoute exact path="*/detailPackage/:id" component={DetailPackage} />
         <UserRoute exact path="/allPackages" component={ListPackage} />
         <UserRoute exact path="/allInsurance" component={ListInsurance} />
         <UserRoute exact path="/shoppingMall" component={ShopingMall} />
         <UserRoute exact path="/travelShop" component={TravelShop} />
-        <UserRoute exact path="/detailItem/:id" component={DetailItem} />
-        <UserRoute exact path="/detailTravel/:id" component={DetailTravel} />
+        <UserRoute exact path="*/detailItem/:id" component={DetailItem} />
+        <UserRoute exact path="*/detailTravel/:id" component={DetailTravel} />
         <UserRoute exact path="/cart" component={Cart} />
         <UserRoute exact path="/history" component={History} />
         <UserRoute exact path="/history" component={History} />
         <UserRoute exact path="/health/Dashboard" component={Dashbord} />
         <UserRoute
           exact
-          path="/health/HistoryTreatment"
-          component={HistoryTreatment}
+          path="/health/TreatmentHistory"
+          component={TreatmentHistory}
+        />
+        <UserRoute
+          exact
+          path="/health/HealthHistory"
+          component={HealthHistory}
         />
 
         <WarehouseRoute

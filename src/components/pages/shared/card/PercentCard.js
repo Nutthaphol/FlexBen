@@ -26,6 +26,12 @@ const useStyles = makeStyles(() => ({
       "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
     marginBottom: "40px",
   },
+  rootW: {
+    padding: "1.25rem",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    position: "relative",
+    marginBottom: "40px",
+  },
   progress: {
     height: "10px",
     borderRadius: "16px",
@@ -42,11 +48,11 @@ const useStyles = makeStyles(() => ({
 
 const PercentCard = (props) => {
   const classes = useStyles();
-  const { value, text } = props;
+  const { value, text, themes } = props;
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={classes.root}>
+        <Paper className={themes == "light" ? classes.rootW : classes.root}>
           <Box sx={{ mb: "20px" }}>
             <Typography variant="h6" component="div">
               {text}
