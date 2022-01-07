@@ -15,4 +15,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getRightTreatment
   );
+  app.get(
+    "/api/RightTreatmen/getRightTreatment/:id",
+    [authJwt.verifyToken],
+    controller.getRightTreatmentByUserId
+  );
 };

@@ -26,7 +26,7 @@ const CategoryCard = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Link href="/" underline="none">
+        <Link href={`/health/HealthHistory/detail/${data.id}`} underline="none">
           <Paper className={classes.root} sx={{ textAlign: "center" }}>
             <Icon sx={{ fontSize: "4.5rem" }}>
               <img

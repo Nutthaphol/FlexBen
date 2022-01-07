@@ -10,7 +10,7 @@ import { makeStyles } from "@mui/styles";
 import { getAllUsers, getUserProfile } from "../../../../actions/user";
 import Profile from "../../shared/card/Profile";
 import CoverPhoto from "../../shared/card/CoverPhoto";
-import { Container, Grid } from "@mui/material";
+import { Container, Grid, Link } from "@mui/material";
 import { Box } from "@mui/system";
 import healthCheckService from "../../../../services/healthCheck.service";
 import healthCheckCategoryService from "../../../../services/healthCheckCategory.service";
@@ -74,7 +74,7 @@ const HealthHistory = () => {
       <ThemeProvider theme={theme}>
         <div className={`dashboard-page-light`}>
           {userProfile ? (
-            <Box>
+            <Box sx={{ marginBottom: "2rem" }}>
               <CoverPhoto image={userProfile.background} />
               <Container maxWidth="xl">
                 <Profile
@@ -90,7 +90,7 @@ const HealthHistory = () => {
                           key={index}
                           sx={{
                             "&:hover": {
-                              transform: "scale(1.05)",
+                              transform: "scale(1.02)",
                               transition: "transform .2s",
                             },
                           }}

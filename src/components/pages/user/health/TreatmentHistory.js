@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const TreatmentHistory = () => {
+const TreatmentHistory = (props) => {
   const classes = useStyles();
   const dispath = useDispatch();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -315,7 +315,9 @@ const TreatmentHistory = () => {
                       flexDirection: "row-reverse",
                     }}
                   >
-                    <Button>View more</Button>
+                    <Button href={`/health/TreatmentHistory/detail`}>
+                      View more
+                    </Button>
                   </Box>
                 </Paper>
                 <Grid container spacing={2}>

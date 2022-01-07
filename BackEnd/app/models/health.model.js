@@ -41,7 +41,6 @@ const HealthData = [
         time: 33,
       },
     ],
-    // rightUser = 1 is employee and 2 is family
     treatment: [
       {
         id: 1,
@@ -51,8 +50,10 @@ const HealthData = [
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 1200,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -89,8 +90,10 @@ const HealthData = [
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 200000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -123,12 +126,14 @@ const HealthData = [
         id: 2,
         category: 2,
         right: 2,
-        section: "-",
+        section: "ค่าห้อง + อาหาร (ผ่าตัดตับ)",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 2000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -161,12 +166,14 @@ const HealthData = [
         id: 2,
         category: 2,
         right: 3,
-        section: "-",
+        section: "ค่าห้อง ICU (ผ่าตัดตับ)",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 1000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -199,12 +206,14 @@ const HealthData = [
         id: 3,
         category: 2,
         right: 4,
-        section: "-",
+        section: "ค่าบำบัดโรค",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 10000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -241,8 +250,10 @@ const HealthData = [
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 12000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -279,8 +290,10 @@ const HealthData = [
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
+        location: "โรงพยาบาลตัวเอง",
         expess: 3000,
         icon: "",
+        note: "-",
         state: [
           {
             id: 1,
@@ -317,122 +330,10 @@ const HealthData = [
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
+        location: "โรงพยาบาลตัวเอง",
         expess: 1400,
         icon: "sick.svg",
-        state: [
-          {
-            id: 1,
-            action: "ทำรายการ",
-            clear: true,
-          },
-          {
-            id: 1,
-            action: "ดำเนินการเอกสาร",
-            clear: true,
-          },
-          {
-            id: 3,
-            action: "โรงพยาบาลวางบิล",
-            clear: true,
-          },
-          {
-            id: 4,
-            action: "ประกันโรงพยาบาล",
-            clear: false,
-          },
-          {
-            id: 5,
-            action: "เสร็จสิ้น",
-            clear: false,
-          },
-        ],
-      },
-      {
-        id: 6,
-        category: 2,
-        right: 1,
-        section: "ผ่าตัดลำไส้",
-        type: 1,
-        dete: dayjs(new Date(2021, 10, 10)),
-        rightUser: 1,
-        expess: 200000,
-        icon: "surgery.svg",
-        state: [
-          {
-            id: 1,
-            action: "ทำรายการ",
-            clear: true,
-          },
-          {
-            id: 1,
-            action: "ดำเนินการเอกสาร",
-            clear: true,
-          },
-          {
-            id: 3,
-            action: "โรงพยาบาลวางบิล",
-            clear: true,
-          },
-          {
-            id: 4,
-            action: "ประกันโรงพยาบาล",
-            clear: false,
-          },
-          {
-            id: 5,
-            action: "เสร็จสิ้น",
-            clear: false,
-          },
-        ],
-      },
-      {
-        id: 6,
-        category: 2,
-        right: 2,
-        section: "ผ่าตัดลำไส้",
-        type: 1,
-        dete: dayjs(new Date(2021, 10, 10)),
-        rightUser: 1,
-        expess: 3000,
-        icon: "surgery.svg",
-        state: [
-          {
-            id: 1,
-            action: "ทำรายการ",
-            clear: true,
-          },
-          {
-            id: 1,
-            action: "ดำเนินการเอกสาร",
-            clear: true,
-          },
-          {
-            id: 3,
-            action: "โรงพยาบาลวางบิล",
-            clear: true,
-          },
-          {
-            id: 4,
-            action: "ประกันโรงพยาบาล",
-            clear: false,
-          },
-          {
-            id: 5,
-            action: "เสร็จสิ้น",
-            clear: false,
-          },
-        ],
-      },
-      {
-        id: 6,
-        category: 2,
-        right: 3,
-        section: "ผ่าตัดลำไส้",
-        type: 1,
-        dete: dayjs(new Date(2021, 10, 10)),
-        rightUser: 1,
-        expess: 2000,
-        icon: "surgery.svg",
+        note: "-",
         state: [
           {
             id: 1,
@@ -464,13 +365,95 @@ const HealthData = [
       {
         id: 7,
         category: 2,
-        right: 4,
-        section: "บำบัดจิต",
+        right: 1,
+        section: "ผ่าตัดลำไส้",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
-        expess: 15000,
-        icon: "sick.svg",
+        location: "โรงพยาบาลตัวเอง",
+        expess: 200000,
+        icon: "surgery.svg",
+        note: "-",
+        state: [
+          {
+            id: 1,
+            action: "ทำรายการ",
+            clear: true,
+          },
+          {
+            id: 1,
+            action: "ดำเนินการเอกสาร",
+            clear: true,
+          },
+          {
+            id: 3,
+            action: "โรงพยาบาลวางบิล",
+            clear: true,
+          },
+          {
+            id: 4,
+            action: "ประกันโรงพยาบาล",
+            clear: false,
+          },
+          {
+            id: 5,
+            action: "เสร็จสิ้น",
+            clear: false,
+          },
+        ],
+      },
+      {
+        id: 7,
+        category: 2,
+        right: 2,
+        section: "ผ่าตัดลำไส้",
+        type: 1,
+        dete: dayjs(new Date(2021, 10, 10)),
+        rightUser: 1,
+        location: "โรงพยาบาลตัวเอง",
+        expess: 3000,
+        icon: "surgery.svg",
+        note: "-",
+        state: [
+          {
+            id: 1,
+            action: "ทำรายการ",
+            clear: true,
+          },
+          {
+            id: 1,
+            action: "ดำเนินการเอกสาร",
+            clear: true,
+          },
+          {
+            id: 3,
+            action: "โรงพยาบาลวางบิล",
+            clear: true,
+          },
+          {
+            id: 4,
+            action: "ประกันโรงพยาบาล",
+            clear: false,
+          },
+          {
+            id: 5,
+            action: "เสร็จสิ้น",
+            clear: false,
+          },
+        ],
+      },
+      {
+        id: 7,
+        category: 2,
+        right: 3,
+        section: "ผ่าตัดลำไส้",
+        type: 1,
+        dete: dayjs(new Date(2021, 10, 10)),
+        rightUser: 1,
+        location: "โรงพยาบาลตัวเอง",
+        expess: 2000,
+        icon: "surgery.svg",
+        note: "-",
         state: [
           {
             id: 1,
@@ -502,13 +485,15 @@ const HealthData = [
       {
         id: 8,
         category: 2,
-        right: 5,
-        section: "เสริมคาง",
+        right: 4,
+        section: "บำบัดจิต",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
-        expess: 30000,
-        icon: "surgery.svg",
+        location: "โรงพยาบาลตัวเอง",
+        expess: 15000,
+        icon: "sick.svg",
+        note: "-",
         state: [
           {
             id: 1,
@@ -539,14 +524,16 @@ const HealthData = [
       },
       {
         id: 9,
-        category: 3,
-        right: 1,
-        section: "ถอนฟัน",
+        category: 2,
+        right: 5,
+        section: "เสริมคาง",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
-        expess: 2500,
+        location: "โรงพยาบาลตัวเอง",
+        expess: 30000,
         icon: "surgery.svg",
+        note: "-",
         state: [
           {
             id: 1,
@@ -577,14 +564,56 @@ const HealthData = [
       },
       {
         id: 10,
+        category: 3,
+        right: 1,
+        section: "ถอนฟัน",
+        type: 1,
+        dete: dayjs(new Date(2021, 10, 10)),
+        rightUser: 1,
+        location: "โรงพยาบาลตัวเอง",
+        expess: 2500,
+        icon: "surgery.svg",
+        note: "-",
+        state: [
+          {
+            id: 1,
+            action: "ทำรายการ",
+            clear: true,
+          },
+          {
+            id: 1,
+            action: "ดำเนินการเอกสาร",
+            clear: true,
+          },
+          {
+            id: 3,
+            action: "โรงพยาบาลวางบิล",
+            clear: true,
+          },
+          {
+            id: 4,
+            action: "ประกันโรงพยาบาล",
+            clear: true,
+          },
+          {
+            id: 5,
+            action: "เสร็จสิ้น",
+            clear: true,
+          },
+        ],
+      },
+      {
+        id: 11,
         category: 1,
         right: 1,
         section: "ทำแผล",
         type: 1,
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
+        location: "โรงพยาบาลตัวเอง",
         expess: 800,
-        icon: "bandaged.svg",
+        icon: "surgery.svg",
+        note: "-",
         state: [
           {
             id: 1,

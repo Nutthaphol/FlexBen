@@ -2,13 +2,11 @@ import { httpClient } from "./httpClient";
 
 const getHealthCheck = async (id) => {
   const res = await httpClient
-    .get("healthCheck/getHealthCheck/" + id)
+    .get("healthCheck/getHealthCheckUser/" + id)
     .then((response) => {
-      if (response.data) {
-        return response.data.time.at(-1);
-      }
-      return false;
+      return response.data;
     });
+  return res;
 };
 
 const getLastHealthCheck = async (id) => {
@@ -27,4 +25,5 @@ const getLastHealthCheck = async (id) => {
 
 export default {
   getLastHealthCheck,
+  getHealthCheck,
 };

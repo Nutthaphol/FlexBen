@@ -1,6 +1,6 @@
 import { httpClient } from "./httpClient";
 
-const getHealthCheckCategory = async (id) => {
+const getHealthCheckCategory = async () => {
   const res = await httpClient.get("HealthCheckCategory").then((response) => {
     return response.data;
   });

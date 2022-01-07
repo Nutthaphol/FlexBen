@@ -25,6 +25,9 @@ import FormPackage from "./components/pages/admin/FormPackage";
 import Dashbord from "./components/pages/user/health/Dashbord";
 import TreatmentHistory from "./components/pages/user/health/TreatmentHistory";
 import HealthHistory from "./components/pages/user/health/HealthHistory";
+import TreatmentHistoryDetail from "./components/pages/user/health/TreatmentHistoryDetail";
+import TreatmentHistoryDataGrid from "./components/pages/user/health/TreatmentHistoryDataGrid";
+import HealthTesting from "./components/pages/user/health/HealthTesting";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -154,6 +157,16 @@ function Routers() {
         <UserRoute exact path="/health/Dashboard" component={Dashbord} />
         <UserRoute
           exact
+          path="/health/TreatmentHistory/detail"
+          component={TreatmentHistoryDetail}
+        />
+        <UserRoute
+          exact
+          path="/health/TreatmentHistory/DataGrid"
+          component={TreatmentHistoryDataGrid}
+        />
+        <UserRoute
+          exact
           path="/health/TreatmentHistory"
           component={TreatmentHistory}
         />
@@ -161,6 +174,11 @@ function Routers() {
           exact
           path="/health/HealthHistory"
           component={HealthHistory}
+        />
+        <UserRoute
+          exact
+          path="*/health/HealthHistory/detail/:id"
+          component={HealthTesting}
         />
 
         <WarehouseRoute
