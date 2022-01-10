@@ -12,12 +12,28 @@ import Profile from "../../shared/card/Profile";
 import CoverPhoto from "../../shared/card/CoverPhoto";
 import healthCheckService from "../../../../services/healthCheck.service";
 import healthCheckCategoryService from "../../../../services/healthCheckCategory.service";
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Grid,
+  Paper,
+  Step,
+  StepLabel,
+  Stepper,
+  Typography,
+} from "@mui/material";
 import healthServices from "../../../../services/health.services";
 import SlideArrow from "../../shared/slideArrow";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material";
 import Slider from "react-slick";
 import TreatmentCard from "../../shared/card/TreatmentCard";
+import ReactApexChart from "react-apexcharts";
+import treatmentCategoryService from "../../../../services/treatmentCategory.service";
 
 const theme = createTheme(Themplates);
 
@@ -55,6 +71,10 @@ const TreatmentHistoryDetail = () => {
 
   const [lastHealthCheck, setLastHealCheck] = useState();
   const [healthHistory, setHealthHistory] = useState();
+  const [open, setOpen] = useState(false);
+  const [activeStep, setActiveStep] = useState();
+  const [data, setData] = useState();
+  const [category, setCategory] = useState();
 
   useEffect(async () => {
     const setupData = async (userId) => {
@@ -70,6 +90,10 @@ const TreatmentHistoryDetail = () => {
       // history extraction from history database
       const healthHistory_ = calhealthHstory(health_);
       setHealthHistory(healthHistory_);
+
+      const categories_ = await treatmentCategoryService.getTreatmentCategory();
+
+      setCategory(categories_);
     };
     if (currentUser) {
       dispath(getUserProfile(currentUser.id));
@@ -163,6 +187,19 @@ const TreatmentHistoryDetail = () => {
     return result;
   };
 
+  const handleOnClickOpen = (data) => {
+    if (data) {
+      let step = data.state.findIndex((item) => !item.clear);
+      setActiveStep(step);
+      setData(data);
+      setOpen(true);
+    }
+  };
+
+  const handleOnClickClose = () => {
+    setOpen(false);
+  };
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -188,17 +225,19 @@ const TreatmentHistoryDetail = () => {
                             checkTreatmentStateInProcess(item.state)
                           )
                           .map((val, index) => (
-                            <Box
+                            <Button
                               sx={{
                                 margin: "8px",
                                 flexGrow: 1,
                                 flexBasis: 1,
                                 width: "240px",
+                                padding: "0",
                               }}
+                              onClick={() => handleOnClickOpen(val)}
                               key={index}
                             >
                               <TreatmentCard data={val} themes="light" />
-                            </Box>
+                            </Button>
                           ))}
                       </Slider>
                     )}
@@ -228,7 +267,12 @@ const TreatmentHistoryDetail = () => {
                           )
                           .map((val, index) => (
                             <Box
-                              sx={{ margin: "8px", flexGrow: 1, flexBasis: 1 }}
+                              sx={{
+                                margin: "8px",
+                                flexGrow: 1,
+                                flexBasis: 1,
+                                cursor: "pointer",
+                              }}
                               key={index}
                             >
                               <TreatmentCard data={val} themes="light" />
@@ -254,6 +298,112 @@ const TreatmentHistoryDetail = () => {
             ""
           )}
         </div>
+        <Dialog
+          open={open}
+          onClose={() => handleOnClickClose()}
+          maxWidth="md"
+          fullWidth
+        >
+          <DialogTitle>Block Chain</DialogTitle>
+          <Divider />
+          <DialogContent>
+            <Stepper activeStep={activeStep}>
+              {data &&
+                data.state.map((val, index) => (
+                  <Step key={index}>
+                    <StepLabel>{val.action}</StepLabel>
+                  </Step>
+                ))}
+            </Stepper>
+          </DialogContent>
+          <DialogContent>
+            {data && (
+              <Grid container spacing={2}>
+                <Grid item md={6}>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      flexBasis: 1,
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      minWidth: "360px",
+                    }}
+                  >
+                    <Typography variant="subtitle1" sx={{ fontWeight: "600" }}>
+                      จำนวนเงิน
+                    </Typography>
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{ fontWeight: "700" }}
+                    >
+                      ฿{" "}
+                      {data.expess
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item md={6}>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      flexBasis: 1,
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      minWidth: "360px",
+                    }}
+                  >
+                    <Typography variant="subtitle1" sx={{ fontWeight: "600" }}>
+                      ประเภท
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{
+                        fontWeight: "700",
+                        color:
+                          data.category == 1
+                            ? "DeepSkyBlue"
+                            : data.category == 2
+                            ? "Gold"
+                            : "Crimson",
+                      }}
+                    >
+                      {category.find((item) => item.id == data.category).name}
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item md={6}>
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      flexBasis: 1,
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      minWidth: "360px",
+                      padding: "1rem",
+                    }}
+                  >
+                    <Typography variant="subtitle1" sx={{ fontWeight: "600" }}>
+                      สถานที่
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      sx={{ fontWeight: "700" }}
+                    >
+                      {data.location}
+                    </Typography>
+                  </Box>
+                </Grid>
+              </Grid>
+            )}
+          </DialogContent>
+        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );

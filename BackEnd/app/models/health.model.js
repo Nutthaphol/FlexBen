@@ -108,7 +108,7 @@ const HealthData = [
           {
             id: 3,
             action: "โรงพยาบาลวางบิล",
-            clear: true,
+            clear: false,
           },
           {
             id: 4,
@@ -233,7 +233,7 @@ const HealthData = [
           {
             id: 4,
             action: "ประกันโรงพยาบาล",
-            clear: false,
+            clear: true,
           },
           {
             id: 5,
@@ -353,7 +353,7 @@ const HealthData = [
           {
             id: 4,
             action: "ประกันโรงพยาบาล",
-            clear: false,
+            clear: true,
           },
           {
             id: 5,
@@ -388,7 +388,7 @@ const HealthData = [
           {
             id: 3,
             action: "โรงพยาบาลวางบิล",
-            clear: true,
+            clear: false,
           },
           {
             id: 4,
