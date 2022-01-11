@@ -15,4 +15,10 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getHealthProfile
   );
+
+  app.get(
+    "/api/health/getAllhealthInfo",
+    [authJwt.verifyToken],
+    controller.getAllHealthInfo
+  );
 };

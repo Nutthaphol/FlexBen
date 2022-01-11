@@ -21,13 +21,15 @@ import History from "./components/pages/user/flexben/History";
 import FormLifeStyle from "./components/pages/warehouse/FormLifeStyle";
 import FormTravel from "./components/pages/warehouse/FormTravel";
 import FormInsurance from "./components/pages/warehouse/FormInsurance";
-import FormPackage from "./components/pages/admin/FormPackage";
+import FormPackage from "./components/pages/admin/flexben/FormPackage";
 import Dashbord from "./components/pages/user/health/Dashbord";
 import TreatmentHistory from "./components/pages/user/health/TreatmentHistory";
 import HealthHistory from "./components/pages/user/health/HealthHistory";
 import TreatmentHistoryDetail from "./components/pages/user/health/TreatmentHistoryDetail";
 import TreatmentHistoryDataGrid from "./components/pages/user/health/TreatmentHistoryDataGrid";
 import HealthTesting from "./components/pages/user/health/HealthTesting";
+import HealthInformation from "./components/pages/admin/health/HealthInformation";
+import TreatmentInformation from "./components/pages/admin/health/TreatmentInformation";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -197,6 +199,16 @@ function Routers() {
           component={FormInsurance}
         />
         <AdminRoute exact path="/admin/FormPackage" component={FormPackage} />
+        <AdminRoute
+          exact
+          path="/admin/health/HealthInformation"
+          component={HealthInformation}
+        />
+        <AdminRoute
+          exact
+          path="/admin/health/TreatmentInformation"
+          component={TreatmentInformation}
+        />
       </Switch>
     </Container>
   );

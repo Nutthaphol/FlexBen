@@ -13,7 +13,7 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import Themplates from "../shared/theme";
+import Themplates from "../../shared/theme";
 import {
   Container,
   Grid,
@@ -50,17 +50,17 @@ import {
 import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
 import { Field, FieldArray, Form, Formik } from "formik";
 import { border, Box, width } from "@mui/system";
-import { getAllShopCategory } from "../../../actions/shopCategory";
+import { getAllShopCategory } from "../../../../actions/shopCategory";
 import "./index.css";
 
 import * as XLSX from "xlsx";
-import { getAllDelivery } from "../../../actions/delivery";
+import { getAllDelivery } from "../../../../actions/delivery";
 import { useDropzone } from "react-dropzone";
 import * as Yup from "yup";
-import iconsService from "../../../services/icons.service";
-import { getAllInsurance } from "../../../actions/insurance";
-import { getAllItem } from "../../../actions/item";
-import { getAllTravel } from "../../../actions/travel";
+import iconsService from "../../../../services/icons.service";
+import { getAllInsurance } from "../../../../actions/insurance";
+import { getAllItem } from "../../../../actions/item";
+import { getAllTravel } from "../../../../actions/travel";
 
 const theme = createTheme(Themplates);
 

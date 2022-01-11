@@ -13,3 +13,16 @@ exports.getHealthProfile = (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.getAllHealthInfo = (req, res) => {
+  const data = health;
+  try {
+    if (data) {
+      res.status(200).send(data);
+    } else {
+      res.status(404).send({ message: "health profile not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

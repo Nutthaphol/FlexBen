@@ -10,7 +10,7 @@ import Filter3Icon from "@mui/icons-material/Filter3";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { Article, GroupWork } from "@mui/icons-material";
+import { Article, Feed, GroupWork, HealthAndSafety } from "@mui/icons-material";
 
 const AdminMenu = () => {
   const dataListMenu = [
@@ -19,6 +19,26 @@ const AdminMenu = () => {
       listItemText: "Create package",
       listLink: "/admin/FormPackage",
       listKey: "FormPackage",
+    },
+    {
+      listItemIcon: <HealthAndSafety />,
+      listItemText: "Health",
+      listLink: "",
+      listKey: "health",
+      collapse: [
+        {
+          listItemIcon: <Feed />,
+          listItemText: "Health information",
+          listLink: "/admin/health/HealthInformation",
+          listKey: "HealthInformation",
+        },
+        {
+          listItemIcon: <Feed />,
+          listItemText: "Treatment information",
+          listLink: "/admin/health/TreatmentInformation",
+          listKey: "TreatmentInformation",
+        },
+      ],
     },
   ];
 

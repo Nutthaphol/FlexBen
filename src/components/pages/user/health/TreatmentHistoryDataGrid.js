@@ -230,8 +230,7 @@ const TreatmentHistoryDataGrid = () => {
 
       preData.push(row);
     }
-    console.log("treatment", treatment);
-    console.log("preData", preData);
+
     return preData;
   };
 
@@ -317,7 +316,7 @@ const TreatmentHistoryDataGrid = () => {
                       height: "auto",
                     }}
                   >
-                    {
+                    {rows && (
                       <DataGrid
                         rows={rows && rows}
                         columns={columns}
@@ -335,7 +334,7 @@ const TreatmentHistoryDataGrid = () => {
                           },
                         }}
                       />
-                    }
+                    )}
                   </Box>
                 </Paper>
               </Container>
