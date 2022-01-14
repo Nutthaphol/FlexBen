@@ -10,7 +10,15 @@ import Filter3Icon from "@mui/icons-material/Filter3";
 import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import { Article, Feed, GroupWork, HealthAndSafety } from "@mui/icons-material";
+import {
+  Article,
+  Feed,
+  GroupWork,
+  Healing,
+  HealthAndSafety,
+  LocalHospital,
+  ManageSearch,
+} from "@mui/icons-material";
 
 const AdminMenu = () => {
   const dataListMenu = [
@@ -27,16 +35,22 @@ const AdminMenu = () => {
       listKey: "health",
       collapse: [
         {
-          listItemIcon: <Feed />,
+          listItemIcon: <LocalHospital />,
           listItemText: "Health information",
           listLink: "/admin/health/HealthInformation",
           listKey: "HealthInformation",
         },
         {
-          listItemIcon: <Feed />,
+          listItemIcon: <Healing />,
           listItemText: "Treatment information",
           listLink: "/admin/health/TreatmentInformation",
           listKey: "TreatmentInformation",
+        },
+        {
+          listItemIcon: <ManageSearch />,
+          listItemText: "Health history",
+          listLink: "/admin/health/HealthHistory",
+          listKey: "HealthHistory",
         },
       ],
     },

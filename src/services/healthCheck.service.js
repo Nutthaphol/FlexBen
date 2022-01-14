@@ -23,7 +23,18 @@ const getLastHealthCheck = async (id) => {
   return data;
 };
 
+const getAllHealthCheck = async () => {
+  const res = await httpClient
+    .get("healthCheck/getAllHealthCheck")
+    .then((response) => {
+      return response.data;
+    });
+
+  return res;
+};
+
 export default {
   getLastHealthCheck,
   getHealthCheck,
+  getAllHealthCheck,
 };

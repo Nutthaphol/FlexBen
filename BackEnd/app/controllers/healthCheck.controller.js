@@ -14,3 +14,16 @@ exports.getHealthCheckUser = (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.getAllHealthCheck = (req, res) => {
+  const data = healthCheck;
+  try {
+    if (data) {
+      res.status(200).send(data);
+    } else {
+      res.status(404).send({ message: "healthcheck not found" });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};

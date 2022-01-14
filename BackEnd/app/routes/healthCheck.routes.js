@@ -15,4 +15,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getHealthCheckUser
   );
+  app.get(
+    "/api/healthCheck/getAllHealthCheck",
+    [authJwt.verifyToken],
+    controller.getAllHealthCheck
+  );
 };

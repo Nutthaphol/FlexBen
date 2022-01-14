@@ -66,8 +66,6 @@ const HealthInformation = () => {
     !allRightTreatment && dispath(getAllRightTreatment());
 
     const setupData = () => {
-      const ids = allUsers.map((e) => e.id);
-
       let rows_ = [];
 
       for (let i = 0; i < allUsers.length; i++) {
@@ -99,24 +97,17 @@ const HealthInformation = () => {
           lastTreatment = healthData.at(-1).treatment.at(-1).section;
 
           used = healthData.reduce((prev, curr) => {
-            prev = prev + curr.treatment.at(-1).expess;
+            prev =
+              prev +
+              curr.treatment.reduce((prev2, curr2) => {
+                return prev2 + curr2.expess;
+              }, 0);
             return prev;
           }, 0);
 
-          const rightType = healthData.at(-1).treatment.at(-1).right;
-          const categoriesRight = healthData.at(-1).treatment.at(-1).category;
-
-          if (rightTreat.length > 0) {
-            cover =
-              rightTreat[0].right.find(
-                (item) =>
-                  item.category == categoriesRight && item.type == rightType
-              ).cover || "-";
-          }
-
-          pending = healthData.at(-1).treatment.at(-1).state.at(-1).clear
-            ? "สำเร็จ"
-            : "รอดำเนินการ";
+          // pending = healthData.at(-1).treatment.at(-1).state.at(-1).clear
+          //   ? "สำเร็จ"
+          //   : "รอดำเนินการ";
 
           const row = {
             id: user.id,
@@ -128,9 +119,7 @@ const HealthInformation = () => {
             opd: opd,
             ipd: ipd,
             lastTreatment: lastTreatment,
-            used: used.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            cover: cover.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-            difference: cover - used || "-",
+            used: "฿ " + used.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
             pending: pending,
           };
           rows_.push(row);
@@ -149,7 +138,7 @@ const HealthInformation = () => {
     {
       field: "profile",
       headerName: "ชื่อ-สกุล",
-      width: 240,
+      width: 320,
       renderCell: (params) => {
         return (
           <Box sx={{ display: "flex", alingItems: "center" }}>
@@ -170,38 +159,28 @@ const HealthInformation = () => {
     {
       field: "opd",
       headerName: "OPD (ครั้ง)",
-      width: 120,
+      width: 240,
     },
     {
       field: "ipd",
       headerName: "IPD (ครั้ง)",
-      width: 120,
+      width: 240,
     },
     {
       field: "lastTreatment",
       headerName: "รายการรักษาล่าสุด",
-      width: 220,
+      width: 240,
     },
     {
       field: "used",
       headerName: "ใช้ไป",
-      width: 120,
+      width: 160,
     },
-    {
-      field: "cover",
-      headerName: "เบิกได้",
-      width: 120,
-    },
-    {
-      field: "difference",
-      headerName: "ส่วนต่าง",
-      width: 180,
-    },
-    {
-      field: "pending",
-      headerName: "รอดำเนินการ",
-      width: 180,
-    },
+    // {
+    //   field: "pending",
+    //   headerName: "รอดำเนินการ",
+    //   width: 240,
+    // },
   ];
 
   const CustomToolbar = (props) => {
@@ -266,7 +245,23 @@ const HealthInformation = () => {
               >
                 {rows && (
                   <DataGrid
-                    rows={rows && rows}
+                    rows={
+                      rows &&
+                      rows
+                        .filter(
+                          (item) =>
+                            (
+                              item.profile.firstname +
+                              " " +
+                              item.profile.lastname
+                            )
+                              .toLowerCase()
+                              .includes(searchList) == 1
+                        )
+                        .map((e) => {
+                          return e;
+                        })
+                    }
                     columns={columns}
                     autoHeight
                     checkboxSelection

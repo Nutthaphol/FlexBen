@@ -30,6 +30,7 @@ import TreatmentHistoryDataGrid from "./components/pages/user/health/TreatmentHi
 import HealthTesting from "./components/pages/user/health/HealthTesting";
 import HealthInformation from "./components/pages/admin/health/HealthInformation";
 import TreatmentInformation from "./components/pages/admin/health/TreatmentInformation";
+import HealthHistoryEmproyee from "./components/pages/admin/health/HealthHistoryEmproyee";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -208,6 +209,11 @@ function Routers() {
           exact
           path="/admin/health/TreatmentInformation"
           component={TreatmentInformation}
+        />
+        <AdminRoute
+          exact
+          path="/admin/health/HealthHistory"
+          component={HealthHistoryEmproyee}
         />
       </Switch>
     </Container>

@@ -22,6 +22,8 @@ import navigation from "./navigation";
 import notification from "./notification";
 import health from "./health";
 import rightTreatment from "./rightTreatment";
+import healthCheck from "./healthCheck";
+import healthCheckCategory from "./healthCheckCategory";
 
 const appReducer = combineReducers({
   auth,
@@ -47,6 +49,8 @@ const appReducer = combineReducers({
   notification,
   health,
   rightTreatment,
+  healthCheck,
+  healthCheckCategory,
 });
 
 const rootReducer = (state, action) => {
