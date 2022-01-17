@@ -13,14 +13,17 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import {
   Article,
   Feed,
+  FormatAlignCenter,
   GroupWork,
   Healing,
   HealthAndSafety,
   LocalHospital,
   ManageSearch,
+  UploadFile,
 } from "@mui/icons-material";
+import { Form } from "formik";
 
-const AdminMenu = () => {
+const AdminMenu = ({ open }) => {
   const dataListMenu = [
     {
       listItemIcon: <GroupWork />,
@@ -30,7 +33,7 @@ const AdminMenu = () => {
     },
     {
       listItemIcon: <HealthAndSafety />,
-      listItemText: "Health",
+      listItemText: "Health employee",
       listLink: "",
       listKey: "health",
       collapse: [
@@ -56,7 +59,7 @@ const AdminMenu = () => {
     },
   ];
 
-  return <ListMenu dataListMenu={dataListMenu} />;
+  return <ListMenu dataListMenu={dataListMenu} open={open} />;
 };
 
 export default AdminMenu;

@@ -100,7 +100,7 @@ const HealthInformation = () => {
             prev =
               prev +
               curr.treatment.reduce((prev2, curr2) => {
-                return prev2 + curr2.expess;
+                return prev2 + curr2.expenses;
               }, 0);
             return prev;
           }, 0);

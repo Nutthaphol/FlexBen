@@ -151,7 +151,7 @@ const DrawerContainer = ({ open, setOpen }) => {
       {isManager && (
         <Fragment>
           <Divider />
-          <ManagerMenu />
+          <ManagerMenu open={open} />
         </Fragment>
       )}
       {isAdmin && (
@@ -163,7 +163,7 @@ const DrawerContainer = ({ open, setOpen }) => {
             </ListItemIcon>
             <ListItemText primary={"admin"} />
           </ListItem>
-          <AdminMenu />
+          <AdminMenu open={open} />
         </Fragment>
       )}
       {isWarehouse && (

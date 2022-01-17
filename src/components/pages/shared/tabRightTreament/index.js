@@ -132,7 +132,10 @@ const TabCustomRight = (props) => {
         createData.category = category;
         createData.right = val.type;
         createData.count = tmp.length;
-        createData.expess = tmp.reduce((prev, curr) => prev + curr.expess, 0);
+        createData.expenses = tmp.reduce(
+          (prev, curr) => prev + curr.expenses,
+          0
+        );
         createData.countMethod = val.countMethod;
         createData.cover = val.cover;
         createData.period = val.period;
@@ -142,11 +145,11 @@ const TabCustomRight = (props) => {
         createData.usedP =
           createData.countMethod == "time"
             ? (createData.count * 100) / createData.period
-            : (createData.expess * 100) / createData.period;
+            : (createData.expenses * 100) / createData.period;
         createData.final =
           createData.countMethod == "time"
             ? createData.period - createData.count
-            : createData.period - createData.expess;
+            : createData.period - createData.expenses;
         tmpData.push({ ...createData });
       });
     }

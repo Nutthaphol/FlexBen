@@ -103,10 +103,10 @@ const TreatmentInformation = () => {
             let OPDRow = { ...themplateRow };
             OPDRow.id = "#1-" + themplateRow.id;
             OPDRow.date = dayjs(OPDTreatment.at(-1).date).format("DD-MM-YYYY");
-            OPDRow.expess =
+            OPDRow.expenses =
               "฿ " +
               OPDTreatment.reduce((prev, curr) => {
-                return prev + curr.expess;
+                return prev + curr.expenses;
               }, 0)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -121,10 +121,10 @@ const TreatmentInformation = () => {
             let IPDRow = { ...themplateRow };
             IPDRow.id = "#2-" + themplateRow.id;
             IPDRow.date = dayjs(IPDTreatment.at(-1).date).format("DD-MM-YYYY");
-            IPDRow.expess =
+            IPDRow.expenses =
               "฿ " +
               IPDTreatment.reduce((prev, curr) => {
-                return prev + curr.expess;
+                return prev + curr.expenses;
               }, 0)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -141,11 +141,11 @@ const TreatmentInformation = () => {
             dentalRow.date = dayjs(dentalTreatment.at(-1).date).format(
               "DD-MM-YYYY"
             );
-            dentalRow.expess =
+            dentalRow.expenses =
               "฿ " +
               dentalTreatment
                 .reduce((prev, curr) => {
-                  return prev + curr.expess;
+                  return prev + curr.expenses;
                 }, 0)
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -236,7 +236,7 @@ const TreatmentInformation = () => {
     },
 
     {
-      field: "expess",
+      field: "expenses",
       headerName: "ค่าใช้จ่ายทั้งหมด",
       width: 240,
     },

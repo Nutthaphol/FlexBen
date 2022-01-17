@@ -51,7 +51,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1200,
+        expenses: 1200,
         icon: "",
         note: "-",
         state: [
@@ -91,7 +91,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "",
         note: "-",
         state: [
@@ -131,7 +131,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "",
         note: "-",
         state: [
@@ -171,7 +171,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1000,
+        expenses: 1000,
         icon: "",
         note: "-",
         state: [
@@ -211,7 +211,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 10000,
+        expenses: 10000,
         icon: "",
         note: "-",
         state: [
@@ -251,7 +251,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 12000,
+        expenses: 12000,
         icon: "",
         note: "-",
         state: [
@@ -291,7 +291,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "",
         note: "-",
         state: [
@@ -331,7 +331,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1400,
+        expenses: 1400,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -371,7 +371,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -411,7 +411,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -451,7 +451,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -491,7 +491,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 15000,
+        expenses: 15000,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -531,7 +531,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 30000,
+        expenses: 30000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -571,7 +571,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2500,
+        expenses: 2500,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -611,7 +611,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -694,7 +694,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1200,
+        expenses: 1200,
         icon: "",
         note: "-",
         state: [
@@ -734,7 +734,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "",
         note: "-",
         state: [
@@ -774,7 +774,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "",
         note: "-",
         state: [
@@ -814,7 +814,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1000,
+        expenses: 1000,
         icon: "",
         note: "-",
         state: [
@@ -854,7 +854,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 10000,
+        expenses: 10000,
         icon: "",
         note: "-",
         state: [
@@ -894,7 +894,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 12000,
+        expenses: 12000,
         icon: "",
         note: "-",
         state: [
@@ -934,7 +934,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "",
         note: "-",
         state: [
@@ -974,7 +974,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1400,
+        expenses: 1400,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -1014,7 +1014,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1054,7 +1054,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1094,7 +1094,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1134,7 +1134,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 15000,
+        expenses: 15000,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -1174,7 +1174,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 30000,
+        expenses: 30000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1214,7 +1214,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2500,
+        expenses: 2500,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1254,7 +1254,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1294,7 +1294,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1377,7 +1377,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1200,
+        expenses: 1200,
         icon: "",
         note: "-",
         state: [
@@ -1417,7 +1417,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "",
         note: "-",
         state: [
@@ -1457,7 +1457,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "",
         note: "-",
         state: [
@@ -1497,7 +1497,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1000,
+        expenses: 1000,
         icon: "",
         note: "-",
         state: [
@@ -1537,7 +1537,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 10000,
+        expenses: 10000,
         icon: "",
         note: "-",
         state: [
@@ -1577,7 +1577,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 12000,
+        expenses: 12000,
         icon: "",
         note: "-",
         state: [
@@ -1617,7 +1617,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "",
         note: "-",
         state: [
@@ -1657,7 +1657,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1400,
+        expenses: 1400,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -1697,7 +1697,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1737,7 +1737,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1777,7 +1777,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1817,7 +1817,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 15000,
+        expenses: 15000,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -1857,7 +1857,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 30000,
+        expenses: 30000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1897,7 +1897,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2500,
+        expenses: 2500,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -1937,7 +1937,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2020,7 +2020,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1200,
+        expenses: 1200,
         icon: "",
         note: "-",
         state: [
@@ -2060,7 +2060,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "",
         note: "-",
         state: [
@@ -2100,7 +2100,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "",
         note: "-",
         state: [
@@ -2140,7 +2140,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1000,
+        expenses: 1000,
         icon: "",
         note: "-",
         state: [
@@ -2180,7 +2180,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 10000,
+        expenses: 10000,
         icon: "",
         note: "-",
         state: [
@@ -2220,7 +2220,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 12000,
+        expenses: 12000,
         icon: "",
         note: "-",
         state: [
@@ -2260,7 +2260,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "",
         note: "-",
         state: [
@@ -2300,7 +2300,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1400,
+        expenses: 1400,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -2340,7 +2340,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2380,7 +2380,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2420,7 +2420,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2460,7 +2460,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 15000,
+        expenses: 15000,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -2500,7 +2500,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 30000,
+        expenses: 30000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2540,7 +2540,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2500,
+        expenses: 2500,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2580,7 +2580,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -2663,7 +2663,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1200,
+        expenses: 1200,
         icon: "",
         note: "-",
         state: [
@@ -2703,7 +2703,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "",
         note: "-",
         state: [
@@ -2743,7 +2743,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "",
         note: "-",
         state: [
@@ -2783,7 +2783,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1000,
+        expenses: 1000,
         icon: "",
         note: "-",
         state: [
@@ -2823,7 +2823,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 10000,
+        expenses: 10000,
         icon: "",
         note: "-",
         state: [
@@ -2863,7 +2863,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 12000,
+        expenses: 12000,
         icon: "",
         note: "-",
         state: [
@@ -2903,7 +2903,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 2,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "",
         note: "-",
         state: [
@@ -2943,7 +2943,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 1400,
+        expenses: 1400,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -2983,7 +2983,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 200000,
+        expenses: 200000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -3023,7 +3023,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 3000,
+        expenses: 3000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -3063,7 +3063,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2000,
+        expenses: 2000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -3103,7 +3103,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 15000,
+        expenses: 15000,
         icon: "sick.svg",
         note: "-",
         state: [
@@ -3143,7 +3143,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 30000,
+        expenses: 30000,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -3183,7 +3183,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 2500,
+        expenses: 2500,
         icon: "surgery.svg",
         note: "-",
         state: [
@@ -3223,7 +3223,7 @@ const HealthData = [
         dete: dayjs(new Date(2021, 10, 10)),
         rightUser: 1,
         location: "โรงพยาบาลตัวเอง",
-        expess: 800,
+        expenses: 800,
         icon: "surgery.svg",
         note: "-",
         state: [

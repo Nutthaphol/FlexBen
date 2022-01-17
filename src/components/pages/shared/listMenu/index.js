@@ -112,7 +112,14 @@ const ListMenu = (props) => {
                       className={classes.selected2}
                     >
                       <ListItemIcon>{value.listItemIcon}</ListItemIcon>
-                      <ListItemText primary={value.listItemText} />
+                      <ListItemText
+                        sx={{
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                          overflow: "hidden",
+                        }}
+                        primary={value.listItemText}
+                      />
                       {openCollapse === index ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
                     <Collapse
