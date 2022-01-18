@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
       borderLeft: "4px solid",
       borderLeftColor: amber[500],
     },
+    backgroundColor: "rgba(0, 0, 0, 0.08)",
   },
 }));
 
