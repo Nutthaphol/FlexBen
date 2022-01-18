@@ -32,12 +32,12 @@ import SlideArrow from "./shared/slideArrow";
 import Slider from "react-slick";
 import { getAllUsers, getUserProfile } from "../../actions/user";
 import ProductCard from "./shared/card/ProductCard";
-import BlockCard from "./shared/card/BlockCard";
 import { getAllPackage } from "../../actions/package";
 import PackageCard from "./shared/card/PackageCard";
 import AddCoinCard from "./shared/card/AddCoinCard";
 import { getAllMainCategory } from "../../actions/mainCategory";
 import Themplates from "./shared/theme";
+import CategoryCard from "./shared/card/CategoryCard";
 
 const theme = createTheme(Themplates);
 
@@ -316,7 +316,10 @@ const Home = () => {
                           key={index}
                         >
                           <Box key={index} className={classes.boxSlider}>
-                            <BlockCard name={val.name} />
+                            <CategoryCard
+                              categoryText={val.name}
+                              icon={val.icon}
+                            />
                           </Box>
                         </Grid>
                       ))}

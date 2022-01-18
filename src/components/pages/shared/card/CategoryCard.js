@@ -21,22 +21,22 @@ const useStyles = makeStyles(() => ({
 
 const CategoryCard = (props) => {
   const classes = useStyles();
-  const { data } = props;
+  const { categoryText, path = "/", icon } = props;
 
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Link href={`/health/HealthHistory/detail/${data.id}`} underline="none">
+        <Link href={path} underline="none">
           <Paper className={classes.root} sx={{ textAlign: "center" }}>
             <Icon sx={{ fontSize: "4.5rem" }}>
               <img
-                src={`${process.env.PUBLIC_URL}/assets/icons${data.icon}`}
+                src={`${process.env.PUBLIC_URL}/assets/icons${icon}`}
                 width="100%"
               />
             </Icon>
             <br />
             <Typography variant="subtitle1" component="div">
-              {data.name}
+              {categoryText}
             </Typography>
           </Paper>
         </Link>

@@ -271,7 +271,7 @@ const Cart = (props) => {
                       width="100%"
                     />
                   </Icon>
-                  {userProfile.coin}
+                  {userProfile && userProfile.coin}
                 </Typography>
               </Paper>
               <br />

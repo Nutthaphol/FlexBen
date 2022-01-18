@@ -33,8 +33,7 @@ import {
 import healthCheckService from "../../../../services/healthCheck.service";
 import dayjs from "dayjs";
 import GaugeChart from "react-gauge-chart";
-import BowTieCard1 from "../../shared/card/BowTieCard1";
-import BowTieCard2 from "../../shared/card/BowTieCard2";
+import BowTieCard from "../../shared/card/BowTieCard";
 import healthServices from "../../../../services/health.services";
 import ReactApexChart from "react-apexcharts";
 import Message from "../../shared/textBox/Message";
@@ -505,21 +504,26 @@ const Dashbord = () => {
                 </Paper>
                 <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard1
-                      category={`Weight`}
+                    <BowTieCard
+                      themes="dark"
+                      headerknot="triangle"
+                      headerPosition="left"
+                      headerknotText="Weight"
                       imageIcon={`weight-scale.svg`}
-                      value={
+                      primaryText={
                         health ? health.exercise.at(-1).weight.toFixed(1) : "-"
                       }
-                      unit={`KM.`}
-                      data={setChartDataWeight()}
+                      secondaryText="KM."
+                      backgroundData={setChartDataWeight()}
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard1
-                      category={`BMI`}
+                    <BowTieCard
+                      themes="dark"
+                      headerknot="triangle"
+                      headerPosition="left"
                       imageIcon={`bmi.svg`}
-                      value={
+                      primaryText={
                         health
                           ? (
                               health.exercise.at(-1).weight /
@@ -527,7 +531,7 @@ const Dashbord = () => {
                             ).toFixed(1)
                           : "-"
                       }
-                      data={setChartDataBMI()}
+                      backgroundData={setChartDataBMI()}
                     />
                   </Grid>
                 </Grid>
@@ -561,19 +565,21 @@ const Dashbord = () => {
 
                 <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard2
-                      category={`การออกกำลังกาย`}
-                      typeBow={2}
-                      value={statusExercise()}
+                    <BowTieCard
+                      themes="dark"
+                      headerknot="rectangle"
+                      headerknotText="การออกกำลังกาย"
+                      primaryText={statusExercise()}
                       imageIcon={`weight-scale.svg`}
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard2
-                      category={`การออกกำลังกาย`}
-                      typeBow={2}
-                      value={health && health.exercise.at(-1).time}
-                      unit={"HRS"}
+                    <BowTieCard
+                      themes="dark"
+                      headerknot="rectangle"
+                      headerknotText="การออกกำลังกาย"
+                      primaryText={health && health.exercise.at(-1).time}
+                      secondaryText={"HRS"}
                       imageIcon={`bmi.svg`}
                     />
                   </Grid>

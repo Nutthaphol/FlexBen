@@ -95,7 +95,11 @@ const HealthHistory = () => {
                             },
                           }}
                         >
-                          <CategoryCard data={val} />
+                          <CategoryCard
+                            categoryText={val.name}
+                            path={`/health/HealthHistory/detail/${val.id}`}
+                            icon={val.icon}
+                          />
                         </Box>
                       </Grid>
                     ))}

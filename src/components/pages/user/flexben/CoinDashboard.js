@@ -24,7 +24,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import DataCard from "../../shared/card/DataCard";
 import { getDetail } from "../../../../actions/detail";
-import PaperTable from "../../shared/card/PaperTable";
 import { Box } from "@mui/system";
 import { Adb } from "@mui/icons-material";
 import { getUserProfile } from "../../../../actions/user";

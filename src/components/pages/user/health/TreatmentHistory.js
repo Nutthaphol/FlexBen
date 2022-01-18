@@ -32,7 +32,6 @@ import Profile from "../../shared/card/Profile";
 import healthServices from "../../../../services/health.services";
 import healthCheckService from "../../../../services/healthCheck.service";
 import { getAllUsers, getUserProfile } from "../../../../actions/user";
-import BowTieCard2 from "../../shared/card/BowTieCard2";
 import PercentCard from "../../shared/card/PercentCard";
 import TreatmentCard from "../../shared/card/TreatmentCard";
 import treatmentCategoryService from "../../../../services/treatmentCategory.service";
@@ -43,6 +42,7 @@ import { getAllInsurance } from "../../../../actions/insurance";
 import ProductCard from "../../shared/card/ProductCard";
 import { minWidth, width } from "@mui/system";
 import { Feed, FiberManualRecord } from "@mui/icons-material";
+import BowTieCard from "../../shared/card/BowTieCard";
 
 const theme = createTheme(Themplates);
 
@@ -226,69 +226,75 @@ const TreatmentHistory = (props) => {
                 />
                 <Grid container spacing={2} sx={{ mb: "40px" }}>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      typeBow={1}
+                      headerknot="triangle"
+                      headerPosition="left"
+                      headerknotText="OPD"
                       imageIcon={"OPD.svg"}
-                      category={"OPD"}
-                      value={countOPD}
-                      unit={"ครั้ง"}
+                      primaryText={countOPD}
+                      secondaryText="ครั้ง"
                     />
                   </Grid>
                   <Grid item md={6} xs={12}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      typeBow={1}
+                      headerknot="triangle"
+                      headerPosition="left"
+                      headerknotText="IPD"
                       imageIcon={"IPD.svg"}
-                      category={"IPD"}
-                      value={countIPD}
-                      unit={"ครั้ง"}
+                      primaryText={countIPD}
+                      secondaryText="ครั้ง"
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ mb: "40px" }}>
                   <Grid item md={3}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      longText={true}
-                      typeBow={2}
+                      headerknot="rectangle"
+                      headerPosition="left"
+                      headerknotText="ใช้ไป"
                       imageIcon={"cash-payment.svg"}
-                      category={"ใช้ไป"}
-                      value={"84,248"}
-                      unit={"ครั้ง"}
+                      primaryText="84,248"
+                      fontSmall
+                      secondaryText="บาท"
                     />
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      longText={true}
-                      typeBow={2}
+                      headerknot="rectangle"
+                      headerPosition="left"
+                      headerknotText="เบิกได้"
                       imageIcon={"save-money.svg"}
-                      category={"เบิกได้"}
-                      value={"150,000"}
-                      unit={"ครั้ง"}
+                      primaryText="150,000"
+                      fontSmall
+                      secondaryText="บาท"
                     />
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      longText={true}
-                      typeBow={2}
+                      headerknot="rectangle"
+                      headerPosition="left"
+                      headerknotText="ส่วนต่าง"
                       imageIcon={"Withdraw-money.svg"}
-                      category={"ส่วนต่าง"}
-                      value={"65,752"}
-                      unit={"ครั้ง"}
+                      primaryText="65,752"
+                      fontSmall
+                      secondaryText="บาท"
                     />
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard2
+                    <BowTieCard
                       themes="light"
-                      longText={true}
-                      typeBow={2}
+                      headerknot="rectangle"
+                      headerPosition="left"
+                      headerknotText="รอดำเนินการ"
                       imageIcon={"file.svg"}
-                      category={"รอดำเนินการ"}
-                      value={"-"}
-                      unit={"ครั้ง"}
+                      primaryText="2"
+                      fontSmall
+                      secondaryText="รายการ"
                     />
                   </Grid>
                 </Grid>

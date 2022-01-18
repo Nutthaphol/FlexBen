@@ -14,12 +14,19 @@ import {
   Grid,
   Paper,
   Typography,
+  CardMedia,
+  Divider,
+  List,
+  ListItem,
+  Icon,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 
 import SalesBox from "../../shared/salesBox";
 import ReviewsCard from "../../shared/card/ReviewCard";
 import { Box } from "@mui/system";
-import { Star } from "@mui/icons-material";
+import { Star, AssignmentTurnedIn } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
 import packageService from "../../../../services/package.service";
 import PackageData from "../../shared/dataDetail/PackageData";
@@ -38,6 +45,28 @@ const useStyles = makeStyles(() => ({
   },
   paragraph: {
     marginRight: "10px",
+  },
+  root: {
+    padding: "1rem",
+    boxShadow: "0 0 1px 1px D0D3D4",
+    border: "1px solid #D0D3D4",
+  },
+  cardMedia: {
+    width: "100%",
+    height: "auto",
+    maxHeight: "300px",
+    backgroundColor: "white",
+    objectFit: "cover",
+    borderStyle: "solid",
+    borderWidth: "1px 1px",
+    marginTop: "1.5rem",
+    borderColor: "#D0D3D4",
+  },
+  icons: {
+    padding: "10px",
+    fontSize: "4rem",
+
+    borderRadius: "50%",
   },
 }));
 
@@ -68,7 +97,101 @@ const DetailPackage = (props) => {
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
-                  <PackageData detail={detail} />
+                  <Card className={classes.root}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <Typography
+                        component={"span"}
+                        variant={"h4"}
+                        sx={{ fontWeight: "700" }}
+                        gutterBottom
+                      >
+                        PACKAGE {detail.name.toUpperCase()} !
+                      </Typography>
+                      <Box sx={{ flexGrow: 1 }} />
+                      <Typography component={"span"} variant="h5" gutterBottom>
+                        <Grid container spacing={1}>
+                          <Grid item>
+                            <Star sx={{ color: amber[500] }} />
+                          </Grid>
+                          <Grid item>{detail.rating}</Grid>
+                        </Grid>
+                      </Typography>
+                    </Box>
+                    <CardMedia
+                      className={classes.cardMedia}
+                      component="img"
+                      image={`${process.env.REACT_APP_URL}image/${detail.image[0]}`}
+                    />
+                    <Box
+                      sx={{
+                        marginTop: "20px",
+                        marginBottom: "20px",
+                        width: "100%",
+                      }}
+                      className={classes.divider}
+                    >
+                      <Divider sx={{ width: "100%" }} />
+                    </Box>
+                    <Typography
+                      component={"span"}
+                      variant="h5"
+                      sx={{ fontWeight: 600 }}
+                      gutterBottom
+                    >
+                      {detail.highLights}
+                    </Typography>
+                    <Typography component={"span"} variant="subtitle1">
+                      {" "}
+                      <span style={{ paddingLeft: "2.5rem" }} />
+                      {detail.description}
+                    </Typography>
+                    <br />
+                    <Typography
+                      component={"span"}
+                      variant="h5"
+                      sx={{ fontWeight: 600 }}
+                    >
+                      รายละเอียด
+                    </Typography>
+                    <List
+                    // sx={{ width: "50%" }}
+                    >
+                      {detail.property.map((val, index) => (
+                        <ListItem
+                          key={index}
+                          secondaryAction={
+                            <Box sx={{ display: "flex", alignItems: "center" }}>
+                              <Typography variant="h5" component="span">
+                                {val.limitCoin}
+                              </Typography>
+
+                              <Icon
+                                fontSize="large"
+                                sx={{ marginLeft: "10px" }}
+                              >
+                                <img
+                                  width="100%"
+                                  src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
+                                />
+                              </Icon>
+                            </Box>
+                          }
+                        >
+                          <ListItemIcon>
+                            <AssignmentTurnedIn color="success" />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={val.name}
+                            secondary={
+                              val.coinValue ? val.coinValue + " Coin" : val.type
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Divider />
+                    <br />
+                  </Card>
                   <br />
                   <ReviewsCard type={"package"} />
                 </Grid>

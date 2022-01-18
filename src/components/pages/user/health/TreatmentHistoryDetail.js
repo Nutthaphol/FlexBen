@@ -339,7 +339,7 @@ const TreatmentHistoryDetail = () => {
                       sx={{ fontWeight: "700" }}
                     >
                       ฿{" "}
-                      {data.expess
+                      {data.expenses
                         .toString()
                         .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </Typography>

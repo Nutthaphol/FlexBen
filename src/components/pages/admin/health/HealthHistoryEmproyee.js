@@ -19,7 +19,14 @@ import {
   GridToolbarExport,
   gridClasses,
 } from "@mui/x-data-grid";
-import { Clear, Search } from "@mui/icons-material";
+import {
+  AddCircle,
+  Clear,
+  Remove,
+  RemoveCircle,
+  RemoveCircleOutline,
+  Search,
+} from "@mui/icons-material";
 import {
   Avatar,
   Button,
@@ -185,6 +192,13 @@ const HealthHistoryEmproyee = () => {
         field: label[i],
         heanderName: label[1],
         width: thisWidth,
+        renderCell: (params) => {
+          return (
+            <Box sx={{ textAlign: "center" }}>
+              <Typography>{params.value}</Typography>
+            </Box>
+          );
+        },
       });
     }
 
@@ -222,7 +236,15 @@ const HealthHistoryEmproyee = () => {
             };
 
             row = categoryData.result.reduce((prev, curr) => {
-              prev[curr.section] = curr.value + " " + curr.unit;
+              if (curr.value == "Negative") {
+                prev[curr.section] = (
+                  <RemoveCircleOutline sx={{ color: "#69B4FF" }} />
+                );
+              } else if (curr.value == "Positive") {
+                prev[curr.section] = <AddCircle sx={{ color: "#964B00" }} />;
+              } else {
+                prev[curr.section] = curr.value + " " + curr.unit;
+              }
               return prev;
             }, row);
 
@@ -493,6 +515,7 @@ const HealthHistoryEmproyee = () => {
               >
                 {rows && columns && (
                   <DataGrid
+                    rowHeight={64}
                     rows={rows
                       // search
                       .filter(

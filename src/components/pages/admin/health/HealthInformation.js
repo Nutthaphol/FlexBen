@@ -245,6 +245,7 @@ const HealthInformation = () => {
               >
                 {rows && (
                   <DataGrid
+                    rowHeight={64}
                     rows={
                       rows &&
                       rows
