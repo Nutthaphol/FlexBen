@@ -310,7 +310,25 @@ const TreatmentHistory = (props) => {
                           sx={{ margin: "8px", flexGrow: 1, flexBasis: 1 }}
                           key={index}
                         >
-                          <TreatmentCard data={val} themes="light" />
+                          <TreatmentCard
+                            themes="light"
+                            headerknotText={
+                              categories &&
+                              categories
+                                .find((item) => item.id == val.category)
+                                .name.toUpperCase()
+                            }
+                            knotColor={
+                              val.category == 1
+                                ? "#7da6ee"
+                                : val.category == 2
+                                ? "#FFD72A"
+                                : "red"
+                            }
+                            icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
+                            primaryText={val.section}
+                            date={dayjs(val.date)}
+                          />
                         </Box>
                       ))}
                   </Box>

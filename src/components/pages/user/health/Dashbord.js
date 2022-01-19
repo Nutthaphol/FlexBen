@@ -6,27 +6,36 @@ import {
   ThemeProvider,
   StyledEngineProvider,
 } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import Themplates from "../../shared/theme";
 import {
+  Avatar,
   Button,
   Card,
   Container,
   Grid,
   Icon,
+  IconButton,
   Paper,
   Tab,
   Tabs,
+  Tooltip,
   Typography,
+  withStyles,
 } from "@mui/material";
+import { tooltipClasses } from "@mui/material/Tooltip";
 import { Box } from "@mui/system";
-import { getUserProfile } from "../../../../actions/user";
+import { getAllUsers, getUserProfile } from "../../../../actions/user";
 import {
   AccountBox,
   Circle,
+  Email,
+  Facebook,
   Group,
   HistoryToggleOff,
   HomeWork,
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
   MonitorWeight,
   Phone,
 } from "@mui/icons-material";
@@ -41,10 +50,11 @@ import TabCustomRight from "../../shared/tabRightTreament";
 import rightTreatmentService from "../../../../services/rightTreatment.service";
 import Profile from "../../shared/card/Profile";
 import CoverPhoto from "../../shared/card/CoverPhoto";
+import treatmentCategoryService from "../../../../services/treatmentCategory.service";
+import SlideArrow from "../../shared/slideArrow";
+import Slider from "react-slick";
+import RankCard from "../../shared/card/RankCard";
 
-// Themplates.palette = {
-//   mode: "dark",
-// };
 const theme = createTheme(Themplates);
 
 export const TrendRiskHistoryData = {
@@ -165,6 +175,13 @@ const useStyles = makeStyles(() => ({
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     backgroundColor: "#303030",
   },
+  iconButton: {
+    backgroundColor: "#fff",
+    "&:hover": {
+      backgroundColor: "rgba(255, 255, 255, 0.08)",
+      color: "#3c52b2",
+    },
+  },
 }));
 
 const colorDip = [
@@ -223,15 +240,32 @@ const defaultOption = {
   },
 };
 
+// const GroupButtonTooltip = withStyles({
+//   tooltip: {
+//     backgroundColor: "transparent",
+//   },
+// })(Tooltip);
+
+const GroupButtonTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: "transparent",
+  },
+}));
+
 const Dashbord = () => {
   const classes = useStyles();
   const dispath = useDispatch();
 
   const { user: currentUser } = useSelector((state) => state.auth);
   const { result: userProfile } = useSelector((state) => state.userProfile);
+  const { result: allUsers } = useSelector((state) => state.users);
   const [lastHealthCheck, setLastHealCheck] = useState();
   const [health, setHealth] = useState();
   const [rightTreatment, setRightTreatment] = useState();
+
+  const [categories, setCategories] = useState();
 
   useEffect(() => {
     const setupData = async (userId) => {
@@ -245,9 +279,12 @@ const Dashbord = () => {
       const rightTreatment_ =
         await rightTreatmentService.getAllRightTreatment();
       setRightTreatment(rightTreatment_);
+      const categories_ = await treatmentCategoryService.getTreatmentCategory();
+      setCategories(categories_);
     };
     if (currentUser) {
       dispath(getUserProfile(currentUser.id));
+      dispath(getAllUsers());
       setupData(currentUser.id);
     }
   }, []);
@@ -421,6 +458,86 @@ const Dashbord = () => {
       }
     }
   };
+
+  const calhealthHstory = (data) => {
+    const healthHistory_ = data.treatment.reduce((prev, curr) => {
+      prev
+        .map((e) => {
+          return e.id;
+        })
+        .indexOf(curr.id) == -1 &&
+        curr.rightUser == 1 &&
+        prev.push(curr);
+      return prev;
+    }, []);
+    return healthHistory_;
+  };
+
+  const calStateDonutCard = (call) => {
+    let options;
+    let series;
+
+    let health_;
+    if (health) {
+      health_ = health.treatment.reduce((prev, curr) => {
+        prev
+          .map((e) => {
+            return e.id;
+          })
+          .indexOf(curr.id) == -1 &&
+          curr.rightUser == 1 &&
+          prev.push(curr);
+        return prev;
+      }, []);
+    }
+
+    const baseCategory =
+      health_ &&
+      health_.reduce((prev, curr) => {
+        prev.indexOf(curr.category) == -1 && prev.push(curr.category);
+        return prev;
+      }, []);
+
+    if (health_ && call == "options") {
+      const listCategory = baseCategory.reduce((prev, curr) => {
+        prev.push(
+          categories ? categories.find((item) => item.id == curr).name : ""
+        );
+        return prev;
+      }, []);
+      options = {
+        chart: {
+          type: "donut",
+          // foreColor: "rgba(255, 255, 255, 0.7)",
+          background: "transparant",
+          toolbar: { show: false },
+        },
+        labels: listCategory,
+      };
+      return options;
+    }
+    if (health_ && call == "series") {
+      series = baseCategory.reduce((prev, curr) => {
+        prev.push(health_.filter((item) => item.category == curr).length);
+        return prev;
+      }, []);
+      console.log("type series", typeof series);
+      return series;
+    }
+    return "";
+  };
+
+  const [setting] = useState({
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    adaptiveHeight: false,
+    nextArrow: <SlideArrow themes="dark" Comp={KeyboardArrowRight} />,
+    prevArrow: <SlideArrow themes="dark" Comp={KeyboardArrowLeft} />,
+  });
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -676,6 +793,283 @@ const Dashbord = () => {
                     type="bar"
                   />
                 </Paper>
+
+                {currentUser.roles.includes("ROLE_ADMIN") === true ? (
+                  <Fragment>
+                    <Grid container spacing={2}>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <BowTieCard
+                          themes="dark"
+                          headerknot="rectangle"
+                          headerPosition="left"
+                          headerknotText="จำนวนพนักงาน"
+                          imageIcon="participant.svg"
+                          primaryText={allUsers && allUsers.length}
+                          secondaryText="คน"
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <BowTieCard
+                          themes="dark"
+                          headerknot="rectangle"
+                          headerPosition="left"
+                          headerknotText="(OPD) บาท"
+                          imageIcon="OPD.svg"
+                          primaryText={"2.5"}
+                          secondaryText="ล้านบาท"
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <BowTieCard
+                          themes="dark"
+                          headerknot="rectangle"
+                          headerPosition="left"
+                          headerknotText="(IPD) บาท"
+                          imageIcon="IPD.svg"
+                          primaryText={"2.5"}
+                          secondaryText="ล้านบาท"
+                        />
+                      </Grid>
+                      <Grid item md={3} sm={6} xs={12}>
+                        <BowTieCard
+                          themes="dark"
+                          headerknot="rectangle"
+                          headerPosition="left"
+                          headerknotText="รวมค่าใช้จ่าย"
+                          imageIcon="money.svg"
+                          primaryText={"5"}
+                          secondaryText="ล้านบาท"
+                        />
+                      </Grid>
+                    </Grid>
+                    <br />
+                    <br />
+                    <Grid container spacing={2}>
+                      <Grid item lg={5}>
+                        <Paper
+                          className={classes.card}
+                          sx={{ height: "450px" }}
+                        >
+                          <Typography variant="h6" component="div">
+                            สถิติการรักษา
+                          </Typography>
+                          {health && (
+                            <ReactApexChart
+                              options={calStateDonutCard("options")}
+                              series={calStateDonutCard("series")}
+                              type="donut"
+                              height="400px"
+                            />
+                          )}
+                        </Paper>
+                      </Grid>
+                      <Grid item lg={7}>
+                        {health && (
+                          <Paper
+                            className={classes.card}
+                            sx={{ height: "450px" }}
+                          >
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "flex-start",
+                                width: "100%",
+                              }}
+                            >
+                              <Typography
+                                variant="h6"
+                                className={classes.headText}
+                                component="div"
+                                gutterBottom
+                              >
+                                Trend การออกกำลังกาย
+                              </Typography>
+                            </Box>
+
+                            <ReactApexChart
+                              options={setChartDataTrendExercise("option")}
+                              series={setChartDataTrendExercise("series")}
+                              type="area"
+                              height="300px"
+                            />
+                          </Paper>
+                        )}
+                      </Grid>
+                    </Grid>
+                    <br />
+                    <br />
+                    <Grid container spacing={2}>
+                      <Grid item lg={6} xs={12}>
+                        <Paper
+                          className={classes.card}
+                          sx={{ minHeight: "520px" }}
+                        >
+                          <Typography variant="h6" component="div">
+                            IPD Now
+                          </Typography>
+                          <br />
+                          <br />
+                          <Grid container spacing={6} sx={{ padding: "1rem" }}>
+                            {allUsers &&
+                              allUsers.slice(0, 6).map((val, index) => (
+                                <Grid key={index} item lg={4}>
+                                  <Box
+                                    sx={{ textAlign: "center", width: "100%" }}
+                                  >
+                                    <GroupButtonTooltip
+                                      placement="top"
+                                      title={
+                                        <Fragment>
+                                          <Box
+                                            sx={{
+                                              width: "140px",
+                                              display: "flex",
+                                              justifyContent: "flex-start",
+                                              flexWrap: "wrap",
+                                            }}
+                                          >
+                                            <Box
+                                              sx={{
+                                                flexGrow: 1,
+                                                margin: "4px",
+                                              }}
+                                            >
+                                              <IconButton
+                                                className={classes.iconButton}
+                                                size="small"
+                                              >
+                                                <Facebook
+                                                  sx={{ color: "#4267B2" }}
+                                                />
+                                              </IconButton>
+                                            </Box>
+                                            <Box
+                                              sx={{
+                                                flexGrow: 1,
+                                                margin: "4px",
+                                              }}
+                                            >
+                                              <IconButton
+                                                className={classes.iconButton}
+                                                size="small"
+                                              >
+                                                <Phone
+                                                  sx={{ color: "#4267B2" }}
+                                                />
+                                              </IconButton>
+                                            </Box>
+                                            <Box
+                                              sx={{
+                                                flexGrow: 1,
+                                                margin: "4px",
+                                              }}
+                                            >
+                                              <IconButton
+                                                className={classes.iconButton}
+                                                size="small"
+                                              >
+                                                <Email
+                                                  sx={{ color: "#4267B2" }}
+                                                />
+                                              </IconButton>
+                                            </Box>
+                                          </Box>
+                                        </Fragment>
+                                      }
+                                    >
+                                      <Box
+                                        sx={{
+                                          width: "100%",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                        }}
+                                      >
+                                        <Avatar
+                                          sx={{ height: 64, width: 64 }}
+                                          src={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
+                                        />
+                                      </Box>
+                                    </GroupButtonTooltip>
+                                    <Typography variant="h6" component="div">
+                                      {`${val.firstname + " " + val.lastname}`}
+                                    </Typography>
+                                    <br />
+                                    <Typography
+                                      variant="body2"
+                                      component="div"
+                                      sx={{
+                                        color: "rgba(255, 255, 255, 0.7)",
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                      }}
+                                    >
+                                      {`${val.department}`}
+                                    </Typography>
+                                  </Box>
+                                </Grid>
+                              ))}
+                          </Grid>
+                        </Paper>
+                      </Grid>
+                      <Grid item lg={6} xs={12}>
+                        <Paper
+                          className={classes.card}
+                          sx={{ minHeight: "520px" }}
+                        >
+                          <Typography variant="h6" component="div">
+                            ค่ารักษาสูงสุด
+                          </Typography>
+                          <Box sx={{ padding: "1.5rem" }}>
+                            <Slider {...setting}>
+                              {allUsers &&
+                                allUsers.slice(0, 3).map((val, index) => (
+                                  <Fragment key={index}>
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        margin: "50px 0",
+                                      }}
+                                    >
+                                      <Box
+                                        sx={
+                                          {
+                                            // width: "280px",
+                                          }
+                                        }
+                                      >
+                                        <RankCard
+                                          themes="dark"
+                                          imageProfile={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
+                                          primaryText={`${
+                                            val.firstname + " " + val.lastname
+                                          }`}
+                                          secondaryText={`${val.department}`}
+                                          labelText={`${parseInt(
+                                            800000 / (index + 1)
+                                          )
+                                            .toString()
+                                            .replace(
+                                              /\B(?=(\d{3})+(?!\d))/g,
+                                              ","
+                                            )} บาท`}
+                                          rank={index + 1}
+                                        />
+                                      </Box>
+                                    </Box>
+                                  </Fragment>
+                                ))}
+                            </Slider>
+                          </Box>
+                        </Paper>
+                      </Grid>
+                    </Grid>
+                  </Fragment>
+                ) : (
+                  ""
+                )}
+                <br />
 
                 <Paper className={classes.card}>
                   <TabCustomRight

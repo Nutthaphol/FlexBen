@@ -34,6 +34,7 @@ import Slider from "react-slick";
 import TreatmentCard from "../../shared/card/TreatmentCard";
 import ReactApexChart from "react-apexcharts";
 import treatmentCategoryService from "../../../../services/treatmentCategory.service";
+import dayjs from "dayjs";
 
 const theme = createTheme(Themplates);
 
@@ -236,7 +237,25 @@ const TreatmentHistoryDetail = () => {
                               onClick={() => handleOnClickOpen(val)}
                               key={index}
                             >
-                              <TreatmentCard data={val} themes="light" />
+                              <TreatmentCard
+                                themes="light"
+                                headerknotText={
+                                  category &&
+                                  category
+                                    .find((item) => item.id == val.category)
+                                    .name.toUpperCase()
+                                }
+                                knotColor={
+                                  val.category == 1
+                                    ? "#7da6ee"
+                                    : val.category == 2
+                                    ? "#FFD72A"
+                                    : "red"
+                                }
+                                icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
+                                primaryText={val.section}
+                                date={dayjs(val.date)}
+                              />
                             </Button>
                           ))}
                       </Slider>
@@ -275,7 +294,25 @@ const TreatmentHistoryDetail = () => {
                               }}
                               key={index}
                             >
-                              <TreatmentCard data={val} themes="light" />
+                              <TreatmentCard
+                                themes="light"
+                                headerknotText={
+                                  category &&
+                                  category
+                                    .find((item) => item.id == val.category)
+                                    .name.toUpperCase()
+                                }
+                                knotColor={
+                                  val.category == 1
+                                    ? "#7da6ee"
+                                    : val.category == 2
+                                    ? "#FFD72A"
+                                    : "red"
+                                }
+                                icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
+                                primaryText={val.section}
+                                date={dayjs(val.date)}
+                              />
                             </Box>
                           ))}
                     </Slider>

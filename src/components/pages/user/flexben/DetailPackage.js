@@ -29,7 +29,6 @@ import { Box } from "@mui/system";
 import { Star, AssignmentTurnedIn } from "@mui/icons-material";
 import { amber, yellow } from "@mui/material/colors";
 import packageService from "../../../../services/package.service";
-import PackageData from "../../shared/dataDetail/PackageData";
 import Sticky from "react-stickynode";
 import Themplates from "../../shared/theme";
 

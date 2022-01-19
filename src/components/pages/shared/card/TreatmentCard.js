@@ -68,7 +68,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const TreatmentCard = (props) => {
-  const { data, themes } = props;
+  const { themes, headerknotText, knotColor, icon, primaryText, date } = props;
   const classes = useStyles();
   const [categories, setCategories] = useState();
 
@@ -79,97 +79,96 @@ const TreatmentCard = (props) => {
     }
   }, [categories]);
 
+  console.log(
+    "data",
+    themes,
+    headerknotText,
+    knotColor,
+    icon,
+    primaryText,
+    date
+  );
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        {data && (
-          <Paper className={themes == "light" ? classes.rootW : classes.root}>
+        <Paper className={themes == "light" ? classes.rootW : classes.root}>
+          <Box
+            className={classes.Arrow}
+            sx={{
+              backgroundColor: knotColor || "red",
+            }}
+          >
+            <Typography variant="subtitle1" component="div">
+              {headerknotText ? headerknotText : ""}
+            </Typography>
+          </Box>
+          <Box className={classes.mainBox}>
             <Box
-              className={classes.Arrow}
               sx={{
-                backgroundColor:
-                  data.category == 1
-                    ? "#7da6ee"
-                    : data.category == 2
-                    ? "#FFD72A"
-                    : "red",
+                padding: "10px",
+                margin: "8px",
               }}
+              className={
+                themes == "light"
+                  ? classes.backgroundCardW
+                  : classes.backgroundCard
+              }
             >
-              <Typography variant="subtitle1" component="div">
-                {categories &&
-                  categories
-                    .find((item) => item.id == data.category)
-                    .name.toUpperCase()}
-              </Typography>
-            </Box>
-            <Box className={classes.mainBox}>
-              <Box
-                sx={{
-                  padding: "10px",
-                  margin: "8px",
-                }}
-                className={
-                  themes == "light"
-                    ? classes.backgroundCardW
-                    : classes.backgroundCard
-                }
-              >
+              {icon && (
                 <Icon
                   sx={{
                     fontSize: "4rem",
                   }}
                 >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${data.icon}`}
-                    width="100%"
-                  />
+                  <img src={icon} width="100%" />
                 </Icon>
-              </Box>
-              <Box sx={{ margin: "0 0 0 20px" }}>
-                <Typography
-                  className={
-                    themes == "light"
-                      ? classes.sectionMessageW
-                      : classes.sectionMessage
-                  }
-                >
-                  {data.section}
-                </Typography>
-              </Box>
+              )}
             </Box>
-            <Box className={classes.mainBox}>
-              <Box
-                sx={{ padding: "4px", margin: "8px" }}
+            <Box sx={{ margin: "0 0 0 20px" }}>
+              <Typography
                 className={
                   themes == "light"
-                    ? classes.backgroundCardW
-                    : classes.backgroundCard
+                    ? classes.sectionMessageW
+                    : classes.sectionMessage
                 }
               >
-                <Typography variant="subtitle2">
-                  {dayjs(data.date).format("DD/MMMM/YYYY")}
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  marginRight: "15px",
-                }}
-              >
-                <Tooltip title="Good doctor">
-                  <Avatar
-                    sx={{ width: 24, height: 24 }}
-                    src={`${process.env.REACT_APP_URL}image/profile/${parseInt(
-                      Math.random() * (40 - 30) + 30
-                    )}.jpg`}
-                  />
-                </Tooltip>
-              </Box>
+                {primaryText && primaryText}
+              </Typography>
             </Box>
-          </Paper>
-        )}
+          </Box>
+          <Box className={classes.mainBox}>
+            <Box
+              sx={{ padding: "4px", margin: "8px" }}
+              className={
+                themes == "light"
+                  ? classes.backgroundCardW
+                  : classes.backgroundCard
+              }
+            >
+              <Typography variant="subtitle2">
+                {date && dayjs(date).format("DD/MMMM/YYYY")}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "flex-end",
+                marginRight: "15px",
+              }}
+            >
+              <Tooltip title="Good doctor">
+                <Avatar
+                  sx={{ width: 24, height: 24 }}
+                  src={`${process.env.REACT_APP_URL}image/profile/${parseInt(
+                    Math.random() * (40 - 30) + 30
+                  )}.jpg`}
+                />
+              </Tooltip>
+            </Box>
+          </Box>
+        </Paper>
       </ThemeProvider>
     </StyledEngineProvider>
   );
