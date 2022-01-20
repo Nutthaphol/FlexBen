@@ -18,7 +18,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import PackageCard from "../../shared/card/PackageCard";
 import { getAllPackage } from "../../../../actions/package";
 import { Box } from "@mui/system";
 import { getAllInsurance } from "../../../../actions/insurance";
@@ -188,9 +187,9 @@ const ListInsurance = () => {
                             <ProductCard
                               path="detailInsurance"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.highLights}
+                              secondaryText={val.company}
                               price={val.price}
-                              name={val.name}
+                              primaryText={val.name}
                               id={val.id}
                               count={val.count}
                               type={val.type}

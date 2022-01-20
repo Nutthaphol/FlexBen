@@ -177,9 +177,9 @@ const TravelShop = () => {
                             <ProductCard
                               path="detailTravel"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.location.province}
+                              secondaryText={val.location.province}
                               price={val.price}
-                              name={val.name}
+                              primaryText={val.name}
                               id={val.id}
                               // rating={val.rating}
                               count={val.count}

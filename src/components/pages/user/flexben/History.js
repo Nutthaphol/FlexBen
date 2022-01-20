@@ -121,7 +121,7 @@ const History = () => {
                                   variant="rounded"
                                 >
                                   <img
-                                    src={`${process.env.REACT_APP_URL}image${val.image}`}
+                                    src={`${process.env.REACT_APP_URL}image${val.image[0]}`}
                                     width="auto"
                                     height="100%"
                                   />

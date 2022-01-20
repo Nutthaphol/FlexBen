@@ -14,10 +14,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import PackageCard from "../../shared/card/PackageCard";
 import { getAllPackage } from "../../../../actions/package";
 import { Box } from "@mui/system";
 import Themplates from "../../shared/theme";
+import ProductCard from "../../shared/card/ProductCard";
 
 const theme = createTheme(Themplates);
 
@@ -84,7 +84,6 @@ const ListPackage = () => {
             </Paper>
             <br />
             <br />
-            {/* <Paper className={classes.root} sx={{ marginTop: "20px" }}> */}
             <Grid container spacing={3}>
               {allPackages &&
                 allPackages
@@ -101,22 +100,20 @@ const ListPackage = () => {
                   })
                   .map((val, index) => (
                     <Grid item key={index} xl={3} lg={3} md={4} sm={6} xs={12}>
-                      <PackageCard
+                      <ProductCard
                         path="detailPackage"
                         id={val.id}
-                        key={index}
                         image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                        name={val.name}
-                        property={val.property}
+                        primaryText={val.name}
+                        listDetail={val.property}
                         count={val.count}
                         price={val.price}
-                        class_={val.class}
-                        rating={val.rating}
+                        rating_={val.rating}
+                        currency="$"
                       />
                     </Grid>
                   ))}
             </Grid>
-            {/* </Paper> */}
           </Container>
         </ThemeProvider>
       </StyledEngineProvider>

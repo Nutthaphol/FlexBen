@@ -1,4 +1,9 @@
-import { Favorite, FavoriteBorder, Star } from "@mui/icons-material";
+import {
+  AssignmentTurnedIn,
+  Favorite,
+  FavoriteBorder,
+  Star,
+} from "@mui/icons-material";
 import {
   Card,
   CardActionArea,
@@ -13,6 +18,10 @@ import {
   Link,
   IconButton,
   Icon,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
 import {
@@ -74,9 +83,21 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ProductCard = (props) => {
-  const { image, head, price, name, id, path, count, type } = props;
+  const {
+    image = "",
+    secondaryText = false,
+    price = NaN,
+    primaryText = "",
+    id,
+    path,
+    count,
+    type,
+    listDetail = false,
+    rating_ = null,
+    currency = "icon",
+  } = props;
 
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState(rating_);
 
   useEffect(async () => {
     if (rating == null) {
@@ -116,22 +137,55 @@ const ProductCard = (props) => {
           </CardActionArea>
           <CardContent className={classes.cardContent}>
             <Typography className={classes.typograpphy} variant="h6">
-              {name.replace("Insurance", "").toUpperCase()}
+              {primaryText.replace("Insurance", "").toUpperCase()}
             </Typography>
-            <Typography
-              component="span"
-              sx={{
-                display: "-webkit-box",
-                overflow: "hidden",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 2,
-                height: "2.5rem",
-              }}
-              variant="body2"
-              color="text.secondary"
-            >
-              {head}
-            </Typography>
+            {secondaryText && (
+              <Typography
+                component="span"
+                sx={{
+                  display: "-webkit-box",
+                  overflow: "hidden",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                  height: "2.5rem",
+                }}
+                variant="body2"
+                color="text.secondary"
+              >
+                {secondaryText}
+              </Typography>
+            )}
+            {listDetail && (
+              <List sx={{ width: "100%" }}>
+                {listDetail.slice(0, 3).map((val, index) => (
+                  <ListItem
+                    disablePadding
+                    key={index}
+                    secondaryAction={
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Typography variant="subtitle1" component="span">
+                          {val.limitCoin}
+                        </Typography>
+
+                        <Icon fontSize="small" sx={{ marginLeft: "10px" }}>
+                          <img
+                            width="100%"
+                            src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
+                          />
+                        </Icon>
+                      </Box>
+                    }
+                  >
+                    <ListItemIcon sx={{ margin: 0, minWidth: "25px" }}>
+                      <AssignmentTurnedIn fontSize="small" color="success" />
+                    </ListItemIcon>
+                    <ListItemText
+                      secondary={<Typography>{val.name}</Typography>}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            )}
             <Typography
               variant="subtitle1"
               sx={{ marginTop: "0.5rem", color: amber[900] }}
@@ -147,6 +201,7 @@ const ProductCard = (props) => {
               </Box>
             </Typography>
           </CardContent>
+
           <CardActions>
             <IconButton>
               <FavoriteBorder />
@@ -164,21 +219,24 @@ const ProductCard = (props) => {
               size="small"
               href={`${path}/${id}`}
             >
-              <Icon
-                sx={{
-                  marginRight: "5px",
-
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                fontSize="small"
-              >
-                <img
-                  src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                  width="100%"
-                  height="auto"
-                />
-              </Icon>
+              {currency == "icon" ? (
+                <Icon
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  fontSize="small"
+                >
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                    width="100%"
+                    height="auto"
+                  />
+                </Icon>
+              ) : (
+                currency
+              )}
+              <Box component="span" sx={{ marginRight: "5px" }} />
               {price}
             </Button>
           </CardActions>

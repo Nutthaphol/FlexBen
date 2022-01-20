@@ -85,7 +85,7 @@ const HealthHistory = () => {
                 <Grid container spacing={3}>
                   {healthCheckCategory &&
                     healthCheckCategory.map((val, index) => (
-                      <Grid item xs={12} md={6}>
+                      <Grid item xs={12} md={6} key={index}>
                         <Box
                           key={index}
                           sx={{

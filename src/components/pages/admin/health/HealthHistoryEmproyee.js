@@ -416,7 +416,7 @@ const HealthHistoryEmproyee = () => {
                 >
                   <FormControl sx={{ width: "240px", margin: "1rem 1rem" }}>
                     <InputLabel size="small" id="Category">
-                      ประเภท
+                      ปี
                     </InputLabel>
                     <Select
                       size="small"

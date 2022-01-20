@@ -176,9 +176,9 @@ const ShopingMall = () => {
                             <ProductCard
                               path="detailItem"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.brand}
+                              secondaryText={val.brand}
                               price={val.price}
-                              name={val.name}
+                              primaryText={val.name}
                               id={val.id}
                               // rating={val.rating}
                               count={val.count}

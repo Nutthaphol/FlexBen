@@ -33,7 +33,6 @@ import Slider from "react-slick";
 import { getAllUsers, getUserProfile } from "../../actions/user";
 import ProductCard from "./shared/card/ProductCard";
 import { getAllPackage } from "../../actions/package";
-import PackageCard from "./shared/card/PackageCard";
 import AddCoinCard from "./shared/card/AddCoinCard";
 import { getAllMainCategory } from "../../actions/mainCategory";
 import Themplates from "./shared/theme";
@@ -179,16 +178,16 @@ const Home = () => {
                         .filter((item) => item.rating > 4)
                         .map((val, index) => (
                           <Box key={index} className={classes.boxSlider}>
-                            <PackageCard
+                            <ProductCard
                               path="detailPackage"
                               id={val.id}
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              name={val.name}
-                              property={val.property}
+                              primaryText={val.name}
+                              listDetail={val.property}
                               count={val.count}
                               price={val.price}
-                              class_={val.class}
-                              rating={val.rating}
+                              rating_={val.rating}
+                              currency="$"
                             />
                           </Box>
                         ))}
@@ -231,9 +230,9 @@ const Home = () => {
                             <ProductCard
                               path="detailInsurance"
                               image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.company}
+                              secondaryText={val.company}
                               price={val.price}
-                              name={val.name}
+                              primaryText={val.name}
                               id={val.id}
                               // rating={val.rating}
                               count={val.count}

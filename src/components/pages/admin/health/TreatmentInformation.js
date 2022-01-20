@@ -113,7 +113,6 @@ const TreatmentInformation = () => {
             OPDRow.category =
               category_ && category_.find((item) => item.id == 1).name;
 
-            console.log("OPDRow", OPDRow);
             rows_.push({ ...OPDRow });
           }
 
@@ -131,7 +130,6 @@ const TreatmentInformation = () => {
             IPDRow.category =
               category_ && category_.find((item) => item.id == 2).name;
 
-            console.log("IPDRow", IPDRow);
             rows_.push({ ...IPDRow });
           }
 
@@ -152,7 +150,6 @@ const TreatmentInformation = () => {
             dentalRow.category =
               category_ && category_.find((item) => item.id == 3).name;
 
-            console.log("dentalRow", dentalRow);
             rows_.push({ ...dentalRow });
           }
         }
@@ -312,25 +309,29 @@ const TreatmentInformation = () => {
                   height: "auto",
                 }}
               >
-                {/* {rows && ( */}
                 <DataGrid
                   rows={
-                    rows &&
                     rows
-                      .filter(
-                        (item) =>
-                          (item.profile.firstname + " " + item.profile.lastname)
-                            .toLowerCase()
-                            .includes(searchList) == 1
-                      )
-                      .filter((item) =>
-                        selectCategory && selectCategory != "all"
-                          ? item.category == selectCategory
-                          : true
-                      )
-                      .map((e) => {
-                        return e;
-                      })
+                      ? rows
+                          .filter(
+                            (item) =>
+                              (
+                                item.profile.firstname +
+                                " " +
+                                item.profile.lastname
+                              )
+                                .toLowerCase()
+                                .includes(searchList) == 1
+                          )
+                          .filter((item) =>
+                            selectCategory && selectCategory != "all"
+                              ? item.category == selectCategory
+                              : true
+                          )
+                          .map((e) => {
+                            return e;
+                          })
+                      : []
                   }
                   columns={columns}
                   autoHeight
@@ -347,7 +348,6 @@ const TreatmentInformation = () => {
                     },
                   }}
                 />
-                {/* )} */}
               </Box>
             </Paper>
           </Container>

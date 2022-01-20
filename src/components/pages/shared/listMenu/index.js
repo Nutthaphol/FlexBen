@@ -5,7 +5,7 @@ import {
   createTheme,
 } from "@mui/material/styles";
 import makeStyles from "@mui/styles/makeStyles";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import List from "@mui/material/List";
 import Collapse from "@mui/material/Collapse";
 import ListItem from "@mui/material/ListItem";
@@ -66,14 +66,15 @@ const ListMenu = (props) => {
   const path = useSelector((state) => state.navigation);
   const [dataListMenu] = useState(props.dataListMenu);
   const [openCollapse, setOpenCollapse] = React.useState(-1);
-  // const [select, setSelect] = useState();
+
+  const location = useLocation();
 
   useEffect(() => {
     const path_ = window.location.pathname;
     if (path != path_) {
       dispatch({ type: "CLICK", path: path_ });
     }
-  }, []);
+  }, [location]);
 
   const handleClickCollapse = (index) => {
     if (openCollapse === index) {
