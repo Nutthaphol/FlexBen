@@ -207,7 +207,7 @@ const TreatmentHistoryDetail = () => {
         <div className={`dashboard-page-light`}>
           {userProfile ? (
             <Box sx={{ marginBottom: "2rem" }}>
-              <CoverPhoto image={userProfile.background} />
+              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
                 <Profile
                   profile={userProfile}

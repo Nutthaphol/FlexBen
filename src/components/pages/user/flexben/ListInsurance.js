@@ -24,6 +24,8 @@ import { getAllInsurance } from "../../../../actions/insurance";
 import ProductCard from "../../shared/card/ProductCard";
 import Themplates from "../../shared/theme";
 import { getAllInsuranceCategory } from "../../../../actions/insuranceCategory";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
+import StoreFilter from "../../shared/storeFilter";
 
 const theme = createTheme(Themplates);
 
@@ -95,12 +97,17 @@ const ListInsurance = () => {
     return listLabel;
   };
   return (
-    <div className={`page`}>
+    <div className={`page white-bg`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="none">
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
+          <Container maxWidth="xl">
+            <HeaderSearch
+              setSearch={setSearch}
+              normalText="The"
+              hightlightText="Insurance"
+            />
+            <Grid container spacing={5} justifyContent="center">
+              {/* <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head}>
                   <Typography variant="h4" className={classes.sectionText}>
                     Insurance Shop
@@ -122,10 +129,16 @@ const ListInsurance = () => {
                     )}
                   />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {insuranceCategory && (
                 <Grid item xl={2} lg={3}>
-                  <Paper className={classes.filter}>
+                  <StoreFilter
+                    handleToggle={handleToggle}
+                    checked={checked}
+                    mainData={insuranceCategory}
+                    title="Category"
+                  />
+                  {/* <Paper className={classes.filter}>
                     <Typography variant="h6" component="span" gutterBottom>
                       Category
                     </Typography>
@@ -153,7 +166,7 @@ const ListInsurance = () => {
                           </ListItem>
                         ))}
                     </List>
-                  </Paper>
+                  </Paper> */}
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>
@@ -178,7 +191,7 @@ const ListInsurance = () => {
                           item
                           key={index}
                           xl={3}
-                          lg={3}
+                          lg={4}
                           md={4}
                           sm={6}
                           xs={12}

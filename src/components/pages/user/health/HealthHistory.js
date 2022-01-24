@@ -75,7 +75,7 @@ const HealthHistory = () => {
         <div className={`dashboard-page-light`}>
           {userProfile ? (
             <Box sx={{ marginBottom: "2rem" }}>
-              <CoverPhoto image={userProfile.background} />
+              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
                 <Profile
                   profile={userProfile}
@@ -86,21 +86,11 @@ const HealthHistory = () => {
                   {healthCheckCategory &&
                     healthCheckCategory.map((val, index) => (
                       <Grid item xs={12} md={6} key={index}>
-                        <Box
-                          key={index}
-                          sx={{
-                            "&:hover": {
-                              transform: "scale(1.02)",
-                              transition: "transform .2s",
-                            },
-                          }}
-                        >
-                          <CategoryCard
-                            categoryText={val.name}
-                            path={`/health/HealthHistory/detail/${val.id}`}
-                            icon={val.icon}
-                          />
-                        </Box>
+                        <CategoryCard
+                          categoryText={val.name}
+                          path={`/health/HealthHistory/detail/${val.id}`}
+                          icon={val.icon}
+                        />
                       </Grid>
                     ))}
                 </Grid>

@@ -24,8 +24,14 @@ const useStyles = makeStyles(() => ({
   root: {
     padding: "16px",
     paddingBottom: "16px",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     borderRadius: "16px",
+    transition: "box-shadow .3s",
+    "&:hover": {
+      // transform: "scale(1.05)",
+      // transition: "transform .2s",
+      boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
+    },
   },
   icons: {
     fontSize: "2rem",

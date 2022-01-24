@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
   rootDark: {
     position: "relative",
     width: "100%",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     minHeight: "140px",
     contain: "content",
     padding: 0,
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
   rootLight: {
     position: "relative",
     width: "100%",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     contain: "content",
     padding: 0,
     minHeight: "160px",
@@ -108,6 +108,9 @@ const useStyles = makeStyles(() => ({
   iconStyle: {
     position: "relative",
     fontSize: "4rem",
+    padding: "16px",
+    borderRadius: "50%",
+    background: "rgba(30, 144, 255, 0.2)",
   },
   primaryText: {
     fontWeight: "400",
@@ -118,9 +121,12 @@ const useStyles = makeStyles(() => ({
     color: "#0288d1",
   },
   chartBox: {
+    // position: "relative",
+
     position: "absolute",
     width: "100%",
     bottom: "-30px",
+    zIndex: "-1",
   },
 }));
 
@@ -209,13 +215,15 @@ const BowTieCard = (props) => {
             </Box>
           </Box>
           {backgroundData && (
-            <Box className={classes.chartBox}>
-              <ReactApexChart
-                options={backgroundData.option}
-                series={backgroundData.series}
-                type="area"
-                height={`110px`}
-              />
+            <Box sx={{ marginTop: "56px" }}>
+              <Box className={classes.chartBox}>
+                <ReactApexChart
+                  options={backgroundData.option}
+                  series={backgroundData.series}
+                  type="area"
+                  height={`110px`}
+                />
+              </Box>
             </Box>
           )}
         </Paper>

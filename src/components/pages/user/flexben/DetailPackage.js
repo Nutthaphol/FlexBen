@@ -47,8 +47,7 @@ const useStyles = makeStyles(() => ({
   },
   root: {
     padding: "1rem",
-    boxShadow: "0 0 1px 1px D0D3D4",
-    border: "1px solid #D0D3D4",
+    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   cardMedia: {
     width: "100%",

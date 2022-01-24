@@ -19,6 +19,23 @@ const Themplates = {
     ].join(","),
   },
   components: {
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "transparent !important",
+          },
+          padding: 0,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          // color: "#333333",
+        },
+      },
+    },
     // MuiButton: {
     //   "&:hover": {
     //     background: "none",

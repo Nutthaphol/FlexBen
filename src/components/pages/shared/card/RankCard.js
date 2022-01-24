@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     padding: "1rem",
     boxShadow:
-      "0 15px 25px rgb(255 255 255 / 10%), 0 10px 25px rgb(255 255 255 / 30%)",
+      "0 15px 25px rgb(255 255 255 / 16%), 0 10px 25px rgb(255 255 255 / 30%)",
     textAlign: "center",
   },
   iconButton: {

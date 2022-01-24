@@ -18,14 +18,14 @@ const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "#121212",
     color: "#fff",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     position: "relative",
     minHeight: "140px",
     minWidth: "250px",
     contain: "content",
   },
   rootW: {
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     position: "relative",
     minHeight: "140px",
     minWidth: "250px",

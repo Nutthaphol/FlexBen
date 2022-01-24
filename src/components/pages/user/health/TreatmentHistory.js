@@ -217,7 +217,7 @@ const TreatmentHistory = (props) => {
         <div className={`dashboard-page-light`}>
           {userProfile ? (
             <Box>
-              <CoverPhoto image={userProfile.background} />
+              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
                 <Profile
                   profile={userProfile}
@@ -465,26 +465,16 @@ const TreatmentHistory = (props) => {
                     {insurance &&
                       insurance.slice(0, 4).map((val, index) => (
                         <Grid item key={index} lg={3} xs={12}>
-                          <Box
-                            sx={{
-                              width: "100%",
-                              "&:hover": {
-                                transform: "scale(1.05)",
-                                transition: "transform .2s",
-                              },
-                            }}
-                          >
-                            <ProductCard
-                              path="detailInsurance"
-                              image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              head={val.highLights}
-                              price={val.price}
-                              name={val.name}
-                              id={val.id}
-                              count={val.count}
-                              type={val.type}
-                            />
-                          </Box>
+                          <ProductCard
+                            path="detailInsurance"
+                            image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                            secondaryText={val.company}
+                            price={val.price}
+                            primaryText={val.name}
+                            id={val.id}
+                            count={val.count}
+                            type={val.type}
+                          />
                         </Grid>
                       ))}
                   </Grid>

@@ -42,8 +42,14 @@ const useStyles = makeStyles(() => ({
     // margin: "1rem",
     // width: "100%",
     height: "auto",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     borderRadius: "16px",
+    transition: "box-shadow .3s",
+    "&:hover": {
+      // transform: "scale(1.05)",
+      // transition: "transform .2s",
+      boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
+    },
   },
   coverMedia: {
     position: "relative",
@@ -53,7 +59,7 @@ const useStyles = makeStyles(() => ({
     background: "#fff",
     height: "16rem",
     "&:hover": {
-      background: "none",
+      background: "#fff",
     },
   },
   cardMedia: {
@@ -70,7 +76,7 @@ const useStyles = makeStyles(() => ({
     borderBottom: "1px solid rgb(224, 224, 224)",
   },
   typograpphy: {
-    fontWeight: "400",
+    fontWeight: "600",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
@@ -132,7 +138,12 @@ const ProductCard = (props) => {
         <Card className={classes.root}>
           <CardActionArea href={`${path}/${id}`}>
             <Box className={classes.coverMedia}>
-              <img src={`${image}`} className={classes.imageDisplay} />
+              <img
+                src={`${image}`}
+                className={classes.imageDisplay}
+                height="200px"
+                width="100%"
+              />
             </Box>
           </CardActionArea>
           <CardContent className={classes.cardContent}>

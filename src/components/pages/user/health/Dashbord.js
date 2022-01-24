@@ -544,7 +544,7 @@ const Dashbord = () => {
         <div className={`dashboard-page`}>
           {userProfile ? (
             <Box>
-              <CoverPhoto image={userProfile.background} />
+              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
                 <Profile profile={userProfile} lastHealth={lastHealthCheck} />
 
@@ -595,8 +595,8 @@ const Dashbord = () => {
                       arcPadding={0.02}
                       percent={0.4}
                       hideText
-                      needleBaseColor={"#2b191d"}
-                      needleColor={"#2b191d"}
+                      needleBaseColor={"#429EF5"}
+                      needleColor={"#42A5F5"}
                     />
                   </Box>
                   <Box
@@ -640,6 +640,7 @@ const Dashbord = () => {
                       headerknot="triangle"
                       headerPosition="left"
                       imageIcon={`bmi.svg`}
+                      headerknotText="Weight"
                       primaryText={
                         health
                           ? (

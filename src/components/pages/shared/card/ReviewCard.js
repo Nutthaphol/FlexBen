@@ -29,7 +29,7 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
   },
 }));
 

@@ -18,6 +18,7 @@ import { getAllPackage } from "../../../../actions/package";
 import { Box } from "@mui/system";
 import Themplates from "../../shared/theme";
 import ProductCard from "../../shared/card/ProductCard";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
 
 const theme = createTheme(Themplates);
 
@@ -54,11 +55,16 @@ const ListPackage = () => {
     return listLabel;
   };
   return (
-    <div className={`page`}>
+    <div className={`page white-bg`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="none">
-            <Paper
+          <Container maxWidth="xl">
+            <HeaderSearch
+              setSearch={setSearch}
+              normalText="The"
+              hightlightText="Package"
+            />
+            {/* <Paper
               className={classes.root}
               sx={{ display: "flex", justifyContent: "space-between" }}
             >
@@ -82,7 +88,7 @@ const ListPackage = () => {
                 )}
               />
             </Paper>
-            <br />
+            <br /> */}
             <br />
             <Grid container spacing={3}>
               {allPackages &&

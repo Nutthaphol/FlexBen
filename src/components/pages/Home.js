@@ -38,6 +38,8 @@ import { getAllMainCategory } from "../../actions/mainCategory";
 import Themplates from "./shared/theme";
 import CategoryCard from "./shared/card/CategoryCard";
 
+// import "../../utils/slick.css";
+
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
@@ -45,16 +47,16 @@ const useStyles = makeStyles(() => ({
     // marginTop: 30,
   },
   paper: {
-    margin: "10px",
     // boxShadow: "0 0 1px 1px #D0D3D4",
     // border: "1px solid #ECF8FF",
     boxShadow:
       "rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;",
     padding: "1.75rem",
-    width: "100%",
     borderRadius: "16px",
   },
-  slider: {},
+  slider: {
+    // width: "700px",
+  },
   divider: {
     marginTop: "1.25rem",
     marginBottom: "1rem",
@@ -63,8 +65,8 @@ const useStyles = makeStyles(() => ({
     paddingTop: "15px",
     paddingBottom: "15px",
     "&:hover": {
-      transform: "scale(1.05)",
-      transition: "transform .2s",
+      // transform: "scale(1.05)",
+      // transition: "transform .2s",
     },
   },
   sectionText: {
@@ -77,6 +79,11 @@ const useStyles = makeStyles(() => ({
     },
     color: "rgb(125, 135, 156)",
   },
+  headerText: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap",
+  },
 }));
 
 const Home = () => {
@@ -88,11 +95,11 @@ const Home = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const { result: users } = useSelector((state) => state.users);
   const [setting] = useState({
-    dots: true,
-    infinite: false,
+    dots: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 5,
+    slidesToScroll: 4,
     initialSlide: 1,
     adaptiveHeight: false,
     nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
@@ -148,184 +155,156 @@ const Home = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <Grid container className={classes.root}>
-              <Paper className={classes.paper}>
-                <Grid item xs={12} style={{ display: "flex" }}>
+            <Paper className={classes.paper} sx={{ display: "" }}>
+              <Box className={classes.headerText}>
+                <Typography
+                  variant="h4"
+                  className={classes.sectionText}
+                  gutterBottom
+                >
+                  <Inventory2 color="error" /> Top Package
+                </Typography>
+                <Button
+                  variant="text"
+                  size="small"
+                  href="allPackages"
+                  className={classes.buttonView}
+                >
                   <Typography
-                    variant="h4"
-                    className={classes.sectionText}
-                    gutterBottom
-                  >
-                    <Inventory2 color="error" /> Top Package
-                  </Typography>
-                  <Box style={{ flexGrow: 1 }} />
-                  <Button
-                    variant="text"
-                    size="small"
-                    href="allPackages"
-                    className={classes.buttonView}
-                  >
-                    <Typography
-                      component="span"
-                      variant="body1"
-                    >{`See more >>`}</Typography>
-                  </Button>
-                </Grid>
-                <Grid item xs={12}>
-                  <Slider {...setting} className={classes.slider}>
-                    {package_ &&
-                      package_
-                        .filter((item) => item.rating > 4)
-                        .map((val, index) => (
-                          <Box key={index} className={classes.boxSlider}>
-                            <ProductCard
-                              path="detailPackage"
-                              id={val.id}
-                              image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              primaryText={val.name}
-                              listDetail={val.property}
-                              count={val.count}
-                              price={val.price}
-                              rating_={val.rating}
-                              currency="$"
-                            />
-                          </Box>
-                        ))}
-                  </Slider>
-                </Grid>
-              </Paper>
-              <Grid item xs={12}>
-                <br />
-                <br />
-              </Grid>
-              <Paper className={classes.paper}>
-                <Grid item xs={12} style={{ display: "flex" }}>
-                  <Typography
-                    variant="h4"
-                    className={classes.sectionText}
-                    gutterBottom
-                  >
-                    <SelfImprovement color="success" /> Top Insurun
-                  </Typography>
-                  <Box style={{ flexGrow: 1 }} />
-                  <Button
-                    variant="text"
-                    size="small"
-                    href="allInsurance"
-                    className={classes.buttonView}
-                  >
-                    <Typography
-                      component="span"
-                      variant="body1"
-                    >{`See more >>`}</Typography>{" "}
-                  </Button>
-                </Grid>
-                <Grid item xs={12}>
-                  <Slider {...setting} className={classes.slider}>
-                    {insurance &&
-                      insurance
-                        .filter((item) => item.popular)
-                        .map((val, index) => (
-                          <Box className={classes.boxSlider} key={index}>
-                            <ProductCard
-                              path="detailInsurance"
-                              image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                              secondaryText={val.company}
-                              price={val.price}
-                              primaryText={val.name}
-                              id={val.id}
-                              // rating={val.rating}
-                              count={val.count}
-                              type={val.type}
-                            />
-                          </Box>
-                        ))}
-                  </Slider>
-                </Grid>
-              </Paper>
+                    component="span"
+                    variant="body1"
+                  >{`See more >>`}</Typography>
+                </Button>
+              </Box>
 
-              <Grid item xs={12}>
-                <br />
-                <br />
-              </Grid>
-              <Paper className={classes.paper}>
-                <Grid item xs={12} style={{ display: "flex" }}>
+              <Slider {...setting} className={classes.slider}>
+                {package_ &&
+                  package_
+                    .filter((item) => item.rating > 4)
+                    .map((val, index) => (
+                      <Box key={index} className={classes.boxSlider}>
+                        <ProductCard
+                          path="detailPackage"
+                          id={val.id}
+                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                          primaryText={val.name}
+                          listDetail={val.property}
+                          count={val.count}
+                          price={val.price}
+                          rating_={val.rating}
+                          currency="$"
+                        />
+                      </Box>
+                    ))}
+              </Slider>
+            </Paper>
+            <br />
+            <br />
+            <Paper className={classes.paper}>
+              <Box className={classes.headerText}>
+                <Typography
+                  variant="h4"
+                  className={classes.sectionText}
+                  gutterBottom
+                >
+                  <SelfImprovement color="success" /> Top Insurun
+                </Typography>
+                <Box style={{ flexGrow: 1 }} />
+                <Button
+                  variant="text"
+                  size="small"
+                  href="allInsurance"
+                  className={classes.buttonView}
+                >
                   <Typography
-                    variant="h4"
-                    gutterBottom
-                    className={classes.sectionText}
-                  >
-                    <PersonAdd color="info" /> Personalize Coin
-                  </Typography>
-                  <Box style={{ flexGrow: 1 }} />
-                  <Button
-                    variant="text"
-                    size="small"
-                    className={classes.buttonView}
-                  >
-                    <Typography
-                      component="span"
-                      variant="body1"
-                    >{`See more >>`}</Typography>{" "}
-                  </Button>
-                </Grid>
-                <Grid item xs={12} sx={{ marginBottom: "10px" }}>
-                  {users &&
-                    users
-                      .filter((item) => item.id != currentUser.id)
-                      .slice(0, 1)
-                      .map((val, index) => (
-                        <Box key={index} className={classes.boxSlider}>
-                          <AddCoinCard user={val} />
-                        </Box>
-                      ))}
-                </Grid>
-              </Paper>
+                    component="span"
+                    variant="body1"
+                  >{`See more >>`}</Typography>{" "}
+                </Button>
+              </Box>
+              <Slider {...setting} className={classes.slider}>
+                {insurance &&
+                  insurance
+                    // .slice(0, 4)
+                    .filter((item) => item.popular)
+                    .map((val, index) => (
+                      <Box className={classes.boxSlider} key={index}>
+                        <ProductCard
+                          path="detailInsurance"
+                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                          secondaryText={val.company}
+                          price={val.price}
+                          primaryText={val.name}
+                          id={val.id}
+                          // rating={val.rating}
+                          count={val.count}
+                          type={val.type}
+                        />
+                      </Box>
+                    ))}
+              </Slider>
+            </Paper>
 
-              <Grid item xs={12}>
-                <br />
-                <br />
-              </Grid>
-              <Paper className={classes.paper}>
-                <Grid item xs={12}>
+            <br />
+            <br />
+            <Paper className={classes.paper}>
+              <Box className={classes.headerText}>
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  className={classes.sectionText}
+                >
+                  <PersonAdd color="info" /> Personalize Coin
+                </Typography>
+                <Box style={{ flexGrow: 1 }} />
+                <Button
+                  variant="text"
+                  size="small"
+                  className={classes.buttonView}
+                >
                   <Typography
-                    variant="h4"
-                    gutterBottom
-                    className={classes.sectionText}
-                  >
-                    <Widgets color="error" /> Category
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Grid
-                    container
-                    spacing={5}
-                    sx={{ padding: "1rem" }}
-                    justifyContent="center"
-                  >
-                    {mainCategory &&
-                      mainCategory.map((val, index) => (
-                        <Grid
-                          item
-                          xs={12}
-                          sm={6}
-                          md={4}
-                          lg={3}
-                          xl={2}
-                          key={index}
-                        >
-                          <Box key={index} className={classes.boxSlider}>
-                            <CategoryCard
-                              categoryText={val.name}
-                              icon={val.icon}
-                            />
-                          </Box>
-                        </Grid>
-                      ))}
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Grid>
+                    component="span"
+                    variant="body1"
+                  >{`See more >>`}</Typography>{" "}
+                </Button>
+              </Box>
+              {users &&
+                users
+                  .filter((item) => item.id != currentUser.id)
+                  .slice(0, 1)
+                  .map((val, index) => (
+                    <Box key={index} className={classes.boxSlider}>
+                      <AddCoinCard user={val} />
+                    </Box>
+                  ))}
+            </Paper>
+
+            <br />
+            <br />
+            <Paper className={classes.paper}>
+              <Typography
+                variant="h4"
+                gutterBottom
+                className={classes.sectionText}
+              >
+                <Widgets color="error" /> Category
+              </Typography>
+              <Grid
+                container
+                spacing={5}
+                // sx={{ padding: "1rem" }}
+                justifyContent="center"
+              >
+                {mainCategory &&
+                  mainCategory.map((val, index) => (
+                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+                      <Box key={index} className={classes.boxSlider}>
+                        <CategoryCard categoryText={val.name} icon={val.icon} />
+                      </Box>
+                    </Grid>
+                  ))}
+              </Grid>
+            </Paper>
 
             <br />
             <br />

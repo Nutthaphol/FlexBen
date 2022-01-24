@@ -114,12 +114,17 @@ const ListMenu = (props) => {
                     >
                       <ListItemIcon>{value.listItemIcon}</ListItemIcon>
                       <ListItemText
-                        sx={{
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                          overflow: "hidden",
-                        }}
-                        primary={value.listItemText}
+                        primary={
+                          <Typography
+                            sx={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >
+                            {value.listItemText}
+                          </Typography>
+                        }
                       />
                       {openCollapse === index ? <ExpandLess /> : <ExpandMore />}
                     </ListItem>
@@ -159,8 +164,8 @@ const ListMenu = (props) => {
                                     component="span"
                                     sx={{
                                       whiteSpace: "nowrap",
-                                      textOverflow: "ellipsis",
                                       overflow: "hidden",
+                                      textOverflow: "ellipsis",
                                     }}
                                   >
                                     {collapse.listItemText}
@@ -194,8 +199,8 @@ const ListMenu = (props) => {
                             component="span"
                             sx={{
                               whiteSpace: "nowrap",
-                              textOverflow: "ellipsis",
                               overflow: "hidden",
+                              textOverflow: "ellipsis",
                             }}
                           >
                             {value.listItemText}

@@ -27,6 +27,8 @@ import ProductCard from "../../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
 import Themplates from "../../shared/theme";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
+import StoreFilter from "../../shared/storeFilter";
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
@@ -79,15 +81,21 @@ const TravelShop = () => {
     setChecked(newChecked);
   };
   return (
-    <div className={`page`}>
+    <div className={`page white-bg`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="none">
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
+          <Container maxWidth="xl">
+            <HeaderSearch
+              setSearch={setSearch}
+              normalText="Tourist"
+              hightlightText="Attraction"
+            />
+            <Grid container spacing={5} justifyContent="center">
+              {/* <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
                 <Paper className={classes.head}>
                   <Typography variant="h4" className={classes.sectionText}>
-                    Tourist Attraction
+                    Tourist{" "}
+                    <span style={{ color: "#41ABFF" }}> Attraction </span>
                   </Typography>
                   <Box sx={{ flexGrow: 1 }} />
                   <TextField
@@ -109,10 +117,16 @@ const TravelShop = () => {
                     }}
                   />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {travelCategory && (
                 <Grid item xl={2} lg={3}>
-                  <Paper className={classes.filter}>
+                  <StoreFilter
+                    handleToggle={handleToggle}
+                    checked={checked}
+                    mainData={travelCategory}
+                    title="Category"
+                  />
+                  {/* <Paper className={classes.filter}>
                     <Typography variant="h6" gutterBottom>
                       Category
                     </Typography>
@@ -140,7 +154,7 @@ const TravelShop = () => {
                           </ListItem>
                         ))}
                     </List>
-                  </Paper>
+                  </Paper> */}
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>

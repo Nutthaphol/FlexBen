@@ -27,6 +27,8 @@ import ProductCard from "../../shared/card/ProductCard";
 import { Box } from "@mui/system";
 import { Search } from "@mui/icons-material";
 import Themplates from "../../shared/theme";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
+import StoreFilter from "../../shared/storeFilter";
 
 const theme = createTheme(Themplates);
 
@@ -34,7 +36,9 @@ const useStyles = makeStyles(() => ({
   root: {},
   filter: {
     padding: "1.25rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    // boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    boxShadow: "none",
+    backgroundColor: "#F9F9F9",
   },
   main: {
     padding: "10px",
@@ -50,6 +54,13 @@ const useStyles = makeStyles(() => ({
   },
   sectionText: {
     fontWeight: 600,
+    color: "#333",
+  },
+  headTitle: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "48px",
   },
 }));
 
@@ -62,9 +73,9 @@ const ShopingMall = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    dispatch(getAllShopCategory());
+    !shopCategory && dispatch(getAllShopCategory());
     dispatch(getAllItem());
-  }, []);
+  }, [shopCategory]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -75,16 +86,21 @@ const ShopingMall = () => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
     setChecked(newChecked);
   };
+
   return (
-    <div className={`page`}>
+    <div className={`page  white-bg`}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Container maxWidth="none">
-            <Grid container spacing={2} justifyContent="center">
-              <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
+          <Container maxWidth="xl">
+            <HeaderSearch
+              setSearch={setSearch}
+              normalText="Shopping"
+              hightlightText="Mall"
+            />
+            <Grid container spacing={5} justifyContent="center">
+              {/* <Grid item xl={12} lg={12}>
                 <Paper className={classes.head}>
                   <Typography variant="h4" className={classes.sectionText}>
                     Shopping Mall
@@ -99,20 +115,25 @@ const ShopingMall = () => {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          {/* <IconButton> */}
                           <Icon>
                             <Search />
                           </Icon>
-                          {/* </IconButton> */}
                         </InputAdornment>
                       ),
                     }}
                   />
                 </Paper>
-              </Grid>
+              </Grid> */}
               {shopCategory && (
                 <Grid item xl={2} lg={3}>
-                  <Paper className={classes.filter}>
+                  <StoreFilter
+                    mainData={shopCategory}
+                    handleToggle={handleToggle}
+                    checked={checked}
+                    title="Category"
+                  />
+
+                  {/* <Paper className={classes.filter}>
                     <Typography variant="h6" component="span" gutterBottom>
                       Category
                     </Typography>
@@ -140,7 +161,7 @@ const ShopingMall = () => {
                           </ListItem>
                         ))}
                     </List>
-                  </Paper>
+                  </Paper> */}
                 </Grid>
               )}
               <Grid item xl={10} lg={9}>
@@ -180,7 +201,6 @@ const ShopingMall = () => {
                               price={val.price}
                               primaryText={val.name}
                               id={val.id}
-                              // rating={val.rating}
                               count={val.count}
                               type={val.type}
                             />

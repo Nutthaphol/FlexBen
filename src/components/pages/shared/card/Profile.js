@@ -22,8 +22,8 @@ const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    padding: "1.25rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    padding: "1px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     position: "relative",
     margin: "-50px 0 40px",
     minHeight: "160pxc",
@@ -34,10 +34,11 @@ const useStyles = makeStyles(() => ({
   },
   boxProfile: {
     width: "180px",
-    margin: "-50px 0px 0px",
+    margin: "-80px 0px 0px",
   },
   profile: {
-    borderRadius: "8px",
+    // borderRadius: "8px",
+    borderRadius: "50%",
   },
   headText: {
     fontWeight: 600,
@@ -59,19 +60,21 @@ const useStyles = makeStyles(() => ({
   frameProfile: {
     padding: "10px",
     background: "#fff",
-    borderRadius: "8px",
+    borderRadius: "50%",
+    // borderRadius: "8px",
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     backgroundColor: "#303030",
   },
   buttonOne: {
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     "&:hover": {
+      backgroundColor: "#60ABF1 !important",
       boxShadow: "rgb(3 0 71 / 20%) 0px 2px 4px",
     },
   },
   rootW: {
-    padding: "1.25rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
+    padding: "1px",
+    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     position: "relative",
     margin: "-50px 0 40px",
     minHeight: "160pxc",
@@ -90,9 +93,16 @@ const useStyles = makeStyles(() => ({
   frameProfileW: {
     padding: "10px",
     background: "#fff",
-    borderRadius: "8px",
+    borderRadius: "50%",
+    // borderRadius: "8px",
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     backgroundColor: "#fff",
+  },
+  imageCover: {
+    height: "180px",
+    width: "100%",
+    borderTopLeftRadius: "4px",
+    borderTopRightRadius: "4px",
   },
 }));
 
@@ -103,189 +113,210 @@ const Profile = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         {profile && (
-          <Paper className={themes == "light" ? classes.rootW : classes.root}>
-            <Grid container>
-              <Grid
-                item
-                lg={2}
-                md={3}
-                // sm={6}
-                // xs={12}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: "0 40px",
+          <Fragment>
+            <Paper className={themes == "light" ? classes.rootW : classes.root}>
+              <Box
+                className={classes.imageCover}
+                style={{
+                  backgroundImage: `url(${process.env.REACT_APP_URL}image/${profile.background})`,
                 }}
-              >
-                <Box className={classes.boxProfile}>
-                  <Box
-                    sx={{}}
-                    className={
-                      themes == "light"
-                        ? classes.frameProfileW
-                        : classes.frameProfile
-                    }
+              />
+              <Box sx={{ padding: "1.25rem" }}>
+                <Grid container>
+                  <Grid
+                    item
+                    lg={2}
+                    md={3}
+                    // sm={6}
+                    // xs={12}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "0 40px",
+                    }}
                   >
-                    <img
-                      src={`${process.env.REACT_APP_URL}image/profile/${profile.image}`}
-                      width="100%"
-                      className={classes.profile}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-              <Grid item lg={9} md={8}>
-                <Grid
-                  container
-                  alignItems="flex-end"
-                  spacing={2}
-                  sx={{ marginBottom: "16px" }}
-                >
-                  <Grid item>
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      gutterBottom
-                      className={classes.headText}
-                      sx={{ margin: 0 }}
-                    >
-                      {`${profile.firstname} ${profile.lastname}`}
-                    </Typography>
+                    <Box className={classes.boxProfile}>
+                      <Box
+                        sx={{}}
+                        className={
+                          themes == "light"
+                            ? classes.frameProfileW
+                            : classes.frameProfile
+                        }
+                      >
+                        <img
+                          src={`${process.env.REACT_APP_URL}image/profile/${profile.image}`}
+                          width="100%"
+                          className={classes.profile}
+                        />
+                      </Box>
+                    </Box>
                   </Grid>
-                  <Grid item>
-                    <Button className={classes.buttonOne} variant="contained">
-                      แก้ไขข้อมูลส่วนตัว
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Typography
-                      variant="subtitle2"
-                      component="div"
-                      gutterBottom
-                      className={
-                        themes == "light" ? classes.subTextW : classes.subText
-                      }
+                  <Grid item lg={9} md={8}>
+                    <Grid
+                      container
+                      alignItems="flex-end"
+                      spacing={2}
+                      sx={{ marginBottom: "16px" }}
                     >
-                      เลขประจำตัวพนักงาน: {profile.employeeCode}
-                    </Typography>
+                      <Grid item>
+                        <Typography
+                          variant="h5"
+                          component="div"
+                          gutterBottom
+                          className={classes.headText}
+                          sx={{ margin: 0 }}
+                        >
+                          {`${profile.firstname} ${profile.lastname}`}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <Button
+                          className={classes.buttonOne}
+                          variant="contained"
+                        >
+                          แก้ไขข้อมูลส่วนตัว
+                        </Button>
+                      </Grid>
+                      <Grid item>
+                        <Typography
+                          variant="subtitle2"
+                          component="div"
+                          gutterBottom
+                          className={
+                            themes == "light"
+                              ? classes.subTextW
+                              : classes.subText
+                          }
+                        >
+                          เลขประจำตัวพนักงาน: {profile.employeeCode}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Grid
+                      container
+                      spacing={2}
+                      justifyContent="space-between"
+                      sx={{ marginBottom: "14px" }}
+                    >
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <AccountBox
+                            color="info"
+                            className={classes.iconsSpace}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            ตำแหน่งงาน: {profile.position}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Group color="info" className={classes.iconsSpace} />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            แผนก: {profile.department}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Phone color="info" className={classes.iconsSpace} />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            เบอร์ติดต่อ: {profile.mobileNumber}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                    <Grid container spacing={2} justifyContent="space-between">
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Group color="info" className={classes.iconsSpace} />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            ฝ่าย: {profile.department}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <HomeWork
+                            color="info"
+                            className={classes.iconsSpace}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            บริษัท: {profile.company}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xl={4} lg={3} md={3}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <HistoryToggleOff
+                            color="info"
+                            className={classes.iconsSpace}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            className={classes.textPreData}
+                          >
+                            ผลตรวจล่าสุด:{" "}
+                            {lastHealth
+                              ? dayjs(lastHealth.dateTest).format(
+                                  "DD / MMMM / YYYY"
+                                )
+                              : "-"}
+                          </Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid
-                  container
-                  spacing={2}
-                  justifyContent="space-between"
-                  sx={{ marginBottom: "14px" }}
-                >
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <AccountBox color="info" className={classes.iconsSpace} />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        ตำแหน่งงาน: {profile.position}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Group color="info" className={classes.iconsSpace} />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        แผนก: {profile.department}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Phone color="info" className={classes.iconsSpace} />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        เบอร์ติดต่อ: {profile.mobileNumber}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-                <Grid container spacing={2} justifyContent="space-between">
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Group color="info" className={classes.iconsSpace} />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        ฝ่าย: {profile.department}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <HomeWork color="info" className={classes.iconsSpace} />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        บริษัท: {profile.company}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item xl={4} lg={3} md={3}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <HistoryToggleOff
-                        color="info"
-                        className={classes.iconsSpace}
-                      />
-                      <Typography
-                        variant="subtitle2"
-                        className={classes.textPreData}
-                      >
-                        ผลตรวจล่าสุด:{" "}
-                        {lastHealth
-                          ? dayjs(lastHealth.dateTest).format(
-                              "DD / MMMM / YYYY"
-                            )
-                          : "-"}
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
+              </Box>
+            </Paper>
+          </Fragment>
         )}
       </ThemeProvider>
     </StyledEngineProvider>
