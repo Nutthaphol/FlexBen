@@ -202,7 +202,15 @@ const DetailInsurance = (props) => {
                 </Grid>
                 <Grid item md={4} xs={12}>
                   <Sticky enabled={true} top={70}>
-                    <SalesBox detail={detail} type="insurance" />
+                    <SalesBox
+                      // detail={detail}
+                      type="insurance"
+                      id={detail.id}
+                      nameOrder={detail.name}
+                      discount={detail.discount}
+                      transportation={detail.deliveryCost}
+                      price={detail.price}
+                    />
                   </Sticky>
                 </Grid>
               </Grid>

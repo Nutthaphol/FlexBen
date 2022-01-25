@@ -236,7 +236,14 @@ const DetailTravel = (props) => {
                 </Grid>
                 <Grid item lg={4} md={4} xs={12}>
                   <Sticky enabled={true} top={70}>
-                    <SalesBox detail={detail} type="travel" />
+                    {/* <SalesBox detail={detail} type="travel" /> */}
+                    <SalesBox
+                      nameOrder={detail.name}
+                      id={detail.id}
+                      price={detail.price}
+                      discount={detail.discount}
+                      transportation={detail.deliveryCost}
+                    />
                   </Sticky>
                 </Grid>
               </Grid>

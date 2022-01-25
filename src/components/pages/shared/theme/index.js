@@ -23,7 +23,7 @@ const Themplates = {
       styleOverrides: {
         root: {
           "&:hover": {
-            backgroundColor: "transparent !important",
+            // backgroundColor: "transparent !important",
           },
           padding: 0,
         },

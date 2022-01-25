@@ -321,8 +321,8 @@ const FormTravel = () => {
 
   const validate = Yup.object().shape({
     name: Yup.string().required("Please enter name"),
-    quantity: Yup.number().required().min(1),
-    detail: Yup.string().required("Please enter detail"),
+    quantity: Yup.number().required().min(1, "quantity > 0"),
+    detail: Yup.string().required("quantity must be greater than"),
     category: Yup.number().required().min(1),
     price: Yup.number().required().min(1),
     discount: Yup.number().required(),
@@ -500,70 +500,93 @@ const FormTravel = () => {
                           />
                         </Grid>
                         <Grid item md={2}>
-                          <Box
-                            sx={{
-                              // midwidth: "360px",
-                              width: "100%",
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                border: "1px solid #D0D3D4",
-                                borderRadius: "4px",
-                                width: "100%",
-                                height: "56px",
-                              }}
-                            >
-                              <IconButton
-                                name="quantity"
-                                sx={{
-                                  borderRight: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                disabled={values.quantity <= 0 ? true : false}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity - 1
-                                  );
-                                }}
-                              >
-                                <Remove />
-                              </IconButton>
-                              <Typography
-                                variant="p"
-                                component="div"
-                                sx={{
-                                  minWidth: "80px",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                }}
-                              >
-                                {values.quantity}
-                              </Typography>
-                              <IconButton
-                                name={`quantity`}
-                                sx={{
-                                  borderLeft: "1px solid #D0D3D4",
-                                  borderRadius: "0px",
-                                  height: "100%",
-                                }}
-                                onClick={() => {
-                                  setFieldValue(
-                                    `quantity`,
-                                    values.quantity + 1
-                                  );
-                                }}
-                              >
-                                <Add />
-                              </IconButton>
-                            </Box>
-                          </Box>
+                          <Field name={`quantity`}>
+                            {({
+                              field, // { name, value, onChange, onBlur }
+                              form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                              meta,
+                            }) => (
+                              <Box>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    borderRadius: "4px",
+                                    border: `1px solid ${
+                                      meta.touched && meta.error
+                                        ? "#d32f2f"
+                                        : "#D0D3D4"
+                                    }`,
+                                  }}
+                                >
+                                  <IconButton
+                                    sx={{
+                                      borderRight: "1px solid #D0D3D4",
+                                      borderRadius: "0px",
+                                      height: "100%",
+                                      padding: "0 8px",
+                                      "&:hover": {
+                                        backgroundColor:
+                                          "transparent !important",
+                                      },
+                                    }}
+                                    onClick={() => {
+                                      setFieldValue(
+                                        `quantity`,
+                                        field.value - 1
+                                      );
+                                    }}
+                                    disabled={field.value <= 0 ? true : false}
+                                  >
+                                    <Remove />
+                                  </IconButton>
+                                  <Typography
+                                    sx={{
+                                      padding: "16.5px 14px",
+                                      color:
+                                        meta.touched && meta.error && "#d32f2f",
+                                    }}
+                                  >
+                                    {field.value}
+                                  </Typography>
+                                  <IconButton
+                                    sx={{
+                                      borderLeft: "1px solid #D0D3D4",
+                                      borderRadius: "0px",
+                                      height: "100%",
+                                      padding: "0 8px",
+                                      "&:hover": {
+                                        backgroundColor:
+                                          "transparent !important",
+                                      },
+                                    }}
+                                    onClick={() => {
+                                      setFieldValue(
+                                        `quantity`,
+                                        field.value + 1
+                                      );
+                                    }}
+                                  >
+                                    <Add />
+                                  </IconButton>
+                                </Box>
+                                {meta.touched && meta.error && (
+                                  <Box
+                                    sx={{
+                                      color: "#d32f2f",
+                                      fontSize: "0.75rem",
+                                      fontWeight: "400",
+                                      margin: "3px 0px 0px 14px",
+                                      lineHeight: "1.66",
+                                    }}
+                                  >
+                                    {meta.error}
+                                  </Box>
+                                )}
+                              </Box>
+                            )}
+                          </Field>
                         </Grid>
                         <Grid item md={12}>
                           <Field
@@ -586,111 +609,121 @@ const FormTravel = () => {
                       >
                         หมวดหมู่
                       </Typography>
-                      <Grid
-                        container
-                        spacing={4}
-                        alignItems="center"
-                        justifyContent="center"
-                      >
-                        {category &&
-                          category.map((item, index) => (
-                            <Grid item key={index}>
+                      <Field name={`category`}>
+                        {({
+                          field, // { name, value, onChange, onBlur }
+                          form: { touched, errors, setFieldValue }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                          meta,
+                        }) => (
+                          <Box>
+                            <Grid
+                              container
+                              spacing={4}
+                              alignItems="center"
+                              justifyContent="center"
+                            >
+                              {category &&
+                                category.map((item, index) => (
+                                  <Grid item key={index}>
+                                    <Box
+                                      sx={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        minWidth: "240px",
+                                      }}
+                                    >
+                                      {values.category == item.id ? (
+                                        <Card
+                                          sx={{
+                                            height: "60px",
+                                            //   maxWidth: "160px",
+                                            width: "100%",
+                                            borderRadius: "50px",
+                                            boxShadow:
+                                              "0px 0px 3px 3px #61CAFF",
+                                            // backgroundColor: "#B8E7FF",
+                                          }}
+                                        >
+                                          <CardActionArea
+                                            sx={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              height: "100%",
+                                            }}
+                                            onClick={() =>
+                                              setFieldValue(`category`, item.id)
+                                            }
+                                          >
+                                            <Typography
+                                              variant="h6"
+                                              component="div"
+                                            >
+                                              {item.name}
+                                            </Typography>
+                                          </CardActionArea>
+                                        </Card>
+                                      ) : (
+                                        <Card
+                                          sx={{
+                                            height: "60px",
+                                            //   maxWidth: "160px",
+                                            width: "100%",
+                                            borderRadius: "50px",
+                                            boxShadow:
+                                              "0px 0px 1px 1px #D0D3D4",
+                                          }}
+                                        >
+                                          <CardActionArea
+                                            sx={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              height: "100%",
+                                            }}
+                                            onClick={() =>
+                                              setFieldValue(`category`, item.id)
+                                            }
+                                          >
+                                            <Typography
+                                              variant="h6"
+                                              component="div"
+                                              sx={{
+                                                color:
+                                                  meta.touched &&
+                                                  meta.error &&
+                                                  "#d32f2f",
+                                              }}
+                                            >
+                                              {item.name}
+                                            </Typography>
+                                          </CardActionArea>
+                                        </Card>
+                                      )}
+                                    </Box>
+                                  </Grid>
+                                ))}
+                            </Grid>
+                            {meta.touched && meta.error && (
                               <Box
                                 sx={{
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  minWidth: "240px",
+                                  color: "#d32f2f",
+                                  fontSize: "0.75rem",
+                                  fontWeight: "400",
+                                  margin: "3px 0px 0px 14px",
+                                  lineHeight: "1.66",
                                 }}
                               >
-                                {values.category == item.id ? (
-                                  <Card
-                                    sx={{
-                                      height: "60px",
-                                      //   maxWidth: "160px",
-                                      width: "100%",
-                                      borderRadius: "50px",
-                                      boxShadow: "0px 0px 3px 3px #61CAFF",
-                                      // backgroundColor: "#B8E7FF",
-                                    }}
-                                  >
-                                    <CardActionArea
-                                      sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        height: "100%",
-                                      }}
-                                      onClick={() =>
-                                        setFieldValue(`category`, item.id)
-                                      }
-                                    >
-                                      <Typography variant="h6" component="div">
-                                        {item.name}
-                                      </Typography>
-                                    </CardActionArea>
-                                  </Card>
-                                ) : (
-                                  <Card
-                                    sx={{
-                                      height: "60px",
-                                      //   maxWidth: "160px",
-                                      width: "100%",
-                                      borderRadius: "50px",
-                                      boxShadow: "0px 0px 1px 1px #D0D3D4",
-                                    }}
-                                  >
-                                    <CardActionArea
-                                      sx={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        height: "100%",
-                                      }}
-                                      onClick={() =>
-                                        setFieldValue(`category`, item.id)
-                                      }
-                                    >
-                                      <Typography variant="h6" component="div">
-                                        {item.name}
-                                      </Typography>
-                                    </CardActionArea>
-                                  </Card>
-                                )}
+                                {meta.error}
                               </Box>
-                            </Grid>
-                          ))}
-                      </Grid>
+                            )}
+                          </Box>
+                        )}
+                      </Field>
+
                       <br />
                       <Divider />
                       <br />
-                      {/* <Typography
-                        className={classes.typography}
-                        component="div"
-                      >
-                        ขนาดและยูนิต
-                      </Typography>
-                      <Grid container spacing={2}>
-                        <Grid item md={4}>
-                          <Field
-                            component={TextField}
-                            fullWidth
-                            name={`roomSpace.size`}
-                            label={`ขนาด`}
-                            type="number"
-                          />
-                        </Grid>
-                        <Grid item md={8}>
-                          <Field
-                            component={TextField}
-                            fullWidth
-                            name={`roomSpace.subroom`}
-                            label={`ยูนิต`}
-                          />
-                        </Grid>
-                      </Grid>
-                      <br />
-                      <Divider />
-                      <br /> */}
                       <FieldArray name={"facilities"}>
                         {({ push, remove }) => (
                           <Fragment>

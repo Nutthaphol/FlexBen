@@ -103,7 +103,7 @@ const DetailPackage = (props) => {
                         sx={{ fontWeight: "700" }}
                         gutterBottom
                       >
-                        PACKAGE {detail.name.toUpperCase()} !
+                        {detail.name.toUpperCase()} !
                       </Typography>
                       <Box sx={{ flexGrow: 1 }} />
                       <Typography component={"span"} variant="h5" gutterBottom>
@@ -195,7 +195,13 @@ const DetailPackage = (props) => {
                 </Grid>
                 <Grid item lg={4} md={4} xs={12}>
                   <Sticky enabled={true} top={70}>
-                    <SalesBox detail={detail} type="package" />
+                    {/* <SalesBox detail={detail} type="package" /> */}
+                    <SalesBox
+                      nameOrder={detail.name}
+                      id={detail.id}
+                      price={detail.price}
+                      currency="$"
+                    />
                   </Sticky>
                 </Grid>
               </Grid>

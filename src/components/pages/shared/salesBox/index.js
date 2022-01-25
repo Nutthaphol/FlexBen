@@ -49,7 +49,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SalesBox = ({ detail, type }) => {
+const SalesBox = (props) => {
+  const {
+    // detail,
+    type,
+    nameOrder = "",
+    discount = 0,
+    transportation = 0,
+    price = 0,
+    id,
+    currency = "coin",
+  } = props;
   const classes = useStyles();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
@@ -68,7 +78,7 @@ const SalesBox = ({ detail, type }) => {
     for (let i = 0; i < count; i++) {
       const value = {
         type: type,
-        id: detail.id,
+        id: id,
       };
       cartValue.push(value);
     }
@@ -105,15 +115,13 @@ const SalesBox = ({ detail, type }) => {
             BUY NOW!
           </Typography>
           <Box sx={{ display: "flex" }}>
-            <Typography variant="h6">
-              {type == "package" ? "Package " + detail.name : detail.name}
-            </Typography>
+            <Typography variant="h6">{nameOrder}</Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Typography
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {type != "package" ? (
+              {currency == "coin" ? (
                 <Icon
                   sx={{
                     marginRight: "5px",
@@ -130,9 +138,9 @@ const SalesBox = ({ detail, type }) => {
                   />
                 </Icon>
               ) : (
-                "$ "
+                currency
               )}
-              {detail.price}
+              {price}
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -186,7 +194,8 @@ const SalesBox = ({ detail, type }) => {
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {detail.discount} %
+              {/* {detail.discount} % */}
+              {discount} %
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -196,7 +205,7 @@ const SalesBox = ({ detail, type }) => {
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {type != "package" ? (
+              {currency == "coin" ? (
                 <Icon
                   sx={{
                     marginRight: "5px",
@@ -213,9 +222,10 @@ const SalesBox = ({ detail, type }) => {
                   />
                 </Icon>
               ) : (
-                "$ "
+                currency + " "
               )}
-              {detail.deliveryCost}
+              {/* {detail.deliveryCost} */}
+              {transportation}
             </Typography>
           </Box>
           <Box
@@ -227,7 +237,7 @@ const SalesBox = ({ detail, type }) => {
               variant="h6"
               sx={{ display: "flex", alignItems: "center" }}
             >
-              {type != "package" ? (
+              {currency == "coin" ? (
                 <Icon
                   sx={{
                     marginRight: "5px",
@@ -244,13 +254,14 @@ const SalesBox = ({ detail, type }) => {
                   />
                 </Icon>
               ) : (
-                "$ "
+                currency + " "
               )}
-              {detail.deliveryCost
+              {/* {detail.deliveryCost
                 ? detail.deliveryCost
                 : 0 +
                   count *
-                    (detail.price - (detail.price * detail.discount) / 100)}
+                    (detail.price - (detail.price * detail.discount) / 100)} */}
+              {transportation + count * (price - (price * discount) / 100)}
             </Typography>
           </Box>
 
@@ -267,12 +278,7 @@ const SalesBox = ({ detail, type }) => {
             color="success"
           >
             Continue ($
-            {detail.deliveryCost
-              ? detail.deliveryCost
-              : 0 +
-                count *
-                  (detail.price - (detail.price * detail.discount) / 100)}{" "}
-            )
+            {transportation + count * (price - (price * discount) / 100)} )
           </Button>
           <Dialog
             onClose={handleCloseOpen}

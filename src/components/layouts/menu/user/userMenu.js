@@ -13,6 +13,7 @@ import PageviewIcon from "@mui/icons-material/Pageview";
 import HistoryIcon from "@mui/icons-material/History";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
+  Article,
   Backpack,
   Dashboard,
   HealthAndSafety,
@@ -87,6 +88,12 @@ const UserMenu = ({ open }) => {
           listItemText: "Health history",
           listLink: "/health/HealthHistory",
           listKey: "healthHealthHistory",
+        },
+        {
+          listItemIcon: <Article />,
+          listItemText: "Add Bill",
+          listLink: "/health/AddBill",
+          listKey: "addbill",
         },
       ],
     },
