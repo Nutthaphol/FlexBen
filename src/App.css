@@ -52,7 +52,7 @@ html {
 }
 
 .white-bg {
-  background-color: #fff;
+  /* background-color: #fff; */
   min-height: 100vh;
 }
 
@@ -78,7 +78,8 @@ html {
 }
 
 body {
-  background-color: #f6f9fc;
+  /* background-color: #f6f9fc; */
+  background-color: #f3f4f9;
   margin: 0;
 }
 

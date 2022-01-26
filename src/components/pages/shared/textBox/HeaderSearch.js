@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "48px",
   },
   sectionText: {
+    color: "DarkSlateGray",
     fontWeight: 600,
   },
 }));
@@ -41,6 +42,7 @@ const HeaderSearch = ({ setSearch, normalText, hightlightText }) => {
             onChange={(e) => {
               setSearch(e.target.value);
             }}
+            xs={{ border: "none" }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -49,6 +51,15 @@ const HeaderSearch = ({ setSearch, normalText, hightlightText }) => {
                   </Icon>
                 </InputAdornment>
               ),
+              sx: {
+                backgroundColor: "#fff",
+                // border: "1px solid rgba(65, 171, 255, 0.6)",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  // borderColor: "rgba(65, 171, 255, 0.6)",
+                  border: "none",
+                  boxShadow: "rgb(65 171 255 / 16%) 0px 0px 0px 1px",
+                },
+              },
             }}
           />
         </Box>

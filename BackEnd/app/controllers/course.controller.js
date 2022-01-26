@@ -3,7 +3,11 @@ const Courses = db.courses;
 
 exports.allCourses = (req, res) => {
   try {
-    res.status(200).send(Courses);
+    if (Courses) {
+      res.status(200).send(Courses);
+    } else {
+      res.status(404).send({ message: "Courses not found." });
+    }
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -11,7 +15,7 @@ exports.allCourses = (req, res) => {
 
 exports.course = (req, res) => {
   try {
-    console.log(req.params.idCourse)
+    console.log(req.params.idCourse);
     let result = Courses.find((course) => course.id == req.params.idCourse);
 
     if (result) {

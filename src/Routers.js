@@ -32,6 +32,7 @@ import HealthInformation from "./components/pages/admin/health/HealthInformation
 import TreatmentInformation from "./components/pages/admin/health/TreatmentInformation";
 import HealthHistoryEmproyee from "./components/pages/admin/health/HealthHistoryEmproyee";
 import FormBill from "./components/pages/user/health/FormBill";
+import BillHistory from "./components/pages/user/health/BillHistory";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -185,6 +186,7 @@ function Routers() {
           component={HealthTesting}
         />
         <UserRoute exact path="/health/AddBill" component={FormBill} />
+        <UserRoute exact path="/health/BillHistory" component={BillHistory} />
 
         <WarehouseRoute
           exact

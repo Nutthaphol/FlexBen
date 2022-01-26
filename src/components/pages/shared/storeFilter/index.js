@@ -22,7 +22,8 @@ const useStyles = makeStyles(() => ({
     padding: "1.25rem",
     // boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     boxShadow: "none",
-    backgroundColor: "#F9F9F9",
+    // backgroundColor: "#F9F9F9",
+    backgroundColor: "#fff",
   },
 }));
 

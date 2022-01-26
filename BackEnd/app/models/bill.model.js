@@ -1,0 +1,43 @@
+const bill = [
+  {
+    id: 1,
+    sender: 1,
+    billname: "ผ่าตัดสมอง",
+    category: 1,
+    date: new Date(2021, 11, 22),
+    detail: "ค่ารักษา IPD รายการผ่าตัด",
+    expenses: 20000,
+    vat: 7,
+    finalExpenses: 21400,
+    image: "bill/tmpBill.jpg",
+    status: -1,
+  },
+  {
+    id: 2,
+    sender: 1,
+    billname: "ทำแผลถลอก",
+    category: 2,
+    date: new Date(2021, 11, 12),
+    detail: "ค่ารักษา OPD แผลถลอกจากรถล้ม",
+    expenses: 5000,
+    vat: 7,
+    finalExpenses: 5350,
+    image: "bill/tmpBill.jpg",
+    status: 1,
+  },
+  {
+    id: 3,
+    sender: 1,
+    billname: "ถอนฟันครุต",
+    category: 3,
+    date: new Date(2021, 11, 16),
+    detail: "ค่ารักษา dental ผ่าฟันครุต",
+    expenses: 10000,
+    vat: 7,
+    finalExpenses: 10700,
+    image: "bill/tmpBill.jpg",
+    status: 0,
+  },
+];
+
+module.exports = bill;

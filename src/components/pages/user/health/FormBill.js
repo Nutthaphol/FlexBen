@@ -31,6 +31,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import DragAndDrop from "../../shared/fileUpload/DragAndDrop";
 import { Box } from "@mui/system";
+import * as Yup from "yup";
 
 const theme = createTheme(Themplates);
 
@@ -61,7 +62,7 @@ const FormBill = () => {
 
   const [form, setForm] = useState({
     billname: "",
-    category: -1,
+    category: "",
     date: new Date(),
     detail: "",
     expenses: 0,
@@ -74,6 +75,13 @@ const FormBill = () => {
   useEffect(() => {
     dispath(getTreatmentCategory());
   }, []);
+
+  const validate = Yup.object().shape({
+    billname: Yup.string().required("Please enter name"),
+    category: Yup.number().required("Please select category").min(1),
+    detail: Yup.string().required("Please enter detail"),
+    expenses: Yup.number().required().min(1),
+  });
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -86,6 +94,7 @@ const FormBill = () => {
               <Formik
                 initialValues={form}
                 innerRef={formRef}
+                validationSchema={validate}
                 enableReinitialize
                 onSubmit={(values, setSubmitting) => {
                   try {
@@ -120,11 +129,11 @@ const FormBill = () => {
                           ประเภท
                         </Typography>
                         <Field
+                          name={`category`}
                           component={Select}
                           formControl={{
                             sx: { width: "100%", size: "small" },
                           }}
-                          name={`category`}
                         >
                           {treatmentCategory &&
                             treatmentCategory.map((val, index) => (
@@ -239,7 +248,7 @@ const FormBill = () => {
                         อัพโหลด
                       </Button>
                     </Box>
-                    {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
+                    <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
                   </Form>
                 )}
               </Formik>

@@ -322,7 +322,7 @@ const FormTravel = () => {
   const validate = Yup.object().shape({
     name: Yup.string().required("Please enter name"),
     quantity: Yup.number().required().min(1, "quantity > 0"),
-    detail: Yup.string().required("quantity must be greater than"),
+    detail: Yup.string().required("Please enter detail"),
     category: Yup.number().required().min(1),
     price: Yup.number().required().min(1),
     discount: Yup.number().required(),

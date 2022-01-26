@@ -161,6 +161,22 @@ const FormPackage = () => {
       keyEvent.preventDefault();
     }
   };
+
+  const validate = Yup.object().shape({
+    name: Yup.string().required("Please enter name"),
+    icon: Yup.string().required("Please enter icon"),
+    detail: Yup.string().required("Please enter detail"),
+    insuranceId: Yup.string().required("Please select insurance order"),
+    lifestyleId: Yup.string().required("Please select lifestyle order"),
+    travelId: Yup.string().required("Please select travel order"),
+    insurancePrice: Yup.number().required().min(1, "price > 0"),
+    lifestylePrice: Yup.number().required().min(1, "price > 0"),
+    travelPrice: Yup.number().required().min(1, "price > 0"),
+    price: Yup.number().required().min(1, "price > 0"),
+    discount: Yup.number().required(),
+    netPrice: Yup.number().required(),
+  });
+
   return (
     <div className={`page`}>
       <StyledEngineProvider injectFirst>
@@ -172,7 +188,11 @@ const FormPackage = () => {
               </Typography>
               <br />
               <br />
-              <Formik initialValues={groupPackage} enableReinitialize>
+              <Formik
+                initialValues={groupPackage}
+                enableReinitialize
+                validationSchema={validate}
+              >
                 {({
                   values,
                   errors,
