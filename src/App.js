@@ -90,6 +90,15 @@ const drawerUseStyles = makeStyles(() => ({
     backgroundColor: "#e0f5fd",
     color: "#0080ff",
   },
+  listItemOpen: {
+    width: "100%",
+    padding: "4px 16px",
+  },
+  listItemClose: {
+    width: "100%",
+    textAlign: "center",
+    padding: "4px 4px",
+  },
 }));
 
 const drawerWidth = 240;
@@ -151,17 +160,35 @@ const DrawerContainer = ({ open, setOpen }) => {
       {isManager && (
         <Fragment>
           <Divider />
+          <ListItem
+            disablePadding
+            className={open ? classes.listItemOpen : classes.listItemClose}
+          >
+            <ListItemText
+              secondary={
+                <Typography noWrap variant="body2" color="text.secondary">
+                  Manager
+                </Typography>
+              }
+            />
+          </ListItem>
           <ManagerMenu open={open} />
         </Fragment>
       )}
       {isAdmin && (
         <Fragment>
           <Divider />
-          <ListItem>
-            <ListItemIcon>
-              <AdminPanelSettings color="error" />
-            </ListItemIcon>
-            <ListItemText primary={"admin"} />
+          <ListItem
+            disablePadding
+            className={open ? classes.listItemOpen : classes.listItemClose}
+          >
+            <ListItemText
+              secondary={
+                <Typography noWrap variant="body2" color="text.secondary">
+                  Admin
+                </Typography>
+              }
+            />
           </ListItem>
           <AdminMenu open={open} />
         </Fragment>
@@ -169,11 +196,17 @@ const DrawerContainer = ({ open, setOpen }) => {
       {isWarehouse && (
         <Fragment>
           <Divider />
-          <ListItem>
-            <ListItemIcon>
-              <NoteAlt color="info" />
-            </ListItemIcon>
-            <ListItemText primary={"Warehouse"} />
+          <ListItem
+            disablePadding
+            className={open ? classes.listItemOpen : classes.listItemClose}
+          >
+            <ListItemText
+              secondary={
+                <Typography noWrap variant="body2" color="text.secondary">
+                  Werehouse
+                </Typography>
+              }
+            />
           </ListItem>
           <WarehouseMenu />
         </Fragment>

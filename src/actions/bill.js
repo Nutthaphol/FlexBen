@@ -17,3 +17,20 @@ export const getBillHistoryById = (id) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const getBillHistory = () => async (dispatch) => {
+  try {
+    const res = await billService.getBillHistory();
+    if (res) {
+      dispatch({
+        type: BILL_SUCCESS,
+        payload: res.data,
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: BILL_FAILED,
+    });
+    console.log(err);
+  }
+};

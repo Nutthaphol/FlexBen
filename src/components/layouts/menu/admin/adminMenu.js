@@ -19,6 +19,7 @@ import {
   HealthAndSafety,
   LocalHospital,
   ManageSearch,
+  RequestPage,
   UploadFile,
 } from "@mui/icons-material";
 import { Form } from "formik";
@@ -54,6 +55,12 @@ const AdminMenu = ({ open }) => {
           listItemText: "Health history",
           listLink: "/admin/health/HealthHistory",
           listKey: "HealthHistory",
+        },
+        {
+          listItemIcon: <RequestPage />,
+          listItemText: "Bill request",
+          listLink: "/admin/health/BillRequest",
+          listKey: "billrequest",
         },
       ],
     },

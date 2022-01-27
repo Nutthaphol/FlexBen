@@ -164,7 +164,7 @@ const FormPackage = () => {
 
   const validate = Yup.object().shape({
     name: Yup.string().required("Please enter name"),
-    icon: Yup.string().required("Please enter icon"),
+    icon: Yup.number().required("Please enter icon"),
     detail: Yup.string().required("Please enter detail"),
     insuranceId: Yup.string().required("Please select insurance order"),
     lifestyleId: Yup.string().required("Please select lifestyle order"),

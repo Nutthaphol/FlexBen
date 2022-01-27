@@ -33,6 +33,8 @@ import TreatmentInformation from "./components/pages/admin/health/TreatmentInfor
 import HealthHistoryEmproyee from "./components/pages/admin/health/HealthHistoryEmproyee";
 import FormBill from "./components/pages/user/health/FormBill";
 import BillHistory from "./components/pages/user/health/BillHistory";
+import BillRequestA from "./components/pages/admin/health/BillRequestA";
+import BillRequestM from "./components/pages/manager/health/BillRequestM";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -218,6 +220,18 @@ function Routers() {
           exact
           path="/admin/health/HealthHistory"
           component={HealthHistoryEmproyee}
+        />
+        <AdminRoute
+          exact
+          path="/admin/health/BillRequest"
+          component={BillRequestA}
+        />
+
+        {/* Manager */}
+        <ManagerRoute
+          exact
+          patch="/manager/health/BillRequest"
+          component={BillRequestM}
         />
       </Switch>
     </Container>

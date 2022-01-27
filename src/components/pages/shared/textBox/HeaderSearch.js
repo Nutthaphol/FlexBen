@@ -25,7 +25,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const HeaderSearch = ({ setSearch, normalText, hightlightText }) => {
+const HeaderSearch = ({
+  setSearch,
+  normalText,
+  hightlightText,
+  insertComponent,
+}) => {
   const classes = useStyles();
   return (
     <StyledEngineProvider injectFirst>
@@ -36,32 +41,35 @@ const HeaderSearch = ({ setSearch, normalText, hightlightText }) => {
             <span style={{ color: "#41ABFF" }}> {hightlightText} </span>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <TextField
-            label="Search"
-            size="small"
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-            xs={{ border: "none" }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Icon>
-                    <Search />
-                  </Icon>
-                </InputAdornment>
-              ),
-              sx: {
-                backgroundColor: "#fff",
-                // border: "1px solid rgba(65, 171, 255, 0.6)",
-                "& .MuiOutlinedInput-notchedOutline": {
-                  // borderColor: "rgba(65, 171, 255, 0.6)",
-                  border: "none",
-                  boxShadow: "rgb(65 171 255 / 16%) 0px 0px 0px 1px",
+          <Box sx={{ display: "flex" }}>
+            <TextField
+              label="Search"
+              size="small"
+              onChange={(e) => {
+                setSearch(e.target.value);
+              }}
+              sx={{ marginRight: insertComponent ? "24px" : "0" }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Icon>
+                      <Search />
+                    </Icon>
+                  </InputAdornment>
+                ),
+                sx: {
+                  backgroundColor: "#fff",
+                  // border: "1px solid rgba(65, 171, 255, 0.6)",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    // borderColor: "rgba(65, 171, 255, 0.6)",
+                    border: "none",
+                    boxShadow: "rgb(65 171 255 / 16%) 0px 0px 0px 1px",
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+            {insertComponent && insertComponent}
+          </Box>
         </Box>
       </ThemeProvider>
     </StyledEngineProvider>

@@ -19,7 +19,7 @@ const Users = [
     company: "Thai Polyethylene Co., Ltd.",
     follower: 29078,
     following: 84392,
-    authorities: ["ROLE_USER", "ROLE_ADMIN", "ROLE_WAREHOUSE"],
+    authorities: ["ROLE_USER", "ROLE_ADMIN", "ROLE_WAREHOUSE", "ROLE_MANAGER"],
     coin: 50000,
     insuranceStatus: false,
     insurancelock: 18000,

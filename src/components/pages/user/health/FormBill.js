@@ -212,10 +212,10 @@ const FormBill = () => {
                           InputProps={{ inputProps: { min: 0 } }}
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={12}>
                         <DragAndDrop setFiles={setFiles} files={files} />
                       </Grid>
-                      <Grid item lg={6}>
+                      <Grid item lg={12}>
                         <Box
                           sx={{
                             display: "flex",

@@ -15,4 +15,10 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     billController.getBillHistoryById
   );
+
+  app.get(
+    "/api/bill/getBillHistory",
+    [authJwt.verifyToken],
+    billController.getBillHistory
+  );
 };

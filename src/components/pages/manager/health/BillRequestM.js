@@ -6,15 +6,16 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { makeStyles, styled } from "@mui/styles";
-import Themplates from "../../shared/theme";
+import { getAllUsers } from "../../../../actions/user";
 import {
+  Avatar,
   Button,
+  ButtonBase,
   Chip,
   Container,
   Dialog,
   DialogContent,
   IconButton,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -23,12 +24,15 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import HeaderSearch from "../../shared/textBox/HeaderSearch";
-import { getBillHistoryById } from "../../../../actions/bill";
+import Themplates from "../../shared/theme";
+import { getBillHistory } from "../../../../actions/bill";
+import billService from "../../../../services/bill.service";
 import dayjs from "dayjs";
+import { Box, margin } from "@mui/system";
 import { getTreatmentCategory } from "../../../../actions/treatmentCategory";
 import { Visibility } from "@mui/icons-material";
+import { tooltipClasses } from "@mui/material/Tooltip";
 
 const theme = createTheme(Themplates);
 
@@ -59,70 +63,86 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const BillHistory = () => {
+const BillRequestM = () => {
   const classes = useStyles();
   const dispath = useDispatch();
-
   const { user: currentUser } = useSelector((state) => state.auth);
-  const { result: billHstory } = useSelector((state) => state.bill);
+  const { result: allUsers } = useSelector((state) => state.users);
   const { result: treatmentCategory } = useSelector(
     (state) => state.treatmentCategory
   );
-
+  const [loadBill, setLoadBill] = useState();
   const [search, setSearch] = useState("");
   const [displayImage, setDisplayImage] = useState({
     open: false,
-    path: "",
   });
 
   useEffect(async () => {
-    if (currentUser) {
-      dispath(getBillHistoryById(currentUser.id));
-      dispath(getTreatmentCategory());
+    if (!loadBill) {
+      const res = await billService.getBillHistory();
+      console.log("res", res);
+      setLoadBill(res.data);
     }
-  }, []);
+
+    if (currentUser) {
+      dispath(getTreatmentCategory());
+      dispath(getAllUsers());
+    }
+  }, [loadBill]);
 
   const handleDisplayImage = (e, id) => {
     setDisplayImage({
       open: true,
-      path: billHstory.find((item) => item.id == id).image,
+      path: loadBill.find((item) => item.id == id).image,
+      avatar: filterDataUsers(id, "avatar"),
+      fullname: filterDataUsers(id, "fullname"),
+      department: filterDataUsers(id, "department"),
+      billname: loadBill.find((item) => item.id == id).billname,
     });
   };
 
   const handleCloseDisplayImage = () => {
-    setDisplayImage({ open: false, path: "" });
+    setDisplayImage({ open: false });
   };
+
+  const filterDataUsers = (id, params) => {
+    if (allUsers) {
+      const data = allUsers.find((item) => item.id == id) || false;
+
+      if (data) {
+        switch (params) {
+          case "fullname":
+            return `${data.firstname + " " + data.lastname}`;
+          case "avatar":
+            return data.image;
+          case "department":
+            return data.department;
+          default:
+            return data;
+        }
+      }
+      return "";
+    }
+  };
+
+  const handleStatusBillRequest = (id, status) => {
+    if (loadBill) {
+      let loadBill_ = [...loadBill];
+      const index = loadBill_.findIndex((item) => item.id == id);
+      loadBill_[index].status = status;
+      setLoadBill(loadBill_);
+    }
+  };
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           <Container maxWidth="xl">
             <HeaderSearch
-              normalText="ประวัติการขอเบิก"
+              normalText={"รายการคำข้อเบิกบิล"}
               setSearch={setSearch}
-              insertComponent={
-                <Button
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    textTransform: "none",
-                    width: "80px",
-                    height: "40px",
-                    padding: 0,
-                    margin: 0,
-                  }}
-                  disableRipple
-                  href="/health/AddBill"
-                >
-                  Add Bill
-                </Button>
-              }
             />
-
-            {/* <Button variant="contained" sx={{ textTransform: "none" }}>
-              Add Bill
-            </Button> */}
-
             <Table
               sx={{
                 borderCollapse: "separate",
@@ -132,10 +152,13 @@ const BillHistory = () => {
               <TableHead>
                 <TableRow>
                   <TableCell className={classes.tableHeaderText}>
+                    โปรไฟล์
+                  </TableCell>
+                  <TableCell align="center" className={classes.tableHeaderText}>
                     วันที่
                   </TableCell>
                   <TableCell align="center" className={classes.tableHeaderText}>
-                    ขื่อรายการ
+                    ชื่อรายการ
                   </TableCell>
                   <TableCell align="center" className={classes.tableHeaderText}>
                     ประเภท
@@ -152,10 +175,58 @@ const BillHistory = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {billHstory &&
-                  billHstory.map((val, index) => (
+                {loadBill &&
+                  loadBill.map((val, index) => (
                     <TableRow key={index} className={classes.paperTableRow}>
                       <TableCell
+                        className={classes.tableCell}
+                        sx={{
+                          borderTopLeftRadius: "4px",
+                          borderBottomLeftRadius: "4px",
+                          fontWeight: "600",
+                          color: "DarkSlateGray",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Avatar
+                            sx={{ margin: "0 8px" }}
+                            src={`${
+                              process.env.REACT_APP_URL
+                            }image/profile/${filterDataUsers(
+                              val.sender,
+                              "avatar"
+                            )}`}
+                          />
+                          <Box>
+                            <Typography
+                              sx={{
+                                fontWeight: "550",
+                                color: "DarkSlateGray",
+                              }}
+                            >
+                              {filterDataUsers(val.sender, "fullname")}
+                            </Typography>
+                            <Typography
+                              noWrap
+                              sx={{
+                                fontWeight: "550",
+                                color: "DarkSlateGray",
+                                opacity: "0.6",
+                                maxWidth: "160px",
+                              }}
+                            >
+                              {filterDataUsers(val.sender, "department")}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </TableCell>
+                      <TableCell
+                        align="center"
                         className={classes.tableCell}
                         sx={{
                           borderTopLeftRadius: "4px",
@@ -237,29 +308,33 @@ const BillHistory = () => {
                         sx={{
                           borderTopRightRadius: "4px",
                           borderBottomRightRadius: "4px",
+                          display: "flex",
+                          justifyContent: "space-around",
+                          alignItems: "center",
                         }}
                       >
-                        <Chip
-                          sx={{ width: "120px" }}
-                          label={
-                            val.status == -1
-                              ? "รอดำเนินการ"
-                              : val.status == 1
-                              ? "ดำเนินการสำเร็จ"
-                              : val.status == 0
-                              ? "ถูกปฏิเสธ"
-                              : "ผิดพลาด"
-                          }
-                          color={
-                            val.status == -1
-                              ? "warning"
-                              : val.status == 1
-                              ? "success"
-                              : val.status == 0
-                              ? "error"
-                              : "secondary"
-                          }
-                        />
+                        <Button
+                          sx={{
+                            margin: "0 8px",
+                          }}
+                          disableRipple
+                          variant="contained"
+                          color="success"
+                          fullWidth
+                        >
+                          อนุมัติ
+                        </Button>
+                        <Button
+                          sx={{
+                            margin: "0 8px",
+                          }}
+                          disableRipple
+                          variant="contained"
+                          color="error"
+                          fullWidth
+                        >
+                          ไม่อนุมัติ
+                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
@@ -273,6 +348,49 @@ const BillHistory = () => {
             fullWidth
           >
             <DialogContent>
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar
+                  sx={{ margin: "0 8px", width: 56, height: 56 }}
+                  src={`${process.env.REACT_APP_URL}image/profile/${displayImage.avatar}`}
+                />
+                <Box>
+                  <Typography
+                    sx={{
+                      fontWeight: "550",
+                      color: "DarkSlateGray",
+                    }}
+                  >
+                    {displayImage.fullname}
+                  </Typography>
+                  <Typography
+                    noWrap
+                    sx={{
+                      fontWeight: "550",
+                      color: "DarkSlateGray",
+                      opacity: "0.6",
+                    }}
+                  >
+                    {displayImage.department}
+                  </Typography>
+                </Box>
+                <Box sx={{ flexGrow: 1, textAlign: "end" }}>
+                  <Typography
+                    noWrap
+                    variant="h4"
+                    sx={{
+                      fontWeight: "550",
+                      color: "DarkSlateGray",
+                    }}
+                  >
+                    {displayImage.billname}
+                  </Typography>
+                </Box>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
@@ -293,4 +411,4 @@ const BillHistory = () => {
   );
 };
 
-export default BillHistory;
+export default BillRequestM;

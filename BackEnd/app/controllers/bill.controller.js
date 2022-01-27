@@ -13,3 +13,16 @@ exports.getBillHistoryById = (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+
+exports.getBillHistory = (req, res) => {
+  try {
+    const data = Bill;
+    if (data) {
+      res.status(200).send(data);
+    } else {
+      res.status(200).send({ message: "Bill not found." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
