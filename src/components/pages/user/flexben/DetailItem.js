@@ -196,6 +196,7 @@ const DetailItem = (props) => {
                       price={detail.price}
                       discount={detail.discount}
                       transportation={detail.deliveryCost}
+                      type="lifestyle"
                     />
                   </Sticky>
                 </Grid>

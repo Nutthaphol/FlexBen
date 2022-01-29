@@ -247,37 +247,39 @@ const Home = () => {
 
             <br />
             <br />
-            <Paper className={classes.paper}>
-              <Box className={classes.headerText}>
-                <Typography
-                  variant="h4"
-                  gutterBottom
-                  className={classes.sectionText}
-                >
-                  <PersonAdd color="info" /> Personalize Coin
-                </Typography>
-                <Box style={{ flexGrow: 1 }} />
-                <Button
-                  variant="text"
-                  size="small"
-                  className={classes.buttonView}
-                >
+            {currentUser.roles.includes("ROLE_MANAGER") && (
+              <Paper className={classes.paper}>
+                <Box className={classes.headerText}>
                   <Typography
-                    component="span"
-                    variant="body1"
-                  >{`See more >>`}</Typography>{" "}
-                </Button>
-              </Box>
-              {users &&
-                users
-                  .filter((item) => item.id != currentUser.id)
-                  .slice(0, 1)
-                  .map((val, index) => (
-                    <Box key={index} className={classes.boxSlider}>
-                      <AddCoinCard user={val} />
-                    </Box>
-                  ))}
-            </Paper>
+                    variant="h4"
+                    gutterBottom
+                    className={classes.sectionText}
+                  >
+                    <PersonAdd color="info" /> Personalize Coin
+                  </Typography>
+                  <Box style={{ flexGrow: 1 }} />
+                  <Button
+                    variant="text"
+                    size="small"
+                    className={classes.buttonView}
+                  >
+                    <Typography
+                      component="span"
+                      variant="body1"
+                    >{`See more >>`}</Typography>{" "}
+                  </Button>
+                </Box>
+                {users &&
+                  users
+                    .filter((item) => item.id != currentUser.id)
+                    .slice(0, 1)
+                    .map((val, index) => (
+                      <Box key={index} className={classes.boxSlider}>
+                        <AddCoinCard user={val} />
+                      </Box>
+                    ))}
+              </Paper>
+            )}
 
             <br />
             <br />

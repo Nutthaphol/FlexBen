@@ -160,7 +160,7 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const path = useSelector((state) => state.navigation);
   const isMenuOpen = Boolean(anchorEl);
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState([]);
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
@@ -172,8 +172,13 @@ const Header = (props) => {
   useEffect(() => {
     const callCart = JSON.parse(localStorage.getItem("cart"));
 
-    setCart(callCart);
-  }, []);
+    if (JSON.stringify(callCart) != JSON.stringify(cart)) {
+      console.log("run");
+      console.log("callCart,", callCart);
+      console.log("cart", cart);
+      setCart(callCart);
+    }
+  }, [cart]);
 
   const handleOnClickPath = (path) => {
     dispatch({ type: "CLICK", path: path });

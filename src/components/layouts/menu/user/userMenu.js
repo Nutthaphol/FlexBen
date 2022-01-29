@@ -16,6 +16,7 @@ import {
   Article,
   Backpack,
   Dashboard,
+  DirectionsRun,
   HealthAndSafety,
   Inventory2,
   LocalHospital,
@@ -102,6 +103,26 @@ const UserMenu = ({ open }) => {
           listLink: "/health/BillHistory",
           listKey: "BillHistory",
         },
+      ],
+    },
+    {
+      listItemIcon: <DirectionsRun />,
+      listItemText: "Health check",
+      listLink: "",
+      listKey: "healthcheck",
+      collapse: [
+        {
+          listItemIcon: <LocalHospital />,
+          listItemText: "Booking outsite",
+          listLink: "/healthcheck/BookingOutsite",
+          listKey: "BookingOutsite",
+        },
+        // {
+        //   listItemIcon: <LocalHospital />,
+        //   listItemText: "Treatment history",
+        //   listLink: "/health/TreatmentHistory",
+        //   listKey: "healthTreatmentHistory",
+        // },
       ],
     },
   ];

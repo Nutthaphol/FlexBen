@@ -201,6 +201,7 @@ const DetailPackage = (props) => {
                       id={detail.id}
                       price={detail.price}
                       currency="$"
+                      type="package"
                     />
                   </Sticky>
                 </Grid>
