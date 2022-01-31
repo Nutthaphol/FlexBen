@@ -94,9 +94,9 @@ const ProductCard = (props) => {
     secondaryText = false,
     price = NaN,
     primaryText = "",
-    id,
-    path,
-    count,
+    id = false,
+    path = false,
+    count = false,
     type,
     listDetail = false,
     rating_ = null,
@@ -136,7 +136,7 @@ const ProductCard = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Card className={classes.root}>
-          <CardActionArea href={`${path}/${id}`}>
+          <CardActionArea href={path && id ? `${path}/${id}` : ``}>
             <Box className={classes.coverMedia}>
               <img
                 src={`${image}`}
@@ -207,7 +207,7 @@ const ProductCard = (props) => {
                 {rating}
                 {"     "}
                 <Box sx={{ color: "rgb(0,0,0,0.5)", marginLeft: "0.25rem" }}>
-                  ({count / 1000} k)
+                  {count && `(${count / 1000} k)`}
                 </Box>
               </Box>
             </Typography>
@@ -230,7 +230,7 @@ const ProductCard = (props) => {
               size="small"
               href={`${path}/${id}`}
             >
-              {currency == "icon" ? (
+              {currency === "icon" ? (
                 <Icon
                   sx={{
                     display: "flex",
@@ -248,7 +248,7 @@ const ProductCard = (props) => {
                 currency
               )}
               <Box component="span" sx={{ marginRight: "5px" }} />
-              {price}
+              {!isNaN(price) && price}
             </Button>
           </CardActions>
         </Card>

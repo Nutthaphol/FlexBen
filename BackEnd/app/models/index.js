@@ -23,5 +23,6 @@ db.rightTreatment = require("../models/rightTreatment.model");
 db.treatmentCategory = require("../models/treatmentCategory.model");
 db.notification = require("../models/notification.model");
 db.bill = require("../models/bill.model");
+db.hospital = require("../models/hospital.model");
 
 module.exports = db;
