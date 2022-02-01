@@ -32,6 +32,12 @@ const WarehouseMenu = () => {
       listLink: "/warehouse/FormInsurance",
       listKey: "FormInsurance",
     },
+    {
+      listItemIcon: <Article />,
+      listItemText: "Add package Health check",
+      listLink: "/warehouse/FormPackageHealthCheck",
+      listKey: "FormPackageHealthCheck",
+    },
   ];
 
   return <ListMenu dataListMenu={dataListMenu} />;
