@@ -69,6 +69,8 @@ const useStyles = makeStyles(() => ({
     }),
     display: "flex",
     justifyContent: "space-between",
+
+    borderRadius: "0px",
   },
   appBarShift: {
     backgroundColor: "#FFCD2E",

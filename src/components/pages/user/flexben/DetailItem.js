@@ -19,6 +19,7 @@ import {
   Paper,
   Typography,
   Divider,
+  Stack,
 } from "@mui/material";
 
 import SalesBox from "../../shared/salesBox";
@@ -44,7 +45,6 @@ const useStyles = makeStyles(() => ({
   },
   root: {
     padding: "1rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
   },
   cardMedia: {
     // position: "flex",
@@ -118,35 +118,40 @@ const DetailItem = (props) => {
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
                   <Paper className={classes.root}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography
-                        variant={"h4"}
-                        sx={{ fontWeight: "700" }}
-                        gutterBottom
-                      >
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography variant={"h3"} gutterBottom>
                         {detail.name.toUpperCase()}
+                        <Typography
+                          variant={"h6"}
+                          color="text.secondary"
+                          component="div"
+                        >
+                          {detail.brand}
+                        </Typography>
                       </Typography>
-                      <Box sx={{ flexGrow: 1 }} />
                       <Typography variant="h5" gutterBottom>
-                        <Grid container spacing={1}>
-                          <Grid item>
+                        {rating && (
+                          <Stack direction="row" spacing={5}>
                             <Star sx={{ color: amber[500] }} />
-                          </Grid>
-                          <Grid item>{rating && rating}</Grid>
-                        </Grid>
+                            {rating}
+                          </Stack>
+                        )}
                       </Typography>
-                    </Box>
-                    <Box sx={{ border: "1px solid #D0D3D4", padding: "20px" }}>
-                      <MultiImage listImage={detail.image} />
-                      <br />
-                    </Box>
+                    </Stack>
+
+                    <MultiImage listImage={detail.image} />
+                    <br />
                     <br />
                     <Divider />
                     <br />
                     <Typography variant="h5" component="div">
                       {detail.name} ({detail.brand})
                     </Typography>
-                    <Typography variant="subtitle1" component="span">
+                    <Typography variant="body1" component="span">
                       <Box component="span" margin="16px" />
                       {detail.detail}
                     </Typography>
@@ -157,7 +162,7 @@ const DetailItem = (props) => {
                     <Typography variant="h5" component="div">
                       การรับประกัน
                     </Typography>
-                    <Typography variant="subtitle1" component="span">
+                    <Typography variant="body2" component="span">
                       <Box component="span" margin="16px" />
                       {detail.warranty} ปี: {detail.warrantyDetail}
                     </Typography>
@@ -168,18 +173,18 @@ const DetailItem = (props) => {
                     <Typography variant="h5" component="div">
                       การขนส่ง
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body2" component="div">
                       <Box component="span" margin="16px" />
                       ระบบขนส่งแบบ{" "}
                       {delivery &&
                         delivery.find((item) => item.id == detail.deliveryType)
                           .name}
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body2" component="div">
                       <Box component="span" margin="16px" />
                       ใช้ระยะเวลาในการส่ง {detail.deliveryTime} วัน
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body2" component="div">
                       <Box component="span" margin="16px" />
                       ค่าจัดส่ง {detail.deliveryCost} Coin
                     </Typography>

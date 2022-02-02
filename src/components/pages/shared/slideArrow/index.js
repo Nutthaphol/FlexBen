@@ -7,8 +7,9 @@ const SlideArrow = (props) => {
         ...style,
         display: "block",
         color: themes == "dark" ? "#fff" : "#000",
-        fontSize: "8rem",
+        fontSize: "16rem",
         borderRadius: "50px",
+        position: "absolute",
         // backgroundColor: "green",
       }}
       onClick={onClick}

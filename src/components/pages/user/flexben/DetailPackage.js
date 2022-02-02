@@ -21,6 +21,7 @@ import {
   Icon,
   ListItemIcon,
   ListItemText,
+  Stack,
 } from "@mui/material";
 
 import SalesBox from "../../shared/salesBox";
@@ -96,7 +97,26 @@ const DetailPackage = (props) => {
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
                   <Card className={classes.root}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                    >
+                      <Typography variant="h3">
+                        {detail.name.toUpperCase()}
+                      </Typography>
+                      <Stack
+                        direction="row"
+                        alignItems="flex-start"
+                        spacing={1}
+                      >
+                        <Star sx={{ color: amber[500] }} />
+                        <Typography variant="subtitle1">
+                          {detail.rating}
+                        </Typography>
+                      </Stack>
+                    </Stack>
+                    {/* <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Typography
                         component={"span"}
                         variant={"h4"}
@@ -114,7 +134,7 @@ const DetailPackage = (props) => {
                           <Grid item>{detail.rating}</Grid>
                         </Grid>
                       </Typography>
-                    </Box>
+                    </Box> */}
                     <CardMedia
                       className={classes.cardMedia}
                       component="img"
@@ -130,49 +150,41 @@ const DetailPackage = (props) => {
                     >
                       <Divider sx={{ width: "100%" }} />
                     </Box>
-                    <Typography
-                      component={"span"}
-                      variant="h5"
-                      sx={{ fontWeight: 600 }}
-                      gutterBottom
-                    >
+                    <Typography variant="h5" gutterBottom>
                       {detail.highLights}
                     </Typography>
-                    <Typography component={"span"} variant="subtitle1">
-                      {" "}
-                      <span style={{ paddingLeft: "2.5rem" }} />
+                    <Typography variant="body1">
+                      <Box component="span" sx={{ marginLeft: "1.25rem" }} />
                       {detail.description}
                     </Typography>
                     <br />
-                    <Typography
-                      component={"span"}
-                      variant="h5"
-                      sx={{ fontWeight: 600 }}
-                    >
+                    <Typography component={"span"} variant="h5">
                       รายละเอียด
                     </Typography>
                     <List
-                    // sx={{ width: "50%" }}
+                      disablePadding
+                      // sx={{ width: "50%" }}
                     >
                       {detail.property.map((val, index) => (
                         <ListItem
+                          disablePadding
                           key={index}
                           secondaryAction={
-                            <Box sx={{ display: "flex", alignItems: "center" }}>
-                              <Typography variant="h5" component="span">
+                            <Stack
+                              direction="row"
+                              spacing={1}
+                              alignItems="center"
+                            >
+                              <Typography variant="subtitle1" component="span">
                                 {val.limitCoin}
                               </Typography>
-
-                              <Icon
-                                fontSize="large"
-                                sx={{ marginLeft: "10px" }}
-                              >
+                              <Icon fontSize="small">
                                 <img
                                   width="100%"
                                   src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
                                 />
                               </Icon>
-                            </Box>
+                            </Stack>
                           }
                         >
                           <ListItemIcon>

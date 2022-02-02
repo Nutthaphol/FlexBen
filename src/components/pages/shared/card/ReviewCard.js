@@ -14,6 +14,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Rating,
+  Stack,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
@@ -29,7 +30,6 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
     padding: "1rem",
-    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
   },
 }));
 
@@ -72,7 +72,7 @@ const ReviewCard = (props) => {
       <ThemeProvider theme={theme}>
         {reviews && (
           <Card className={classes.root}>
-            <Box sx={{ display: "flex", alignItem: "center" }}>
+            <Stack direction="row" justifyContent="space-between">
               <Typography
                 component={"span"}
                 variant="h5"
@@ -81,7 +81,7 @@ const ReviewCard = (props) => {
               >
                 Reviews
               </Typography>
-              <Box sx={{ display: "flex", alignItem: "center" }}>
+              <Stack direction="row" spacing={2}>
                 <Typography
                   component={"span"}
                   variant="subtitle1"
@@ -92,8 +92,8 @@ const ReviewCard = (props) => {
                 {avgRating >= 0 && (
                   <Rating value={4.4} precision={0.2} readOnly />
                 )}
-              </Box>
-            </Box>
+              </Stack>
+            </Stack>
             <Divider />
             <List>
               {reviews &&
@@ -113,7 +113,7 @@ const ReviewCard = (props) => {
                         </ListItemAvatar>
                         <ListItemText
                           primary={
-                            <Box sx={{ display: "flex", alignItems: "normal" }}>
+                            <Stack direction="row" alignItems="center">
                               <Typography
                                 component={"span"}
                                 variant="subtitle1"
@@ -121,16 +121,20 @@ const ReviewCard = (props) => {
                               >
                                 {val.firstname + " "}
                               </Typography>
-                              <Typography
-                                component={"span"}
-                                variant="subtitle1"
-                                sx={{ display: "flex" }}
-                              >
-                                {val.rating}
-                                <Box sx={{ flexGrow: 0.01 }} />
-                                <StarRate sx={{ color: amber[600] }} />
-                              </Typography>
-                            </Box>
+                              <Stack direction="row" alignItems="flex-start">
+                                <StarRate
+                                  sx={{ color: amber[600] }}
+                                  fontSize="small"
+                                />
+                                <Typography
+                                  component={"span"}
+                                  variant="subtitle1"
+                                  sx={{ display: "flex" }}
+                                >
+                                  {val.rating}
+                                </Typography>
+                              </Stack>
+                            </Stack>
                           }
                           secondary={
                             <Fragment>
@@ -139,8 +143,8 @@ const ReviewCard = (props) => {
                               <Typography
                                 component={"span"}
                                 sx={{ display: "inline" }}
-                                variant="subtitle1"
-                                color="text.primary"
+                                variant="body2"
+                                color="text.secondary"
                               >
                                 {"- " + val.message}
                               </Typography>

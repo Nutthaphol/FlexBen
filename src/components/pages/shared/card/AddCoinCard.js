@@ -6,12 +6,15 @@ import {
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
   Grid,
   Icon,
+  Paper,
+  Stack,
   SvgIcon,
   Typography,
 } from "@mui/material";
@@ -21,36 +24,12 @@ import Themplates from "../theme";
 const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
-  root: {
-    padding: "16px",
-    paddingBottom: "16px",
-    boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
+  boxDetail: {
     borderRadius: "16px",
-    transition: "box-shadow .3s",
-    "&:hover": {
-      // transform: "scale(1.05)",
-      // transition: "transform .2s",
-      boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
-    },
-  },
-  icons: {
-    fontSize: "2rem",
-    border: "1px solid #fff",
-    background: "linear-gradient(orange, violet)",
-    //     borderImage:"linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
-    borderRadius: "50%",
-  },
-  card: {
-    padding: "0.5rem",
-    boxShadow: "none",
-    border: "2px solid #D0D3D4",
-  },
-  cardContent: {
+    padding: "4px",
     textAlign: "center",
-    padding: "10px",
-    "& .css-46bh2p-MuiCardContent-root:last-child": {
-      paddingBottom: "10px",
-    },
+    width: "100%",
+    height: "80px",
   },
 }));
 const AddCoinCard = (props) => {
@@ -59,178 +38,124 @@ const AddCoinCard = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Card className={classes.root}>
+        <Paper sx={{ width: "100%", p: 4 }}>
           <Grid
             container
             spacing={2}
             justifyContent="center"
             alignItems="center"
           >
-            <Grid
-              item
-              md={4}
-              xs={12}
-              sx={{
-                textAlign: "center",
-              }}
-            >
-              <img
-                width="100"
-                style={{
-                  borderRadius: "50%",
-                  border: "3px solid transparent",
-                  background: "linear-gradient(blue, violet)",
-                }}
-                src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
-              />
-              <Typography variant="h5" gutterBottom>
-                {user.firstname + " " + user.lastname}
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                {user.position}
-              </Typography>
+            <Grid item xs={12} lg={4} xl={3}>
+              <Stack alignItems="center">
+                <Avatar
+                  sx={{ height: 96, width: 96 }}
+                  src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
+                />
+                <Typography variant="h5" gutterBottom>
+                  {user.firstname + " " + user.lastname}
+                </Typography>
+                <Typography variant="h5">{user.position}</Typography>
+              </Stack>
             </Grid>
-            <Grid item md={8} xs={12}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Grid container spacing={4} justifyContent="space-between">
-                    <Grid item xs={12} md={4}>
-                      <Card
-                        className={classes.card}
-                        sx={{ textAlign: "center" }}
-                      >
-                        <Typography
-                          sx={{ textAlign: "center" }}
-                          variant="subtitle1"
-                          component="div"
-                          gutterBottom
-                        >
-                          Coin ทั้งหมด
-                        </Typography>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            fontWeight: "600",
-                            textAlign: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                          component="div"
-                          gutterBottom
-                        >
-                          <Icon
-                            className={classes.icons}
-                            sx={{ marginRight: "10px" }}
-                          >
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                              width="100%"
-                            />
-                          </Icon>
-                          {user.coin}
-                        </Typography>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                      <Card
-                        className={classes.card}
-                        sx={{ textAlign: "center" }}
-                      >
-                        <Typography
-                          sx={{ textAlign: "center" }}
-                          variant="subtitle1"
-                          component="div"
-                          gutterBottom
-                        >
-                          Insurance lock
-                        </Typography>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            fontWeight: "600",
-                            textAlign: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                          component="div"
-                          gutterBottom
-                        >
-                          <Icon
-                            className={classes.icons}
-                            sx={{ marginRight: "10px" }}
-                          >
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                              width="100%"
-                            />
-                          </Icon>
-                          {user.insurancelock}
-                        </Typography>
-                      </Card>
-                    </Grid>
-                    <Grid item xs={12} md={4}>
-                      <Card
-                        className={classes.card}
-                        sx={{ textAlign: "center" }}
-                      >
-                        <Typography
-                          sx={{ textAlign: "center" }}
-                          variant="subtitle1"
-                          component="div"
-                          gutterBottom
-                        >
-                          Lifestyle & Travel
-                        </Typography>
-                        <Typography
-                          variant="h4"
-                          sx={{
-                            fontWeight: "600",
-                            textAlign: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                          component="div"
-                          gutterBottom
-                        >
-                          <Icon
-                            className={classes.icons}
-                            sx={{ marginRight: "10px" }}
-                          >
-                            <img
-                              src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                              width="100%"
-                            />
-                          </Icon>
-                          {user.coin - user.insurancelock}
-                        </Typography>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <Grid item xs={12}>
+            <Grid item xs={12} lg={8} xl={9} sx={{ position: "relative" }}>
+              <Stack spacing={1} justifyContent="space-between">
+                <Stack
+                  sx={{ width: 1 }}
+                  direction="row"
+                  justifyContent="space-between"
+                  spacing={6}
+                >
                   <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    className={classes.boxDetail}
+                    sx={{ bgcolor: "info.lighter" }}
                   >
-                    <Button>
-                      <Typography variant="h6" component="span">
-                        Personalize Select
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      spacing={1}
+                    >
+                      <Icon className={classes.icons}>
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                          width="100%"
+                        />
+                      </Icon>
+                      <Typography variant="h3" sx={{ color: "info.darker" }}>
+                        {user.coin}
                       </Typography>
-                    </Button>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Button variant="contained" color="success">
-                      Buy Now
-                    </Button>
+                    </Stack>
+                    <Typography variant="subtitle1" sx={{ color: "info.dark" }}>
+                      Coin ทั้งหมด
+                    </Typography>
                   </Box>
-                </Grid>
-              </Grid>
+                  <Box
+                    className={classes.boxDetail}
+                    sx={{ bgcolor: "warning.lighter" }}
+                  >
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      spacing={1}
+                    >
+                      <Icon className={classes.icons}>
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                          width="100%"
+                        />
+                      </Icon>
+                      <Typography variant="h3" sx={{ color: "warning.darker" }}>
+                        {user.insurancelock}
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ color: "warning.dark" }}
+                    >
+                      Insurance lock
+                    </Typography>
+                  </Box>
+                  <Box
+                    className={classes.boxDetail}
+                    sx={{ bgcolor: "error.lighter" }}
+                  >
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="center"
+                      spacing={1}
+                    >
+                      <Icon className={classes.icons}>
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                          width="100%"
+                        />
+                      </Icon>
+                      <Typography variant="h3" sx={{ color: "error.darker" }}>
+                        {user.coin - user.insurancelock}
+                      </Typography>
+                    </Stack>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ color: "error.dark" }}
+                    >
+                      Lifestyle & Travel
+                    </Typography>
+                  </Box>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Button color="primary">Personalize Select</Button>
+                  <Button color="secondary">Buy Now</Button>
+                </Stack>
+              </Stack>
             </Grid>
           </Grid>
-        </Card>
+        </Paper>
       </ThemeProvider>
     </StyledEngineProvider>
   );

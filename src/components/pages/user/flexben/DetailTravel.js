@@ -19,6 +19,7 @@ import {
   Typography,
   Divider,
   Icon,
+  Stack,
 } from "@mui/material";
 import { amber } from "@mui/material/colors";
 import { Star } from "@mui/icons-material";
@@ -29,6 +30,7 @@ import Sticky from "react-stickynode";
 import Themplates from "../../shared/theme";
 import { getAllFacilities } from "../../../../actions/facilities";
 import MultiImage from "../../shared/multiImage";
+import reviewService from "../../../../services/review.service";
 
 const theme = createTheme(Themplates);
 
@@ -90,7 +92,31 @@ const DetailTravel = (props) => {
     if (props.match.params.id) {
       fetchData();
     }
-  }, []);
+
+    if (rating == null) {
+      const review = await reviewService.getAllReviews().then((response) => {
+        return response.data;
+      });
+
+      const compRating = () => {
+        let rating = 0;
+        let count = 0;
+        if (review) {
+          review
+            .filter((item) => item.type == "lifestyle")
+            .map((item) => {
+              rating = rating + item.rating;
+              count++;
+            });
+          rating = rating / count;
+        }
+        return rating.toFixed(2);
+      };
+
+      const avgRat = compRating();
+      setRating(avgRat);
+    }
+  }, [rating]);
 
   return (
     <div className={`page`}>
@@ -102,7 +128,7 @@ const DetailTravel = (props) => {
                 <Grid item lg={8} md={8} xs={12}>
                   {/* use conponent of item  */}
                   <Paper className={classes.root}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                    {/* <Box sx={{ display: "flex", alignItems: "center" }}>
                       <Typography
                         variant={"h4"}
                         sx={{ fontWeight: "700" }}
@@ -119,22 +145,40 @@ const DetailTravel = (props) => {
                           <Grid item>{rating && rating}</Grid>
                         </Grid>
                       </Typography>
-                    </Box>
-                    <Box sx={{ border: "1px solid #D0D3D4", padding: "20px" }}>
-                      <MultiImage listImage={detail.image} />
-                      <br />
-                    </Box>
+                    </Box> */}
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography variant={"h3"} gutterBottom>
+                        {detail.name.toUpperCase()}
+                        <Typography
+                          variant={"h6"}
+                          color="text.secondary"
+                          component="div"
+                        >
+                          {detail.location.province}
+                        </Typography>
+                      </Typography>
+                      <Typography variant="h5" gutterBottom>
+                        {rating && (
+                          <Stack direction="row" spacing={5}>
+                            <Star sx={{ color: amber[500] }} />
+                            {rating}
+                          </Stack>
+                        )}
+                      </Typography>
+                    </Stack>
+                    <MultiImage listImage={detail.image} />
+                    <br />
                     <br />
                     <Divider />
                     <br />
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      className={classes.headTyphography}
-                    >
+                    <Typography variant="h5" component="div">
                       {detail.name} ({detail.location.province})
                     </Typography>
-                    <Typography variant="subtitle1" component="span">
+                    <Typography variant="body1" component="span">
                       <Box component="span" margin="16px" />
                       {detail.detail}
                     </Typography>
@@ -142,76 +186,67 @@ const DetailTravel = (props) => {
                     <br />
                     <Divider />
                     <br />
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      className={classes.headTyphography}
-                    >
+                    <Typography variant="h5" component="div">
                       สิ่งอำนวนความสะดวก
                     </Typography>
+                    <br />
                     <Grid
                       container
                       spacing={2}
                       alignItems={`center`}
-                      justifyContent={`center`}
+                      justifyContent="space-around"
                     >
                       {facilities &&
                         facilities.map((item, index) => (
                           <Grid item key={index}>
-                            <Box
+                            {/* <Box
                               sx={{
                                 display: "flex",
                                 justifyContent: "center",
                                 width: "200px",
                               }}
+                            > */}
+                            <Card
+                              sx={{
+                                height: "50px",
+                                width: "240px",
+                                borderRadius: "50px",
+                                textAlign: "center",
+                                height: "100%",
+                                boxShadow: [theme.shadows.card],
+                              }}
                             >
-                              <Card
+                              <Typography
+                                variant="body2"
+                                component="div"
                                 sx={{
-                                  height: "50px",
-                                  //   maxWidth: "160px",
-                                  width: "100%",
-                                  borderRadius: "50px",
-                                  boxShadow: "0px 0px 1px 1px #D0D3D4",
-                                  // backgroundColor: "#B8E7FF",
-                                  textAlign: "center",
-                                  height: "100%",
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "nowrap",
+                                  marginRight: "15px",
+                                  marginLeft: "15px",
                                 }}
                               >
-                                <Typography
-                                  variant="subtitle1"
-                                  component="div"
-                                  sx={{
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                    marginRight: "15px",
-                                    marginLeft: "15px",
-                                  }}
-                                >
-                                  {item.name}
-                                </Typography>
-                                <Icon fontSize="small">
-                                  <img
-                                    src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
-                                    width={`100%`}
-                                  />
-                                </Icon>
-                              </Card>
-                            </Box>
+                                {item.name}
+                              </Typography>
+                              <Icon fontSize="small">
+                                <img
+                                  src={`${process.env.PUBLIC_URL}/assets/icons/${item.icon}`}
+                                  width={`100%`}
+                                />
+                              </Icon>
+                            </Card>
+                            {/* </Box> */}
                           </Grid>
                         ))}
                     </Grid>
                     <br />
                     <Divider />
                     <br />
-                    <Typography
-                      variant="h5"
-                      component="div"
-                      className={classes.headTyphography}
-                    >
+                    <Typography variant="h5" component="div">
                       ที่อยู่
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body1" component="div">
                       <Box component="span" margin="16px" />
                       {detail.location.houseNO} ถนน{detail.location.road}{" "}
                       ตำบล/แขวง
@@ -219,11 +254,11 @@ const DetailTravel = (props) => {
                       {detail.location.district} จังหวัด
                       {detail.location.province} {detail.location.code} <br />{" "}
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body1" component="div">
                       <Box component="span" margin="16px" />
                       ประเทศ{detail.location.country}
                     </Typography>
-                    <Typography variant="subtitle1" component="div">
+                    <Typography variant="body1" component="div">
                       <Box component="span" margin="16px" />
                       สถานที่ใกล้เคียง:{" "}
                       {detail.nearby.map((val, index) => {

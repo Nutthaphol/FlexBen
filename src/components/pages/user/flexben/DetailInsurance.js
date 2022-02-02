@@ -18,6 +18,7 @@ import {
   List,
   ListItem,
   Button,
+  Stack,
 } from "@mui/material";
 
 import SalesBox from "../../shared/salesBox";
@@ -115,33 +116,31 @@ const DetailInsurance = (props) => {
               <Grid container spacing={4}>
                 <Grid item md={8} xs={12}>
                   <Paper className={classes.root}>
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography
-                        variant={"h4"}
-                        sx={{ fontWeight: "700" }}
-                        gutterBottom
-                      >
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Typography variant={"h3"} gutterBottom>
                         {detail.name.toUpperCase()}
                         <Typography
                           variant={"h6"}
-                          sx={{ fontWeight: "700" }}
                           color="text.secondary"
                           component="div"
                         >
                           {detail.company}
                         </Typography>
                       </Typography>
-                      <Box sx={{ flexGrow: 1 }} />
                       <Typography variant="h5" gutterBottom>
-                        <Grid container spacing={1}>
-                          <Grid item>
+                        {rating && (
+                          <Stack direction="row" spacing={5}>
                             <Star sx={{ color: amber[500] }} />
-                          </Grid>
-                          <Grid item>{rating && rating}</Grid>
-                        </Grid>
+                            {rating}
+                          </Stack>
+                        )}
                       </Typography>
-                    </Box>
-                    <Box sx={{ border: "1px solid #D0D3D4", padding: "20px" }}>
+                    </Stack>
+                    <Box>
                       <MultiImage listImage={detail.image} />
                       <br />
                     </Box>
@@ -149,9 +148,9 @@ const DetailInsurance = (props) => {
                     <Divider />
                     <br />
                     <Typography variant="h5" component="div">
-                      {detail.name} จาก {detail.company}
+                      {detail.name} โดย {detail.company}
                     </Typography>
-                    <Typography variant="subtitle1" component="span">
+                    <Typography variant="body1" component="span">
                       <Box component="span" margin="16px" />
                       {detail.detail}
                     </Typography>
@@ -162,13 +161,24 @@ const DetailInsurance = (props) => {
                     <Typography variant="h5" component="div">
                       ความคุ้มครอง
                     </Typography>
-                    <List>
+                    <List disablePadding>
                       {detail.protection.map((val, index) => (
                         <ListItem
                           key={index}
-                          secondaryAction={<i>{val.content} </i>}
+                          secondaryAction={
+                            <Typography
+                              variant="body2"
+                              sx={{ fontStyle: "italic" }}
+                            >
+                              {val.content}{" "}
+                            </Typography>
+                          }
+                          disablePadding
+                          sx={{ p: "0 16px" }}
                         >
-                          <b>{val.section}:</b>
+                          <Typography variant="subtitle2">
+                            {val.section}:
+                          </Typography>
                         </ListItem>
                       ))}
                     </List>
@@ -178,22 +188,25 @@ const DetailInsurance = (props) => {
                     <Typography variant="h5" component="div">
                       เงื่อนไขความคุ้มครอง
                     </Typography>
-                    <Typography
-                      variant="subtitle1"
-                      component="span"
-                      sx={{ display: "flex" }}
+                    <Stack
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
                     >
-                      <Box component="span" margin="16px" />
-                      ระเวลาในการคุ้มครองนาน {detail.protectionPeriod} ปี
-                      <Box sx={{ flexGrow: 1 }} />
+                      <Typography variant="subtitle2">
+                        ระเวลาในการคุ้มครองนาน {detail.protectionPeriod} ปี
+                      </Typography>
                       <Button
-                        variant="contained"
+                        color="warning"
                         href={detail.link}
                         target="_blank"
+                        variant="contained"
+                        size="small"
                       >
                         คลิก เพื่อดูเงื่อนไขโดยละเอียด
                       </Button>
-                    </Typography>
+                    </Stack>
+
                     <br />
                     <br />
                   </Paper>
@@ -203,7 +216,6 @@ const DetailInsurance = (props) => {
                 <Grid item md={4} xs={12}>
                   <Sticky enabled={true} top={70}>
                     <SalesBox
-                      // detail={detail}
                       type="insurance"
                       id={detail.id}
                       nameOrder={detail.name}

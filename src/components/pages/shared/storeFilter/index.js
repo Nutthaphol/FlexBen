@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     // boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     boxShadow: "none",
     // backgroundColor: "#F9F9F9",
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
   },
 }));
 
@@ -32,7 +32,7 @@ const StoreFilter = ({ handleToggle, checked, mainData, title }) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={classes.filter}>
+        <Paper className={classes.filter} sx={{ bgcolor: "grey.200" }}>
           <Typography variant="h6" component="span" gutterBottom>
             {title}
           </Typography>

@@ -22,6 +22,7 @@ import {
   DialogTitle,
   DialogActions,
   DialogContent,
+  Stack,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Add, Close, Done, Remove } from "@mui/icons-material";
@@ -32,14 +33,9 @@ import Themplates from "../theme";
 const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {
-    top: "100px",
     width: "100%",
     height: "auto",
     padding: "1rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-
-    // boxShadow:
-    //   "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
   },
   iconButton: {
     borderRadius: "4px",
@@ -99,219 +95,202 @@ const SalesBox = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Paper className={classes.root}>
-          <Typography
-            variant="h5"
-            sx={{
-              textAlign: "center",
-              fontWeight: "600",
-              background: "white",
-              lineHeight: 1,
-              padding: "0 20px",
-              marginBottom: "1rem",
-              textDecoration: "underline",
-            }}
-          >
-            {" "}
-            BUY NOW!
-          </Typography>
-          <Box sx={{ display: "flex" }}>
-            <Typography variant="h6">{nameOrder}</Typography>
-            <Box sx={{ flexGrow: 1 }} />
+          <Stack alignItems="center" spacing={2}>
             <Typography
-              variant="h6"
-              sx={{ display: "flex", alignItems: "center" }}
+              variant="h4"
+              sx={{ textDecoration: "underline" }}
+              color="primary.darker"
             >
-              {currency == "coin" ? (
-                <Icon
-                  sx={{
-                    marginRight: "5px",
-
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  fontSize="small"
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                    width="100%"
-                    height="auto"
-                  />
-                </Icon>
-              ) : (
-                currency
-              )}
-              {price}
+              BUY NOW!
             </Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6">จำนวน</Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                borderRadius: "4px",
-                border: "1px solid #D0D3D4 ",
-                minWidth: "72px",
-                padding: "none",
-              }}
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              <IconButton
+              <Typography variant="h5">{nameOrder}</Typography>
+              <Stack direction="row" alignItems="center">
+                {currency == "coin" ? (
+                  <Icon
+                    sx={{
+                      marginRight: "5px",
+
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    fontSize="small"
+                  >
+                    <img
+                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                      width="100%"
+                      height="auto"
+                    />
+                  </Icon>
+                ) : (
+                  currency
+                )}
+                <Typography variant="h5">{price}</Typography>
+              </Stack>
+            </Stack>
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h5">จำนวน</Typography>
+              <Stack
+                direction="row"
+                spacing={1}
                 sx={{
-                  padding: 0,
-                  borderRadius: 0,
-                  borderRight: "1px solid #D0D3D4 ",
+                  borderRadius: "8px",
+                  border: "1px solid rgba(145, 158, 171, 0.32)",
+                  lineHeight: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "4px 6px",
                 }}
-                disabled={count === 1 ? true : false}
-                onClick={() => remove()}
               >
-                <Remove fontSize="small" />
-              </IconButton>
-              <Typography
-                variant="h6"
-                sx={{ flexGrow: 1, textAlign: "center" }}
-              >
-                {count}
+                <IconButton
+                  size="small"
+                  disabled={count === 1 ? true : false}
+                  onClick={() => remove()}
+                >
+                  <Remove sx={{ fontSize: "16px" }} />
+                </IconButton>
+                <Typography variant="body1" color="text.secondary">
+                  {count}
+                </Typography>
+                <IconButton size="small" onClick={() => add()}>
+                  <Add sx={{ fontSize: "16px" }} />
+                </IconButton>
+              </Stack>
+            </Stack>
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h5">ส่วนลด</Typography>
+              <Typography variant="h5">{discount} %</Typography>
+            </Stack>
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h5">ค่าขนส่ง</Typography>
+              <Typography variant="h5">
+                {" "}
+                <Stack direction="row" alignItems="center">
+                  {currency == "coin" ? (
+                    <Icon
+                      sx={{
+                        marginRight: "5px",
+
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      fontSize="small"
+                    >
+                      <img
+                        src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                        width="100%"
+                        height="auto"
+                      />
+                    </Icon>
+                  ) : (
+                    currency
+                  )}
+                  <Typography variant="h5">{transportation}</Typography>
+                </Stack>
               </Typography>
-              <IconButton
-                sx={{
-                  // border: "1px solid #D0D3D4",
-                  padding: 0,
-                  borderRadius: 0,
-                  borderLeft: "1px solid #D0D3D4 ",
-                }}
-                size="small"
-                onClick={() => add()}
-              >
-                <Add fontSize="small" />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6">ส่วนลด</Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Typography
-              variant="h6"
-              sx={{ display: "flex", alignItems: "center" }}
+            </Stack>
+            <Stack
+              sx={{ width: "100%" }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
             >
-              {/* {detail.discount} % */}
-              {discount} %
-            </Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Typography variant="h6">ค่าขนส่ง</Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Typography
-              variant="h6"
-              sx={{ display: "flex", alignItems: "center" }}
+              <Typography variant="h5">รวม</Typography>
+              <Typography variant="h5">
+                {" "}
+                <Stack direction="row" alignItems="center">
+                  {currency == "coin" ? (
+                    <Icon
+                      sx={{
+                        marginRight: "5px",
+
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                      fontSize="small"
+                    >
+                      <img
+                        src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                        width="100%"
+                        height="auto"
+                      />
+                    </Icon>
+                  ) : (
+                    currency
+                  )}
+                  <Typography variant="h5">
+                    {transportation +
+                      count * (price - (price * discount) / 100)}
+                  </Typography>
+                </Stack>
+              </Typography>
+            </Stack>
+            <Button
+              type="submit"
+              color="success"
+              variant="contained"
+              fullWidth
+              size="large"
+              onClick={handleOnClickOpen}
             >
-              {currency == "coin" ? (
-                <Icon
-                  sx={{
-                    marginRight: "5px",
-
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  fontSize="small"
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                    width="100%"
-                    height="auto"
-                  />
-                </Icon>
-              ) : (
-                currency + " "
-              )}
-              {/* {detail.deliveryCost} */}
-              {transportation}
-            </Typography>
-          </Box>
-          <Box
-            sx={{ display: "flex", alignItems: "center", marginBottom: "1rem" }}
-          >
-            <Typography variant="h6">รวม</Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Typography
-              variant="h6"
-              sx={{ display: "flex", alignItems: "center" }}
-            >
-              {currency == "coin" ? (
-                <Icon
-                  sx={{
-                    marginRight: "5px",
-
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  fontSize="small"
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                    width="100%"
-                    height="auto"
-                  />
-                </Icon>
-              ) : (
-                currency + " "
-              )}
-              {/* {detail.deliveryCost
-                ? detail.deliveryCost
-                : 0 +
-                  count *
-                    (detail.price - (detail.price * detail.discount) / 100)} */}
-              {transportation + count * (price - (price * discount) / 100)}
-            </Typography>
-          </Box>
-
-          <Button
-            onClick={handleOnClickOpen}
-            sx={{
-              marginTop: "1rem",
-              padding: "1rem",
-              fontSize: "1.25rem",
-              fontWeight: "700",
-            }}
-            fullWidth
-            variant="contained"
-            color="success"
-          >
-            Continue ($
-            {transportation + count * (price - (price * discount) / 100)} )
-          </Button>
-          <Dialog
-            onClose={handleCloseOpen}
-            open={open}
-            sx={{ margin: "100px" }}
-          >
-            <DialogTitle sx={{ textAlign: "center" }}>Continue ?</DialogTitle>
-            <DialogContent>
-              <DialogActions>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  sx={{
-                    textTransform: "none",
-                    width: "120px",
-                  }}
-                  onClick={() => {
-                    handleOnClickToCart();
-                  }}
-                >
-                  Add to cart
-                </Button>
-                <Button
-                  color="success"
-                  variant="contained"
-                  sx={{ textTransform: "none", width: "120px" }}
-                >
-                  Buy now!
-                </Button>
-              </DialogActions>
-            </DialogContent>
-          </Dialog>
+              <Typography variant="h4" sx={{ margin: "6px 0" }}>
+                Continue
+              </Typography>
+            </Button>
+          </Stack>
         </Paper>
+        <Dialog onClose={handleCloseOpen} open={open} maxWidth="sm" fullWidth>
+          <DialogTitle sx={{ textAlign: "center" }}>Continue ?</DialogTitle>
+          <DialogContent>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+              spacing={4}
+            >
+              <Button
+                color="warning"
+                variant="contained"
+                fullWidth
+                onClick={() => {
+                  handleOnClickToCart();
+                }}
+              >
+                Add to cart
+              </Button>
+              <Button
+                color="primary"
+                variant="contained"
+                fullWidth
+                onClick={() => {
+                  handleOnClickToCart();
+                }}
+              >
+                Buy now!
+              </Button>
+            </Stack>
+          </DialogContent>
+        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );

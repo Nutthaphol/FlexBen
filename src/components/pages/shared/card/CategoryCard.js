@@ -16,11 +16,11 @@ const useStyles = makeStyles(() => ({
     boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     position: "relative",
     transition: "box-shadow .3s",
-    "&:hover": {
-      // transform: "scale(1.05)",
-      // transition: "transform .2s",
-      boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
-    },
+    // "&:hover": {
+    //   // transform: "scale(1.05)",
+    //   // transition: "transform .2s",
+    //   boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
+    // },
     // margin: "0px 0 40px",
   },
 }));

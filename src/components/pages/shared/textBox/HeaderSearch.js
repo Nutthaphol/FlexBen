@@ -38,7 +38,10 @@ const HeaderSearch = ({
         <Box className={classes.headTitle}>
           <Typography variant="h4" className={classes.sectionText}>
             {normalText}{" "}
-            <span style={{ color: "#41ABFF" }}> {hightlightText} </span>
+            <Box component={"span"} sx={{ color: "info.main" }}>
+              {" "}
+              {hightlightText}{" "}
+            </Box>
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: "flex" }}>

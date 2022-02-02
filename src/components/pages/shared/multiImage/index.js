@@ -6,7 +6,7 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import Themplates from "../theme";
 import SlideArrow from "../slideArrow";
 
@@ -17,7 +17,7 @@ import {
   KeyboardArrowRight,
   Star,
 } from "@mui/icons-material";
-import { Box, Dialog, DialogContent } from "@mui/material";
+import { Box, Card, Dialog, DialogContent } from "@mui/material";
 
 const theme = createTheme(Themplates);
 
@@ -49,27 +49,36 @@ const MultiImage = ({ listImage }) => {
     prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
   };
 
+  const ProductImgStyle = styled("img")({
+    top: 0,
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    position: "absolute",
+    borderRadius: "16px",
+  });
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Slider {...settings1} style={{ display: "flex" }}>
-          {listImage.map((val, index) => (
-            <Fragment key={index}>
+        <Box>
+          <Slider {...settings1} style={{ display: "flex" }}>
+            {listImage.map((val, index) => (
               <Box
+                key={index}
                 display="flex"
                 justifyContent="center"
-                sx={{ cursor: "pointer", maxHeight: 400 }}
+                // sx={{ cursor: "pointer", maxHeight: 400 }}
+                sx={{ pt: "480px", position: "relative" }}
                 onClick={() => setOpen(true)}
               >
-                <img
-                  style={{ overflow: "auto" }}
+                <ProductImgStyle
                   src={`${process.env.REACT_APP_URL}image/${val}`}
-                  height={400}
                 />
               </Box>
-            </Fragment>
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </Box>
         <Dialog open={open} onClose={() => setOpen(false)}>
           <DialogContent>
             <Box sx={{ padding: "20px" }}>

@@ -17,6 +17,8 @@ import {
   Divider,
   List,
   ListItem,
+  Stack,
+  Link,
 } from "@mui/material";
 import {
   createTheme,
@@ -37,6 +39,7 @@ import AddCoinCard from "./shared/card/AddCoinCard";
 import { getAllMainCategory } from "../../actions/mainCategory";
 import Themplates from "./shared/theme";
 import CategoryCard from "./shared/card/CategoryCard";
+import { Link as RouterLink } from "react-router-dom";
 
 // import "../../utils/slick.css";
 
@@ -46,14 +49,14 @@ const useStyles = makeStyles(() => ({
   root: {
     // marginTop: 30,
   },
-  paper: {
-    // boxShadow: "0 0 1px 1px #D0D3D4",
-    // border: "1px solid #ECF8FF",
-    boxShadow:
-      "rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;",
-    padding: "1.75rem",
-    borderRadius: "16px",
-  },
+  // paper: {
+  //   // boxShadow: "0 0 1px 1px #D0D3D4",
+  //   // border: "1px solid #ECF8FF",
+  //   boxShadow:
+  //     "rgb(50 50 93 / 2%) 0px 2px 5px -1px, rgb(0 0 0 / 5%) 0px 1px 3px -1px;",
+  //   padding: "1.75rem",
+  //   borderRadius: "16px",
+  // },
   slider: {
     // width: "700px",
   },
@@ -64,6 +67,7 @@ const useStyles = makeStyles(() => ({
   boxSlider: {
     paddingTop: "15px",
     paddingBottom: "15px",
+
     "&:hover": {
       // transform: "scale(1.05)",
       // transition: "transform .2s",
@@ -77,7 +81,6 @@ const useStyles = makeStyles(() => ({
     "&:hover": {
       background: "none",
     },
-    color: "rgb(125, 135, 156)",
   },
   headerText: {
     display: "flex",
@@ -155,120 +158,122 @@ const Home = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <Paper className={classes.paper} sx={{ display: "" }}>
-              <Box className={classes.headerText}>
-                <Typography
-                  variant="h4"
-                  className={classes.sectionText}
-                  gutterBottom
-                >
-                  <Inventory2 color="error" /> Top Package
+            <Stack direction="row" justifyContent="space-between">
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Inventory2 color="error" />
+                <Typography variant="h5" gutterBottom>
+                  Top Package
                 </Typography>
-                <Button
-                  variant="text"
-                  size="small"
-                  href="allPackages"
-                  className={classes.buttonView}
-                >
-                  <Typography
-                    component="span"
-                    variant="body1"
-                  >{`See more >>`}</Typography>
-                </Button>
-              </Box>
-
-              <Slider {...setting} className={classes.slider}>
-                {package_ &&
-                  package_
-                    .filter((item) => item.rating > 4)
-                    .map((val, index) => (
-                      <Box key={index} className={classes.boxSlider}>
-                        <ProductCard
-                          path="detailPackage"
-                          id={val.id}
-                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                          primaryText={val.name}
-                          listDetail={val.property}
-                          count={val.count}
-                          price={val.price}
-                          rating_={val.rating}
-                          currency="$"
-                        />
-                      </Box>
-                    ))}
-              </Slider>
-            </Paper>
-            <br />
-            <br />
-            <Paper className={classes.paper}>
-              <Box className={classes.headerText}>
+              </Stack>
+              <Link
+                to=""
+                color="inherit"
+                underline="hover"
+                component={RouterLink}
+              >
                 <Typography
-                  variant="h4"
-                  className={classes.sectionText}
-                  gutterBottom
+                  component="span"
+                  variant="body2"
+                  color="text.secondary"
                 >
-                  <SelfImprovement color="success" /> Top Insurun
+                  See more
                 </Typography>
-                <Box style={{ flexGrow: 1 }} />
-                <Button
-                  variant="text"
-                  size="small"
-                  href="allInsurance"
-                  className={classes.buttonView}
-                >
-                  <Typography
-                    component="span"
-                    variant="body1"
-                  >{`See more >>`}</Typography>{" "}
-                </Button>
-              </Box>
-              <Slider {...setting} className={classes.slider}>
-                {insurance &&
-                  insurance
-                    // .slice(0, 4)
-                    .filter((item) => item.popular)
-                    .map((val, index) => (
-                      <Box className={classes.boxSlider} key={index}>
-                        <ProductCard
-                          path="detailInsurance"
-                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                          secondaryText={val.company}
-                          price={val.price}
-                          primaryText={val.name}
-                          id={val.id}
-                          // rating={val.rating}
-                          count={val.count}
-                          type={val.type}
-                        />
-                      </Box>
-                    ))}
-              </Slider>
-            </Paper>
+              </Link>
+            </Stack>
 
-            <br />
-            <br />
+            <Slider {...setting} className={classes.slider}>
+              {package_ &&
+                package_
+                  .filter((item) => item.rating > 4)
+                  .map((val, index) => (
+                    <Box key={index} className={classes.boxSlider}>
+                      <ProductCard
+                        path="detailPackage"
+                        id={val.id}
+                        image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                        primaryText={val.name}
+                        listDetail={val.property}
+                        count={val.count}
+                        price={val.price}
+                        rating_={val.rating}
+                        currency="$"
+                      />
+                    </Box>
+                  ))}
+            </Slider>
+
+            <Box sx={{ margin: "32px 0" }} />
+
+            <Stack direction="row" justifyContent="space-between">
+              <Stack direction="row" spacing={2} alignItems="center">
+                <SelfImprovement color="success" />
+                <Typography variant="h5" gutterBottom>
+                  Top Insurun
+                </Typography>
+              </Stack>
+              <Link
+                to=""
+                color="inherit"
+                underline="hover"
+                component={RouterLink}
+              >
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  See more
+                </Typography>
+              </Link>
+            </Stack>
+            <Slider {...setting} className={classes.slider}>
+              {insurance &&
+                insurance
+                  // .slice(0, 4)
+                  .filter((item) => item.popular)
+                  .map((val, index) => (
+                    <Box className={classes.boxSlider} key={index}>
+                      <ProductCard
+                        path="detailInsurance"
+                        image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                        secondaryText={val.company}
+                        price={val.price}
+                        primaryText={val.name}
+                        id={val.id}
+                        // rating={val.rating}
+                        count={val.count}
+                        type={val.type}
+                      />
+                    </Box>
+                  ))}
+            </Slider>
+
+            <Box sx={{ margin: "32px 0" }} />
+
             {currentUser.roles.includes("ROLE_MANAGER") && (
-              <Paper className={classes.paper}>
-                <Box className={classes.headerText}>
-                  <Typography
-                    variant="h4"
-                    gutterBottom
-                    className={classes.sectionText}
-                  >
-                    <PersonAdd color="info" /> Personalize Coin
-                  </Typography>
-                  <Box style={{ flexGrow: 1 }} />
-                  <Button
-                    variant="text"
-                    size="small"
-                    className={classes.buttonView}
+              <Fragment>
+                <Stack direction="row" justifyContent="space-between">
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <PersonAdd color="info" />
+                    <Typography variant="h5" gutterBottom>
+                      Personalize Coin
+                    </Typography>
+                  </Stack>
+                  <Link
+                    to=""
+                    color="inherit"
+                    underline="hover"
+                    component={RouterLink}
                   >
                     <Typography
                       component="span"
-                      variant="body1"
-                    >{`See more >>`}</Typography>{" "}
-                  </Button>
-                </Box>
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      See more
+                    </Typography>
+                  </Link>
+                </Stack>
                 {users &&
                   users
                     .filter((item) => item.id != currentUser.id)
@@ -278,35 +283,32 @@ const Home = () => {
                         <AddCoinCard user={val} />
                       </Box>
                     ))}
-              </Paper>
+              </Fragment>
             )}
 
-            <br />
-            <br />
-            <Paper className={classes.paper}>
-              <Typography
-                variant="h4"
-                gutterBottom
-                className={classes.sectionText}
-              >
-                <Widgets color="error" /> Category
+            <Box sx={{ margin: "32px 0" }} />
+
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Widgets color="error" />
+              <Typography variant="h5" gutterBottom>
+                Category
               </Typography>
-              <Grid
-                container
-                spacing={5}
-                // sx={{ padding: "1rem" }}
-                justifyContent="center"
-              >
-                {mainCategory &&
-                  mainCategory.map((val, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
-                      <Box key={index} className={classes.boxSlider}>
-                        <CategoryCard categoryText={val.name} icon={val.icon} />
-                      </Box>
-                    </Grid>
-                  ))}
-              </Grid>
-            </Paper>
+            </Stack>
+            <Grid
+              container
+              spacing={5}
+              // sx={{ padding: "1rem" }}
+              justifyContent="center"
+            >
+              {mainCategory &&
+                mainCategory.map((val, index) => (
+                  <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
+                    <Box key={index} className={classes.boxSlider}>
+                      <CategoryCard categoryText={val.name} icon={val.icon} />
+                    </Box>
+                  </Grid>
+                ))}
+            </Grid>
 
             <br />
             <br />
