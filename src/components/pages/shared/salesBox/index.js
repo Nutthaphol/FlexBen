@@ -247,7 +247,7 @@ const SalesBox = (props) => {
             </Stack>
             <Button
               type="submit"
-              color="success"
+              color="primary"
               variant="contained"
               fullWidth
               size="large"

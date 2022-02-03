@@ -37,7 +37,7 @@ const Themplates = {
       main: "#54D62C",
       dark: "#229A16",
       darker: "#08660D",
-      contrastText: "#000",
+      contrastText: "#fff",
     },
     warning: {
       lighter: "#FFF7CD",
@@ -122,7 +122,8 @@ const Themplates = {
           fontDisplay: "swap",
           fontWeight: "400",
           src: `local('Kanit'), local('Kanit-Regular'), url(${Kanit}) format('ttf')`,
-          unicodeRange: "U+0E00-U+0E7F",
+          unicodeRange:
+            "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF",
         },
         "@font-face": {
           fontFamily: "Poppins",
@@ -131,8 +132,7 @@ const Themplates = {
           fontWeight: "400",
           src: `local('Poppins'), local('Poppins-Regular'), url(${Poppins}) format('ttf')`,
           unicodeRange:
-            // "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF",
-            "U+00-FF, U+980-9FF",
+            "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF",
         },
       },
     },

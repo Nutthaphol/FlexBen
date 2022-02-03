@@ -544,7 +544,6 @@ const Dashbord = () => {
         <div className={`dashboard-page`}>
           {userProfile ? (
             <Box>
-              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
                 <Profile profile={userProfile} lastHealth={lastHealthCheck} />
 
