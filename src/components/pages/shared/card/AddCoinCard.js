@@ -26,7 +26,7 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   boxDetail: {
     borderRadius: "16px",
-    padding: "4px",
+    padding: "24px 4px",
     textAlign: "center",
     width: "100%",
     height: "80px",
@@ -48,7 +48,7 @@ const AddCoinCard = (props) => {
             <Grid item xs={12} lg={4} xl={3}>
               <Stack alignItems="center">
                 <Avatar
-                  sx={{ height: 96, width: 96 }}
+                  sx={{ height: 120, width: 120 }}
                   src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
                 />
                 <Typography variant="h5" gutterBottom>

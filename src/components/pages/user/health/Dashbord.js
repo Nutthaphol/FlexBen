@@ -16,28 +16,42 @@ import {
   Grid,
   Icon,
   IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   Paper,
+  Stack,
   Tab,
+  Table,
   Tabs,
   Tooltip,
   Typography,
   withStyles,
+  alpha,
 } from "@mui/material";
 import { tooltipClasses } from "@mui/material/Tooltip";
 import { Box } from "@mui/system";
 import { getAllUsers, getUserProfile } from "../../../../actions/user";
 import {
+  Accessibility,
+  Accessible,
   AccountBox,
+  AirlineSeatFlat,
   Circle,
   Email,
   Facebook,
+  FitnessCenter,
   Group,
   HistoryToggleOff,
   HomeWork,
   KeyboardArrowLeft,
   KeyboardArrowRight,
+  MilitaryTech,
   MonitorWeight,
   Phone,
+  PointOfSale,
+  Timelapse,
 } from "@mui/icons-material";
 import healthCheckService from "../../../../services/healthCheck.service";
 import dayjs from "dayjs";
@@ -54,6 +68,8 @@ import treatmentCategoryService from "../../../../services/treatmentCategory.ser
 import SlideArrow from "../../shared/slideArrow";
 import Slider from "react-slick";
 import RankCard from "../../shared/card/RankCard";
+import NormalCard from "../../shared/card/NormalCard";
+import { grey, red, amber, deepOrange } from "@mui/material/colors";
 
 const theme = createTheme(Themplates);
 
@@ -97,90 +113,14 @@ export const TrendRiskHistoryData = {
 };
 
 const useStyles = makeStyles(() => ({
-  root: {
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-    padding: "1rem",
-  },
-  background: {
-    width: "100%",
-    overflow: "hidden",
-    display: "block",
-  },
-  boxBackground: {
-    overflow: "hidden",
-    height: "300px",
-    width: "100%",
-  },
-  // containers: {
-  //   // position: "relative",
-  //   // width: "100%",
-  //   // alignItems: "center",
-  //   // display: "block",
-  // },
-  cardProfile: {
-    padding: "1.25rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-    position: "relative",
-    margin: "-50px 0 40px",
-    minHeight: "160px",
+  dashboardCard: {
     backgroundColor: "#121212",
-    color: "#fff",
+    padding: "24px",
     backgroundImage:
       "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
-  },
-  card: {
-    padding: "1.25rem",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-    position: "relative",
-    margin: "0px 0 40px",
-    backgroundColor: "#121212",
-    color: "#fff",
-    backgroundImage:
-      "linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05))",
-  },
-  boxProfile: {
-    width: "180px",
-    margin: "-50px 0px 0px",
-  },
-  profile: {
-    borderRadius: "8px",
-  },
-  headText: {
-    fontWeight: 600,
-  },
-  subText: {
-    margin: 0,
-    padding: 0,
-    lineHight: 0,
-    color: "rgba(255, 255, 255, 0.7)",
-  },
-  buttonOne: {
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-    "&:hover": {
-      boxShadow: "rgb(3 0 71 / 20%) 0px 2px 4px",
-    },
-  },
-  iconsSpace: {
-    margin: "0 8px 0 0",
-  },
-  textPreData: {
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  },
-  frameProfile: {
-    padding: "10px",
-    background: "#fff",
-    borderRadius: "8px",
-    boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
-    backgroundColor: "#303030",
-  },
-  iconButton: {
-    backgroundColor: "#fff",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.08)",
-      color: "#3c52b2",
-    },
+    color: theme.palette.grey[200],
+    boxShadow:
+      "rgb(0 0 0 / 50%) 0px 0px 2px 0px, rgb(0 0 0 / 24%) 0px 12px 24px -4px",
   },
 }));
 
@@ -192,59 +132,172 @@ const colorDip = [
   { color: "#ff0000", meaning: "สูงมาก" },
 ];
 
-const defaultOption = {
-  chart: { toolbar: { show: false }, type: "area" },
-  grid: {
-    show: false,
-    padding: {
-      top: 0,
-      right: 0,
-      bottom: 0,
-      left: 0,
-    },
-  },
-  dataLabels: {
-    enabled: false,
-  },
-  plotOptions: {
-    area: {
-      fillTo: "end",
-    },
-  },
-  yaxis: {
-    show: false,
-  },
-  xaxis: {
-    labels: {
-      show: false,
-    },
-    axisBorder: {
-      show: false,
-    },
-    axisTicks: {
-      show: false,
-    },
-    crosshairs: {
-      show: false,
-    },
-    tooltip: {
-      enabled: false,
-    },
-  },
-  stroke: {
-    width: 2.5,
-    curve: "smooth",
-  },
-  legend: {
-    show: false,
-  },
+const LABEL_TOTAL = {
+  show: true,
+  label: "Total",
+  color: theme.palette.grey[500],
+  ...theme.typography.subtitle1,
 };
 
-// const GroupButtonTooltip = withStyles({
-//   tooltip: {
-//     backgroundColor: "transparent",
-//   },
-// })(Tooltip);
+const LABEL_VALUE = {
+  offsetY: 8,
+  color: theme.palette.grey[200],
+  ...theme.typography.h2,
+};
+
+const defaultOption = {
+  series: [],
+  options: {
+    chart: {
+      height: 350,
+      fontFamily: theme.typography.fontFamily,
+      foreColor: theme.palette.grey[600],
+      toolbar: { show: false },
+      zoom: { enabled: false },
+    },
+    colors: [
+      theme.palette.primary.main,
+      theme.palette.chart.yellow[0],
+      theme.palette.chart.red[0],
+      theme.palette.chart.green[0],
+      theme.palette.chart.violet[0],
+      theme.palette.chart.blue[0],
+    ],
+    states: {
+      hover: {
+        filter: {
+          type: "lighten",
+          value: 0.04,
+        },
+      },
+      active: {
+        filter: {
+          type: "darken",
+          value: 0.88,
+        },
+      },
+    },
+    markers: {
+      size: 0,
+      strokeColors: theme.palette.background.paper,
+    },
+    xaxis: {
+      type: "datetime",
+      tickAmount: 10,
+    },
+    fill: {
+      opacity: 1,
+      gradient: {
+        type: "vertical",
+        shadeIntensity: 0,
+        opacityFrom: 0.4,
+        opacityTo: 0,
+        stops: [0, 100],
+      },
+    },
+    dataLabels: { enabled: false },
+    grid: {
+      show: true,
+      strokeDashArray: 3,
+      borderColor: theme.palette.grey[600],
+    },
+    yaxis: {},
+    xaxis: {
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+    },
+
+    stroke: {
+      width: 3,
+      curve: "smooth",
+      lineCap: "round",
+    },
+    tooltip: {
+      theme: "dark",
+    },
+    legend: {
+      show: true,
+      fontSize: 13,
+      position: "top",
+      horizontalAlign: "right",
+      markers: {
+        radius: 12,
+      },
+      fontWeight: 600,
+      itemMargin: { horizontal: 12 },
+      labels: {
+        colors: theme.palette.grey[500],
+      },
+    },
+    // plotOptions
+    plotOptions: {
+      // Bar
+      bar: {
+        columnWidth: "50%",
+        borderRadius: 4,
+        rangeBarOverlap: false,
+        colors: {
+          backgroundBarOpacity: 0.5,
+        },
+      },
+      // Pie + Donut
+      pie: {
+        donut: {
+          size: "90%",
+          labels: {
+            show: true,
+            value: LABEL_VALUE,
+            total: LABEL_TOTAL,
+          },
+        },
+      },
+      // Radialbar
+      radialBar: {
+        track: {
+          strokeWidth: "100%",
+          background: theme.palette.grey[500_16],
+        },
+        dataLabels: {
+          value: LABEL_VALUE,
+          total: LABEL_TOTAL,
+        },
+      },
+      // Radar
+      radar: {
+        polygons: {
+          fill: { colors: ["transparent"] },
+          strokeColors: theme.palette.divider,
+          connectorColors: theme.palette.divider,
+        },
+      },
+      // polarArea
+      polarArea: {
+        rings: {
+          strokeColor: theme.palette.divider,
+        },
+        spokes: {
+          connectorColors: theme.palette.divider,
+        },
+      },
+    },
+    responsive: [
+      {
+        // sm
+        breakpoint: theme.breakpoints.values.sm,
+        options: {
+          plotOptions: { bar: { columnWidth: "40%" } },
+        },
+      },
+      {
+        // md
+        breakpoint: theme.breakpoints.values.md,
+        options: {
+          plotOptions: { bar: { columnWidth: "32%" } },
+        },
+      },
+    ],
+  },
+};
 
 const GroupButtonTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -261,38 +314,43 @@ const Dashbord = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const { result: userProfile } = useSelector((state) => state.userProfile);
   const { result: allUsers } = useSelector((state) => state.users);
-  const [lastHealthCheck, setLastHealCheck] = useState();
-  const [health, setHealth] = useState();
-  const [rightTreatment, setRightTreatment] = useState();
+  // ---------------------------------------------------------------------- redux
 
-  const [categories, setCategories] = useState();
+  const [data, setData] = useState([]);
+  // ---------------------------------------------------------------------- react state
 
   useEffect(() => {
     const setupData = async (userId) => {
-      const lastHealthCheck_ = await healthCheckService.getLastHealthCheck(
-        userId
-      );
-      setLastHealCheck(lastHealthCheck_);
-      const health_ = await healthServices.getHealthProfile(userId);
-      setHealth(health_);
-
-      const rightTreatment_ =
-        await rightTreatmentService.getAllRightTreatment();
-      setRightTreatment(rightTreatment_);
-      const categories_ = await treatmentCategoryService.getTreatmentCategory();
-      setCategories(categories_);
+      if (data.length == 0) {
+        const lasthealthcheck = await healthCheckService.getLastHealthCheck(
+          userId
+        );
+        const health = await healthServices.getHealthProfile(userId);
+        const rightTreatment =
+          await rightTreatmentService.getAllRightTreatment();
+        const categories =
+          await treatmentCategoryService.getTreatmentCategory();
+        const data_ = {
+          lasthealthcheck: lasthealthcheck,
+          health: health,
+          rightTreatment: rightTreatment,
+          categories: categories,
+        };
+        console.log("data", data_);
+        setData(data_);
+      }
     };
     if (currentUser) {
-      dispath(getUserProfile(currentUser.id));
-      dispath(getAllUsers());
+      !userProfile && dispath(getUserProfile(currentUser.id));
+      !allUsers && dispath(getAllUsers());
       setupData(currentUser.id);
     }
   }, []);
 
   const setChartDataWeight = () => {
-    if (health) {
+    if (data.health) {
       const option = defaultOption;
-      option.xaxis.categories = health.exercise.reduce((prev, curr) => {
+      option.xaxis.categories = data.health.exercise.reduce((prev, curr) => {
         prev.push(dayjs(curr.date).format("MMM"));
         return prev;
       }, []);
@@ -300,21 +358,21 @@ const Dashbord = () => {
       const series = [
         {
           name: "Weight",
-          data: health.exercise.reduce((prev, curr) => {
+          data: data.health.exercise.reduce((prev, curr) => {
             prev.push(curr.weight);
             return prev;
           }, []),
         },
       ];
-      const data = { series, option };
-      return data;
+      const value = { series, option };
+      return value;
     }
   };
 
   const setChartDataBMI = () => {
-    if (health) {
+    if (data.health) {
       const option = defaultOption;
-      option.xaxis.categories = health.exercise.reduce((prev, curr) => {
+      option.xaxis.categories = data.health.exercise.reduce((prev, curr) => {
         prev.push(dayjs(curr.date).format("MMM"));
         return prev;
       }, []);
@@ -322,44 +380,32 @@ const Dashbord = () => {
       const series = [
         {
           name: "BMI",
-          data: health.exercise.reduce((prev, curr) => {
+          data: data.health.exercise.reduce((prev, curr) => {
             prev.push(curr.weight / Math.pow(curr.height / 100, 2).toFixed(1));
             return prev;
           }, []),
         },
       ];
-      const data = { series, option };
-      return data;
+      const value = { series, option };
+      return value;
     }
   };
 
   const setChartDataTrendWeight = (key) => {
-    if (health && key == "option") {
-      const option = {
-        chart: {
-          type: "area",
-          toolbar: { show: false },
-          background: "transparant",
-          foreColor: "rgba(255, 255, 255, 0.7)",
-        },
-        xaxis: {
-          categories: health.exercise.reduce((prev, curr) => {
-            prev.push(dayjs(curr.date).format("MMM"));
-            return prev;
-          }, []),
-        },
-        tooltip: {
-          theme: "dark",
-        },
-      };
-
+    if (data.health && key == "option") {
+      let option = { ...defaultOption.options };
+      option.xaxis.categories = data.health.exercise.reduce((prev, curr) => {
+        prev.push(dayjs(curr.date).format("MMM"));
+        return prev;
+      }, []);
+      option.stroke.width = 3;
       return option;
     }
-    if (health && key == "series") {
+    if (data.health && key == "series") {
       const series = [
         {
           name: "Weight",
-          data: health.exercise.reduce((prev, curr) => {
+          data: data.health.exercise.reduce((prev, curr) => {
             prev.push(curr.weight);
             return prev;
           }, []),
@@ -370,32 +416,20 @@ const Dashbord = () => {
   };
 
   const setChartDataTrendExercise = (key) => {
-    if (health && key == "option") {
-      const option = {
-        chart: {
-          type: "area",
-          toolbar: { show: false },
-          background: "transparant",
-          foreColor: "rgba(255, 255, 255, 0.7)",
-        },
-        xaxis: {
-          categories: health.exercise.reduce((prev, curr) => {
-            prev.push(dayjs(curr.date).format("MMM"));
-            return prev;
-          }, []),
-        },
-        tooltip: {
-          theme: "dark",
-        },
-      };
+    if (data.health && key == "option") {
+      let option = { ...defaultOption.options };
+      option.xaxis.categories = data.health.exercise.reduce((prev, curr) => {
+        prev.push(dayjs(curr.date).format("MMM"));
+        return prev;
+      }, []);
 
       return option;
     }
-    if (health && key == "series") {
+    if (data.health && key == "series") {
       const series = [
         {
           name: "Exercise-HRS",
-          data: health.exercise.reduce((prev, curr) => {
+          data: data.health.exercise.reduce((prev, curr) => {
             prev.push(curr.time);
             return prev;
           }, []),
@@ -407,35 +441,9 @@ const Dashbord = () => {
 
   const setChartSensation = (type) => {
     if (type == "options") {
-      const option = {
-        chart: {
-          type: "area",
-          toolbar: { show: false },
-          background: "transparant",
-          foreColor: "rgba(255, 255, 255, 0.7)",
-        },
-        plotOptions: {
-          bar: {
-            horizontal: false,
-            columnWidth: "55%",
-            endingShape: "rounded",
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          show: true,
-          width: 2,
-          colors: ["transparent"],
-        },
-        xaxis: {
-          categories: TrendRiskHistoryData.categories,
-        },
-        tooltip: {
-          theme: "dark",
-        },
-      };
+      let option = { ...defaultOption.options };
+      option.chart.type = "bar";
+      option.xaxis.categories = TrendRiskHistoryData.categories;
       return option;
     }
     if (type == "series") {
@@ -444,8 +452,8 @@ const Dashbord = () => {
     }
   };
   const statusExercise = () => {
-    if (health) {
-      const hrs = health.exercise.at(-1).time;
+    if (data.health) {
+      const hrs = data.health.exercise.at(-1).time;
 
       if (hrs > 30) {
         return "สม่ำเสมอ";
@@ -459,8 +467,8 @@ const Dashbord = () => {
     }
   };
 
-  const calhealthHstory = (data) => {
-    const healthHistory_ = data.treatment.reduce((prev, curr) => {
+  const calhealthHstory = (value) => {
+    const healthHistory_ = value.treatment.reduce((prev, curr) => {
       prev
         .map((e) => {
           return e.id;
@@ -474,12 +482,12 @@ const Dashbord = () => {
   };
 
   const calStateDonutCard = (call) => {
-    let options;
+    let option = { ...defaultOption.options };
     let series;
 
     let health_;
-    if (health) {
-      health_ = health.treatment.reduce((prev, curr) => {
+    if (data.health) {
+      health_ = data.health.treatment.reduce((prev, curr) => {
         prev
           .map((e) => {
             return e.id;
@@ -501,27 +509,43 @@ const Dashbord = () => {
     if (health_ && call == "options") {
       const listCategory = baseCategory.reduce((prev, curr) => {
         prev.push(
-          categories ? categories.find((item) => item.id == curr).name : ""
+          data.categories
+            ? data.categories.find((item) => item.id == curr).name
+            : ""
         );
         return prev;
       }, []);
-      options = {
-        chart: {
-          type: "donut",
-          // foreColor: "rgba(255, 255, 255, 0.7)",
-          background: "transparant",
-          toolbar: { show: false },
-        },
-        labels: listCategory,
+      option.chart.type = "donut";
+      option.labels = listCategory;
+      console.log("listCategory", listCategory);
+      option.stroke = {
+        ...{ show: true, width: 0, curve: "smooth", lineCap: "round" },
       };
-      return options;
+      option.legend = {
+        ...{
+          show: true,
+          fontSize: 13,
+          position: "top",
+          horizontalAlign: "center",
+          markers: {
+            radius: 12,
+          },
+          fontWeight: 600,
+          itemMargin: { horizontal: 12 },
+          labels: {
+            colors: theme.palette.grey[500],
+          },
+        },
+      };
+
+      return option;
     }
     if (health_ && call == "series") {
       series = baseCategory.reduce((prev, curr) => {
         prev.push(health_.filter((item) => item.category == curr).length);
         return prev;
       }, []);
-      console.log("type series", typeof series);
+      console.log("type series", series);
       return series;
     }
     return "";
@@ -545,247 +569,275 @@ const Dashbord = () => {
           {userProfile ? (
             <Box>
               <Container maxWidth="xl">
-                <Profile profile={userProfile} lastHealth={lastHealthCheck} />
+                <Profile
+                  profile={userProfile}
+                  // lastHealth={data.lastHealthCheck && data.lastHealthCheck}
+                />
 
-                <Paper className={classes.card}>
-                  <Grid container>
-                    <Grid item xs={12} sm={3} md={2} lg={1}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          width: "100%",
-                        }}
+                <Grid container spacing={4} sx={{ mb: 4 }}>
+                  <Grid item xs={12} md={6}>
+                    <Paper className={classes.dashboardCard} square>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ color: "grey.200", mb: 4 }}
                       >
-                        <Typography
-                          variant="h6"
-                          className={classes.headText}
-                          component="div"
-                          gutterBottom
+                        ความเสี่ยง
+                      </Typography>
+                      <Stack alignItems="center" spacing={2}>
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          alignItems="center"
+                          justifyContent="center"
                         >
-                          ความเสี่ยง
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  </Grid>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      margin: "0 20%",
-                    }}
-                  >
-                    <GaugeChart
-                      id="gaugeChartRick"
-                      nrOfLevels={5}
-                      // arcsLength={[0.25, 0.5, 0.25]}
-                      style={{
-                        maxHeight: "400px",
-                      }}
-                      colors={[
-                        "#63ff00",
-                        "#d6ff00",
-                        "#ffff00",
-                        "#ffc100",
-                        "#ff0000",
-                      ]}
-                      animDelay={1000}
-                      arcPadding={0.02}
-                      percent={0.4}
-                      hideText
-                      needleBaseColor={"#429EF5"}
-                      needleColor={"#42A5F5"}
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      margin: "0 20%",
-                    }}
-                  >
-                    {colorDip.map((val, index) => (
-                      <Box
-                        sx={{ display: "flex", alignItems: "center" }}
-                        key={index}
-                      >
-                        <Circle
-                          sx={{ color: val.color, margin: "0 4px 0 20px" }}
+                          {colorDip &&
+                            colorDip.map((val, index) => (
+                              <Stack
+                                direction="row"
+                                spacing={1}
+                                justifyContent="center"
+                                alignItems="center"
+                                key={index + val.color}
+                              >
+                                <Circle
+                                  fontSize="small"
+                                  sx={{ color: val.color }}
+                                />
+                                <Typography
+                                  variant="body2"
+                                  sx={{ color: "gray.200" }}
+                                >
+                                  {val.meaning}
+                                </Typography>
+                              </Stack>
+                            ))}
+                        </Stack>
+                        <GaugeChart
+                          id="gaugeChartRick"
+                          nrOfLevels={5}
+                          style={{
+                            maxHeight: "480px",
+                          }}
+                          colors={[
+                            "#63ff00",
+                            "#d6ff00",
+                            "#ffff00",
+                            "#ffc100",
+                            "#ff0000",
+                          ]}
+                          animDelay={500}
+                          arcPadding={0.01}
+                          cornerRadius={4}
+                          percent={0.4}
+                          hideText
+                          needleBaseColor={"#121212"}
+                          needleColor={"#007AFD"}
                         />
-                        <Typography variant="body2">{val.meaning}</Typography>
-                      </Box>
-                    ))}
-                  </Box>
-                </Paper>
-                <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
-                      themes="dark"
-                      headerknot="triangle"
-                      headerPosition="left"
-                      headerknotText="Weight"
-                      imageIcon={`weight-scale.svg`}
+                      </Stack>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Paper className={classes.dashboardCard} square>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ color: "grey.200", mb: 4 }}
+                      >
+                        ประวัติสุขภาพ
+                      </Typography>
+                      <Stack spacing={2} sx={{ mr: 2, ml: 2 }}>
+                        <Grid container spacing={4}>
+                          <Grid item xs={12} md={4} lg={3}>
+                            <Typography
+                              variant="h6"
+                              component="div"
+                              sx={{ color: "primary.main" }}
+                            >
+                              My family
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={8} lg={9}>
+                            <Box>
+                              <List disablePadding>
+                                {data.health &&
+                                data.health.healthStatus.family.length != 0 ? (
+                                  data.health.healthStatus.family
+                                    .slice(0, 2)
+                                    .map((val, index) => (
+                                      <ListItem key={index + val}>
+                                        <ListItemAvatar>
+                                          <Circle
+                                            sx={{ fontSize: "12px" }}
+                                            color="secondary"
+                                          />
+                                        </ListItemAvatar>
+                                        <ListItemText primary={val} />
+                                      </ListItem>
+                                    ))
+                                ) : (
+                                  <Typography
+                                    variant="body1"
+                                    sx={{ color: "grey.200" }}
+                                  >
+                                    ไม่มีข้อมูล
+                                  </Typography>
+                                )}
+                              </List>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                        <Grid container spacing={4}>
+                          <Grid item xs={12} md={4} lg={3}>
+                            <Typography
+                              variant="h6"
+                              component="div"
+                              sx={{ color: "primary.main" }}
+                            >
+                              Myself
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={12} md={8} lg={9}>
+                            <Box>
+                              <br />
+                              <List disablePadding>
+                                {data.health &&
+                                data.health.healthStatus.employee.length !=
+                                  0 ? (
+                                  data.health.healthStatus.employee
+                                    .slice(0, 2)
+                                    .map((val, index) => (
+                                      <ListItem key={index + val}>
+                                        <ListItemAvatar>
+                                          <Circle
+                                            sx={{ fontSize: "12px" }}
+                                            color="secondary"
+                                          />
+                                        </ListItemAvatar>
+                                        <ListItemText primary={val} />
+                                      </ListItem>
+                                    ))
+                                ) : (
+                                  <Typography
+                                    variant="body1"
+                                    sx={{ color: "grey.200" }}
+                                  >
+                                    ไม่มีข้อมูล
+                                  </Typography>
+                                )}
+                              </List>
+                            </Box>
+                          </Grid>
+                        </Grid>
+                      </Stack>
+                    </Paper>
+                  </Grid>
+                </Grid>
+
+                <Grid container spacing={4} sx={{ mb: 4 }}>
+                  <Grid item xs={12} md={6} lg={3}>
+                    <NormalCard
+                      styleTheme="dark"
+                      icon={MonitorWeight}
                       primaryText={
-                        health ? health.exercise.at(-1).weight.toFixed(1) : "-"
+                        data.health
+                          ? data.health.exercise.at(-1).weight.toFixed(1) +
+                            " KM."
+                          : "-"
                       }
-                      secondaryText="KM."
-                      backgroundData={setChartDataWeight()}
+                      secondaryText={"Weight"}
                     />
                   </Grid>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
-                      themes="dark"
-                      headerknot="triangle"
-                      headerPosition="left"
-                      imageIcon={`bmi.svg`}
-                      headerknotText="Weight"
+                  <Grid item xs={12} md={6} lg={3}>
+                    <NormalCard
+                      styleTheme="dark"
+                      icon={Accessibility}
                       primaryText={
-                        health
+                        data.health
                           ? (
-                              health.exercise.at(-1).weight /
-                              Math.pow(health.exercise.at(-1).height / 100, 2)
+                              data.health.exercise.at(-1).weight /
+                              Math.pow(
+                                data.health.exercise.at(-1).height / 100,
+                                2
+                              )
                             ).toFixed(1)
                           : "-"
                       }
-                      backgroundData={setChartDataBMI()}
+                      secondaryText={"BMI"}
+                      colors="success"
                     />
                   </Grid>
-                </Grid>
-                {health && (
-                  <Paper className={classes.card}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        width: "100%",
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        className={classes.headText}
-                        component="div"
-                        gutterBottom
-                      >
-                        Trend นำ้หนัก
-                      </Typography>
-                    </Box>
-
-                    <ReactApexChart
-                      options={setChartDataTrendWeight("option")}
-                      series={setChartDataTrendWeight("series")}
-                      type="area"
-                      height="300px"
-                    />
-                  </Paper>
-                )}
-
-                <Grid container spacing={4} sx={{ marginBottom: "40px" }}>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
-                      themes="dark"
-                      headerknot="rectangle"
-                      headerknotText="การออกกำลังกาย"
+                  <Grid item xs={12} md={6} lg={3}>
+                    <NormalCard
+                      styleTheme="dark"
+                      icon={FitnessCenter}
                       primaryText={statusExercise()}
-                      imageIcon={`weight-scale.svg`}
+                      secondaryText={"การออกกำลังกาย"}
+                      colors="error"
                     />
                   </Grid>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
-                      themes="dark"
-                      headerknot="rectangle"
-                      headerknotText="การออกกำลังกาย"
-                      primaryText={health && health.exercise.at(-1).time}
-                      secondaryText={"HRS"}
-                      imageIcon={`bmi.svg`}
+                  <Grid item xs={12} md={6} lg={3}>
+                    <NormalCard
+                      styleTheme="dark"
+                      icon={Timelapse}
+                      primaryText={
+                        data.health && data.health.exercise.at(-1).time
+                      }
+                      secondaryText={"เวลาออกกำลังกาย"}
+                      colors="warning"
                     />
                   </Grid>
                 </Grid>
 
-                {health && (
-                  <Paper className={classes.card}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "flex-start",
-                        width: "100%",
-                      }}
-                    >
-                      <Typography
-                        variant="h6"
-                        className={classes.headText}
-                        component="div"
-                        gutterBottom
-                      >
-                        Trend การออกกำลังกาย
-                      </Typography>
-                    </Box>
+                {data.health && (
+                  <Grid container sx={{ mb: 4 }} spacing={4}>
+                    <Grid item xs={12} md={6}>
+                      <Paper className={classes.dashboardCard}>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ color: "grey.200", mb: 4 }}
+                        >
+                          Trend นำ้หนัก
+                        </Typography>
 
-                    <ReactApexChart
-                      options={setChartDataTrendExercise("option")}
-                      series={setChartDataTrendExercise("series")}
-                      type="area"
-                      height="300px"
-                    />
-                  </Paper>
+                        <ReactApexChart
+                          options={setChartDataTrendWeight("option")}
+                          series={setChartDataTrendWeight("series")}
+                          type="line"
+                          height="360px"
+                        />
+                      </Paper>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Paper className={classes.dashboardCard}>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          sx={{ color: "grey.200", mb: 4 }}
+                        >
+                          Trend การออกกำลังกาย
+                        </Typography>
+
+                        <ReactApexChart
+                          options={setChartDataTrendExercise("option")}
+                          series={setChartDataTrendExercise("series")}
+                          type="line"
+                          height="360px"
+                        />
+                      </Paper>
+                    </Grid>
+                  </Grid>
                 )}
 
-                {health && (
-                  <Paper className={classes.card}>
-                    <Box sx={{ marginLeft: "60px" }}>
-                      <Message message={health.healthStatus.family} />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginTop: "10px",
-                        textAlign: "end",
-                        width: "60px",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "5rem" }}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/other/family.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                    </Box>
-                    <Box sx={{ marginLeft: "60px" }}>
-                      <Message message={health.healthStatus.myself} />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginTop: "10px",
-                        textAlign: "end",
-                        width: "60px",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "5rem" }}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/other/boy.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                    </Box>
-                  </Paper>
-                )}
-
-                <Paper className={classes.card}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-start",
-                      width: "100%",
-                    }}
+                <Paper className={classes.dashboardCard} sx={{ mb: 4 }}>
+                  <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ color: "grey.200", mb: 4 }}
                   >
-                    <Typography
-                      variant="h6"
-                      className={classes.headText}
-                      component="div"
-                      gutterBottom
-                    >
-                      ความรู้สึกทางร่างกายของเราเอง
-                    </Typography>
-                  </Box>
+                    ความรู้สึกทางร่างกายของเราเอง
+                  </Typography>
                   <ReactApexChart
                     options={setChartSensation("options")}
                     series={setChartSensation("series")}
@@ -796,64 +848,58 @@ const Dashbord = () => {
 
                 {currentUser.roles.includes("ROLE_ADMIN") === true ? (
                   <Fragment>
-                    <Grid container spacing={2}>
-                      <Grid item md={3} sm={6} xs={12}>
-                        <BowTieCard
-                          themes="dark"
-                          headerknot="rectangle"
-                          headerPosition="left"
-                          headerknotText="จำนวนพนักงาน"
-                          imageIcon="participant.svg"
-                          primaryText={allUsers && allUsers.length}
-                          secondaryText="คน"
+                    <Grid container spacing={4} sx={{ mb: 4 }}>
+                      <Grid item lg={3} md={6} xs={12}>
+                        <NormalCard
+                          styleTheme="dark"
+                          icon={Group}
+                          colors="primary"
+                          primaryText={allUsers && allUsers.length + " คน"}
+                          secondaryText="จำนวนพนักงาน"
                         />
                       </Grid>
-                      <Grid item md={3} sm={6} xs={12}>
-                        <BowTieCard
-                          themes="dark"
-                          headerknot="rectangle"
-                          headerPosition="left"
-                          headerknotText="(OPD) บาท"
-                          imageIcon="OPD.svg"
-                          primaryText={"2.5"}
-                          secondaryText="ล้านบาท"
+                      <Grid item lg={3} md={6} xs={12}>
+                        <NormalCard
+                          styleTheme="dark"
+                          icon={Accessible}
+                          colors="secondary"
+                          primaryText={"2.5 ล้านบาท"}
+                          secondaryText="(OPD) บาท"
                         />
                       </Grid>
-                      <Grid item md={3} sm={6} xs={12}>
-                        <BowTieCard
-                          themes="dark"
-                          headerknot="rectangle"
-                          headerPosition="left"
-                          headerknotText="(IPD) บาท"
-                          imageIcon="IPD.svg"
-                          primaryText={"2.5"}
-                          secondaryText="ล้านบาท"
+                      <Grid item lg={3} md={6} xs={12}>
+                        <NormalCard
+                          styleTheme="dark"
+                          icon={AirlineSeatFlat}
+                          colors="warning"
+                          primaryText={"2.5 ล้านบาท"}
+                          secondaryText="(IPD) บาท"
                         />
                       </Grid>
-                      <Grid item md={3} sm={6} xs={12}>
-                        <BowTieCard
-                          themes="dark"
-                          headerknot="rectangle"
-                          headerPosition="left"
-                          headerknotText="รวมค่าใช้จ่าย"
-                          imageIcon="money.svg"
-                          primaryText={"5"}
-                          secondaryText="ล้านบาท"
+                      <Grid item lg={3} md={6} xs={12}>
+                        <NormalCard
+                          styleTheme="dark"
+                          icon={PointOfSale}
+                          colors="error"
+                          primaryText={"5 ล้านบาท"}
+                          secondaryText="รวมค่าใช้จ่าย"
                         />
                       </Grid>
                     </Grid>
-                    <br />
-                    <br />
-                    <Grid container spacing={2}>
-                      <Grid item lg={5}>
+                    <Grid container spacing={4} sx={{ mb: 4 }}>
+                      <Grid item xs={12} lg={5}>
                         <Paper
-                          className={classes.card}
+                          className={classes.dashboardCard}
                           sx={{ height: "450px" }}
                         >
-                          <Typography variant="h6" component="div">
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ color: "grey.200", mb: 4 }}
+                          >
                             สถิติการรักษา
                           </Typography>
-                          {health && (
+                          {data.health && (
                             <ReactApexChart
                               options={calStateDonutCard("options")}
                               series={calStateDonutCard("series")}
@@ -863,53 +909,217 @@ const Dashbord = () => {
                           )}
                         </Paper>
                       </Grid>
-                      <Grid item lg={7}>
-                        {health && (
-                          <Paper
-                            className={classes.card}
-                            sx={{ height: "450px" }}
+                      <Grid item xs={12} md={6} lg={4}>
+                        <Paper className={classes.dashboardCard}>
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ color: "grey.200", mb: 4 }}
                           >
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "flex-start",
-                                width: "100%",
-                              }}
+                            IPD Now
+                          </Typography>
+                          <List sx={{ width: 1, ml: 2, mr: 2 }}>
+                            {allUsers &&
+                              allUsers.slice(0, 6).map((val, index) => (
+                                <ListItem
+                                  key={index + val.id}
+                                  disablePadding
+                                  secondaryAction={
+                                    <Stack
+                                      direction="row"
+                                      spacing={1}
+                                      justifyContent="space-between"
+                                    >
+                                      {" "}
+                                      <IconButton
+                                        sx={{ bgcolor: "grey.800" }}
+                                        color="info"
+                                        size="small"
+                                      >
+                                        <Facebook />
+                                      </IconButton>
+                                      <IconButton
+                                        sx={{ bgcolor: "grey.800" }}
+                                        color="info"
+                                        size="small"
+                                      >
+                                        <Phone />
+                                      </IconButton>
+                                      <IconButton
+                                        sx={{ bgcolor: "grey.800" }}
+                                        color="info"
+                                        size="small"
+                                      >
+                                        <Email />
+                                      </IconButton>
+                                    </Stack>
+                                  }
+                                >
+                                  <ListItemAvatar>
+                                    <Avatar
+                                      sx={{ height: 40, width: 40 }}
+                                      src={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
+                                    />
+                                  </ListItemAvatar>
+                                  <ListItemText
+                                    primary={
+                                      <Typography
+                                        variant="subtitle2"
+                                        sx={{ color: "grey.200" }}
+                                      >
+                                        {`${val.firstname} ${val.lastname}`}
+                                      </Typography>
+                                    }
+                                    secondary={
+                                      <Typography
+                                        variant="body2"
+                                        sx={{
+                                          color: `${alpha(
+                                            theme.palette.grey[200],
+                                            0.6
+                                          )}`,
+                                          maxWidth: 160,
+                                        }}
+                                      >
+                                        {`${val.department}`}
+                                      </Typography>
+                                    }
+                                  />
+                                </ListItem>
+                              ))}
+                          </List>
+                        </Paper>
+                      </Grid>
+                      <Grid item xs={12} md={6} lg={3}>
+                        <Paper className={classes.dashboardCard}>
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ color: "grey.200", mb: 4 }}
+                          >
+                            ค่ารักษาสูงสุด
+                          </Typography>
+                          <List sx={{ width: 1 }}>
+                            {allUsers &&
+                              allUsers.slice(0, 3).map((val, index) => (
+                                <ListItem
+                                  key={index + val.id}
+                                  secondaryAction={
+                                    <Fragment>
+                                      <MilitaryTech
+                                        sx={{
+                                          color:
+                                            index == 0
+                                              ? amber.A700
+                                              : index == 1
+                                              ? grey.A200
+                                              : deepOrange[300],
+                                          fontSize: 32,
+                                        }}
+                                      />
+                                    </Fragment>
+                                  }
+                                >
+                                  <ListItemAvatar>
+                                    <Avatar
+                                      sx={{ height: 40, width: 40 }}
+                                      src={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
+                                    />
+                                  </ListItemAvatar>
+                                  <ListItemText
+                                    primary={
+                                      <Typography
+                                        variant="subtitle2"
+                                        sx={{ color: "grey.200" }}
+                                      >
+                                        {`${val.firstname} ${val.lastname}`}
+                                      </Typography>
+                                    }
+                                    secondary={
+                                      <Stack
+                                        direction="row"
+                                        spacing={1}
+                                        sx={{}}
+                                      >
+                                        <IconButton
+                                          color="info"
+                                          sx={{
+                                            height: 16,
+                                            width: 16,
+                                            color: `${alpha(
+                                              theme.palette.grey[200],
+                                              0.9
+                                            )}`,
+                                          }}
+                                        >
+                                          <Facebook sx={{ fontSize: 16 }} />
+                                        </IconButton>
+                                        <IconButton
+                                          color="info"
+                                          sx={{
+                                            height: 16,
+                                            width: 16,
+                                            color: `${alpha(
+                                              theme.palette.grey[200],
+                                              0.9
+                                            )}`,
+                                          }}
+                                        >
+                                          <Phone sx={{ fontSize: 16 }} />
+                                        </IconButton>
+                                        <IconButton
+                                          color="info"
+                                          sx={{
+                                            height: 16,
+                                            width: 16,
+                                            color: `${alpha(
+                                              theme.palette.grey[200],
+                                              0.9
+                                            )}`,
+                                          }}
+                                        >
+                                          <Email sx={{ fontSize: 16 }} />
+                                        </IconButton>
+                                      </Stack>
+                                    }
+                                  />
+                                </ListItem>
+                              ))}
+                          </List>
+                        </Paper>
+                      </Grid>
+                      {/* <Grid item xs={12} md={6} lg={7}>
+                        {data.health && (
+                          <Paper className={classes.dashboardCard}>
+                            <Typography
+                              variant="h6"
+                              component="div"
+                              sx={{ color: "grey.200", mb: 4 }}
                             >
-                              <Typography
-                                variant="h6"
-                                className={classes.headText}
-                                component="div"
-                                gutterBottom
-                              >
-                                Trend การออกกำลังกาย
-                              </Typography>
-                            </Box>
+                              Trend การออกกำลังกาย
+                            </Typography>
 
                             <ReactApexChart
                               options={setChartDataTrendExercise("option")}
                               series={setChartDataTrendExercise("series")}
-                              type="area"
-                              height="300px"
+                              type="line"
+                              height="360px"
                             />
                           </Paper>
                         )}
-                      </Grid>
+                      </Grid> */}
                     </Grid>
-                    <br />
-                    <br />
-                    <Grid container spacing={2}>
+                    {/* <Grid container spacing={4} sx={{ mb: 4 }}>
                       <Grid item lg={6} xs={12}>
-                        <Paper
-                          className={classes.card}
-                          sx={{ minHeight: "520px" }}
-                        >
-                          <Typography variant="h6" component="div">
+                        <Paper className={classes.dashboardCard}>
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ color: "grey.200", mb: 4 }}
+                          >
                             IPD Now
                           </Typography>
-                          <br />
-                          <br />
-                          <Grid container spacing={6} sx={{ padding: "1rem" }}>
+                          <List sx={{ width: 1, ml: 2, mr: 2 }}>
                             {allUsers &&
                               allUsers.slice(0, 6).map((val, index) => (
                                 <Grid key={index} item lg={4}>
@@ -1009,17 +1219,19 @@ const Dashbord = () => {
                                   </Box>
                                 </Grid>
                               ))}
-                          </Grid>
+                          </List>
                         </Paper>
                       </Grid>
                       <Grid item lg={6} xs={12}>
-                        <Paper
-                          className={classes.card}
-                          sx={{ minHeight: "520px" }}
-                        >
-                          <Typography variant="h6" component="div">
+                        <Paper className={classes.dashboardCard}>
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            sx={{ color: "grey.200", mb: 4 }}
+                          >
                             ค่ารักษาสูงสุด
                           </Typography>
+
                           <Box sx={{ padding: "1.5rem" }}>
                             <Slider {...setting}>
                               {allUsers &&
@@ -1064,27 +1276,58 @@ const Dashbord = () => {
                           </Box>
                         </Paper>
                       </Grid>
-                    </Grid>
+                    </Grid> */}
                   </Fragment>
                 ) : (
                   ""
                 )}
-                <br />
 
-                <Paper className={classes.card}>
+                <Paper className={classes.dashboardCard}>
                   <TabCustomRight
-                    right={rightTreatment && rightTreatment[0]}
-                    useRight={health && health.treatment}
+                    right={data.rightTreatment && data.rightTreatment[0]}
+                    useRight={data.health && data.health.treatment}
                   />
                 </Paper>
 
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
+                {/* Message */}
+                {/* {health && (
+                  <Paper className={classes.card}>
+                    <Box sx={{ marginLeft: "60px" }}>
+                      <Message message={health.healthStatus.family} />
+                    </Box>
+                    <Box
+                      sx={{
+                        marginTop: "10px",
+                        textAlign: "end",
+                        width: "60px",
+                      }}
+                    >
+                      <Icon sx={{ fontSize: "5rem" }}>
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/other/family.svg`}
+                          width="100%"
+                        />
+                      </Icon>
+                    </Box>
+                    <Box sx={{ marginLeft: "60px" }}>
+                      <Message message={health.healthStatus.myself} />
+                    </Box>
+                    <Box
+                      sx={{
+                        marginTop: "10px",
+                        textAlign: "end",
+                        width: "60px",
+                      }}
+                    >
+                      <Icon sx={{ fontSize: "5rem" }}>
+                        <img
+                          src={`${process.env.PUBLIC_URL}/assets/icons/other/boy.svg`}
+                          width="100%"
+                        />
+                      </Icon>
+                    </Box>
+                  </Paper>
+                )} */}
               </Container>
             </Box>
           ) : (

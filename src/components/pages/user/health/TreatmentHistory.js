@@ -27,6 +27,7 @@ import {
   DialogContent,
   AvatarGroup,
   useMediaQuery,
+  Icon,
 } from "@mui/material";
 import Profile from "../../shared/card/Profile";
 import healthServices from "../../../../services/health.services";
@@ -41,8 +42,20 @@ import dayjs from "dayjs";
 import { getAllInsurance } from "../../../../actions/insurance";
 import ProductCard from "../../shared/card/ProductCard";
 import { minWidth, width } from "@mui/system";
-import { Feed, FiberManualRecord } from "@mui/icons-material";
+import {
+  Accessible,
+  AirlineSeatFlat,
+  AttachMoney,
+  Feed,
+  FiberManualRecord,
+  LinkOff,
+  NoteAdd,
+  NoteAlt,
+  Paid,
+} from "@mui/icons-material";
 import BowTieCard from "../../shared/card/BowTieCard";
+import NormalCard from "../../shared/card/NormalCard";
+import LongCard from "../../shared/card/LongCard";
 
 const theme = createTheme(Themplates);
 
@@ -217,16 +230,15 @@ const TreatmentHistory = (props) => {
         <div className={`dashboard-page-light`}>
           {userProfile ? (
             <Box>
-              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
-                <Profile
-                  profile={userProfile}
-                  lastHealth={lastHealthCheck}
-                  themes="light"
-                />
-                <Grid container spacing={2} sx={{ mb: "40px" }}>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
+                <Grid container spacing={4} sx={{ mb: 4 }}>
+                  <Grid item md={4} xs={12}>
+                    <LongCard
+                      primaryText={countOPD + " ครั้ง"}
+                      secondaryText="OPD"
+                      icon={`${process.env.PUBLIC_URL}/assets/icons/other/OPD.svg`}
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="triangle"
                       headerPosition="left"
@@ -234,10 +246,15 @@ const TreatmentHistory = (props) => {
                       imageIcon={"OPD.svg"}
                       primaryText={countOPD}
                       secondaryText="ครั้ง"
-                    />
+                    /> */}
                   </Grid>
-                  <Grid item md={6} xs={12}>
-                    <BowTieCard
+                  <Grid item md={4} xs={12}>
+                    <LongCard
+                      icon={`${process.env.PUBLIC_URL}/assets/icons/other/IPD.svg`}
+                      primaryText={countIPD + " ครั้ง"}
+                      secondaryText="IPD"
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="triangle"
                       headerPosition="left"
@@ -245,12 +262,24 @@ const TreatmentHistory = (props) => {
                       imageIcon={"IPD.svg"}
                       primaryText={countIPD}
                       secondaryText="ครั้ง"
+                    /> */}
+                  </Grid>
+                  <Grid item md={4} xs={12}>
+                    <LongCard
+                      icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/surgery.svg`}
+                      primaryText={"1 ครั้ง"}
+                      secondaryText="Dental"
                     />
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ mb: "40px" }}>
                   <Grid item md={3}>
-                    <BowTieCard
+                    <NormalCard
+                      primaryText="84,248 บาท"
+                      secondaryText="ใช้ไป"
+                      icon={Paid}
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="rectangle"
                       headerPosition="left"
@@ -259,10 +288,16 @@ const TreatmentHistory = (props) => {
                       primaryText="84,248"
                       fontSmall
                       secondaryText="บาท"
-                    />
+                    /> */}
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard
+                    <NormalCard
+                      primaryText="150,000 บาท"
+                      secondaryText="เบิกได้"
+                      icon={AttachMoney}
+                      colors="error"
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="rectangle"
                       headerPosition="left"
@@ -271,10 +306,16 @@ const TreatmentHistory = (props) => {
                       primaryText="150,000"
                       fontSmall
                       secondaryText="บาท"
-                    />
+                    /> */}
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard
+                    <NormalCard
+                      primaryText="65,752 บาท"
+                      secondaryText="ส่วนต่าง"
+                      icon={LinkOff}
+                      colors="success"
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="rectangle"
                       headerPosition="left"
@@ -283,10 +324,16 @@ const TreatmentHistory = (props) => {
                       primaryText="65,752"
                       fontSmall
                       secondaryText="บาท"
-                    />
+                    /> */}
                   </Grid>
                   <Grid item md={3}>
-                    <BowTieCard
+                    <NormalCard
+                      primaryText="2 รายการ"
+                      secondaryText="รอดำเนินการ"
+                      icon={NoteAlt}
+                      colors="warning"
+                    />
+                    {/* <BowTieCard
                       themes="light"
                       headerknot="rectangle"
                       headerPosition="left"
@@ -295,7 +342,7 @@ const TreatmentHistory = (props) => {
                       primaryText="2"
                       fontSmall
                       secondaryText="รายการ"
-                    />
+                    /> */}
                   </Grid>
                 </Grid>
                 <PercentCard value={50} text={"คงเหลือ"} themes="light" />

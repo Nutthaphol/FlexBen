@@ -7,7 +7,7 @@ const HealthData = [
     birthDate: dayjs(new Date(1995, 10, 1)),
     healthStatus: {
       family: ["พ่อแม่เป็นความดัน"],
-      myself: ["-"],
+      employee: [],
     },
     exercise: [
       {
@@ -650,7 +650,7 @@ const HealthData = [
     birthDate: dayjs(new Date(1995, 10, 1)),
     healthStatus: {
       family: ["แม่เคยเป็นมะเร็ง "],
-      myself: ["เคยขาหักตอนเด็กๆ", ["แขนหักระหว่างทำงาน"]],
+      employee: ["เคยขาหักตอนเด็กๆ", ["แขนหักระหว่างทำงาน"]],
     },
     exercise: [
       {
@@ -1333,7 +1333,7 @@ const HealthData = [
     birthDate: dayjs(new Date(1995, 10, 1)),
     healthStatus: {
       family: ["พ่อแม่เป็นความดัน"],
-      myself: ["-"],
+      employee: [],
     },
     exercise: [
       {
@@ -1976,7 +1976,7 @@ const HealthData = [
     birthDate: dayjs(new Date(1995, 10, 1)),
     healthStatus: {
       family: ["พ่อแม่เป็นความดัน"],
-      myself: ["-"],
+      employee: [],
     },
     exercise: [
       {
@@ -2619,7 +2619,7 @@ const HealthData = [
     birthDate: dayjs(new Date(1995, 10, 1)),
     healthStatus: {
       family: ["พ่อแม่เป็นความดัน"],
-      myself: ["-"],
+      employee: [],
     },
     exercise: [
       {

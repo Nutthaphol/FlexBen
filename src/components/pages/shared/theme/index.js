@@ -8,11 +8,11 @@ import { alpha } from "@mui/material";
 const Themplates = {
   palette: {
     primary: {
-      lighter: "#0DFEFB",
-      light: "#0BAEE6",
-      main: "#007afc",
-      dark: "#0B3BE6",
-      darker: "#170DFE",
+      lighter: "#A2D8FE",
+      light: "#51ACFC",
+      main: "#007AFC",
+      dark: "#0B55B5",
+      darker: "#103878",
       contrastText: "#fff",
     },
     secondary: {
@@ -74,6 +74,13 @@ const Themplates = {
       500_48: alpha("#919EAB", 0.48),
       500_56: alpha("#919EAB", 0.56),
       500_80: alpha("#919EAB", 0.8),
+    },
+    chart: {
+      violet: ["#826AF9", "#9E86FF", "#D0AEFF", "#F7D2FF"],
+      blue: ["#2D99FF", "#83CFFF", "#A5F3FF", "#CCFAFF"],
+      green: ["#2CD9C5", "#60F1C8", "#A4F7CC", "#C0F2DC"],
+      yellow: ["#FFE700", "#FFEF5A", "#FFF7AE", "#FFF3D6"],
+      red: ["#FF6C40", "#FF8F6D", "#FFBD98", "#FFF2D4"],
     },
   },
   typography: { ...typography },
