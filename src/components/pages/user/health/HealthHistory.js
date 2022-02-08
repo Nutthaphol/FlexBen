@@ -10,7 +10,7 @@ import { makeStyles } from "@mui/styles";
 import { getAllUsers, getUserProfile } from "../../../../actions/user";
 import Profile from "../../shared/card/Profile";
 import CoverPhoto from "../../shared/card/CoverPhoto";
-import { Container, Grid, Link } from "@mui/material";
+import { Container, Grid, Link, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import healthCheckService from "../../../../services/healthCheck.service";
 import healthCheckCategoryService from "../../../../services/healthCheckCategory.service";
@@ -74,18 +74,15 @@ const HealthHistory = () => {
       <ThemeProvider theme={theme}>
         <div className={`dashboard-page-light`}>
           {userProfile ? (
-            <Box sx={{ marginBottom: "2rem" }}>
-              {/* <CoverPhoto image={userProfile.background} /> */}
+            <Box sx={{ mb: 4 }}>
               <Container maxWidth="xl">
-                <Profile
-                  profile={userProfile}
-                  lastHealth={lastHealthCheck}
-                  themes="light"
-                />
-                <Grid container spacing={3}>
+                <Typography variant="h4" sx={{ mb: 4 }}>
+                  Health check category
+                </Typography>
+                <Grid container spacing={4} sx={{ mb: 4 }}>
                   {healthCheckCategory &&
                     healthCheckCategory.map((val, index) => (
-                      <Grid item xs={12} md={6} key={index}>
+                      <Grid item xs={12} sm={6} lg={3} key={index}>
                         <CategoryCard
                           categoryText={val.name}
                           path={`/health/HealthHistory/detail/${val.id}`}

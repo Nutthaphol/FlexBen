@@ -19,6 +19,7 @@ import {
   MenuItem,
   Paper,
   Select,
+  Stack,
   Typography,
 } from "@mui/material";
 import healthCheckService from "../../../../services/healthCheck.service";
@@ -116,6 +117,69 @@ const HealthTesting = (props) => {
       setupData(currentUser.id);
     }
   }, [reload]);
+
+  const HeadComponent = () => {
+    return (
+      <Fragment>
+        <Box>
+          <Typography variant="h6" component="div">
+            {healthCheckCategory && healthCheckCategory.name}
+            <Typography
+              variant="h6"
+              component="span"
+              color="text.secondary"
+              sx={{ marginLeft: "1rem" }}
+            >
+              (<i>{healthCheckCategory && healthCheckCategory.original}</i>)
+            </Typography>
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            color="text.secondary"
+          >
+            วันที่ตรวจ: {dayjs(timeSelect).format("D MMMM YYYY")}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            color="text.secondary"
+          >
+            แพทย์ผู้ตรวจวินิจฉัย: {healthSelect && healthSelect.doctor}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            color="text.secondary"
+          >
+            ผลวินิจฉัย: {healthSelect && healthSelect.resultText}
+          </Typography>
+        </Box>
+        <Box>
+          <FormControl sx={{ width: "240px" }}>
+            <InputLabel size="small" id="select-time-health-check">
+              เลือกเวลาในการตรวจ
+            </InputLabel>
+            <Select
+              size="small"
+              labelId="select-time-health-check"
+              id="select-time-health-check-id"
+              label="เลือกเวลาในการตรวจ"
+              value={timeSelect}
+              onChange={(e) => setTimeSelect(e.target.value)}
+            >
+              {listTime &&
+                listTime.map((val, index) => (
+                  <MenuItem value={val} key={index}>
+                    {dayjs(val).format("DD-MM-YYYY")}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
+        </Box>
+      </Fragment>
+    );
+  };
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -124,86 +188,44 @@ const HealthTesting = (props) => {
             <Box sx={{ marginBottom: "2rem" }}>
               {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
-                <Profile
-                  profile={userProfile}
-                  lastHealth={lastHealthCheck}
-                  themes="light"
-                />
-                <Paper className={classes.cardW}>
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
+                <Box
+                  sx={{
+                    [theme.breakpoints.down("md")]: {
+                      display: "none",
+                    },
+                  }}
+                >
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    spacing={4}
                   >
-                    <Box>
-                      <Typography variant="h6" component="div">
-                        {healthCheckCategory && healthCheckCategory.name}
-                        <Typography
-                          variant="h6"
-                          component="span"
-                          color="text.secondary"
-                          sx={{ marginLeft: "1rem" }}
-                        >
-                          (
-                          <i>
-                            {healthCheckCategory &&
-                              healthCheckCategory.original}
-                          </i>
-                          )
-                        </Typography>
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        วันที่ตรวจ: {dayjs(timeSelect).format("D MMMM YYYY")}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        แพทย์ผู้ตรวจวินิจฉัย:{" "}
-                        {healthSelect && healthSelect.doctor}
-                      </Typography>
-                      <Typography
-                        variant="subtitle1"
-                        component="div"
-                        color="text.secondary"
-                      >
-                        ผลวินิจฉัย: {healthSelect && healthSelect.resultText}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <FormControl sx={{ width: "240px" }}>
-                        <InputLabel size="small" id="select-time-health-check">
-                          เลือกเวลาในการตรวจ
-                        </InputLabel>
-                        <Select
-                          size="small"
-                          labelId="select-time-health-check"
-                          id="select-time-health-check-id"
-                          label="เลือกเวลาในการตรวจ"
-                          value={timeSelect}
-                          onChange={(e) => setTimeSelect(e.target.value)}
-                        >
-                          {listTime &&
-                            listTime.map((val, index) => (
-                              <MenuItem value={val} key={index}>
-                                {dayjs(val).format("DD-MM-YYYY")}
-                              </MenuItem>
-                            ))}
-                        </Select>
-                      </FormControl>
-                    </Box>
-                  </Box>
-                  <Grid container spacing={2} sx={{ marginTop: "40px" }}>
+                    <HeadComponent />
+                  </Stack>
+                </Box>
+                <Box
+                  sx={{
+                    [theme.breakpoints.up("md")]: {
+                      display: "none",
+                    },
+                  }}
+                >
+                  <Stack
+                    direction="column"
+                    justifyContent="space-between"
+                    spacing={4}
+                  >
+                    <HeadComponent />
+                  </Stack>
+                </Box>
+                <Paper
+                  sx={{ pr: 2, pl: 2, pt: 4, pb: 4, mb: 4, mt: 4 }}
+                  elevation={1}
+                >
+                  <Grid container spacing={4} sx={{}}>
                     {healthSelect &&
                       healthSelect.result.map((val, index) => (
-                        <Grid item lg={3} key={index}>
+                        <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
                           <CardHealthCheckDetail data={val} />
                         </Grid>
                       ))}

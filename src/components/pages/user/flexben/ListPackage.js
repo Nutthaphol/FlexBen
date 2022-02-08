@@ -64,33 +64,8 @@ const ListPackage = () => {
               normalText="The"
               hightlightText="Package"
             />
-            {/* <Paper
-              className={classes.root}
-              sx={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <Typography variant="h4" className={classes.sectionText}>
-                Packages Shop
-              </Typography>
-              <Autocomplete
-                disablePortal
-                size="small"
-                onChange={(event, newValue) => {
-                  setSearch(newValue);
-                }}
-                onInputChange={(event, newInputValue) => {
-                  setInputAC(newInputValue);
-                }}
-                id="packages-search"
-                options={labelAutocomp()}
-                sx={{ width: 300 }}
-                renderInput={(params) => (
-                  <TextField size="small" {...params} label="Packages" />
-                )}
-              />
-            </Paper>
-            <br /> */}
             <br />
-            <Grid container spacing={3}>
+            <Grid container spacing={4}>
               {allPackages &&
                 allPackages
                   .filter((item) => {

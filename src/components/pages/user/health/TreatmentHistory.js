@@ -28,6 +28,8 @@ import {
   AvatarGroup,
   useMediaQuery,
   Icon,
+  Stack,
+  Link,
 } from "@mui/material";
 import Profile from "../../shared/card/Profile";
 import healthServices from "../../../../services/health.services";
@@ -56,6 +58,7 @@ import {
 import BowTieCard from "../../shared/card/BowTieCard";
 import NormalCard from "../../shared/card/NormalCard";
 import LongCard from "../../shared/card/LongCard";
+import { Link as RouterLink } from "react-router-dom";
 
 const theme = createTheme(Themplates);
 
@@ -82,7 +85,178 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     flexFlow: "row wrap",
   },
+  backgroundPpaer: {
+    padding: "24px",
+    position: "relative",
+    display: "block",
+  },
 }));
+
+const LABEL_TOTAL = {
+  show: true,
+  label: "Total",
+  color: theme.palette.grey[900],
+  ...theme.typography.subtitle1,
+};
+
+const LABEL_VALUE = {
+  offsetY: 8,
+  color: theme.palette.grey[600],
+  ...theme.typography.h2,
+};
+
+const defaultOption = {
+  series: [],
+  options: {
+    chart: {
+      height: 350,
+      fontFamily: theme.typography.fontFamily,
+      foreColor: theme.palette.grey[800],
+      toolbar: { show: false },
+      zoom: { enabled: false },
+      type: "donut",
+    },
+    colors: [
+      theme.palette.primary.main,
+      theme.palette.chart.yellow[0],
+      theme.palette.chart.red[0],
+      theme.palette.chart.green[0],
+      theme.palette.chart.violet[0],
+      theme.palette.chart.blue[0],
+    ],
+    states: {
+      hover: {
+        filter: {
+          type: "lighten",
+          value: 0.04,
+        },
+      },
+      active: {
+        filter: {
+          type: "darken",
+          value: 0.88,
+        },
+      },
+    },
+    markers: {
+      size: 0,
+      strokeColors: theme.palette.background.paper,
+    },
+    xaxis: {
+      type: "datetime",
+      tickAmount: 10,
+    },
+    fill: {
+      opacity: 1,
+      gradient: {
+        type: "vertical",
+        shadeIntensity: 0,
+        opacityFrom: 0.4,
+        opacityTo: 0,
+        stops: [0, 100],
+      },
+    },
+    dataLabels: { enabled: false },
+    grid: {
+      show: true,
+      strokeDashArray: 3,
+      borderColor: theme.palette.grey[600],
+    },
+    yaxis: {},
+    xaxis: {
+      axisBorder: { show: false },
+      axisTicks: { show: false },
+    },
+
+    stroke: {
+      width: 3,
+      curve: "smooth",
+      lineCap: "round",
+    },
+
+    legend: {
+      show: true,
+      fontSize: 13,
+      position: "top",
+      horizontalAlign: "right",
+      markers: {
+        radius: 12,
+      },
+      fontWeight: 600,
+      itemMargin: { horizontal: 12 },
+      labels: {
+        colors: theme.palette.grey[900],
+      },
+    },
+    // plotOptions
+    plotOptions: {
+      // Bar
+      bar: {
+        columnWidth: "50%",
+        borderRadius: 4,
+        rangeBarOverlap: false,
+        colors: {
+          backgroundBarOpacity: 0.5,
+        },
+      },
+      // Pie + Donut
+      pie: {
+        donut: {
+          size: "90%",
+          labels: {
+            show: true,
+            value: LABEL_VALUE,
+            total: LABEL_TOTAL,
+          },
+        },
+      },
+      // Radialbar
+      radialBar: {
+        track: {
+          strokeWidth: "100%",
+          background: theme.palette.grey[500_16],
+        },
+        dataLabels: {
+          value: LABEL_VALUE,
+          total: LABEL_TOTAL,
+        },
+      },
+      // Radar
+      radar: {
+        polygons: {
+          fill: { colors: ["transparent"] },
+          strokeColors: theme.palette.divider,
+          connectorColors: theme.palette.divider,
+        },
+      },
+      // polarArea
+      polarArea: {
+        rings: {
+          strokeColor: theme.palette.divider,
+        },
+        spokes: {
+          connectorColors: theme.palette.divider,
+        },
+      },
+    },
+    responsive: [
+      {
+        // sm
+        breakpoint: theme.breakpoints.values.sm,
+        options: {
+          plotOptions: { bar: { columnWidth: "40%" } },
+        },
+      },
+      {
+        // md
+        breakpoint: theme.breakpoints.values.md,
+        options: {
+          plotOptions: { bar: { columnWidth: "32%" } },
+        },
+      },
+    ],
+  },
+};
 
 const TreatmentHistory = (props) => {
   const classes = useStyles();
@@ -174,7 +348,6 @@ const TreatmentHistory = (props) => {
   };
 
   const calStateDonutCard = (call) => {
-    let options;
     let series;
 
     const baseCategory =
@@ -185,22 +358,44 @@ const TreatmentHistory = (props) => {
       }, []);
 
     if (healthHistory && call == "options") {
+      let option = { ...defaultOption.options };
       const listCategory = baseCategory.reduce((prev, curr) => {
         prev.push(
           categories ? categories.find((item) => item.id == curr).name : ""
         );
         return prev;
       }, []);
-      options = {
-        chart: {
-          type: "donut",
-          // foreColor: "rgba(255, 255, 255, 0.7)",
-          background: "transparant",
-          toolbar: { show: false },
-        },
-        labels: listCategory,
+      option.chart.type = "donut";
+      option.labels = listCategory;
+      option.stroke = {
+        ...{ show: true, width: 0, curve: "smooth", lineCap: "round" },
       };
-      return options;
+      option.legend = {
+        ...{
+          show: true,
+          fontSize: 13,
+          position: "top",
+          horizontalAlign: "center",
+          markers: {
+            radius: 12,
+          },
+          fontWeight: 600,
+          itemMargin: { horizontal: 12 },
+          labels: {
+            colors: theme.palette.grey[900],
+          },
+        },
+      };
+      // options = {
+      //   chart: {
+      //     type: "donut",
+      //     // foreColor: "rgba(255, 255, 255, 0.7)",
+      //     background: "transparant",
+      //     toolbar: { show: false },
+      //   },
+      //   labels: listCategory,
+      // };
+      return option;
     }
     if (healthHistory && call == "series") {
       series = baseCategory.reduce((prev, curr) => {
@@ -273,7 +468,7 @@ const TreatmentHistory = (props) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={2} sx={{ mb: "40px" }}>
-                  <Grid item md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
                       primaryText="84,248 บาท"
                       secondaryText="ใช้ไป"
@@ -290,7 +485,7 @@ const TreatmentHistory = (props) => {
                       secondaryText="บาท"
                     /> */}
                   </Grid>
-                  <Grid item md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
                       primaryText="150,000 บาท"
                       secondaryText="เบิกได้"
@@ -308,7 +503,7 @@ const TreatmentHistory = (props) => {
                       secondaryText="บาท"
                     /> */}
                   </Grid>
-                  <Grid item md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
                       primaryText="65,752 บาท"
                       secondaryText="ส่วนต่าง"
@@ -326,7 +521,7 @@ const TreatmentHistory = (props) => {
                       secondaryText="บาท"
                     /> */}
                   </Grid>
-                  <Grid item md={3}>
+                  <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
                       primaryText="2 รายการ"
                       secondaryText="รอดำเนินการ"
@@ -345,21 +540,27 @@ const TreatmentHistory = (props) => {
                     /> */}
                   </Grid>
                 </Grid>
-                <PercentCard value={50} text={"คงเหลือ"} themes="light" />
-                <Paper className={classes.cardW}>
-                  <Typography variant="h6" component="div">
+                <PercentCard
+                  label={"$84,248"}
+                  percent={56.17}
+                  section={"คงเหลือ"}
+                  themes="light"
+                />
+                <Paper className={classes.backgroundPpaer} sx={{ mb: 4 }}>
+                  <Typography variant="h4" component="div" sx={{ mb: 4 }}>
                     รายงานการรักษาล่าสุด
                   </Typography>
-                  <Box className={classes.maxCard}>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ overflow: "scroll" }}
+                  >
                     {healthHistory &&
                       healthHistory.slice(0, 4).map((val, index) => (
-                        <Box
-                          sx={{ margin: "8px", flexGrow: 1, flexBasis: 1 }}
-                          key={index}
-                        >
+                        <Box sx={{ flexGrow: 1, flexBasis: 1 }} key={index}>
                           <TreatmentCard
                             themes="light"
-                            headerknotText={
+                            secondayText={
                               categories &&
                               categories
                                 .find((item) => item.id == val.category)
@@ -373,12 +574,15 @@ const TreatmentHistory = (props) => {
                                 : "red"
                             }
                             icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
+                            // icon={AttachMoney}
+                            // iconColor="primary"
                             primaryText={val.section}
-                            date={dayjs(val.date)}
+                            bottomLife={dayjs(val.date)}
                           />
                         </Box>
                       ))}
-                  </Box>
+                  </Stack>
+
                   <Box
                     sx={{
                       width: "100%",
@@ -386,15 +590,27 @@ const TreatmentHistory = (props) => {
                       flexDirection: "row-reverse",
                     }}
                   >
-                    <Button href={`/health/TreatmentHistory/detail`}>
-                      View more
-                    </Button>
+                    <Link
+                      to="/health/TreatmentHistory/detail"
+                      color="inherit"
+                      underline="hover"
+                      component={RouterLink}
+                      sx={{ mt: 1 }}
+                    >
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        color="text.secondary"
+                      >
+                        See more
+                      </Typography>
+                    </Link>
                   </Box>
                 </Paper>
-                <Grid container spacing={2}>
-                  <Grid item lg={5}>
-                    <Paper className={classes.cardW} sx={{ height: "450px" }}>
-                      <Typography variant="h6" component="div">
+                <Grid container spacing={4} sx={{ mb: 4 }}>
+                  <Grid item lg={5} xs={12} sm={6}>
+                    <Paper sx={{ p: 2 }}>
+                      <Typography variant="h4" component="div" sx={{ mb: 4 }}>
                         สถิติการรักษา
                       </Typography>
                       {healthHistory && (
@@ -407,111 +623,113 @@ const TreatmentHistory = (props) => {
                       )}
                     </Paper>
                   </Grid>
-                  <Grid item lg={7}>
-                    <Paper
-                      className={classes.cardW}
-                      sx={{
-                        height: "450px",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Typography variant="h6" component="div">
+                  <Grid item lg={7} xs={12} sm={6}>
+                    <Paper sx={{ p: 2 }}>
+                      <Typography variant="h4" component="div" sx={{ mb: 4 }}>
                         รายการแจ้งเตือน
                       </Typography>
-                      {notification && allUser && (
-                        <List sx={{ overflow: "scroll" }}>
-                          {notification.map((val, index) => (
-                            <Fragment key={index}>
-                              <ListItemButton
-                                alignItems="flex-start"
-                                onClick={() => handleOncCickNoti(val)}
-                              >
-                                <ListItemAvatar>
-                                  <Avatar
-                                    src={`${
-                                      process.env.REACT_APP_URL
-                                    }image/profile/${
+                      <Box sx={{ maxHeight: "360px", overflow: "scroll" }}>
+                        {notification && allUser && (
+                          <List sx={{ overflow: "scroll" }}>
+                            {notification.map((val, index) => (
+                              <Fragment key={index}>
+                                <ListItemButton
+                                  alignItems="flex-start"
+                                  onClick={() => handleOncCickNoti(val)}
+                                >
+                                  <ListItemAvatar>
+                                    <Avatar
+                                      src={`${
+                                        process.env.REACT_APP_URL
+                                      }image/profile/${
+                                        allUser.find(
+                                          (item) => item.id == val.sender
+                                        ).image
+                                          ? allUser.find(
+                                              (item) => item.id == val.sender
+                                            ).image
+                                          : ""
+                                      }`}
+                                    />
+                                    {console.log(
+                                      "image",
                                       allUser.find(
                                         (item) => item.id == val.sender
                                       ).image
-                                        ? allUser.find(
-                                            (item) => item.id == val.sender
-                                          ).image
-                                        : ""
-                                    }`}
-                                  />
-                                  {console.log(
-                                    "image",
-                                    allUser.find(
-                                      (item) => item.id == val.sender
-                                    ).image
-                                  )}
-                                </ListItemAvatar>
-                                <ListItemText
-                                  primary={
-                                    <Box
-                                      sx={{ display: "flex", width: "100%" }}
-                                    >
-                                      <Box sx={{ width: "100%" }}>
-                                        <Typography variant="body2">
-                                          {allUser
-                                            .filter(
-                                              (item) => item.id == val.sender
-                                            )
-                                            .slice(0, 1)
-                                            .map((e) => {
-                                              return `${
-                                                e.firstname + " " + e.lastname
-                                              }`;
-                                            })}
-                                        </Typography>
-                                      </Box>
+                                    )}
+                                  </ListItemAvatar>
+                                  <ListItemText
+                                    primary={
                                       <Box
-                                        sx={{
-                                          display: "flex",
-                                          justifyContent: "flex-end",
-                                        }}
+                                        sx={{ display: "flex", width: "100%" }}
                                       >
-                                        <Typography
-                                          variant="body2"
-                                          color="text.secondary"
+                                        <Box sx={{ width: "100%" }}>
+                                          <Typography variant="body2">
+                                            {allUser
+                                              .filter(
+                                                (item) => item.id == val.sender
+                                              )
+                                              .slice(0, 1)
+                                              .map((e) => {
+                                                return `${
+                                                  e.firstname + " " + e.lastname
+                                                }`;
+                                              })}
+                                          </Typography>
+                                        </Box>
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                          }}
                                         >
-                                          {dayjs(val.date).format("DD/MM/YYYY")}
-                                        </Typography>
+                                          <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                          >
+                                            {dayjs(val.date).format(
+                                              "DD/MM/YYYY"
+                                            )}
+                                          </Typography>
+                                        </Box>
                                       </Box>
-                                    </Box>
-                                  }
-                                  secondary={
-                                    <Typography
-                                      variant="body2"
-                                      color="text.secondary"
-                                    >
-                                      {val.section}
-                                    </Typography>
-                                  }
+                                    }
+                                    secondary={
+                                      <Typography
+                                        variant="body2"
+                                        color="text.secondary"
+                                      >
+                                        {val.section}
+                                      </Typography>
+                                    }
+                                  />
+                                </ListItemButton>
+                                <Divider
+                                  sx={{
+                                    backgroundColor:
+                                      "rgba(255, 255, 255, 0.12)",
+                                  }}
                                 />
-                              </ListItemButton>
-                              <Divider
-                                sx={{
-                                  backgroundColor: "rgba(255, 255, 255, 0.12)",
-                                }}
-                              />
-                            </Fragment>
-                          ))}
-                        </List>
-                      )}
+                              </Fragment>
+                            ))}
+                          </List>
+                        )}
+                      </Box>
                     </Paper>
                   </Grid>
                 </Grid>
-                <Paper className={classes.cardW}>
-                  <Typography variant="h6" component="div" gutterBottom>
+                <Paper className={classes.backgroundPpaer} sx={{ mb: 4 }}>
+                  <Typography variant="h4" component="div" sx={{ mb: 4 }}>
                     ประกันน่าซื้อเพิ่ม
                   </Typography>
-                  <Grid container spacing={3}>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ overflow: "scroll" }}
+                  >
                     {insurance &&
                       insurance.slice(0, 4).map((val, index) => (
-                        <Grid item key={index} lg={3} xs={12}>
+                        <Box sx={{ p: 1 }} key={index + val.id}>
                           <ProductCard
                             path="detailInsurance"
                             image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
@@ -522,11 +740,27 @@ const TreatmentHistory = (props) => {
                             count={val.count}
                             type={val.type}
                           />
-                        </Grid>
+                        </Box>
                       ))}
-                  </Grid>
+                  </Stack>
+
                   <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button>View more</Button>
+                    {/* <Button>View more</Button> */}
+                    <Link
+                      to=""
+                      color="inherit"
+                      underline="hover"
+                      component={RouterLink}
+                      sx={{ mt: 1 }}
+                    >
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        color="text.secondary"
+                      >
+                        See more
+                      </Typography>
+                    </Link>
                   </Box>
                 </Paper>
               </Container>

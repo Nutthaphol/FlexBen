@@ -12,11 +12,19 @@ import {
   Icon,
   IconButton,
   Paper,
+  Stack,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { Analytics, BarChart, Circle, Timeline } from "@mui/icons-material";
+import {
+  Analytics,
+  BarChart,
+  BarChartOutlined,
+  Circle,
+  Timeline,
+} from "@mui/icons-material";
 import ReactApexChart from "react-apexcharts";
+import { defaultOption } from "../theme/templateChart";
 
 const theme = createTheme(Themplates);
 
@@ -39,15 +47,18 @@ const CardHealthCheckDetail = (props) => {
 
   const { data } = props;
 
-  const opsions = {
-    chart: {
-      type: "area",
-      toolbar: { show: false },
-    },
-    xaxis: {
-      categories: [2018, 2019, 2020, 2021, 2022],
-    },
-  };
+  let options = { ...defaultOption.options };
+  options.chart.type = "area";
+  options.xaxis.categories = [2018, 2019, 2020, 2021, 2022];
+  // const opsions = {
+  //   chart: {
+  //     type: "area",
+  //     toolbar: { show: false },
+  //   },
+  //   xaxis: {
+  //     categories: [2018, 2019, 2020, 2021, 2022],
+  //   },
+  // };
 
   const series = [
     {
@@ -67,15 +78,19 @@ const CardHealthCheckDetail = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={classes.root}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-              alignItems: "flex-start",
-              flexGrow: 0.5,
-            }}
+        <Paper
+          elevation={0}
+          sx={{
+            p: 2,
+            border: "1px solid rgba(145, 158, 171, 0.24)",
+            borderRadius: "8px",
+            position: "relative",
+          }}
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
           >
             <Typography
               variant="subtitle1"
@@ -86,16 +101,14 @@ const CardHealthCheckDetail = (props) => {
             </Typography>
             <IconButton
               sx={{
-                borderRadius: "4px",
-                boxShadow: "rgb(3 0 71 / 20%) 0px 1px 4px",
-                color: "CornflowerBlue",
+                color: "secondary.light",
                 padding: 0,
               }}
               onClick={() => handleOnClickOpen()}
             >
-              <BarChart fontSize="large" />
+              <BarChartOutlined fontSize="large" />
             </IconButton>
-          </Box>
+          </Stack>
           <Box sx={{ textAlign: "center", flexGrow: 1.5 }}>
             <Icon
               sx={{
@@ -175,7 +188,7 @@ const CardHealthCheckDetail = (props) => {
           maxWidth="sm"
         >
           <DialogContent>
-            <ReactApexChart options={opsions} series={series} type="area" />
+            <ReactApexChart options={options} series={series} type="area" />
           </DialogContent>
         </Dialog>
       </ThemeProvider>

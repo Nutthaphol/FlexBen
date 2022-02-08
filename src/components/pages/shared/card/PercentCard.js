@@ -7,7 +7,7 @@ import {
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import Themplates from "../theme";
-import { Paper, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import LinearProgress, {
   linearProgressClasses,
@@ -48,44 +48,34 @@ const useStyles = makeStyles(() => ({
 
 const PercentCard = (props) => {
   const classes = useStyles();
-  const { value, text, themes } = props;
+  const { percent, section, themes, label } = props;
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={themes == "light" ? classes.rootW : classes.root}>
-          <Box sx={{ mb: "20px" }}>
-            <Typography variant="h6" component="div">
-              {text}
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+        <Paper sx={{ p: "24px", mb: 4 }}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            sx={{ mb: 2 }}
           >
-            <Box sx={{ width: "100%", displaty: "flext" }}>
-              <LinearProgress
-                variant="determinate"
-                value={value}
-                className={classes.progress}
-                sx={{
-                  [`& .${linearProgressClasses.bar}`]: {
-                    borderRadius: 5,
-                  },
-                }}
-              />
-            </Box>
-            <Typography
-              variant="body1"
-              component="div"
-              noWrap
-              sx={{ minWidth: "50px", ml: "20px" }}
-            >
-              {value} %
-            </Typography>
-          </Box>
+            <Typography variant="h4">{section}</Typography>
+            <Stack direction="row" spacing={2}>
+              <Typography variant="h4">{label}</Typography>
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: 400 }}
+                color="text.secondary"
+              >
+                ({percent}%)
+              </Typography>
+            </Stack>
+          </Stack>
+          <LinearProgress
+            value={percent}
+            variant="determinate"
+            sx={{ height: 8 }}
+          />
         </Paper>
       </ThemeProvider>
     </StyledEngineProvider>

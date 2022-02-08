@@ -99,75 +99,20 @@ const ShopingMall = () => {
               normalText="Shopping"
               hightlightText="Mall"
             />
-            <Grid container spacing={5} justifyContent="center">
-              {/* <Grid item xl={12} lg={12}>
-                <Paper className={classes.head}>
-                  <Typography variant="h4" className={classes.sectionText}>
-                    Shopping Mall
-                  </Typography>
-                  <Box sx={{ flexGrow: 1 }} />
-                  <TextField
-                    label="Search"
-                    size="small"
-                    onChange={(e) => {
-                      setSearch(e.target.value);
-                    }}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Icon>
-                            <Search />
-                          </Icon>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Paper>
-              </Grid> */}
+            <Grid container spacing={4} justifyContent="center">
               {shopCategory && (
-                <Grid item xl={2} lg={3}>
+                <Grid item xl={2} lg={3} xs={12}>
                   <StoreFilter
                     mainData={shopCategory}
                     handleToggle={handleToggle}
                     checked={checked}
                     title="Category"
                   />
-
-                  {/* <Paper className={classes.filter}>
-                    <Typography variant="h6" component="span" gutterBottom>
-                      Category
-                    </Typography>
-                    <List
-                      dense
-                      sx={{
-                        width: "100%",
-                      }}
-                    >
-                      {shopCategory &&
-                        shopCategory.map((val, index) => (
-                          <ListItem
-                            key={index}
-                            secondaryAction={
-                              <Checkbox
-                                edge="end"
-                                onChange={handleToggle(val.id)}
-                                checked={checked.indexOf(val.id) !== -1}
-                                inputProps={{ "aria-labelledby": index }}
-                              />
-                            }
-                            disablePadding
-                          >
-                            <ListItemText id={index} primary={`${val.name}`} />
-                          </ListItem>
-                        ))}
-                    </List>
-                  </Paper> */}
                 </Grid>
               )}
-              <Grid item xl={10} lg={9}>
+              <Grid item xl={10} lg={9} xs={12}>
                 {item && (
-                  // <Paper className={classes.main}>
-                  <Grid container spacing={3}>
+                  <Grid container spacing={4}>
                     {item
                       .filter(
                         (val) => val.name.toLowerCase().search(search) != -1
@@ -180,13 +125,7 @@ const ShopingMall = () => {
                         }
                       })
                       .map((val, index) => (
-                        <Grid
-                          item
-                          xl={3}
-                          lg={4}
-                          // sx={{ position: "relative" }}
-                          key={index}
-                        >
+                        <Grid item xl={3} md={4} sm={6} xs={12} key={index}>
                           <Box
                             sx={{
                               width: "100%",
@@ -208,7 +147,6 @@ const ShopingMall = () => {
                         </Grid>
                       ))}
                   </Grid>
-                  // </Paper>
                 )}
               </Grid>
             </Grid>

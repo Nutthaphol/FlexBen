@@ -39,7 +39,7 @@ const StoreFilter = ({ handleToggle, checked, mainData, title }) => {
           <List
             dense
             sx={{
-              width: "100%",
+              width: 1,
             }}
           >
             {mainData &&

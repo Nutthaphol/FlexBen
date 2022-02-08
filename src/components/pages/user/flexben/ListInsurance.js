@@ -106,70 +106,18 @@ const ListInsurance = () => {
               normalText="The"
               hightlightText="Insurance"
             />
-            <Grid container spacing={5} justifyContent="center">
-              {/* <Grid item xl={12} lg={12} sx={{ marginButtom: 20 }}>
-                <Paper className={classes.head}>
-                  <Typography variant="h4" className={classes.sectionText}>
-                    Insurance Shop
-                  </Typography>
-                  <Autocomplete
-                    disablePortal
-                    size="small"
-                    onChange={(event, newValue) => {
-                      setSearch(newValue);
-                    }}
-                    onInputChange={(event, newInputValue) => {
-                      setInputAC(newInputValue);
-                    }}
-                    id="packages-search"
-                    options={labelAutocomp()}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => (
-                      <TextField size="small" {...params} label="Packages" />
-                    )}
-                  />
-                </Paper>
-              </Grid> */}
+            <Grid container spacing={4}>
               {insuranceCategory && (
-                <Grid item xl={2} lg={3}>
+                <Grid item xl={2} lg={3} xs={12}>
                   <StoreFilter
                     handleToggle={handleToggle}
                     checked={checked}
                     mainData={insuranceCategory}
                     title="Category"
                   />
-                  {/* <Paper className={classes.filter}>
-                    <Typography variant="h6" component="span" gutterBottom>
-                      Category
-                    </Typography>
-                    <List
-                      dense
-                      sx={{
-                        width: "100%",
-                      }}
-                    >
-                      {insuranceCategory &&
-                        insuranceCategory.map((val, index) => (
-                          <ListItem
-                            key={index}
-                            secondaryAction={
-                              <Checkbox
-                                edge="end"
-                                onChange={handleToggle(val.id)}
-                                checked={checked.indexOf(val.id) !== -1}
-                                inputProps={{ "aria-labelledby": index }}
-                              />
-                            }
-                            disablePadding
-                          >
-                            <ListItemText id={index} primary={`${val.name}`} />
-                          </ListItem>
-                        ))}
-                    </List>
-                  </Paper> */}
                 </Grid>
               )}
-              <Grid item xl={10} lg={9}>
+              <Grid item xs={10} lg={9} xs={12}>
                 <Grid container spacing={3}>
                   {allInsurance &&
                     allInsurance
@@ -187,15 +135,7 @@ const ListInsurance = () => {
                         }
                       })
                       .map((val, index) => (
-                        <Grid
-                          item
-                          key={index}
-                          xl={3}
-                          lg={4}
-                          md={4}
-                          sm={6}
-                          xs={12}
-                        >
+                        <Grid item key={index} xl={3} md={4} sm={6} xs={12}>
                           <Box className={classes.boxMap}>
                             <ProductCard
                               path="detailInsurance"

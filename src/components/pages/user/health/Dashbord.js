@@ -980,6 +980,7 @@ const Dashbord = () => {
                                           )}`,
                                           maxWidth: 160,
                                         }}
+                                        noWrap
                                       >
                                         {`${val.department}`}
                                       </Typography>

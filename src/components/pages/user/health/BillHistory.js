@@ -18,6 +18,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Tooltip,
@@ -43,7 +44,10 @@ const useStyles = makeStyles(() => ({
     fontSize: "16px",
     fontWeight: "550",
     color: "DarkSlateGray",
-    borderBottom: "none",
+    // borderBottom: "none",
+    // borderRadius: "50%",
+    padding: 0,
+    margin: 0,
   },
   paperTableRow: {
     margin: 10,
@@ -122,149 +126,161 @@ const BillHistory = () => {
             {/* <Button variant="contained" sx={{ textTransform: "none" }}>
               Add Bill
             </Button> */}
-
-            <Table
-              sx={{
-                borderCollapse: "separate",
-                borderSpacing: "0px 10px !important",
-              }}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.tableHeaderText}>
-                    วันที่
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ขื่อรายการ
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ประเภท
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    จำนวนเงิน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    หลักฐาน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    status
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {billHstory &&
-                  billHstory.map((val, index) => (
-                    <TableRow key={index} className={classes.paperTableRow}>
-                      <TableCell
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopLeftRadius: "4px",
-                          borderBottomLeftRadius: "4px",
-                          fontWeight: "600",
-                          color: "DarkSlateGray",
-                        }}
+            <Paper sx={{ p: 2 }}>
+              <Table
+                sx={{
+                  borderCollapse: "separate",
+                  borderSpacing: "0px 10px !important",
+                }}
+              >
+                <TableHead>
+                  <TableRow sx={{ bgcolor: "grey.300" }}>
+                    <TableCell
+                      sx={{
+                        borderTopLeftRadius: "16px",
+                        borderBottomLeftRadius: "16px",
+                      }}
+                    >
+                      วันที่
+                    </TableCell>
+                    <TableCell align="center">ขื่อรายการ</TableCell>
+                    <TableCell align="center">ประเภท</TableCell>
+                    <TableCell align="center">จำนวนเงิน</TableCell>
+                    <TableCell align="center">หลักฐาน</TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        borderTopRightRadius: "16px",
+                        borderBottomRightRadius: "16px",
+                      }}
+                    >
+                      status
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {billHstory &&
+                    billHstory.map((val, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{ bgcolor: index % 2 == 0 ? "none" : "grey.100" }}
                       >
-                        {dayjs(val.date).format("DD / MM / YYYY")}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          fontWeight: "550",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        {val.billname}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Box
+                        <TableCell
                           sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
+                            borderTopLeftRadius: "16px",
+                            borderBottomLeftRadius: "16px",
+                            fontWeight: "600",
+                            color: "DarkSlateGray",
                           }}
                         >
-                          <Typography
+                          {dayjs(val.date).format("DD / MM / YYYY")}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            fontWeight: "550",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          {val.billname}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Box
                             sx={{
-                              width: "60px",
-                              padding: "4px",
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                padding: "0 8px",
+                                bgcolor:
+                                  val.category == "1"
+                                    ? "info.light"
+                                    : val.category == "2"
+                                    ? "warning.light"
+                                    : "error.light",
+                                color:
+                                  val.category == "1"
+                                    ? "info.darker"
+                                    : val.category == "2"
+                                    ? "warning.darker"
+                                    : "error.darker",
+                                borderRadius: "4px",
+                                fontWeight: "700",
+                              }}
+                              variant="subtitle2"
+                            >
+                              {treatmentCategory &&
+                                treatmentCategory.find(
+                                  (item) => item.id == val.category
+                                ).name}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{ fontWeight: "550", color: "DarkSlateGray" }}
+                        >
+                          $ {val.finalExpenses}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Tooltip title="Click to display">
+                            <IconButton
+                              color="info"
+                              onClick={(e) => {
+                                handleDisplayImage(e, val.id);
+                              }}
+                            >
+                              <Visibility />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          sx={{
+                            borderTopRightRadius: "16px",
+                            borderBottomRightRadius: "16px",
+                          }}
+                        >
+                          <Chip
+                            // sx={{ width: "120px" }}
+                            label={
+                              val.status == -1
+                                ? "รอดำเนินการ"
+                                : val.status == 1
+                                ? "ดำเนินการสำเร็จ"
+                                : val.status == 0
+                                ? "ถูกปฏิเสธ"
+                                : "ผิดพลาด"
+                            }
+                            sx={{
                               bgcolor:
-                                val.category == "1"
-                                  ? "LightSkyBlue"
-                                  : val.category == "2"
-                                  ? "khaki"
-                                  : "LightSalmon",
+                                val.status == -1
+                                  ? "warning.light"
+                                  : val.status == 1
+                                  ? "success.light"
+                                  : val.status == 0
+                                  ? "error.light"
+                                  : "secondary.light",
+                              fontWeight: 600,
                               color:
-                                val.category == "1"
-                                  ? "RoyalBlue"
-                                  : val.category == "2"
-                                  ? "OrangeRed"
-                                  : "FireBrick",
-                              borderRadius: "4px",
-                              fontWeight: "700",
+                                val.status == -1
+                                  ? "warning.darker"
+                                  : val.status == 1
+                                  ? "success.darker"
+                                  : val.status == 0
+                                  ? "error.darker"
+                                  : "secondary.darker",
                             }}
-                            variant="subtitle2"
-                          >
-                            {treatmentCategory &&
-                              treatmentCategory.find(
-                                (item) => item.id == val.category
-                              ).name}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{ fontWeight: "550", color: "DarkSlateGray" }}
-                      >
-                        $ {val.finalExpenses}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Tooltip title="Click to display">
-                          <IconButton
-                            color="info"
-                            onClick={(e) => {
-                              handleDisplayImage(e, val.id);
-                            }}
-                          >
-                            <Visibility />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopRightRadius: "4px",
-                          borderBottomRightRadius: "4px",
-                        }}
-                      >
-                        <Chip
-                          sx={{ width: "120px" }}
-                          label={
-                            val.status == -1
-                              ? "รอดำเนินการ"
-                              : val.status == 1
-                              ? "ดำเนินการสำเร็จ"
-                              : val.status == 0
-                              ? "ถูกปฏิเสธ"
-                              : "ผิดพลาด"
-                          }
-                          color={
-                            val.status == -1
-                              ? "warning"
-                              : val.status == 1
-                              ? "success"
-                              : val.status == 0
-                              ? "error"
-                              : "secondary"
-                          }
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </Paper>
           </Container>
           <Dialog
             open={displayImage.open}

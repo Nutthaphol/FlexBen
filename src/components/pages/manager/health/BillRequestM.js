@@ -16,6 +16,7 @@ import {
   Dialog,
   DialogContent,
   IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
@@ -143,203 +144,210 @@ const BillRequestM = () => {
               normalText={"รายการคำข้อเบิกบิล"}
               setSearch={setSearch}
             />
-            <Table
-              sx={{
-                borderCollapse: "separate",
-                borderSpacing: "0px 10px !important",
-              }}
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.tableHeaderText}>
-                    โปรไฟล์
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    วันที่
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ชื่อรายการ
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ประเภท
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    จำนวนเงิน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    หลักฐาน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    status
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loadBill &&
-                  loadBill.map((val, index) => (
-                    <TableRow key={index} className={classes.paperTableRow}>
-                      <TableCell
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopLeftRadius: "4px",
-                          borderBottomLeftRadius: "4px",
-                          fontWeight: "600",
-                          color: "DarkSlateGray",
-                        }}
+            <Paper sx={{ p: 2, mb: 4 }} elevation={1}>
+              <Table
+                sx={{
+                  borderCollapse: "separate",
+                  borderSpacing: "0px 10px !important",
+                }}
+              >
+                <TableHead>
+                  <TableRow sx={{ bgcolor: "grey.300" }}>
+                    <TableCell
+                      sx={{
+                        borderTopLeftRadius: "16px",
+                        borderBottomLeftRadius: "16px",
+                      }}
+                    >
+                      โปรไฟล์
+                    </TableCell>
+                    <TableCell align="center">วันที่</TableCell>
+                    <TableCell align="center">ชื่อรายการ</TableCell>
+                    <TableCell align="center">ประเภท</TableCell>
+                    <TableCell align="center">จำนวนเงิน</TableCell>
+                    <TableCell align="center">หลักฐาน</TableCell>
+                    <TableCell
+                      align="center"
+                      sx={{
+                        borderTopRightRadius: "16px",
+                        borderBottomRightRadius: "16px",
+                      }}
+                    >
+                      status
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {loadBill &&
+                    loadBill.map((val, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{ bgcolor: index % 2 == 0 ? "none" : "grey.100" }}
                       >
-                        <Box
+                        <TableCell
+                          className={classes.tableCell}
                           sx={{
+                            borderTopLeftRadius: "16px",
+                            borderBottomLeftRadius: "16px",
+                            fontWeight: "600",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Avatar
+                              sx={{ margin: "0 8px" }}
+                              src={`${
+                                process.env.REACT_APP_URL
+                              }image/profile/${filterDataUsers(
+                                val.sender,
+                                "avatar"
+                              )}`}
+                            />
+                            <Box>
+                              <Typography
+                                sx={{
+                                  fontWeight: "550",
+                                  color: "DarkSlateGray",
+                                }}
+                              >
+                                {filterDataUsers(val.sender, "fullname")}
+                              </Typography>
+                              <Typography
+                                noWrap
+                                sx={{
+                                  fontWeight: "550",
+                                  color: "DarkSlateGray",
+                                  opacity: "0.6",
+                                  maxWidth: "160px",
+                                }}
+                              >
+                                {filterDataUsers(val.sender, "department")}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{
+                            borderTopLeftRadius: "4px",
+                            borderBottomLeftRadius: "4px",
+                            fontWeight: "600",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          {dayjs(val.date).format("DD / MM / YYYY")}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{
+                            fontWeight: "550",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          {val.billname}
+                        </TableCell>
+                        <TableCell align="center" className={classes.tableCell}>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                padding: "0 8px",
+                                bgcolor:
+                                  val.category == "1"
+                                    ? "info.light"
+                                    : val.category == "2"
+                                    ? "warning.light"
+                                    : "error.light",
+                                color:
+                                  val.category == "1"
+                                    ? "info.darker"
+                                    : val.category == "2"
+                                    ? "warning.darker"
+                                    : "error.darker",
+                                borderRadius: "4px",
+                                fontWeight: "700",
+                              }}
+                              variant="subtitle2"
+                            >
+                              {treatmentCategory &&
+                                treatmentCategory.find(
+                                  (item) => item.id == val.category
+                                ).name}
+                            </Typography>
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{ fontWeight: "550", color: "DarkSlateGray" }}
+                        >
+                          $ {val.finalExpenses}
+                        </TableCell>
+                        <TableCell align="center" className={classes.tableCell}>
+                          <Tooltip title="Click to display">
+                            <IconButton
+                              color="info"
+                              onClick={(e) => {
+                                handleDisplayImage(e, val.id);
+                              }}
+                            >
+                              <Visibility />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{
+                            borderTopRightRadius: "16px",
+                            borderBottomRightRadius: "16px",
                             display: "flex",
+                            justifyContent: "space-around",
                             alignItems: "center",
                           }}
                         >
-                          <Avatar
-                            sx={{ margin: "0 8px" }}
-                            src={`${
-                              process.env.REACT_APP_URL
-                            }image/profile/${filterDataUsers(
-                              val.sender,
-                              "avatar"
-                            )}`}
-                          />
-                          <Box>
-                            <Typography
-                              sx={{
-                                fontWeight: "550",
-                                color: "DarkSlateGray",
-                              }}
-                            >
-                              {filterDataUsers(val.sender, "fullname")}
-                            </Typography>
-                            <Typography
-                              noWrap
-                              sx={{
-                                fontWeight: "550",
-                                color: "DarkSlateGray",
-                                opacity: "0.6",
-                                maxWidth: "160px",
-                              }}
-                            >
-                              {filterDataUsers(val.sender, "department")}
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopLeftRadius: "4px",
-                          borderBottomLeftRadius: "4px",
-                          fontWeight: "600",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        {dayjs(val.date).format("DD / MM / YYYY")}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          fontWeight: "550",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        {val.billname}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Box
-                          sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Typography
+                          <Button
                             sx={{
-                              width: "60px",
-                              padding: "4px",
-                              bgcolor:
-                                val.category == "1"
-                                  ? "LightSkyBlue"
-                                  : val.category == "2"
-                                  ? "khaki"
-                                  : "LightSalmon",
-                              color:
-                                val.category == "1"
-                                  ? "RoyalBlue"
-                                  : val.category == "2"
-                                  ? "OrangeRed"
-                                  : "FireBrick",
-                              borderRadius: "4px",
-                              fontWeight: "700",
+                              margin: "0 8px",
                             }}
-                            variant="subtitle2"
+                            disableRipple
+                            variant="contained"
+                            color="success"
+                            fullWidth
+                            size="small"
                           >
-                            {treatmentCategory &&
-                              treatmentCategory.find(
-                                (item) => item.id == val.category
-                              ).name}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{ fontWeight: "550", color: "DarkSlateGray" }}
-                      >
-                        $ {val.finalExpenses}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Tooltip title="Click to display">
-                          <IconButton
-                            color="info"
-                            onClick={(e) => {
-                              handleDisplayImage(e, val.id);
+                            อนุมัติ
+                          </Button>
+                          <Button
+                            sx={{
+                              margin: "0 8px",
                             }}
+                            disableRipple
+                            variant="contained"
+                            color="error"
+                            fullWidth
+                            size="small"
                           >
-                            <Visibility />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopRightRadius: "4px",
-                          borderBottomRightRadius: "4px",
-                          display: "flex",
-                          justifyContent: "space-around",
-                          alignItems: "center",
-                        }}
-                      >
-                        <Button
-                          sx={{
-                            margin: "0 8px",
-                          }}
-                          disableRipple
-                          variant="contained"
-                          color="success"
-                          fullWidth
-                        >
-                          อนุมัติ
-                        </Button>
-                        <Button
-                          sx={{
-                            margin: "0 8px",
-                          }}
-                          disableRipple
-                          variant="contained"
-                          color="error"
-                          fullWidth
-                        >
-                          ไม่อนุมัติ
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+                            ไม่อนุมัติ
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </Paper>
           </Container>
           <Dialog
             open={displayImage.open}
