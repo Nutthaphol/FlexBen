@@ -122,37 +122,40 @@ const BillHistory = () => {
                 </Button>
               }
             />
-
-            {/* <Button variant="contained" sx={{ textTransform: "none" }}>
-              Add Bill
-            </Button> */}
-            <Paper sx={{ p: 2 }}>
-              <Table
-                sx={{
-                  borderCollapse: "separate",
-                  borderSpacing: "0px 10px !important",
-                }}
-              >
+            <Box sx={{ mb: 4 }} />
+            <TableContainer
+              component={Paper}
+              sx={{ overflow: "scroll", p: 2 }}
+              elevation={3}
+            >
+              <Table>
                 <TableHead>
-                  <TableRow sx={{ bgcolor: "grey.300" }}>
+                  <TableRow>
                     <TableCell
                       sx={{
-                        borderTopLeftRadius: "16px",
-                        borderBottomLeftRadius: "16px",
+                        minWidth: 120,
                       }}
                     >
                       วันที่
                     </TableCell>
-                    <TableCell align="center">ขื่อรายการ</TableCell>
-                    <TableCell align="center">ประเภท</TableCell>
-                    <TableCell align="center">จำนวนเงิน</TableCell>
-                    <TableCell align="center">หลักฐาน</TableCell>
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      ขื่อรายการ
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      ประเภท
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      จำนวนเงิน
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      หลักฐาน
+                    </TableCell>
                     <TableCell
                       align="center"
-                      sx={{
-                        borderTopRightRadius: "16px",
-                        borderBottomRightRadius: "16px",
-                      }}
+                      // sx={{
+                      //   borderTopRightRadius: "16px",
+                      //   borderBottomRightRadius: "16px",
+                      // }}
                     >
                       status
                     </TableCell>
@@ -163,7 +166,7 @@ const BillHistory = () => {
                     billHstory.map((val, index) => (
                       <TableRow
                         key={index}
-                        sx={{ bgcolor: index % 2 == 0 ? "none" : "grey.100" }}
+                        // sx={{ bgcolor: index % 2 == 0 ? "none" : "grey.100" }}
                       >
                         <TableCell
                           sx={{
@@ -280,7 +283,7 @@ const BillHistory = () => {
                     ))}
                 </TableBody>
               </Table>
-            </Paper>
+            </TableContainer>
           </Container>
           <Dialog
             open={displayImage.open}

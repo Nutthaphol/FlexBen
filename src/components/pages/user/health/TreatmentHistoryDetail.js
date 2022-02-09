@@ -207,14 +207,11 @@ const TreatmentHistoryDetail = () => {
         <div className={`dashboard-page-light`}>
           {userProfile ? (
             <Box sx={{ marginBottom: "2rem" }}>
-              {/* <CoverPhoto image={userProfile.background} /> */}
               <Container maxWidth="xl">
-                <Profile
-                  profile={userProfile}
-                  lastHealth={lastHealthCheck}
-                  themes="light"
-                />
-                <Paper className={classes.cardW}>
+                <Typography variant="h3" sx={{ mb: 4 }}>
+                  รายการรักษา
+                </Typography>
+                <Paper sx={{ p: 2, mb: 4 }}>
                   <Typography variant="h6" component="div">
                     รายการระหว่างดำเนินการ
                   </Typography>
@@ -239,22 +236,15 @@ const TreatmentHistoryDetail = () => {
                             >
                               <TreatmentCard
                                 themes="light"
-                                headerknotText={
+                                secondayText={
                                   category &&
                                   category
                                     .find((item) => item.id == val.category)
                                     .name.toUpperCase()
                                 }
-                                knotColor={
-                                  val.category == 1
-                                    ? "#7da6ee"
-                                    : val.category == 2
-                                    ? "#FFD72A"
-                                    : "red"
-                                }
                                 icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
                                 primaryText={val.section}
-                                date={dayjs(val.date)}
+                                bottomLife={dayjs(val.date)}
                               />
                             </Button>
                           ))}
@@ -296,22 +286,15 @@ const TreatmentHistoryDetail = () => {
                             >
                               <TreatmentCard
                                 themes="light"
-                                headerknotText={
+                                secondayText={
                                   category &&
                                   category
                                     .find((item) => item.id == val.category)
                                     .name.toUpperCase()
                                 }
-                                knotColor={
-                                  val.category == 1
-                                    ? "#7da6ee"
-                                    : val.category == 2
-                                    ? "#FFD72A"
-                                    : "red"
-                                }
                                 icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
                                 primaryText={val.section}
-                                date={dayjs(val.date)}
+                                bottomLife={dayjs(val.date)}
                               />
                             </Box>
                           ))}

@@ -16,9 +16,11 @@ import {
   Dialog,
   DialogContent,
   IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Tooltip,
@@ -153,237 +155,231 @@ const BillRequest = () => {
               normalText={"รายการคำข้อเบิกบิล"}
               setSearch={setSearch}
             />
-            <Table
-              sx={{
-                borderCollapse: "separate",
-                borderSpacing: "0px 10px !important",
-              }}
+            <TableContainer
+              component={Paper}
+              sx={{ mb: 4, p: 2, overflow: "scroll" }}
+              elevation={2}
             >
-              <TableHead>
-                <TableRow>
-                  <TableCell className={classes.tableHeaderText}>
-                    โปรไฟล์
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    วันที่
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ชื่อรายการ
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    ประเภท
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    จำนวนเงิน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    หลักฐาน
-                  </TableCell>
-                  <TableCell align="center" className={classes.tableHeaderText}>
-                    status
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loadBill &&
-                  loadBill.map((val, index) => (
-                    <TableRow key={index} className={classes.paperTableRow}>
-                      <TableCell
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopLeftRadius: "4px",
-                          borderBottomLeftRadius: "4px",
-                          fontWeight: "600",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        <Box
+              <Table sx={{}}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell sx={{ minWidth: 240 }}>โปรไฟล์</TableCell>
+                    <TableCell align="center" sx={{ minWidth: 160 }}>
+                      วันที่
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 160 }}>
+                      ชื่อรายการ
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 80 }}>
+                      ประเภท
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 160 }}>
+                      จำนวนเงิน
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 80 }}>
+                      หลักฐาน
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 180 }}>
+                      status
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {loadBill &&
+                    loadBill.map((val, index) => (
+                      <TableRow key={index}>
+                        <TableCell
                           sx={{
-                            display: "flex",
-                            alignItems: "center",
+                            fontWeight: "600",
+                            color: "DarkSlateGray",
                           }}
                         >
-                          <Avatar
-                            sx={{ margin: "0 8px" }}
-                            src={`${
-                              process.env.REACT_APP_URL
-                            }image/profile/${filterDataUsers(
-                              val.sender,
-                              "avatar"
-                            )}`}
-                          />
-                          <Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Avatar
+                              sx={{ margin: "0 8px" }}
+                              src={`${
+                                process.env.REACT_APP_URL
+                              }image/profile/${filterDataUsers(
+                                val.sender,
+                                "avatar"
+                              )}`}
+                            />
+                            <Box>
+                              <Typography
+                                sx={{
+                                  fontWeight: "550",
+                                  color: "DarkSlateGray",
+                                }}
+                              >
+                                {filterDataUsers(val.sender, "fullname")}
+                              </Typography>
+                              <Typography
+                                noWrap
+                                sx={{
+                                  fontWeight: "550",
+                                  color: "DarkSlateGray",
+                                  opacity: "0.6",
+                                  maxWidth: "160px",
+                                }}
+                              >
+                                {filterDataUsers(val.sender, "department")}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{
+                            fontWeight: "600",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          {dayjs(val.date).format("DD / MM / YYYY")}
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{
+                            fontWeight: "550",
+                            color: "DarkSlateGray",
+                          }}
+                        >
+                          {val.billname}
+                        </TableCell>
+                        <TableCell align="center" className={classes.tableCell}>
+                          <Box
+                            sx={{
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
                             <Typography
                               sx={{
-                                fontWeight: "550",
-                                color: "DarkSlateGray",
+                                width: "60px",
+                                padding: "4px",
+                                bgcolor:
+                                  val.category == "1"
+                                    ? "LightSkyBlue"
+                                    : val.category == "2"
+                                    ? "khaki"
+                                    : "LightSalmon",
+                                color:
+                                  val.category == "1"
+                                    ? "RoyalBlue"
+                                    : val.category == "2"
+                                    ? "OrangeRed"
+                                    : "FireBrick",
+                                borderRadius: "4px",
+                                fontWeight: "700",
                               }}
+                              variant="subtitle2"
                             >
-                              {filterDataUsers(val.sender, "fullname")}
-                            </Typography>
-                            <Typography
-                              noWrap
-                              sx={{
-                                fontWeight: "550",
-                                color: "DarkSlateGray",
-                                opacity: "0.6",
-                                maxWidth: "160px",
-                              }}
-                            >
-                              {filterDataUsers(val.sender, "department")}
+                              {treatmentCategory &&
+                                treatmentCategory.find(
+                                  (item) => item.id == val.category
+                                ).name}
                             </Typography>
                           </Box>
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopLeftRadius: "4px",
-                          borderBottomLeftRadius: "4px",
-                          fontWeight: "600",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        {dayjs(val.date).format("DD / MM / YYYY")}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          fontWeight: "550",
-                          color: "DarkSlateGray",
-                        }}
-                      >
-                        {val.billname}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Box
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
+                          sx={{ fontWeight: "550", color: "DarkSlateGray" }}
+                        >
+                          $ {val.finalExpenses}
+                        </TableCell>
+                        <TableCell align="center" className={classes.tableCell}>
+                          <Tooltip title="Click to display">
+                            <IconButton
+                              color="info"
+                              onClick={(e) => {
+                                handleDisplayImage(e, val.id);
+                              }}
+                            >
+                              <Visibility />
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                        <TableCell
+                          align="center"
+                          className={classes.tableCell}
                           sx={{
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
+                            borderTopRightRadius: "4px",
+                            borderBottomRightRadius: "4px",
                           }}
                         >
-                          <Typography
-                            sx={{
-                              width: "60px",
-                              padding: "4px",
-                              bgcolor:
-                                val.category == "1"
-                                  ? "LightSkyBlue"
-                                  : val.category == "2"
-                                  ? "khaki"
-                                  : "LightSalmon",
-                              color:
-                                val.category == "1"
-                                  ? "RoyalBlue"
-                                  : val.category == "2"
-                                  ? "OrangeRed"
-                                  : "FireBrick",
-                              borderRadius: "4px",
-                              fontWeight: "700",
-                            }}
-                            variant="subtitle2"
-                          >
-                            {treatmentCategory &&
-                              treatmentCategory.find(
-                                (item) => item.id == val.category
-                              ).name}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{ fontWeight: "550", color: "DarkSlateGray" }}
-                      >
-                        $ {val.finalExpenses}
-                      </TableCell>
-                      <TableCell align="center" className={classes.tableCell}>
-                        <Tooltip title="Click to display">
-                          <IconButton
-                            color="info"
-                            onClick={(e) => {
-                              handleDisplayImage(e, val.id);
-                            }}
-                          >
-                            <Visibility />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableCell}
-                        sx={{
-                          borderTopRightRadius: "4px",
-                          borderBottomRightRadius: "4px",
-                        }}
-                      >
-                        <GroupButtonTooltip
-                          placement="top"
-                          title={
-                            <Fragment>
-                              <Button
-                                variant="contained"
-                                sx={{ borderRadius: "16px", margin: "0 8px" }}
-                                color="success"
-                                onClick={() =>
-                                  handleStatusBillRequest(val.id, 1)
-                                }
-                              >
-                                ยืนยัน
-                              </Button>
-                              <Button
-                                variant="contained"
-                                sx={{ borderRadius: "16px", margin: "0 8px" }}
-                                color="error"
-                                onClick={() =>
-                                  handleStatusBillRequest(val.id, 0)
-                                }
-                              >
-                                ปฏิเสธ
-                              </Button>
-                              <Button
-                                variant="contained"
-                                sx={{ borderRadius: "16px", margin: "0 8px" }}
-                                color="warning"
-                                onClick={() =>
-                                  handleStatusBillRequest(val.id, -1)
-                                }
-                              >
-                                รอดำเนินการ
-                              </Button>
-                            </Fragment>
-                          }
-                        >
-                          <Chip
-                            sx={{ width: "120px" }}
-                            label={
-                              val.status == -1
-                                ? "รอดำเนินการ"
-                                : val.status == 1
-                                ? "ดำเนินการสำเร็จ"
-                                : val.status == 0
-                                ? "ถูกปฏิเสธ"
-                                : "ผิดพลาด"
+                          <GroupButtonTooltip
+                            placement="top"
+                            title={
+                              <Fragment>
+                                <Button
+                                  variant="contained"
+                                  sx={{ borderRadius: "16px", margin: "0 8px" }}
+                                  color="success"
+                                  onClick={() =>
+                                    handleStatusBillRequest(val.id, 1)
+                                  }
+                                >
+                                  ยืนยัน
+                                </Button>
+                                <Button
+                                  variant="contained"
+                                  sx={{ borderRadius: "16px", margin: "0 8px" }}
+                                  color="error"
+                                  onClick={() =>
+                                    handleStatusBillRequest(val.id, 0)
+                                  }
+                                >
+                                  ปฏิเสธ
+                                </Button>
+                                <Button
+                                  variant="contained"
+                                  sx={{ borderRadius: "16px", margin: "0 8px" }}
+                                  color="warning"
+                                  onClick={() =>
+                                    handleStatusBillRequest(val.id, -1)
+                                  }
+                                >
+                                  รอดำเนินการ
+                                </Button>
+                              </Fragment>
                             }
-                            color={
-                              val.status == -1
-                                ? "warning"
-                                : val.status == 1
-                                ? "success"
-                                : val.status == 0
-                                ? "error"
-                                : "secondary"
-                            }
-                          />
-                        </GroupButtonTooltip>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+                          >
+                            <Chip
+                              sx={{ width: "120px" }}
+                              label={
+                                val.status == -1
+                                  ? "รอดำเนินการ"
+                                  : val.status == 1
+                                  ? "ดำเนินการสำเร็จ"
+                                  : val.status == 0
+                                  ? "ถูกปฏิเสธ"
+                                  : "ผิดพลาด"
+                              }
+                              color={
+                                val.status == -1
+                                  ? "warning"
+                                  : val.status == 1
+                                  ? "success"
+                                  : val.status == 0
+                                  ? "error"
+                                  : "secondary"
+                              }
+                            />
+                          </GroupButtonTooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Container>
           <Dialog
             open={displayImage.open}

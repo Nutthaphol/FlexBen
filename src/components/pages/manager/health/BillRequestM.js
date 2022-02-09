@@ -20,6 +20,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Tooltip,
@@ -144,7 +145,11 @@ const BillRequestM = () => {
               normalText={"รายการคำข้อเบิกบิล"}
               setSearch={setSearch}
             />
-            <Paper sx={{ p: 2, mb: 4 }} elevation={1}>
+            <TableContainer
+              component={Paper}
+              sx={{ p: 2, mb: 4, overflow: "scroll" }}
+              elevation={1}
+            >
               <Table
                 sx={{
                   borderCollapse: "separate",
@@ -152,27 +157,24 @@ const BillRequestM = () => {
                 }}
               >
                 <TableHead>
-                  <TableRow sx={{ bgcolor: "grey.300" }}>
-                    <TableCell
-                      sx={{
-                        borderTopLeftRadius: "16px",
-                        borderBottomLeftRadius: "16px",
-                      }}
-                    >
-                      โปรไฟล์
+                  <TableRow sx={{}}>
+                    <TableCell sx={{ minWidth: 240 }}>โปรไฟล์</TableCell>
+                    <TableCell align="center" sx={{ minWidth: 160 }}>
+                      วันที่
                     </TableCell>
-                    <TableCell align="center">วันที่</TableCell>
-                    <TableCell align="center">ชื่อรายการ</TableCell>
-                    <TableCell align="center">ประเภท</TableCell>
-                    <TableCell align="center">จำนวนเงิน</TableCell>
-                    <TableCell align="center">หลักฐาน</TableCell>
-                    <TableCell
-                      align="center"
-                      sx={{
-                        borderTopRightRadius: "16px",
-                        borderBottomRightRadius: "16px",
-                      }}
-                    >
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      ชื่อรายการ
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 80 }}>
+                      ประเภท
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 120 }}>
+                      จำนวนเงิน
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 80 }}>
+                      หลักฐาน
+                    </TableCell>
+                    <TableCell align="center" sx={{ minWidth: 240 }}>
                       status
                     </TableCell>
                   </TableRow>
@@ -180,15 +182,10 @@ const BillRequestM = () => {
                 <TableBody>
                   {loadBill &&
                     loadBill.map((val, index) => (
-                      <TableRow
-                        key={index}
-                        sx={{ bgcolor: index % 2 == 0 ? "none" : "grey.100" }}
-                      >
+                      <TableRow key={index}>
                         <TableCell
                           className={classes.tableCell}
                           sx={{
-                            borderTopLeftRadius: "16px",
-                            borderBottomLeftRadius: "16px",
                             fontWeight: "600",
                             color: "DarkSlateGray",
                           }}
@@ -235,8 +232,6 @@ const BillRequestM = () => {
                           align="center"
                           className={classes.tableCell}
                           sx={{
-                            borderTopLeftRadius: "4px",
-                            borderBottomLeftRadius: "4px",
                             fontWeight: "600",
                             color: "DarkSlateGray",
                           }}
@@ -311,8 +306,6 @@ const BillRequestM = () => {
                           align="center"
                           className={classes.tableCell}
                           sx={{
-                            borderTopRightRadius: "16px",
-                            borderBottomRightRadius: "16px",
                             display: "flex",
                             justifyContent: "space-around",
                             alignItems: "center",
@@ -347,7 +340,7 @@ const BillRequestM = () => {
                     ))}
                 </TableBody>
               </Table>
-            </Paper>
+            </TableContainer>
           </Container>
           <Dialog
             open={displayImage.open}

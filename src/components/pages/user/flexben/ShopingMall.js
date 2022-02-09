@@ -94,12 +94,14 @@ const ShopingMall = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <HeaderSearch
-              setSearch={setSearch}
-              normalText="Shopping"
-              hightlightText="Mall"
-            />
             <Grid container spacing={4} justifyContent="center">
+              <Grid item xs={12}>
+                <HeaderSearch
+                  setSearch={setSearch}
+                  normalText="Shopping"
+                  hightlightText="Mall"
+                />
+              </Grid>
               {shopCategory && (
                 <Grid item xl={2} lg={3} xs={12}>
                   <StoreFilter

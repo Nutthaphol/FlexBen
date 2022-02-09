@@ -24,6 +24,7 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Stack,
 } from "@mui/material";
 import { AdminPanelSettings, ChevronLeft, NoteAlt } from "@mui/icons-material";
 import { indigo } from "@mui/material/colors";
@@ -226,19 +227,43 @@ function App() {
     setOpen(!open);
   };
 
+  const APP_BAR_MOBILE = 64;
+  const APP_BAR_DESKTOP = 92;
+
   return (
     <Router>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
-          <Box style={{ display: "flex" }}>
+          <Box
+            component="div"
+            sx={{ display: "flex", minHeight: "100%", overflow: "hidden" }}
+          >
             {isLoggedIn && (
-              <Fragment>
-                <Header handleDrawerOpen={handleDrawerOpen} open={open} />
-                <DrawerContainer open={open} setOpen={setOpen} />
-              </Fragment>
+              <Header handleDrawerOpen={handleDrawerOpen} open={open} />
             )}
-            <Routers />
+            {isLoggedIn && <DrawerContainer open={open} setOpen={setOpen} />}
+
+            <Box
+              component="div"
+              sx={{
+                flexGrow: 1,
+                overflow: "auto",
+                minHeight: "100%",
+                pr: 2,
+              }}
+            >
+              <Routers />
+            </Box>
           </Box>
+          {/* <Stack>
+            {isLoggedIn && (
+              <Header handleDrawerOpen={handleDrawerOpen} open={open} />
+            )}
+            <Stack direction="row">
+              {isLoggedIn && <DrawerContainer open={open} setOpen={setOpen} />}
+              <Routers />
+            </Stack>
+          </Stack> */}
         </ThemeProvider>
       </StyledEngineProvider>
     </Router>

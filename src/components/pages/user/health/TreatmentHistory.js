@@ -566,13 +566,6 @@ const TreatmentHistory = (props) => {
                                 .find((item) => item.id == val.category)
                                 .name.toUpperCase()
                             }
-                            knotColor={
-                              val.category == 1
-                                ? "#7da6ee"
-                                : val.category == 2
-                                ? "#FFD72A"
-                                : "red"
-                            }
                             icon={`${process.env.PUBLIC_URL}/assets/icons/Treatment-Report/${val.icon}`}
                             // icon={AttachMoney}
                             // iconColor="primary"

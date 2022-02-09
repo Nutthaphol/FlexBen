@@ -101,12 +101,14 @@ const ListInsurance = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <HeaderSearch
-              setSearch={setSearch}
-              normalText="The"
-              hightlightText="Insurance"
-            />
             <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <HeaderSearch
+                  setSearch={setSearch}
+                  normalText="The"
+                  hightlightText="Insurance"
+                />
+              </Grid>
               {insuranceCategory && (
                 <Grid item xl={2} lg={3} xs={12}>
                   <StoreFilter

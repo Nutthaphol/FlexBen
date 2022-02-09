@@ -33,6 +33,7 @@ import {
 } from "@mui/x-data-grid";
 import { getAllRightTreatment } from "../../../../actions/rightTreatment";
 import { Clear, Search } from "@mui/icons-material";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
 
 const theme = createTheme(Themplates);
 
@@ -134,11 +135,12 @@ const HealthInformation = () => {
   }, [allUsers, allHealth, allRightTreatment]);
 
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
+    { field: "id", headerName: "ID", flex: 0.1, minWidth: 60 },
     {
       field: "profile",
       headerName: "ชื่อ-สกุล",
-      width: 320,
+      flex: 1,
+      minWidth: 280,
       renderCell: (params) => {
         return (
           <Box sx={{ display: "flex", alingItems: "center" }}>
@@ -159,22 +161,26 @@ const HealthInformation = () => {
     {
       field: "opd",
       headerName: "OPD (ครั้ง)",
-      width: 240,
+      flex: 0.4,
+      minWidth: 120,
     },
     {
       field: "ipd",
       headerName: "IPD (ครั้ง)",
-      width: 240,
+      flex: 0.4,
+      minWidth: 120,
     },
     {
       field: "lastTreatment",
       headerName: "รายการรักษาล่าสุด",
-      width: 240,
+      flex: 0.4,
+      minWidth: 180,
     },
     {
       field: "used",
       headerName: "ใช้ไป",
-      width: 160,
+      flex: 0.4,
+      minWidth: 120,
     },
     // {
     //   field: "pending",
@@ -198,88 +204,39 @@ const HealthInformation = () => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           <Container maxWidth="xl">
-            <Paper className={classes.cardW}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="h5" component="div">
-                    ข้อมูลประวัติภาพรวม
-                  </Typography>
-                </Box>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  value={searchList}
-                  sx={{ width: "240px", margin: "1rem 1rem" }}
-                  onChange={(e) => setSearchList(e.target.value)}
-                  InputProps={{
-                    startAdornment: <Search fontSize="small" />,
-                    endAdornment: (
-                      <IconButton
-                        title="Clear"
-                        aria-label="Clear"
-                        size="small"
-                        style={{
-                          visibility: searchList != "" ? "visible" : "hidden",
-                        }}
-                        onClick={() => setSearchList("")}
-                      >
-                        <Clear fontSize="small" />
-                      </IconButton>
-                    ),
+            <HeaderSearch
+              setSearch={setSearchList}
+              normalText="ข้อมูลประวัติภาพรวม"
+            />
+
+            <Paper sx={{ p: 2, mb: 4, mt: 4 }}>
+              {rows && (
+                <DataGrid
+                  rowHeight={64}
+                  rows={
+                    rows &&
+                    rows
+                      .filter(
+                        (item) =>
+                          (item.profile.firstname + " " + item.profile.lastname)
+                            .toLowerCase()
+                            .includes(searchList) == 1
+                      )
+                      .map((e) => {
+                        return e;
+                      })
+                  }
+                  columns={columns}
+                  autoHeight
+                  checkboxSelection
+                  disableSelectionOnClick
+                  pageSize={10}
+                  rowsPerPageOptions={[10]}
+                  components={{
+                    Toolbar: CustomToolbar,
                   }}
-                  placeholder="Search…"
                 />
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  height: "auto",
-                }}
-              >
-                {rows && (
-                  <DataGrid
-                    rowHeight={64}
-                    rows={
-                      rows &&
-                      rows
-                        .filter(
-                          (item) =>
-                            (
-                              item.profile.firstname +
-                              " " +
-                              item.profile.lastname
-                            )
-                              .toLowerCase()
-                              .includes(searchList) == 1
-                        )
-                        .map((e) => {
-                          return e;
-                        })
-                    }
-                    columns={columns}
-                    autoHeight
-                    checkboxSelection
-                    disableSelectionOnClick
-                    pageSize={10}
-                    rowsPerPageOptions={[10]}
-                    components={{
-                      Toolbar: CustomToolbar,
-                    }}
-                    sx={{
-                      "&.MuiDataGrid-root": {
-                        border: "none",
-                      },
-                    }}
-                  />
-                )}
-              </Box>
+              )}
             </Paper>
           </Container>
         </div>

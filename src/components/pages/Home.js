@@ -279,7 +279,7 @@ const Home = () => {
                     .filter((item) => item.id != currentUser.id)
                     .slice(0, 1)
                     .map((val, index) => (
-                      <Box key={index} className={classes.boxSlider}>
+                      <Box key={index}>
                         <AddCoinCard user={val} />
                       </Box>
                     ))}

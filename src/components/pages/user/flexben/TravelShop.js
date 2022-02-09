@@ -85,12 +85,14 @@ const TravelShop = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <HeaderSearch
-              setSearch={setSearch}
-              normalText="Tourist"
-              hightlightText="Attraction"
-            />
             <Grid container spacing={4} justifyContent="center">
+              <Grid item xs={12}>
+                <HeaderSearch
+                  setSearch={setSearch}
+                  normalText="Tourist"
+                  hightlightText="Attraction"
+                />
+              </Grid>
               {travelCategory && (
                 <Grid item xl={2} lg={3} xs={12}>
                   <StoreFilter
@@ -119,7 +121,8 @@ const TravelShop = () => {
                       .map((val, index) => (
                         <Grid
                           item
-                          lg={4}
+                          xs={12}
+                          sm={4}
                           xl={3}
                           sx={{ position: "relative" }}
                           key={index}

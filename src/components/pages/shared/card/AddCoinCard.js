@@ -38,7 +38,7 @@ const AddCoinCard = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper sx={{ width: "100%", p: 4 }}>
+        <Paper sx={{ p: 4 }}>
           <Grid
             container
             spacing={2}

@@ -59,13 +59,15 @@ const ListPackage = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <HeaderSearch
-              setSearch={setSearch}
-              normalText="The"
-              hightlightText="Package"
-            />
-            <br />
             <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <HeaderSearch
+                  setSearch={setSearch}
+                  normalText="The"
+                  hightlightText="Package"
+                />
+              </Grid>
+              <br />
               {allPackages &&
                 allPackages
                   .filter((item) => {
