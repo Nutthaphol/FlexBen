@@ -96,7 +96,7 @@ const DetailPackage = (props) => {
             <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
-                  <Card className={classes.root}>
+                  <Paper className={classes.root}>
                     <Stack
                       direction="row"
                       justifyContent="space-between"
@@ -201,7 +201,7 @@ const DetailPackage = (props) => {
                     </List>
                     <Divider />
                     <br />
-                  </Card>
+                  </Paper>
                   <br />
                   <ReviewsCard type={"package"} />
                 </Grid>

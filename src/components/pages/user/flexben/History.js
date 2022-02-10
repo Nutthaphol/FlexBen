@@ -89,19 +89,15 @@ const History = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <Paper className={classes.root}>
-              <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                My History
-              </Typography>
-            </Paper>
-            <br />
+            <Typography
+              variant="h3"
+              gutterBottom
+              sx={{
+                mb: 4,
+              }}
+            >
+              My History
+            </Typography>
             <Paper className={classes.root}>
               <TableContainer>
                 <Table>

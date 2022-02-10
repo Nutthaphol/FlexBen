@@ -94,11 +94,11 @@ const Themplates = {
     MuiTableCell: {
       styleOverrides: {
         root: {
-          "&:first-child ": {
+          "&:first-of-type": {
             borderTopLeftRadius: "16px",
             borderBottomLeftRadius: "16px",
           },
-          "&:last-child ": {
+          "&:last-of-type": {
             borderTopRightRadius: "16px",
             borderBottomRightRadius: "16px",
           },
@@ -110,6 +110,13 @@ const Themplates = {
       styleOverrides: {
         root: {
           backgroundColor: palette.grey[200],
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
         },
       },
     },

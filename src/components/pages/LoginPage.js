@@ -210,13 +210,15 @@ const LoginPage = (props) => {
             <CardContent>
               <Typography variant="h4">Login</Typography>
               <Formik
-                onSubmit={(values, { setSubmitting }) => {
+                onSubmit={(values, { setSubmitting, resetForm }) => {
                   dispatch(login(values.username, values.password))
                     .then(() => {
                       props.history.push("/home");
                       window.location.reload();
                     })
-                    .catch(() => {});
+                    .catch((error) => {
+                      resetForm();
+                    });
                 }}
                 initialValues={{
                   username: "",

@@ -133,7 +133,7 @@ const BillRequest = () => {
             return data;
         }
       }
-      return "";
+      return "Check";
     }
   };
 
@@ -186,6 +186,7 @@ const BillRequest = () => {
                 </TableHead>
                 <TableBody>
                   {loadBill &&
+                    allUsers &&
                     loadBill.map((val, index) => (
                       <TableRow key={index}>
                         <TableCell

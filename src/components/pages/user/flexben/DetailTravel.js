@@ -123,7 +123,7 @@ const DetailTravel = (props) => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           {detail && (
-            <Container maxWidth="xl" sx={{ display: "flex" }}>
+            <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item lg={8} md={8} xs={12}>
                   {/* use conponent of item  */}

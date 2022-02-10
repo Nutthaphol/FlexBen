@@ -23,9 +23,10 @@ import {
   DialogActions,
   DialogContent,
   Stack,
+  Divider,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { Add, Close, Done, Remove } from "@mui/icons-material";
+import { Add, AddShoppingCart, Close, Done, Remove } from "@mui/icons-material";
 import { useSelector, useDispatch } from "react-redux";
 import { postCart } from "../../../../actions/cart";
 import Themplates from "../theme";
@@ -95,31 +96,25 @@ const SalesBox = (props) => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Paper className={classes.root}>
-          <Stack alignItems="center" spacing={2}>
-            <Typography
-              variant="h4"
-              sx={{ textDecoration: "underline" }}
-              color="primary.darker"
-            >
-              BUY NOW!
-            </Typography>
-            <Stack
-              sx={{ width: "100%" }}
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h5">{nameOrder}</Typography>
-              <Stack direction="row" alignItems="center">
+          <Stack spacing={2}>
+            <Box sx={{ width: 1, textAlign: "center" }}>
+              <Paper sx={{ p: 2, bgcolor: "grey.200" }} elevation={0}>
+                <Typography variant="h4" sx={{}} color="primary.darker">
+                  BUY NOW!
+                </Typography>
+              </Paper>
+            </Box>
+            <Stack spacing={2}>
+              <Typography variant="h4">{nameOrder}</Typography>
+              <Stack direction="row" alignItems="center" spacing={1}>
                 {currency == "coin" ? (
                   <Icon
                     sx={{
-                      marginRight: "5px",
-
                       display: "flex",
                       alignItems: "center",
+                      width: theme.typography.h2.fontSize,
+                      height: theme.typography.h2.fontSize,
                     }}
-                    fontSize="small"
                   >
                     <img
                       src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
@@ -128,18 +123,25 @@ const SalesBox = (props) => {
                     />
                   </Icon>
                 ) : (
-                  currency
+                  <Typography variant="h3">{currency}</Typography>
                 )}
-                <Typography variant="h5">{price}</Typography>
+                <Typography variant="h3">{price}</Typography>
               </Stack>
             </Stack>
+            <Divider />
             <Stack
-              sx={{ width: "100%" }}
+              sx={{ width: 1 }}
               direction="row"
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h5">จำนวน</Typography>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                จำนวน
+              </Typography>
               <Stack
                 direction="row"
                 spacing={1}
@@ -159,7 +161,11 @@ const SalesBox = (props) => {
                 >
                   <Remove sx={{ fontSize: "16px" }} />
                 </IconButton>
-                <Typography variant="body1" color="text.secondary">
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
+                  sx={{ fontWeight: 500 }}
+                >
                   {count}
                 </Typography>
                 <IconButton size="small" onClick={() => add()}>
@@ -173,7 +179,13 @@ const SalesBox = (props) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h5">ส่วนลด</Typography>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                ส่วนลด
+              </Typography>
               <Typography variant="h5">{discount} %</Typography>
             </Stack>
             <Stack
@@ -182,7 +194,13 @@ const SalesBox = (props) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h5">ค่าขนส่ง</Typography>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                ค่าขนส่ง
+              </Typography>
               <Typography variant="h5">
                 {" "}
                 <Stack direction="row" alignItems="center">
@@ -215,7 +233,13 @@ const SalesBox = (props) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Typography variant="h5">รวม</Typography>
+              <Typography
+                variant="h5"
+                color="text.secondary"
+                sx={{ fontWeight: 500 }}
+              >
+                รวม
+              </Typography>
               <Typography variant="h5">
                 {" "}
                 <Stack direction="row" alignItems="center">
@@ -259,7 +283,7 @@ const SalesBox = (props) => {
             </Button>
           </Stack>
         </Paper>
-        <Dialog onClose={handleCloseOpen} open={open} maxWidth="sm" fullWidth>
+        <Dialog onClose={handleCloseOpen} open={open} maxWidth="xs" fullWidth>
           <DialogTitle sx={{ textAlign: "center" }}>Continue ?</DialogTitle>
           <DialogContent>
             <Stack
@@ -269,17 +293,20 @@ const SalesBox = (props) => {
               spacing={4}
             >
               <Button
+                sx={{ pt: 2, pb: 2 }}
                 color="warning"
                 variant="contained"
                 fullWidth
                 onClick={() => {
                   handleOnClickToCart();
                 }}
+                startIcon={<AddShoppingCart />}
               >
                 Add to cart
               </Button>
               <Button
-                color="primary"
+                sx={{ pt: 2, pb: 2 }}
+                color="success"
                 variant="contained"
                 fullWidth
                 onClick={() => {

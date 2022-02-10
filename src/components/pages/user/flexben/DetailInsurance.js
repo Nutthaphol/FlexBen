@@ -112,7 +112,7 @@ const DetailInsurance = (props) => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           {detail && (
-            <Container maxWidth="xl" sx={{ display: "flex" }}>
+            <Container maxWidth="lg" sx={{ display: "flex" }}>
               <Grid container spacing={4}>
                 <Grid item md={8} xs={12}>
                   <Paper className={classes.root}>

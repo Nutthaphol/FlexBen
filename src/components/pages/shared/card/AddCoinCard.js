@@ -51,99 +51,108 @@ const AddCoinCard = (props) => {
                   sx={{ height: 120, width: 120 }}
                   src={`${process.env.REACT_APP_URL}image/profile/${user.image} `}
                 />
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h5" gutterBottom sx={{ mt: 1 }}>
                   {user.firstname + " " + user.lastname}
                 </Typography>
-                <Typography variant="h5">{user.position}</Typography>
+                <Typography variant="h5" noWrap color="text.secondary">
+                  {user.position}
+                </Typography>
               </Stack>
             </Grid>
             <Grid item xs={12} lg={8} xl={9} sx={{ position: "relative" }}>
               <Stack spacing={1} justifyContent="space-between">
-                <Stack
-                  sx={{ width: 1 }}
-                  direction="row"
-                  justifyContent="space-between"
-                  spacing={6}
-                >
-                  <Box
-                    className={classes.boxDetail}
-                    sx={{ bgcolor: "info.lighter" }}
-                  >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      spacing={1}
+                <Grid container spacing={2} justifyContent="space-between">
+                  <Grid item xs={12} md={4}>
+                    <Box
+                      className={classes.boxDetail}
+                      sx={{ bgcolor: "info.lighter" }}
                     >
-                      <Icon className={classes.icons}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                      <Typography variant="h3" sx={{ color: "info.darker" }}>
-                        {user.coin}
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                        spacing={1}
+                      >
+                        <Icon className={classes.icons}>
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            width="100%"
+                          />
+                        </Icon>
+                        <Typography variant="h3" sx={{ color: "info.darker" }}>
+                          {user.coin}
+                        </Typography>
+                      </Stack>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ color: "info.dark" }}
+                      >
+                        Coin ทั้งหมด
                       </Typography>
-                    </Stack>
-                    <Typography variant="subtitle1" sx={{ color: "info.dark" }}>
-                      Coin ทั้งหมด
-                    </Typography>
-                  </Box>
-                  <Box
-                    className={classes.boxDetail}
-                    sx={{ bgcolor: "warning.lighter" }}
-                  >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      spacing={1}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <Box
+                      className={classes.boxDetail}
+                      sx={{ bgcolor: "warning.lighter" }}
                     >
-                      <Icon className={classes.icons}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                      <Typography variant="h3" sx={{ color: "warning.darker" }}>
-                        {user.insurancelock}
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                        spacing={1}
+                      >
+                        <Icon className={classes.icons}>
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            width="100%"
+                          />
+                        </Icon>
+                        <Typography
+                          variant="h3"
+                          sx={{ color: "warning.darker" }}
+                        >
+                          {user.insurancelock}
+                        </Typography>
+                      </Stack>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ color: "warning.dark" }}
+                      >
+                        Insurance lock
                       </Typography>
-                    </Stack>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ color: "warning.dark" }}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <Box
+                      className={classes.boxDetail}
+                      sx={{ bgcolor: "error.lighter" }}
                     >
-                      Insurance lock
-                    </Typography>
-                  </Box>
-                  <Box
-                    className={classes.boxDetail}
-                    sx={{ bgcolor: "error.lighter" }}
-                  >
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="center"
-                      spacing={1}
-                    >
-                      <Icon className={classes.icons}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                      <Typography variant="h3" sx={{ color: "error.darker" }}>
-                        {user.coin - user.insurancelock}
+                      <Stack
+                        direction="row"
+                        alignItems="center"
+                        justifyContent="center"
+                        spacing={1}
+                      >
+                        <Icon className={classes.icons}>
+                          <img
+                            src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                            width="100%"
+                          />
+                        </Icon>
+                        <Typography variant="h3" sx={{ color: "error.darker" }}>
+                          {user.coin - user.insurancelock}
+                        </Typography>
+                      </Stack>
+                      <Typography
+                        variant="subtitle1"
+                        sx={{ color: "error.dark" }}
+                      >
+                        Lifestyle & Travel
                       </Typography>
-                    </Stack>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ color: "error.dark" }}
-                    >
-                      Lifestyle & Travel
-                    </Typography>
-                  </Box>
-                </Stack>
+                    </Box>
+                  </Grid>
+                </Grid>
                 <Stack
                   direction="row"
                   justifyContent="space-between"
