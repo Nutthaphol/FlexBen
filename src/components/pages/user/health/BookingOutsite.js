@@ -9,12 +9,14 @@ import { makeStyles, styled } from "@mui/styles";
 import Themplates from "../../shared/theme";
 import {
   Button,
+  ButtonBase,
   Container,
   Divider,
   Grid,
   Icon,
   InputAdornment,
   Paper,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -34,6 +36,8 @@ import {
 import { compose, withProps } from "recompose";
 import hospitalService from "../../../../services/hospital.service";
 import ProductCard from "../../shared/card/ProductCard";
+import BookingHealthcheck from "../../shared/dialog/BookingHealthcheck";
+import { getHospitalPackage } from "../../../../actions/hospital";
 
 const theme = createTheme(Themplates);
 
@@ -58,9 +62,9 @@ const GoogleMapBooking = compose(
     //   "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
     googleMapURL:
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhTFK9gKGYJTSgN7yxkddwu3Lu0wk-ag",
-    loadingElement: <div style={{ height: `100%` }} />,
-    // containerElement: <div style={{ height: `600px`, width: "100%" }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    loadingElement: <div style={{}} />,
+    containerElement: <div style={{ height: `320px`, width: "100%" }} />,
+    mapElement: <div style={{ height: "100%", borderRadius: "8px" }} />,
   }),
   withScriptjs,
   withGoogleMap
@@ -75,16 +79,41 @@ const GoogleMapBooking = compose(
 const BookingOutsite = () => {
   const classes = useStyles();
 
-  const [hospitalList, setHospitalList] = useState();
+  const dispatch = useDispatch();
+
+  const { result: hospitalList } = useSelector((state) => state.hospital);
+  // const [hospitalList, setHospitalList] = useState();
   const [selectDate, setSelectDate] = useState();
   const [selectTime, setSelectTime] = useState();
+  const [openForm, setOpenForm] = useState({
+    open: false,
+    hospitalId: -1,
+    data: null,
+    date: null,
+  });
+
+  const [form, setForm] = useState();
 
   useEffect(async () => {
-    if (!hospitalList) {
-      const res = await hospitalService.getAllHospital();
-      setHospitalList(res.data);
-    }
-  }, [hospitalList]);
+    dispatch(getHospitalPackage());
+    // if (!hospitalList) {
+    //   const res = await hospitalService.getAllHospital();
+    //   setHospitalList(res.data);
+    // }
+  }, []);
+
+  const handleOnClickOpenFrom = (e, value) => {
+    let openForm_ = { ...openForm };
+    openForm_.hospitalId = value.id;
+    openForm_.data = value;
+    openForm_.open = true;
+    openForm_.date = selectDate ? selectDate : "";
+    setOpenForm({ ...openForm_ });
+  };
+
+  const handleOnClose = () => {
+    setOpenForm({ open: false, hospitalId: null, data: null });
+  };
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -189,9 +218,66 @@ const BookingOutsite = () => {
                 </Button>
               </Grid>
             </Grid>
-            <Grid
+            <Stack sx={{ mb: 4 }}>
+              <Paper
+                elevation={2}
+                sx={{ p: 1, maxHeight: "320px", position: "relative", mb: 4 }}
+              >
+                <GoogleMapBooking
+                  containerElement={
+                    <Box
+                      sx={{
+                        [theme.breakpoints.down("sm")]: {
+                          height: "480px",
+                        },
+                        [theme.breakpoints.down("md")]: {
+                          height: "600px",
+                        },
+                        [theme.breakpoints.up("md")]: {
+                          height: "1000px",
+                        },
+                        width: "100%",
+                      }}
+                      // mark={hospitalList}
+                      isMarkerShown={false}
+                    />
+                  }
+                />
+              </Paper>
+              <Grid container spacing={4}>
+                {hospitalList &&
+                  hospitalList.map((val, index) => (
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
+                      key={index + val.id}
+                    >
+                      <ProductCard
+                        image={`${process.env.REACT_APP_URL}image/${val.image}`}
+                        primaryText={val.name}
+                        secondaryText={val.location}
+                        currency=" "
+                        rating_={val.rating}
+                        bottomRightType="buttom"
+                        element={
+                          <Button
+                            color="primary"
+                            onClick={(e) => handleOnClickOpenFrom(e, val)}
+                          >
+                            Booking
+                          </Button>
+                        }
+                      />
+                    </Grid>
+                  ))}
+              </Grid>
+            </Stack>
+            {/* <Grid
               container
-              spacing={2}
+              spacing={4}
               sx={{
                 [theme.breakpoints.down("md")]: {
                   flexDirection: "row-reverse",
@@ -199,7 +285,7 @@ const BookingOutsite = () => {
               }}
             >
               <Grid item xs={12} md={6} xl={8}>
-                <Grid container spacing={2}>
+                <Grid container spacing={4}>
                   {hospitalList &&
                     hospitalList.map((val, index) => (
                       <Grid item xs={12} md={6} xl={4} key={val.id}>
@@ -238,7 +324,17 @@ const BookingOutsite = () => {
                   />
                 </Paper>
               </Grid>
-            </Grid>
+            </Grid> */}
+            {openForm.open && (
+              <BookingHealthcheck
+                open={openForm.open}
+                hospitalId={openForm.hospitalId}
+                handleClose={handleOnClose}
+                date={selectDate ? selectDate : false}
+                form={form}
+                setForm={setForm}
+              />
+            )}
           </Container>
         </div>
       </ThemeProvider>

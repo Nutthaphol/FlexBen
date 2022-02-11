@@ -122,6 +122,8 @@ const ProductCard = (props) => {
     listDetail = false,
     rating_ = null,
     currency = "icon",
+    bottomRightType = "price",
+    element = false,
   } = props;
 
   const [rating, setRating] = useState(rating_);
@@ -164,7 +166,7 @@ const ProductCard = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Card>
+        <Paper>
           <Box sx={{ pt: listDetail ? "70%" : "100%", position: "relative" }}>
             <IconButton
               sx={{
@@ -191,7 +193,8 @@ const ProductCard = (props) => {
               to={path && id ? `${path}/${id}` : ``}
               color="inherit"
               underline="hover"
-              component={RouterLink}
+              // component={"span"}
+              sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
             >
               <Typography variant="subtitle1" noWrap>
                 {primaryText.replace("Insurance", "").toUpperCase()}
@@ -201,6 +204,8 @@ const ProductCard = (props) => {
                   component="span"
                   variant="body2"
                   color="text.secondary"
+                  noWrap
+                  // sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
                 >
                   {secondaryText}
                 </Typography>
@@ -256,151 +261,38 @@ const ProductCard = (props) => {
                   {count && `(${count / 1000} k)`}
                 </Typography>
               </Stack>
-              <Typography
-                variant="subtitle1"
-                noWrap
-                sx={{ display: "flex", alignItems: "center" }}
-              >
-                {currency === "icon" ? (
-                  <Icon
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      margin: "0 4px",
-                    }}
-                    fontSize="small"
-                  >
-                    <img
-                      src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                      width="100%"
-                      height="auto"
-                    />
-                  </Icon>
-                ) : (
-                  currency
-                )}{" "}
-                {!isNaN(price) && price}
-              </Typography>
+              {bottomRightType === "price" ? (
+                <Typography
+                  variant="subtitle1"
+                  noWrap
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  {currency === "icon" ? (
+                    <Icon
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        margin: "0 4px",
+                      }}
+                      fontSize="small"
+                    >
+                      <img
+                        src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                        width="100%"
+                        height="auto"
+                      />
+                    </Icon>
+                  ) : (
+                    currency
+                  )}{" "}
+                  {!isNaN(price) && price}
+                </Typography>
+              ) : (
+                element
+              )}
             </Stack>
           </Stack>
-        </Card>
-        {/* <Card className={classes.root}>
-          <CardActionArea href={path && id ? `${path}/${id}` : ``}>
-            <Box className={classes.coverMedia}>
-              <img
-                src={`${image}`}
-                className={classes.imageDisplay}
-                height="200px"
-                width="100%"
-              />
-            </Box>
-          </CardActionArea>
-          <CardContent className={classes.cardContent}>
-            <Typography className={classes.typograpphy} variant="h6">
-              {primaryText.replace("Insurance", "").toUpperCase()}
-            </Typography>
-            {secondaryText && (
-              <Typography
-                component="span"
-                sx={{
-                  display: "-webkit-box",
-                  overflow: "hidden",
-                  WebkitBoxOrient: "vertical",
-                  WebkitLineClamp: 2,
-                  height: "2.5rem",
-                }}
-                variant="body1"
-                color="text.secondary"
-              >
-                {secondaryText}
-              </Typography>
-            )}
-            {listDetail && (
-              <List sx={{ width: "100%" }}>
-                {listDetail.slice(0, 3).map((val, index) => (
-                  <ListItem
-                    disablePadding
-                    key={index}
-                    secondaryAction={
-                      <Box sx={{ display: "flex", alignItems: "center" }}>
-                        <Typography variant="subtitle1" component="span">
-                          {val.limitCoin}
-                        </Typography>
-
-                        <Icon fontSize="small" sx={{ marginLeft: "10px" }}>
-                          <img
-                            width="100%"
-                            src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
-                          />
-                        </Icon>
-                      </Box>
-                    }
-                  >
-                    <ListItemIcon sx={{ margin: 0, minWidth: "25px" }}>
-                      <AssignmentTurnedIn fontSize="small" color="success" />
-                    </ListItemIcon>
-                    <ListItemText
-                      secondary={<Typography>{val.name}</Typography>}
-                    />
-                  </ListItem>
-                ))}
-              </List>
-            )}
-            <Typography
-              variant="subtitle1"
-              sx={{ marginTop: "0.5rem", color: amber[900] }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <Star sx={{ color: amber[500], marginRight: "0.25rem" }} />
-                {"     "}
-                {rating}
-                {"     "}
-                <Box sx={{ color: "rgb(0,0,0,0.5)", marginLeft: "0.25rem" }}>
-                  {count && `(${count / 1000} k)`}
-                </Box>
-              </Box>
-            </Typography>
-          </CardContent>
-
-          <CardActions>
-            <IconButton>
-              <FavoriteBorder />
-            </IconButton>
-            <Box sx={{ flexGrow: 1 }} />
-            <Button
-              variant="text"
-              sx={{
-                color: "black",
-                fontSize: "1rem",
-                fontWeight: "600",
-                alignItems: "center",
-              }}
-              color="success"
-              size="small"
-              href={`${path}/${id}`}
-            >
-              {currency === "icon" ? (
-                <Icon
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  fontSize="small"
-                >
-                  <img
-                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                    width="100%"
-                    height="auto"
-                  />
-                </Icon>
-              ) : (
-                currency
-              )}
-              <Box component="span" sx={{ marginRight: "5px" }} />
-              {!isNaN(price) && price}
-            </Button>
-          </CardActions>
-        </Card> */}
+        </Paper>
       </ThemeProvider>
     </StyledEngineProvider>
   );

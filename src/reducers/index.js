@@ -26,6 +26,7 @@ import healthCheck from "./healthCheck";
 import healthCheckCategory from "./healthCheckCategory";
 import treatmentCategory from "./treatmentCategory";
 import bill from "./bill";
+import hospital from "./hospital";
 
 const appReducer = combineReducers({
   auth,
@@ -55,6 +56,7 @@ const appReducer = combineReducers({
   healthCheckCategory,
   treatmentCategory,
   bill,
+  hospital,
 });
 
 const rootReducer = (state, action) => {
