@@ -345,7 +345,7 @@ const FormTravel = () => {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Container maxWidth="xl">
-            <Paper className={classes.root}>
+            <Paper sx={{ p: 2 }}>
               <Typography variant="h4" component="div" gutterBottom>
                 เพิ่มรายการสินค้า Travel
               </Typography>
@@ -491,7 +491,7 @@ const FormTravel = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item md={10}>
+                        <Grid item md={10} xs={12} sm={8}>
                           <Field
                             component={TextField}
                             name={`name`}
@@ -499,7 +499,7 @@ const FormTravel = () => {
                             label={`ชื่อที่พัก`}
                           />
                         </Grid>
-                        <Grid item md={2}>
+                        <Grid item md={2} xs={12} sm={4}>
                           <Field name={`quantity`}>
                             {({
                               field, // { name, value, onChange, onBlur }
@@ -588,7 +588,7 @@ const FormTravel = () => {
                             )}
                           </Field>
                         </Grid>
-                        <Grid item md={12}>
+                        <Grid item xs={12}>
                           <Field
                             name={`detail`}
                             component={TextField}
@@ -832,39 +832,6 @@ const FormTravel = () => {
                                     </Box>
                                   </Grid>
                                 ))}
-                              {/* {values.facilities.map((val, index) => (
-                                <Grid item md={4} key={index}>
-                                  <Field
-                                    component={TextField}
-                                    name={`facilities[${index}]`}
-                                    fullWidth
-                                    InputProps={{
-                                      endAdornment: (
-                                        <IconButton
-                                          color="error"
-                                          disabled={
-                                            values.facilities.length <= 1
-                                              ? true
-                                              : false
-                                          }
-                                          onClick={() => remove(index)}
-                                        >
-                                          <Close />
-                                        </IconButton>
-                                      ),
-                                    }}
-                                    label={`อันดับ (${index + 1})`}
-                                  />
-                                </Grid>
-                              ))} */}
-                              {/* <Grid item>
-                                <IconButton
-                                  color="success"
-                                  onClick={() => push("")}
-                                >
-                                  <Add fontSize="large" />
-                                </IconButton>
-                              </Grid> */}
                             </Grid>
                           </Fragment>
                         )}
@@ -879,7 +846,7 @@ const FormTravel = () => {
                         สถานที่ตั้ง
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.houseNO`}
@@ -887,7 +854,7 @@ const FormTravel = () => {
                             label={`บ้านเลขที่`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.road`}
@@ -895,7 +862,7 @@ const FormTravel = () => {
                             label={`ถนน`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.subDistrict`}
@@ -903,7 +870,7 @@ const FormTravel = () => {
                             label={`ตำบล/แขวง`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.district`}
@@ -911,7 +878,7 @@ const FormTravel = () => {
                             label={`อำเภอ/เขต`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.province`}
@@ -919,7 +886,7 @@ const FormTravel = () => {
                             label={`จังหวัด`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.code`}
@@ -927,7 +894,7 @@ const FormTravel = () => {
                             label={`รหัสไปรษณีย์`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`location.country`}
@@ -996,7 +963,7 @@ const FormTravel = () => {
                         ราคาและส่วนลด
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`price`}
@@ -1004,7 +971,7 @@ const FormTravel = () => {
                             label={`ราคาต่อห้อง`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`discount`}
@@ -1012,7 +979,7 @@ const FormTravel = () => {
                             label={`ส่วนลด`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12} sm={6}>
                           <Field
                             component={TextField}
                             name={`netPrice`}
@@ -1028,7 +995,7 @@ const FormTravel = () => {
                         อัพโหลดรูปภาพ
                       </Typography>
                       <Grid container spacing={6}>
-                        <Grid item lg={6}>
+                        <Grid item xs={12}>
                           <Box>
                             <Box {...getRootProps({ className: "dropzone" })}>
                               <Box className="inner-dropzone">
@@ -1059,7 +1026,7 @@ const FormTravel = () => {
                             </Box>
                           </Box>
                         </Grid>
-                        <Grid item lg={6}>
+                        <Grid item xs={12}>
                           <Grid container spacing={2}>
                             {/* {thumbs} */}
                             {files.map((file) => (

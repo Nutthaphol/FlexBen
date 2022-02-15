@@ -17,7 +17,7 @@ const Themplates = {
   components: {
     MuiPaper: {
       defaultProps: {
-        elevation: 2,
+        elevation: 4,
       },
       styleOverrides: {
         root: {

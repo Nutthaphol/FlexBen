@@ -7,8 +7,7 @@ const getAllHospital = () => {
 };
 
 const getHospitalById = (id) => {
-  const res = httpClient.get("hospital/getHospital/+", id);
-  console.log(`service ${res}`);
+  const res = httpClient.get("hospital/getHospital/" + id);
   return res;
 };
 

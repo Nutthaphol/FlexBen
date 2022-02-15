@@ -227,9 +227,6 @@ function App() {
     setOpen(!open);
   };
 
-  const APP_BAR_MOBILE = 64;
-  const APP_BAR_DESKTOP = 92;
-
   return (
     <Router>
       <StyledEngineProvider injectFirst>
@@ -249,21 +246,12 @@ function App() {
                 flexGrow: 1,
                 overflow: "auto",
                 minHeight: "100%",
-                pr: 2,
+                // pr: 2,
               }}
             >
               <Routers />
             </Box>
           </Box>
-          {/* <Stack>
-            {isLoggedIn && (
-              <Header handleDrawerOpen={handleDrawerOpen} open={open} />
-            )}
-            <Stack direction="row">
-              {isLoggedIn && <DrawerContainer open={open} setOpen={setOpen} />}
-              <Routers />
-            </Stack>
-          </Stack> */}
         </ThemeProvider>
       </StyledEngineProvider>
     </Router>

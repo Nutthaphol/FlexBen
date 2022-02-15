@@ -478,7 +478,7 @@ const FormInsurance = () => {
                         alignItems="center"
                         justifyContent="space-between"
                       >
-                        <Grid item md={8}>
+                        <Grid item md={8} xs={12}>
                           <Field
                             component={TextField}
                             name={`name`}
@@ -487,7 +487,7 @@ const FormInsurance = () => {
                             label={`ชื่อประกัน`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} xs={12}>
                           <Field
                             component={TextField}
                             name={`company`}
@@ -496,7 +496,7 @@ const FormInsurance = () => {
                             label={`บริษัท`}
                           />
                         </Grid>
-                        <Grid item md={12}>
+                        <Grid item xs={12}>
                           <Field
                             name={`detail`}
                             component={TextField}
@@ -646,7 +646,7 @@ const FormInsurance = () => {
                             <Grid container spacing={2} alignItems={`center`}>
                               {values.protection.map((val, index) => (
                                 <Fragment key={index}>
-                                  <Grid item md={4}>
+                                  <Grid item sm={4} xs={12}>
                                     <Field
                                       component={TextField}
                                       name={`protection[${index}].name`}
@@ -671,7 +671,7 @@ const FormInsurance = () => {
                                       })`}
                                     />
                                   </Grid>
-                                  <Grid item md={7}>
+                                  <Grid item sm={7} xs={12}>
                                     <Field
                                       component={TextField}
                                       name={`protection[${index}].condition`}
@@ -696,7 +696,7 @@ const FormInsurance = () => {
                                       })`}
                                     />
                                   </Grid>
-                                  <Grid item md={1}>
+                                  <Grid item sm={1} xs={12}>
                                     {index != values.protection.length - 1 ? (
                                       <IconButton
                                         color="error"
@@ -737,7 +737,7 @@ const FormInsurance = () => {
                         ระยะเวลาและเงื่อนไขความคุ้มครอง
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item xl={4}>
+                        <Grid item lg={3} sm={4} xs={12}>
                           <Field
                             component={Select}
                             formControl={{
@@ -755,7 +755,7 @@ const FormInsurance = () => {
                               ))}
                           </Field>
                         </Grid>
-                        <Grid item xl={8}>
+                        <Grid item lg={9} sm={8} xs={12}>
                           <Field
                             component={TextField}
                             fullWidth
@@ -774,7 +774,7 @@ const FormInsurance = () => {
                         ราคาและส่วนลด
                       </Typography>
                       <Grid container spacing={2}>
-                        <Grid item md={4}>
+                        <Grid item md={4} sm={6} xs={12}>
                           <Field
                             component={TextField}
                             name={`price`}
@@ -782,7 +782,7 @@ const FormInsurance = () => {
                             label={`ราคาต่อห้อง`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} sm={6} xs={12}>
                           <Field
                             component={TextField}
                             name={`discount`}
@@ -790,7 +790,7 @@ const FormInsurance = () => {
                             label={`ส่วนลด`}
                           />
                         </Grid>
-                        <Grid item md={4}>
+                        <Grid item md={4} sm={6} xs={12}>
                           <Field
                             component={TextField}
                             name={`netPrice`}
@@ -806,7 +806,7 @@ const FormInsurance = () => {
                         อัพโหลดรูปภาพ
                       </Typography>
                       <Grid container spacing={6}>
-                        <Grid item lg={6}>
+                        <Grid item xs={12}>
                           <Box>
                             <Box {...getRootProps({ className: "dropzone" })}>
                               <Box className="inner-dropzone">
@@ -837,7 +837,7 @@ const FormInsurance = () => {
                             </Box>
                           </Box>
                         </Grid>
-                        <Grid item lg={6}>
+                        <Grid item xs={12}>
                           <Grid container spacing={2}>
                             {/* {thumbs} */}
                             {files.map((file) => (

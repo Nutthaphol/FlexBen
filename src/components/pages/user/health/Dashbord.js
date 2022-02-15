@@ -646,8 +646,8 @@ const Dashbord = () => {
                       >
                         ประวัติสุขภาพ
                       </Typography>
-                      <Stack spacing={2} sx={{ mr: 2, ml: 2 }}>
-                        <Grid container spacing={4}>
+                      <Stack sx={{ mr: 2, ml: 2 }}>
+                        <Grid container>
                           <Grid item xs={12} md={4} lg={3}>
                             <Typography
                               variant="h6"
@@ -687,7 +687,7 @@ const Dashbord = () => {
                             </Box>
                           </Grid>
                         </Grid>
-                        <Grid container spacing={4}>
+                        <Grid container>
                           <Grid item xs={12} md={4} lg={3}>
                             <Typography
                               variant="h6"
@@ -707,7 +707,10 @@ const Dashbord = () => {
                                   data.health.healthStatus.employee
                                     .slice(0, 2)
                                     .map((val, index) => (
-                                      <ListItem key={index + val}>
+                                      <ListItem
+                                        key={index + val}
+                                        disablePadding
+                                      >
                                         <ListItemAvatar>
                                           <Circle
                                             sx={{ fontSize: "12px" }}
@@ -718,12 +721,14 @@ const Dashbord = () => {
                                       </ListItem>
                                     ))
                                 ) : (
-                                  <Typography
-                                    variant="body1"
-                                    sx={{ color: "grey.200" }}
-                                  >
-                                    ไม่มีข้อมูล
-                                  </Typography>
+                                  <ListItem>
+                                    <Typography
+                                      variant="body1"
+                                      sx={{ color: "grey.200" }}
+                                    >
+                                      ไม่มีข้อมูล
+                                    </Typography>
+                                  </ListItem>
                                 )}
                               </List>
                             </Box>

@@ -260,62 +260,61 @@ const Header = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <div className={classes.root}>
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, {
-              [classes.appBarShift]: props.open,
-            })}
-          >
-            <Toolbar className={classes.toolbar}>
-              <Box className={classes.leftSpace}>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={props.handleDrawerOpen}
-                  edge="start"
-                  className={clsx(classes.menuButton, {
-                    [classes.hide]: props.open && classes.hide,
-                  })}
-                  size="large"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Button
-                  to="/home"
-                  component={NavLink}
-                  sx={{
-                    display: { xs: "none", sm: "flex" },
-                    fontSize: "2rem",
-                    fontWeight: 900,
-                    color: "white",
-                    textShadow: "0px 1px 1px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  Flexible benefit
-                </Button>
-              </Box>
-              <div style={{ display: "flex", marginLeft: 20 }}>
-                <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  color="inherit"
-                  onClick={(event) => setAnchorEl(event.currentTarget)}
-                  size="large"
-                  className={classes.menuProfile}
-                >
-                  <Avatar
-                    alt={currentUser.username}
-                    src={`${process.env.REACT_APP_URL}image/profile/${currentUser.image}`}
-                  />
-                </IconButton>
-              </div>
-            </Toolbar>
-          </AppBar>
-          {renderMenu}
-        </div>
+        {/* <div> */}
+        <AppBar
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: props.open,
+          })}
+        >
+          <Toolbar className={classes.toolbar}>
+            <Box className={classes.leftSpace}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={props.handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: props.open && classes.hide,
+                })}
+                size="large"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Button
+                to="/home"
+                component={NavLink}
+                sx={{
+                  display: { xs: "none", sm: "flex" },
+                  fontSize: "2rem",
+                  fontWeight: 900,
+                  color: "white",
+                  textShadow: "0px 1px 1px rgba(0,0,0,0.3)",
+                }}
+              >
+                Flexible benefit
+              </Button>
+            </Box>
+            <div style={{ display: "flex", marginLeft: 20 }}>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                color="inherit"
+                onClick={(event) => setAnchorEl(event.currentTarget)}
+                size="large"
+                className={classes.menuProfile}
+              >
+                <Avatar
+                  alt={currentUser.username}
+                  src={`${process.env.REACT_APP_URL}image/profile/${currentUser.image}`}
+                />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        {renderMenu}
+        {/* </div> */}
       </ThemeProvider>
     </StyledEngineProvider>
   );

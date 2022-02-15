@@ -28,6 +28,8 @@ import { Box } from "@mui/system";
 import { Adb } from "@mui/icons-material";
 import { getUserProfile } from "../../../../actions/user";
 import Themplates from "../../shared/theme";
+import LongCard from "../../shared/card/LongCard";
+import { AutoGraphSharp } from "@mui/icons-material";
 
 const theme = createTheme(Themplates);
 
@@ -62,35 +64,50 @@ const CoinDashboard = () => {
         <ThemeProvider theme={theme}>
           {userProfile && (
             <Container maxWidth="xl">
-              <Typography variant="h4" gutterBottom>
+              <Typography variant="h3" sx={{ mb: 4 }}>
                 Coin Dashboard
               </Typography>
-              <Paper className={classes.paper}>
-                <Grid container spacing={2} justifyContent="space-between">
-                  {/* {userProfile.coin.map((val, index) => (
-                  <Grid item key={index}>
-                  <DataCard
-                  section={val.type + " Coin"}
-                  value={val.count}
-                  type={val.type}
+              <Grid
+                container
+                spacing={4}
+                justifyContent="center"
+                alignItems="center"
+                sx={{ mb: 4 }}
+              >
+                <Grid item xs={12} md={6} lg={3}>
+                  <LongCard
+                    primaryText="10000"
+                    secondaryText="คงเหลือ"
+                    icon={AutoGraphSharp}
                   />
-                  </Grid>
-                ))} */}
-                  <Grid item>
-                    <DataCard section="Insurance คงเหลือ" value={10000} />
-                  </Grid>
-                  <Grid item>
-                    <DataCard section="Insurance คงเหลือ" value={10000} />
-                  </Grid>
-                  <Grid item>
-                    <DataCard section="Insurance คงเหลือ" value={10000} />
-                  </Grid>
-                  <Grid item>
-                    <DataCard section="Insurance คงเหลือ" value={10000} />
-                  </Grid>
+                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
                 </Grid>
-                {/* <Box sx={{ mt: 6 }} /> */}
-              </Paper>
+                <Grid item xs={12} md={6} lg={3}>
+                  <LongCard
+                    primaryText="10000"
+                    secondaryText="คงเหลือ"
+                    icon={AutoGraphSharp}
+                  />
+                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
+                  <LongCard
+                    primaryText="10000"
+                    secondaryText="คงเหลือ"
+                    icon={AutoGraphSharp}
+                  />
+                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
+                  <LongCard
+                    primaryText="10000"
+                    secondaryText="คงเหลือ"
+                    icon={AutoGraphSharp}
+                  />
+                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
+                </Grid>
+              </Grid>
+              {/* <Box sx={{ mt: 6 }} /> */}
               <br />
               <Paper className={classes.paper}>
                 <Typography variant="h5" gutterBottom>

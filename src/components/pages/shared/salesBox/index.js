@@ -33,11 +33,6 @@ import Themplates from "../theme";
 
 const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
-  root: {
-    width: "100%",
-    height: "auto",
-    padding: "1rem",
-  },
   iconButton: {
     borderRadius: "4px",
     border: "1px solid #D0D3D4 ",
@@ -95,7 +90,7 @@ const SalesBox = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Paper className={classes.root}>
+        <Paper sx={{ mb: 4, p: 2 }}>
           <Stack spacing={2}>
             <Box sx={{ width: 1, textAlign: "center" }}>
               <Paper sx={{ p: 2, bgcolor: "grey.200" }} elevation={0}>

@@ -260,6 +260,8 @@ const BookingOutsite = () => {
                         primaryText={val.name}
                         secondaryText={val.location}
                         currency=" "
+                        path="detailHospital"
+                        id={val.id}
                         rating_={val.rating}
                         bottomRightType="buttom"
                         element={

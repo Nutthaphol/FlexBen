@@ -37,6 +37,7 @@ import BillRequestA from "./components/pages/admin/health/BillRequestA";
 import BillRequestM from "./components/pages/manager/health/BillRequestM";
 import BookingOutsite from "./components/pages/user/health/BookingOutsite";
 import FormpackageHealthChrck from "./components/pages/warehouse/FormpackageHealthChrck";
+import DetailHospital from "./components/pages/user/health/DetailHospital";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -188,6 +189,11 @@ function Routers() {
           exact
           path="*/health/HealthHistory/detail/:id"
           component={HealthTesting}
+        />
+        <UserRoute
+          exact
+          path="*/detailHospital/:id"
+          component={DetailHospital}
         />
         <UserRoute exact path="/health/AddBill" component={FormBill} />
         <UserRoute exact path="/health/BillHistory" component={BillHistory} />

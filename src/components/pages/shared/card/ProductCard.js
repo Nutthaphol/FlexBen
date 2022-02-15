@@ -132,8 +132,10 @@ const ProductCard = (props) => {
     top: 0,
     width: "100%",
     height: "100%",
-    objectFit: "cover",
+    objectFit: "scale-down",
     position: "absolute",
+    borderTopRightRadius: "16px",
+    borderTopLeftRadius: "16px",
   });
 
   useEffect(async () => {
@@ -190,11 +192,15 @@ const ProductCard = (props) => {
           </Box>
           <Stack spacing={2} sx={{ p: 3 }}>
             <Link
-              to={path && id ? `${path}/${id}` : ``}
+              href={path && id ? `${path}/${id}` : ``}
               color="inherit"
               underline="hover"
               // component={"span"}
-              sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                cursor: "pointer",
+              }}
             >
               <Typography variant="subtitle1" noWrap>
                 {primaryText.replace("Insurance", "").toUpperCase()}

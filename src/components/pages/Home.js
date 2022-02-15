@@ -1,4 +1,6 @@
 import {
+  ArrowBackIosNew,
+  ArrowForwardIos,
   ArrowLeft,
   ArrowRight,
   Inventory2,
@@ -19,6 +21,7 @@ import {
   ListItem,
   Stack,
   Link,
+  IconButton,
 } from "@mui/material";
 import {
   createTheme,
@@ -27,7 +30,7 @@ import {
 } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllInsurance } from "../../actions/insurance";
 import SlideArrow from "./shared/slideArrow";
@@ -40,6 +43,7 @@ import { getAllMainCategory } from "../../actions/mainCategory";
 import Themplates from "./shared/theme";
 import CategoryCard from "./shared/card/CategoryCard";
 import { Link as RouterLink } from "react-router-dom";
+import SliderCustom from "./shared/SliderCustom/SliderCustom";
 
 // import "../../utils/slick.css";
 
@@ -97,6 +101,7 @@ const Home = () => {
   const { result: package_ } = useSelector((state) => state.package_);
   const { user: currentUser } = useSelector((state) => state.auth);
   const { result: users } = useSelector((state) => state.users);
+  const sliderRef = useRef(null);
   const [setting] = useState({
     dots: false,
     infinite: true,
@@ -105,8 +110,8 @@ const Home = () => {
     slidesToScroll: 4,
     initialSlide: 1,
     adaptiveHeight: false,
-    nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
-    prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
+    // nextArrow: <SlideArrow Comp={KeyboardArrowRight} />,
+    // prevArrow: <SlideArrow Comp={KeyboardArrowLeft} />,
     responsive: [
       {
         breakpoint: 1150,
@@ -180,8 +185,7 @@ const Home = () => {
                 </Typography>
               </Link>
             </Stack>
-
-            <Slider {...setting} className={classes.slider}>
+            <SliderCustom>
               {package_ &&
                 package_
                   .filter((item) => item.rating > 4)
@@ -200,7 +204,71 @@ const Home = () => {
                       />
                     </Box>
                   ))}
-            </Slider>
+            </SliderCustom>
+
+            {/* <Box sx={{ position: "relative" }}>
+              <Slider {...setting} className={classes.slider} ref={sliderRef}>
+                {package_ &&
+                  package_
+                    .filter((item) => item.rating > 4)
+                    .map((val, index) => (
+                      <Box key={index} className={classes.boxSlider}>
+                        <ProductCard
+                          path="detailPackage"
+                          id={val.id}
+                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                          primaryText={val.name}
+                          listDetail={val.property}
+                          count={val.count}
+                          price={val.price}
+                          rating_={val.rating}
+                          currency="$"
+                        />
+                      </Box>
+                    ))}
+              </Slider>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  p: 1,
+                  bgcolor: "rgba(22, 28, 36,0.48)",
+                  borderRadius: "16px",
+                  bottom: "50%",
+                  "&:hover": {
+                    backgroundColor: "rgba(22, 28, 36,1)",
+                    transform: "scale(1.09) translate(0px)",
+                    color: "rgba(255,255,255, 1)",
+                  },
+                  transition:
+                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
+                  color: "rgba(255,255,255, 0.7)",
+                }}
+                onClick={() => sliderRef.current.slickPrev()}
+              >
+                <ArrowLeft sx={{ color: "#fff" }} />
+              </IconButton>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  right: "0",
+                  p: 1,
+                  bgcolor: "rgba(22, 28, 36,0.48)",
+                  borderRadius: "16px",
+                  bottom: "50%",
+                  "&:hover": {
+                    backgroundColor: "rgba(22, 28, 36,1)",
+                    transform: "scale(1.09) translate(0px)",
+                    color: "rgba(255,255,255, 1)",
+                  },
+                  transition:
+                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
+                  color: "rgba(255,255,255, 0.7)",
+                }}
+                onClick={() => sliderRef.current.slickNext()}
+              >
+                <ArrowRight sx={{}} />
+              </IconButton>
+            </Box> */}
 
             <Box sx={{ margin: "32px 0" }} />
 
@@ -226,7 +294,8 @@ const Home = () => {
                 </Typography>
               </Link>
             </Stack>
-            <Slider {...setting} className={classes.slider}>
+
+            <SliderCustom>
               {insurance &&
                 insurance
                   // .slice(0, 4)
@@ -246,18 +315,83 @@ const Home = () => {
                       />
                     </Box>
                   ))}
-            </Slider>
+            </SliderCustom>
+            {/* <Box sx={{ position: "relative" }}>
+              <Slider {...setting} className={classes.slider}>
+                {insurance &&
+                  insurance
+                    // .slice(0, 4)
+                    .filter((item) => item.popular)
+                    .map((val, index) => (
+                      <Box className={classes.boxSlider} key={index}>
+                        <ProductCard
+                          path="detailInsurance"
+                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
+                          secondaryText={val.company}
+                          price={val.price}
+                          primaryText={val.name}
+                          id={val.id}
+                          // rating={val.rating}
+                          count={val.count}
+                          type={val.type}
+                        />
+                      </Box>
+                    ))}
+              </Slider>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  p: 1,
+                  bgcolor: "rgba(22, 28, 36,0.48)",
+                  borderRadius: "16px",
+                  bottom: "50%",
+                  "&:hover": {
+                    backgroundColor: "rgba(22, 28, 36,1)",
+                    transform: "scale(1.09) translate(0px)",
+                    color: "rgba(255,255,255, 1)",
+                  },
+                  transition:
+                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
+                  color: "rgba(255,255,255, 0.7)",
+                }}
+              >
+                <ArrowLeft sx={{ color: "#fff" }} />
+              </IconButton>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  right: "0",
+                  p: 1,
+                  bgcolor: "rgba(22, 28, 36,0.48)",
+                  borderRadius: "16px",
+                  bottom: "50%",
+                  "&:hover": {
+                    backgroundColor: "rgba(22, 28, 36,1)",
+                    transform: "scale(1.09) translate(0px)",
+                    color: "rgba(255,255,255, 1)",
+                  },
+                  transition:
+                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
+                  color: "rgba(255,255,255, 0.7)",
+                }}
+              >
+                <ArrowRight sx={{}} />
+              </IconButton>
+            </Box> */}
 
             <Box sx={{ margin: "32px 0" }} />
 
             {currentUser.roles.includes("ROLE_MANAGER") && (
               <Fragment>
                 <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="row" spacing={2} alignItems="center">
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="center"
+                    sx={{ mb: 2 }}
+                  >
                     <PersonAdd color="info" />
-                    <Typography variant="h5" gutterBottom>
-                      Personalize Coin
-                    </Typography>
+                    <Typography variant="h5">Personalize Coin</Typography>
                   </Stack>
                   <Link
                     to=""
@@ -288,24 +422,20 @@ const Home = () => {
 
             <Box sx={{ margin: "32px 0" }} />
 
-            <Stack direction="row" spacing={2} alignItems="center">
-              <Widgets color="error" />
-              <Typography variant="h5" gutterBottom>
-                Category
-              </Typography>
-            </Stack>
-            <Grid
-              container
-              spacing={5}
-              // sx={{ padding: "1rem" }}
-              justifyContent="center"
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+              sx={{ mb: 2 }}
             >
+              <Widgets color="error" />
+              <Typography variant="h5">Category</Typography>
+            </Stack>
+            <Grid container spacing={4} justifyContent="center">
               {mainCategory &&
                 mainCategory.map((val, index) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
-                    <Box key={index} className={classes.boxSlider}>
-                      <CategoryCard categoryText={val.name} icon={val.icon} />
-                    </Box>
+                    <CategoryCard categoryText={val.name} icon={val.icon} />
                   </Grid>
                 ))}
             </Grid>

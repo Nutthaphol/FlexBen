@@ -20,10 +20,13 @@ import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Themplates from "../theme";
+import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { getHospitalPackage } from "../../../../actions/hospital";
 
 const theme = createTheme(Themplates);
 
-const time = [
+const timeDefault = [
   "08.30 - 09.30 AM",
   "09.30 - 10.30 AM",
   "10.30 - 11.30 AM",
@@ -33,6 +36,23 @@ const time = [
   "15.30 - 16.30 AM",
 ];
 
+const collectingType = ["เงินสด", "วางบิล"];
+
+const formDefault = {
+  packageId: "",
+  prefix: "",
+  firstname: "",
+  lastname: "",
+  phone: "",
+  email: "",
+  nationalID: "",
+  dateBooking: "",
+  time: "",
+  collectingType: "",
+};
+
+const prefix = ["นาย", "นาง", "นางสาว"];
+
 const BookingHealthcheck = (props) => {
   const {
     form,
@@ -40,49 +60,67 @@ const BookingHealthcheck = (props) => {
     hospitalId = false,
     open = false,
     handleClose,
-    date,
+    date = false,
+    time = false,
   } = props;
-  // const [form, setForm] = useState();
+  const dispath = useDispatch();
   const { result: hospitalList } = useSelector((state) => state.hospital);
 
   useEffect(() => {
+    dispath(getHospitalPackage());
     if (!form) {
-      setForm({
-        packageId: hospitalId,
-        fullname: "",
-        nationalId: "",
-        phone: "",
-        date: date,
-        time: "",
-      });
-    }
-    if (form.packageId != hospitalId) {
-      const tmpForm = { ...form };
-      tmpForm.packageId = hospitalId;
-      setForm(tmpForm);
+      let form_ = { ...formDefault };
+      form_.packageId = hospitalId;
+      form_.dateBooking = date && date;
+      form_.time = time && time;
+      setForm(form_);
+    } else if (form.packageId != hospitalId) {
+      let form_ = { ...form };
+
+      setForm(form_);
     }
   }, []);
+
+  const phoneRegExp = /^0\d\d-\d\d\d-\d\d\d\d$/;
+  const numberOnly = /^\d+$/;
+  const validation = Yup.object().shape({
+    prefix: Yup.string().required("Please enter your prefix"),
+    firstname: Yup.string().required("Please enter your first name"),
+    lastname: Yup.string().required("Please enter your last name"),
+    nationalID: Yup.string()
+      .required("please enter your national ID")
+      .matches(numberOnly, "Enter number only")
+      .length(13, "Citizen ID must be exactly 13 characters"),
+    phone: Yup.string()
+      .required("Please enter Phone")
+      .matches(phoneRegExp, "Format 0xx-xxx-xxxx"),
+    email: Yup.string().email().required("Please enter your email"),
+    date: Yup.date().required("Please enter booking date"),
+    time: Yup.string().required("Please enter booking time"),
+    collectingType: Yup.string().required("Please select collecting type"),
+  });
   return (
     <Fragment>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
-        <DialogTitle id={`form booking health of hospital id ${hospitalId}`}>
+        <DialogTitle
+          id={`form booking health of hospital id ${hospitalId}`}
+          sx={{
+            position: "-webkit-sticky",
+            position: "sticky",
+          }}
+        >
           <Typography variant="h4" component="div" gutterBottom>
-            {`Bookink`}
+            {`Booking`}
           </Typography>
         </DialogTitle>
         <Formik
-          // initialValues={{
-          //   packageId: hospitalId,
-          //   fullname: "",
-          //   nationalId: "",
-          //   phone: "",
-          //   date: date,
-          //   time: "",
-          // }}
           initialValues={form}
+          validationSchema={validation}
           onSubmit={(values, setSubmitting) => {
             try {
               setForm(values);
+              console.log("values", values);
+              handleClose();
             } catch (error) {
               console.log("error form order ", error);
             }
@@ -123,11 +161,33 @@ const BookingHealthcheck = (props) => {
                           color="text.secondary"
                           gutterBottom
                         >
-                          ชื่อ-สกุล
+                          คำนำหน้า
+                        </Typography>
+                        <Field
+                          component={Select}
+                          name={`prefix`}
+                          fullWidth
+                          size="small"
+                          formControl={{ sx: { width: "100%" } }}
+                        >
+                          {prefix.map((val, index) => (
+                            <MenuItem value={val} key={index + val}>
+                              {val}
+                            </MenuItem>
+                          ))}
+                        </Field>
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          ชื่อ
                         </Typography>
                         <Field
                           component={TextField}
-                          name={`fullname`}
+                          name={`firstname`}
                           fullWidth
                           size="small"
                         />
@@ -138,11 +198,11 @@ const BookingHealthcheck = (props) => {
                           color="text.secondary"
                           gutterBottom
                         >
-                          เลขบัตรประชาชน
+                          สกุล
                         </Typography>
                         <Field
                           component={TextField}
-                          name={`nationalId`}
+                          name={`lastname`}
                           fullWidth
                           size="small"
                         />
@@ -162,6 +222,36 @@ const BookingHealthcheck = (props) => {
                           size="small"
                         />
                       </Box>
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          E-mail
+                        </Typography>
+                        <Field
+                          component={TextField}
+                          name={`email`}
+                          fullWidth
+                          size="small"
+                        />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          เลขบัตรประชาชน
+                        </Typography>
+                        <Field
+                          component={TextField}
+                          name={`nationalID`}
+                          fullWidth
+                          size="small"
+                        />
+                      </Box>
                     </Stack>
                   </Grid>
                 </Grid>
@@ -176,7 +266,7 @@ const BookingHealthcheck = (props) => {
                     }}
                   >
                     <Typography variant="h5" gutterBottom>
-                      ข้อมูลส่วนตัว
+                      ข้อมูลการจอง
                     </Typography>
                   </Grid>
                   <Grid
@@ -199,7 +289,7 @@ const BookingHealthcheck = (props) => {
                         >
                           package
                         </Typography>
-                        {console.log("hospitalList", hospitalList)}
+                        {/* {console.log("hospitalList", hospitalList)} */}
                         <Field
                           component={TextField}
                           name={`packageId`}
@@ -225,7 +315,7 @@ const BookingHealthcheck = (props) => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                           <Field
                             component={DatePicker}
-                            name={`date`}
+                            name={`dateBooking`}
                             inputFormat="dd/MM/yyyy"
                             renderInput={(params) => (
                               <TextFieldMUI
@@ -248,6 +338,7 @@ const BookingHealthcheck = (props) => {
                         <Field
                           component={Select}
                           name={`time`}
+                          value={values.time}
                           formControl={{
                             sx: {
                               width: 1,
@@ -256,8 +347,29 @@ const BookingHealthcheck = (props) => {
                             size: "small",
                           }}
                         >
-                          {time.map((val, index) => (
+                          {timeDefault.map((val, index) => (
                             <MenuItem key={index + val} value={val}>
+                              {val}
+                            </MenuItem>
+                          ))}
+                        </Field>
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="subtitle1"
+                          color="text.secondary"
+                          gutterBottom
+                        >
+                          ประเภทการเก็บเงิน
+                        </Typography>
+                        <Field
+                          name={`collectingType`}
+                          component={Select}
+                          size="small"
+                          formControl={{ sx: { width: "100%" } }}
+                        >
+                          {collectingType.map((val, index) => (
+                            <MenuItem key={(val, index)} value={val}>
                               {val}
                             </MenuItem>
                           ))}

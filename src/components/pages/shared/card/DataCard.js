@@ -7,7 +7,7 @@ import {
 } from "@mui/material/styles";
 
 import { makeStyles } from "@mui/styles";
-import { Card, Icon, Typography } from "@mui/material";
+import { Card, Icon, Paper, Stack, Typography } from "@mui/material";
 import { AutoGraphSharp } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { amber } from "@mui/material/colors";
@@ -39,7 +39,40 @@ const DataCard = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <Card className={classes.root}>
+        <Paper sx={{ p: 2 }}>
+          <Stack direction="row" justifyContent="space-between">
+            <Stack spacing={2} sx={{ flexGrow: 1 }}>
+              <Typography variant="subtitle1">{section}</Typography>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Icon fontSize="small">
+                  <img
+                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
+                    width="100%"
+                  />
+                </Icon>
+                <Typography variant="h4">{value}</Typography>
+              </Stack>
+            </Stack>
+            <Box
+              sx={{
+                flexGrow: 1,
+                textAlign: "center",
+              }}
+            >
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: "primary.lighter",
+                  borderRadius: "50px",
+                  p: 4,
+                }}
+              >
+                <AutoGraphSharp />
+              </Paper>
+            </Box>
+          </Stack>
+        </Paper>
+        {/* <Card className={classes.root}>
           <AutoGraphSharp className={classes.propsIcons} />
           <Typography variant="subtitle1" color="text.secondary" gutterBottom>
             {section}
@@ -62,7 +95,7 @@ const DataCard = (props) => {
             <Box sx={{ flexGrow: 0.03 }} />
             <Typography variant="h4">{value}</Typography>
           </Box>
-        </Card>
+        </Card> */}
       </ThemeProvider>
     </StyledEngineProvider>
   );
