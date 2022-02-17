@@ -131,6 +131,7 @@ const LoginButton = withStyles(() => ({
 const LoginPage = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [error, setError] = useState();
 
   useEffect(() => {
     //anyNameFunction();
@@ -197,6 +198,10 @@ const LoginPage = (props) => {
     );
   };
 
+  const handleError = (message) => {
+    setError(message);
+  };
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
@@ -209,15 +214,20 @@ const LoginPage = (props) => {
             />
             <CardContent>
               <Typography variant="h4">Login</Typography>
+              <Typography variant="subtitle2" sx={{ color: "#C82626" }}>
+                {error && error}
+              </Typography>
               <Formik
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                   dispatch(login(values.username, values.password))
                     .then(() => {
+                      handleError(false);
                       props.history.push("/home");
                       window.location.reload();
                     })
                     .catch((error) => {
                       resetForm();
+                      handleError(error);
                     });
                 }}
                 initialValues={{

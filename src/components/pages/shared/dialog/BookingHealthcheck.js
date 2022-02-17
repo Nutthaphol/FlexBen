@@ -11,6 +11,7 @@ import {
   TextField as TextFieldMUI,
   MenuItem,
   Button,
+  Icon,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Field, Form, Formik } from "formik";
@@ -23,6 +24,17 @@ import Themplates from "../theme";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { getHospitalPackage } from "../../../../actions/hospital";
+import {
+  AccessTime,
+  CreditCard,
+  Email,
+  Inventory2,
+  Person,
+  Phone,
+  TagFaces,
+  TagTwoTone,
+  Wc,
+} from "@mui/icons-material";
 
 const theme = createTheme(Themplates);
 
@@ -156,13 +168,23 @@ const BookingHealthcheck = (props) => {
                   >
                     <Stack spacing={1}>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          คำนำหน้า
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            คำนำหน้า
+                          </Typography>
+                          <Wc
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={Select}
                           name={`prefix`}
@@ -178,13 +200,23 @@ const BookingHealthcheck = (props) => {
                         </Field>
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          ชื่อ
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            ชื่อ
+                          </Typography>
+                          <Person
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={TextField}
                           name={`firstname`}
@@ -193,13 +225,23 @@ const BookingHealthcheck = (props) => {
                         />
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          สกุล
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            สกุล
+                          </Typography>
+                          <Person
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={TextField}
                           name={`lastname`}
@@ -208,13 +250,23 @@ const BookingHealthcheck = (props) => {
                         />
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          เบอร์โทรศัพท์
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            เบอร์โทรศัพท์
+                          </Typography>
+                          <Phone
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={TextField}
                           name={`phone`}
@@ -223,13 +275,23 @@ const BookingHealthcheck = (props) => {
                         />
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          E-mail
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            E-mail
+                          </Typography>
+                          <Email
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={TextField}
                           name={`email`}
@@ -238,13 +300,23 @@ const BookingHealthcheck = (props) => {
                         />
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          เลขบัตรประชาชน
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            เลขบัตรประชาชน
+                          </Typography>
+                          <TagTwoTone
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={TextField}
                           name={`nationalID`}
@@ -282,13 +354,23 @@ const BookingHealthcheck = (props) => {
                   >
                     <Stack spacing={1}>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          package
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            package
+                          </Typography>
+                          <Inventory2
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         {/* {console.log("hospitalList", hospitalList)} */}
                         <Field
                           component={TextField}
@@ -328,13 +410,23 @@ const BookingHealthcheck = (props) => {
                         </LocalizationProvider>
                       </Box>
                       <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          เวลา
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            เวลา
+                          </Typography>
+                          <AccessTime
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           component={Select}
                           name={`time`}
@@ -353,15 +445,24 @@ const BookingHealthcheck = (props) => {
                             </MenuItem>
                           ))}
                         </Field>
-                      </Box>
-                      <Box>
-                        <Typography
-                          variant="subtitle1"
-                          color="text.secondary"
-                          gutterBottom
+                        <Box></Box>
+                        <Stack
+                          direction="row"
+                          spacing={1}
+                          alignItems="center"
+                          sx={{ mb: 1 }}
                         >
-                          ประเภทการเก็บเงิน
-                        </Typography>
+                          <Typography
+                            variant="subtitle1"
+                            color="text.secondary"
+                          >
+                            ประเภทการเก็บเงิน
+                          </Typography>
+                          <CreditCard
+                            fontSize="small"
+                            sx={{ color: "text.secondary" }}
+                          />
+                        </Stack>
                         <Field
                           name={`collectingType`}
                           component={Select}

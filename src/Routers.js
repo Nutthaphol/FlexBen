@@ -38,6 +38,8 @@ import BillRequestM from "./components/pages/manager/health/BillRequestM";
 import BookingOutsite from "./components/pages/user/health/BookingOutsite";
 import FormpackageHealthChrck from "./components/pages/warehouse/FormpackageHealthChrck";
 import DetailHospital from "./components/pages/user/health/DetailHospital";
+import { useEffect } from "react";
+import BookingHistory from "./components/pages/user/health/BookingHistory";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -202,6 +204,7 @@ function Routers() {
           path="/healthcheck/BookingOutsite"
           component={BookingOutsite}
         />
+        <UserRoute exact path="/bookingHistory" component={BookingHistory} />
 
         <WarehouseRoute
           exact

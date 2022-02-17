@@ -28,6 +28,7 @@ import { amber, indigo, red } from "@mui/material/colors";
 import {
   AccountBalanceWallet,
   AttachMoney,
+  Bloodtype,
   HealthAndSafety,
   HistoryEdu,
   MonetizationOn,
@@ -59,7 +60,8 @@ const useStyles = makeStyles(() => ({
     display: "flex",
   },
   appBar: {
-    backgroundColor: "#FFCD2E",
+    backgroundColor: theme.palette.primary.main,
+    // backgroundColor: "#FFCD2E",
     zIndex: theme.zIndex.drawer + 1,
     right: 0,
     boxShadow: "0px 2px 3px -1px rgb(0 0 0 / 20%)",
@@ -73,7 +75,8 @@ const useStyles = makeStyles(() => ({
     borderRadius: "0px",
   },
   appBarShift: {
-    backgroundColor: "#FFCD2E",
+    // backgroundColor: "#FFCD2E",
+    backgroundColor: theme.palette.primary.main,
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
@@ -242,6 +245,19 @@ const Header = (props) => {
           <HistoryEdu />
         </ListItemIcon>
         History
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleOnClickPath("/history");
+          setAnchorEl(null);
+        }}
+        component={Link}
+        to="/bookingHistory"
+      >
+        <ListItemIcon>
+          <Bloodtype />
+        </ListItemIcon>
+        Health check booking
       </MenuItem>
       <Divider sx={{ my: 0.5 }} />
       <MenuItem

@@ -147,11 +147,12 @@ const BillRequestM = () => {
             />
             <TableContainer
               component={Paper}
-              sx={{ p: 2, mb: 4, overflow: "scroll", mt: 4 }}
+              sx={{ mb: 4, overflow: "scroll", mt: 4 }}
               elevation={1}
             >
               <Table
                 sx={{
+                  m: 2,
                   borderCollapse: "separate",
                   borderSpacing: "0px 10px !important",
                 }}

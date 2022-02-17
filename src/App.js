@@ -32,6 +32,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Themplates from "./components/pages/shared/theme";
 import WarehouseMenu from "./components/layouts/menu/warehouse/warehouseMenu";
+import ScrollToTop from "./components/pages/shared/scrollToTop/ScrollToTop";
 
 const theme = createTheme(Themplates);
 
@@ -233,20 +234,24 @@ function App() {
         <ThemeProvider theme={theme}>
           <Box
             component="div"
-            sx={{ display: "flex", minHeight: "100%", overflow: "hidden" }}
+            sx={{
+              display: "flex",
+              minHeight: "100%",
+              overflow: "hidden",
+            }}
           >
             {isLoggedIn && (
               <Header handleDrawerOpen={handleDrawerOpen} open={open} />
             )}
             {isLoggedIn && <DrawerContainer open={open} setOpen={setOpen} />}
-
+            <ScrollToTop />
             <Box
               component="div"
               sx={{
                 flexGrow: 1,
-                overflow: "auto",
+                overflow: "hidden",
                 minHeight: "100%",
-                // pr: 2,
+                p: 0,
               }}
             >
               <Routers />

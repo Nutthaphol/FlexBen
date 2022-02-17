@@ -125,10 +125,10 @@ const BillHistory = () => {
             <Box sx={{ mb: 4 }} />
             <TableContainer
               component={Paper}
-              sx={{ overflow: "scroll", p: 2 }}
+              sx={{ overflow: "scroll" }}
               elevation={3}
             >
-              <Table>
+              <Table sx={{ m: 2 }}>
                 <TableHead>
                   <TableRow>
                     <TableCell

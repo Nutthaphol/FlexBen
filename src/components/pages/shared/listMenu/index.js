@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
     },
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      backgroundColor: amber[500],
+      // backgroundColor: amber[500],
+      backgroundColor: theme.palette.primary.lighter,
     },
   },
   nestedClose: {
@@ -43,19 +44,24 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-start",
     },
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      backgroundColor: amber[500],
+      // backgroundColor: amber[500],
+      backgroundColor: theme.palette.primary.lighter,
     },
   },
   selected: {
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      backgroundColor: amber[500],
+      // backgroundColor: amber[500],
+      backgroundColor: theme.palette.primary.lighter,
     },
   },
   selected2: {
     "&.MuiListItem-root.Mui-selected": {
-      backgroundColor: amber[50],
+      // backgroundColor: amber[50],
+      backgroundColor: theme.palette.primary.lighter,
+
       borderLeft: "4px solid",
-      borderLeftColor: amber[500],
+      // borderLeftColor: amber[500],
+      borderLeftColor: theme.palette.primary.main,
     },
   },
 }));
@@ -116,6 +122,8 @@ const ListMenu = (props) => {
                       <ListItemText
                         primary={
                           <Typography
+                            variant="subtitle1"
+                            component="span"
                             sx={{
                               whiteSpace: "nowrap",
                               overflow: "hidden",
@@ -185,27 +193,25 @@ const ListMenu = (props) => {
                     button
                     className={classes.selected}
                     key={value.listKey}
-                    activeclassname={classes.isActive}
+                    activeclassname={{ color: "#fff" }}
+                    // activeclassname={classes.isActive}
                     selected={value.listLink == path.path ? true : false}
                     onClick={() => handleOnClickSelect(value.listLink)}
                   >
                     <ListItemIcon>{value.listItemIcon}</ListItemIcon>
                     <ListItemText
                       primary={
-                        <Box>
-                          {" "}
-                          <Typography
-                            variant="subtitle1"
-                            component="span"
-                            sx={{
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                            }}
-                          >
-                            {value.listItemText}
-                          </Typography>
-                        </Box>
+                        <Typography
+                          variant="subtitle1"
+                          component="span"
+                          sx={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {value.listItemText}
+                        </Typography>
                       }
                     />
                   </ListItem>
