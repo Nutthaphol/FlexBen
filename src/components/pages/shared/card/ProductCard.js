@@ -220,30 +220,33 @@ const ProductCard = (props) => {
             {listDetail && (
               <List sx={{ width: "100%" }} disablePadding>
                 {listDetail.slice(0, 3).map((val, index) => (
-                  <ListItem
-                    disablePadding
-                    key={index}
-                    secondaryAction={
-                      <Stack direction="row" spacing={1}>
-                        <Typography variant="body2" component="span">
-                          {val.limitCoin}
-                        </Typography>
-
-                        <Icon fontSize="small">
-                          <img
-                            width="100%"
-                            src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
-                          />
-                        </Icon>
-                      </Stack>
-                    }
-                  >
+                  <ListItem disablePadding key={index}>
                     <ListItemIcon sx={{ margin: 0, minWidth: "25px" }}>
                       <AssignmentTurnedIn fontSize="small" color="success" />
                     </ListItemIcon>
                     <ListItemText
                       secondary={
-                        <Typography variant="body2">{val.name}</Typography>
+                        <Stack
+                          direction="row"
+                          justifyContent="space-between"
+                          alignItems="center"
+                        >
+                          <Typography variant="body2" noWrap>
+                            {val.name}
+                          </Typography>
+                          <Stack direction="row" spacing={1}>
+                            <Typography variant="body2" component="span">
+                              {val.limitCoin}
+                            </Typography>
+
+                            <Icon fontSize="small">
+                              <img
+                                width="100%"
+                                src={`${process.env.PUBLIC_URL}/assets/Icons/Coin.svg`}
+                              />
+                            </Icon>
+                          </Stack>
+                        </Stack>
                       }
                     />
                   </ListItem>

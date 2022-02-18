@@ -65,7 +65,7 @@ const useStyles = makeStyles(() => ({
     padding: "1rem",
   },
   highLights: {
-    color: amber[700],
+    color: theme.palette.primary.main,
     fontWeight: 600,
     fontSize: "1.25rem",
   },
@@ -665,12 +665,15 @@ const Cart = (props) => {
                     <ListItem
                       secondaryAction={
                         <Typography
-                          // variant="h5"
+                          variant="h4"
                           component="span"
-                          className={classes.highLights}
                           sx={{
                             display: "flex",
                             alignItems: "center",
+                            color:
+                              number && userProfile.coin - lastPrice() < 0
+                                ? theme.palette.error.main
+                                : theme.palette.primary.main,
                           }}
                         >
                           {number && userProfile.coin - lastPrice()}{" "}
@@ -692,9 +695,9 @@ const Cart = (props) => {
                       <ListItemText
                         primary={
                           <Typography
-                            // varaint="h5"
+                            variant="h4"
                             component="span"
-                            className={classes.highLights}
+                            color="primary"
                           >
                             จำนวน Coin คงเหลือ
                           </Typography>

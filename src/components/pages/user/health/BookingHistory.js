@@ -9,6 +9,7 @@ import { makeStyles, styled } from "@mui/styles";
 import Themplates from "../../shared/theme";
 import { getBookingHealthCheckbyId } from "../../../../actions/bookingHealthCheck";
 import {
+  Chip,
   Container,
   Paper,
   Table,
@@ -36,6 +37,7 @@ const BookingHistory = () => {
   const { result: hospitalList } = useSelector((state) => state.hospital);
   const { user: currentUser } = useSelector((state) => state.auth);
   const [listed, setListed] = useState();
+  const [search, setSearch] = useState();
 
   useEffect(
     (callback_) => {
@@ -71,7 +73,7 @@ const BookingHistory = () => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           <Container maxWidth="xl">
-            <HeaderSearch normalText="Booking History" />
+            <HeaderSearch normalText="Booking History" setSearch={setSearch} />
             <Box sx={{ mb: 4 }} />
             <Paper sx={{ mb: 4, overflow: "scroll", mt: 4, p: 2 }}>
               <Table sx={{}}>
@@ -98,7 +100,16 @@ const BookingHistory = () => {
                         <TableCell>{`${
                           val.prefix + " " + val.firstname + " " + val.lastname
                         }`}</TableCell>
-                        <TableCell>{val.collectingType}</TableCell>
+                        <TableCell>
+                          <Chip
+                            label={val.collectingType}
+                            color={
+                              val.collectingType == "เงินสด"
+                                ? "primary"
+                                : "secondary"
+                            }
+                          />
+                        </TableCell>
                       </TableRow>
                     ))}
                 </TableBody>
