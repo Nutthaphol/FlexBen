@@ -166,7 +166,7 @@ const Home = () => {
             <Stack direction="row" justifyContent="space-between">
               <Stack direction="row" spacing={2} alignItems="center">
                 <Inventory2 color="error" />
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h3" gutterBottom>
                   Top Package
                 </Typography>
               </Stack>
@@ -206,76 +206,12 @@ const Home = () => {
                   ))}
             </SliderCustom>
 
-            {/* <Box sx={{ position: "relative" }}>
-              <Slider {...setting} className={classes.slider} ref={sliderRef}>
-                {package_ &&
-                  package_
-                    .filter((item) => item.rating > 4)
-                    .map((val, index) => (
-                      <Box key={index} className={classes.boxSlider}>
-                        <ProductCard
-                          path="detailPackage"
-                          id={val.id}
-                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                          primaryText={val.name}
-                          listDetail={val.property}
-                          count={val.count}
-                          price={val.price}
-                          rating_={val.rating}
-                          currency="$"
-                        />
-                      </Box>
-                    ))}
-              </Slider>
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  p: 1,
-                  bgcolor: "rgba(22, 28, 36,0.48)",
-                  borderRadius: "16px",
-                  bottom: "50%",
-                  "&:hover": {
-                    backgroundColor: "rgba(22, 28, 36,1)",
-                    transform: "scale(1.09) translate(0px)",
-                    color: "rgba(255,255,255, 1)",
-                  },
-                  transition:
-                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
-                  color: "rgba(255,255,255, 0.7)",
-                }}
-                onClick={() => sliderRef.current.slickPrev()}
-              >
-                <ArrowLeft sx={{ color: "#fff" }} />
-              </IconButton>
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  right: "0",
-                  p: 1,
-                  bgcolor: "rgba(22, 28, 36,0.48)",
-                  borderRadius: "16px",
-                  bottom: "50%",
-                  "&:hover": {
-                    backgroundColor: "rgba(22, 28, 36,1)",
-                    transform: "scale(1.09) translate(0px)",
-                    color: "rgba(255,255,255, 1)",
-                  },
-                  transition:
-                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
-                  color: "rgba(255,255,255, 0.7)",
-                }}
-                onClick={() => sliderRef.current.slickNext()}
-              >
-                <ArrowRight sx={{}} />
-              </IconButton>
-            </Box> */}
-
             <Box sx={{ margin: "32px 0" }} />
 
             <Stack direction="row" justifyContent="space-between">
               <Stack direction="row" spacing={2} alignItems="center">
                 <SelfImprovement color="success" />
-                <Typography variant="h5" gutterBottom>
+                <Typography variant="h3" gutterBottom>
                   Top Insurun
                 </Typography>
               </Stack>
@@ -316,68 +252,6 @@ const Home = () => {
                     </Box>
                   ))}
             </SliderCustom>
-            {/* <Box sx={{ position: "relative" }}>
-              <Slider {...setting} className={classes.slider}>
-                {insurance &&
-                  insurance
-                    // .slice(0, 4)
-                    .filter((item) => item.popular)
-                    .map((val, index) => (
-                      <Box className={classes.boxSlider} key={index}>
-                        <ProductCard
-                          path="detailInsurance"
-                          image={`${process.env.REACT_APP_URL}image/${val.image[0]}`}
-                          secondaryText={val.company}
-                          price={val.price}
-                          primaryText={val.name}
-                          id={val.id}
-                          // rating={val.rating}
-                          count={val.count}
-                          type={val.type}
-                        />
-                      </Box>
-                    ))}
-              </Slider>
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  p: 1,
-                  bgcolor: "rgba(22, 28, 36,0.48)",
-                  borderRadius: "16px",
-                  bottom: "50%",
-                  "&:hover": {
-                    backgroundColor: "rgba(22, 28, 36,1)",
-                    transform: "scale(1.09) translate(0px)",
-                    color: "rgba(255,255,255, 1)",
-                  },
-                  transition:
-                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
-                  color: "rgba(255,255,255, 0.7)",
-                }}
-              >
-                <ArrowLeft sx={{ color: "#fff" }} />
-              </IconButton>
-              <IconButton
-                sx={{
-                  position: "absolute",
-                  right: "0",
-                  p: 1,
-                  bgcolor: "rgba(22, 28, 36,0.48)",
-                  borderRadius: "16px",
-                  bottom: "50%",
-                  "&:hover": {
-                    backgroundColor: "rgba(22, 28, 36,1)",
-                    transform: "scale(1.09) translate(0px)",
-                    color: "rgba(255,255,255, 1)",
-                  },
-                  transition:
-                    "background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;",
-                  color: "rgba(255,255,255, 0.7)",
-                }}
-              >
-                <ArrowRight sx={{}} />
-              </IconButton>
-            </Box> */}
 
             <Box sx={{ margin: "32px 0" }} />
 
@@ -391,7 +265,7 @@ const Home = () => {
                     sx={{ mb: 2 }}
                   >
                     <PersonAdd color="info" />
-                    <Typography variant="h5">Personalize Coin</Typography>
+                    <Typography variant="h3">Personalize Coin</Typography>
                   </Stack>
                   <Link
                     to=""
@@ -429,9 +303,9 @@ const Home = () => {
               sx={{ mb: 2 }}
             >
               <Widgets color="error" />
-              <Typography variant="h5">Category</Typography>
+              <Typography variant="h3">Category</Typography>
             </Stack>
-            <Grid container spacing={4} justifyContent="center">
+            <Grid container spacing={4} justifyContent="center" sx={{ mb: 4 }}>
               {mainCategory &&
                 mainCategory.map((val, index) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={index}>
@@ -439,13 +313,6 @@ const Home = () => {
                   </Grid>
                 ))}
             </Grid>
-
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
           </Container>
         </ThemeProvider>
       </StyledEngineProvider>

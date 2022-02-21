@@ -40,6 +40,7 @@ import FormpackageHealthChrck from "./components/pages/warehouse/FormpackageHeal
 import DetailHospital from "./components/pages/user/health/DetailHospital";
 import { useEffect } from "react";
 import BookingHistory from "./components/pages/user/health/BookingHistory";
+import { BookingHealthCheckList } from "./components/pages/admin/health/BookingHealthCheckList";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -251,6 +252,11 @@ function Routers() {
           exact
           path="/admin/health/BillRequest"
           component={BillRequestA}
+        />
+        <AdminRoute
+          exact
+          path="/admin/health/BookingHealthCheckList"
+          component={BookingHealthCheckList}
         />
 
         {/* Manager */}

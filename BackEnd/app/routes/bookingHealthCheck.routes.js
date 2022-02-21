@@ -15,4 +15,9 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getBookingHistoryById
   );
+  app.get(
+    "/api/admin/getAllBookingHealthCheck",
+    [authJwt.verifyToken],
+    controller.getAllBooking
+  );
 };

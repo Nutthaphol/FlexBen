@@ -12,6 +12,7 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import {
   Article,
+  Bloodtype,
   Feed,
   FormatAlignCenter,
   GroupWork,
@@ -61,6 +62,12 @@ const AdminMenu = ({ open }) => {
           listItemText: "Bill request",
           listLink: "/admin/health/BillRequest",
           listKey: "billrequest",
+        },
+        {
+          listItemIcon: <Bloodtype />,
+          listItemText: "Health Check List",
+          listLink: "/admin/health/BookingHealthCheckList",
+          listKey: "BookingHealthCheckList",
         },
       ],
     },

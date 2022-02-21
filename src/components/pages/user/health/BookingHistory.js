@@ -38,36 +38,37 @@ const BookingHistory = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
   const [listed, setListed] = useState();
   const [search, setSearch] = useState();
+  const [loadData, setLoadData] = useState(false);
 
-  useEffect(
-    (callback_) => {
-      const fetchData = async (callback_) => {
-        const id = currentUser.id;
-        await dispatch(getBookingHealthCheckbyId(id));
-        await dispatch(getHospitalPackage());
-        callback_();
-      };
+  useEffect(() => {
+    const fetchData = async (callback_) => {
+      const id = currentUser.id;
+      console.log("hospitalList", hospitalList);
+      await dispatch(getBookingHealthCheckbyId(id));
+      await dispatch(getHospitalPackage());
+      callback_();
+    };
 
-      !listed &&
-        fetchData(() => {
-          const result =
-            bookingHealthcheck &&
-            bookingHealthcheck.reduce((prev, curr) => {
-              const data = hospitalList.find(
-                (item) => item.id == curr.hospitalId
-              );
+    !loadData &&
+      fetchData(() => {
+        setLoadData(true);
+      });
 
-              if (data) {
-                curr.hospitalName = data.name;
-                prev.push(curr);
-              }
-              return prev;
-            }, []);
-          setListed(result);
-        });
-    },
-    [listed]
-  );
+    if (!listed && loadData) {
+      const result =
+        bookingHealthcheck &&
+        bookingHealthcheck.reduce((prev, curr) => {
+          const data = hospitalList.find((item) => item.id == curr.hospitalId);
+
+          if (data) {
+            curr.hospitalName = data.name;
+            prev.push(curr);
+          }
+          return prev;
+        }, []);
+      setListed(result);
+    }
+  }, [listed, loadData]);
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>

@@ -18,6 +18,25 @@ export const getBookingHealthCheckbyId = (id) => async (dispatch) => {
     dispatch({
       type: BOOKINGHEALTHCHECK_FAILED,
     });
-    console.log(err);
+  }
+};
+
+export const getAllBookingHealthCheck = () => async (dispatch) => {
+  try {
+    const res = await bookingHealthCheckService.getAllBooingHealthCheck();
+    if (res) {
+      dispatch({
+        type: BOOKINGHEALTHCHECK_SUCCESS,
+        payload: res.data,
+      });
+    } else {
+      dispatch({
+        type: BOOKINGHEALTHCHECK_FAILED,
+      });
+    }
+  } catch (err) {
+    dispatch({
+      type: BOOKINGHEALTHCHECK_FAILED,
+    });
   }
 };

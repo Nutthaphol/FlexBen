@@ -10,7 +10,20 @@ exports.getBookingHistoryById = (req, res) => {
     if (result) {
       res.status(200).send(result);
     } else {
-      return res.status(404).send({ message: "Booking history not found." });
+      res.status(404).send({ message: "Booking history not found." });
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+exports.getAllBooking = (req, res) => {
+  const result = bookingHealthCheck;
+  try {
+    if (result) {
+      res.status(200).send(result);
+    } else {
+      res.status(404).send({ message: "Booking not found." });
     }
   } catch (error) {
     res.status(500).send({ message: error.message });
