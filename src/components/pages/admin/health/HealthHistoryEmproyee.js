@@ -50,6 +50,7 @@ import { getAllUsers } from "../../../../actions/user";
 import dayjs from "dayjs";
 import { getAllHealthCheck } from "../../../../actions/healthCheck";
 import { getHealthCheckCategory } from "../../../../actions/healthCheckCategory";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
 
 const theme = createTheme(Themplates);
 
@@ -392,76 +393,33 @@ const HealthHistoryEmproyee = () => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           <Container maxWidth="xl">
-            <Paper className={classes.cardW}>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="h5" component="div">
-                    ข้อมูลประวัติการตรวจสุขภาพ
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    flexGrow: 1,
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <FormControl sx={{ width: "240px", margin: "1rem 1rem" }}>
-                    <InputLabel size="small" id="Category">
-                      ปี
-                    </InputLabel>
-                    <Select
-                      size="small"
-                      labelId="Category"
-                      id="category"
-                      label="ประเภท"
-                      onChange={(e) => setSelectYear(e.target.value)}
-                    >
-                      <MenuItem value={"all"}>{`ทั้งหมด`}</MenuItem>
-                      {listYears.length > 0 &&
-                        listYears.map((val, index) => (
-                          <MenuItem key={index} value={val}>
-                            {val}
-                          </MenuItem>
-                        ))}
-                    </Select>
-                  </FormControl>
-                  <TextField
-                    variant="outlined"
+            <HeaderSearch
+              normalText="ข้อมูลประวัติการตรวจสุขภาพ"
+              setSearch={setSearchList}
+              insertComponent={
+                <FormControl sx={{ width: 1 }}>
+                  <InputLabel size="small" id="Category">
+                    ปี
+                  </InputLabel>
+                  <Select
                     size="small"
-                    value={searchList}
-                    sx={{ width: "240px", margin: "1rem 1rem" }}
-                    onChange={(e) =>
-                      setSearchList(e.target.value.toLowerCase())
-                    }
-                    InputProps={{
-                      startAdornment: <Search fontSize="small" />,
-                      endAdornment: (
-                        <IconButton
-                          title="Clear"
-                          aria-label="Clear"
-                          size="small"
-                          style={{
-                            visibility: searchList != "" ? "visible" : "hidden",
-                          }}
-                          onClick={() => setSearchList("")}
-                        >
-                          <Clear fontSize="small" />
-                        </IconButton>
-                      ),
-                    }}
-                    placeholder="Search name"
-                  />
-                </Box>
-              </Box>
+                    labelId="Category"
+                    id="category"
+                    label="ประเภท"
+                    onChange={(e) => setSelectYear(e.target.value)}
+                  >
+                    <MenuItem value={"all"}>{`ทั้งหมด`}</MenuItem>
+                    {listYears.length > 0 &&
+                      listYears.map((val, index) => (
+                        <MenuItem key={index} value={val}>
+                          {val}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              }
+            />
+            <Paper sx={{ p: 2, mt: 4 }}>
               {healthCheck && healthCheckBox && (
                 <Fragment>
                   <Box

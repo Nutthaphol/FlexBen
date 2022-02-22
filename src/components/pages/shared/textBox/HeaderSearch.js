@@ -40,6 +40,46 @@ const HeaderSearch = ({
 }) => {
   const classes = useStyles();
   return (
+    // <Stack direction="row" alignItems="center" justifyContent="space-between">
+    //   <Box>
+    //     <Typography variant="h3">
+    //       {normalText}
+    //       <Box component={"span"} sx={{ color: "info.main" }}>
+    //         {hightlightText}
+    //       </Box>
+    //     </Typography>
+    //   </Box>
+    //   <Stack direction="row" alignItems="center" spacing={2}>
+    //     <TextField
+    //       label="Search"
+    //       size="small"
+    //       fullWidth
+    //       onChange={(e) => {
+    //         setSearch(e.target.value);
+    //       }}
+    //       sx={{ marginRight: insertComponent ? "24px" : "0" }}
+    //       InputProps={{
+    //         endAdornment: (
+    //           <InputAdornment position="end">
+    //             <Icon>
+    //               <Search />
+    //             </Icon>
+    //           </InputAdornment>
+    //         ),
+    //         sx: {
+    //           backgroundColor: "#fff",
+    //           // border: "1px solid rgba(65, 171, 255, 0.6)",
+    //           "& .MuiOutlinedInput-notchedOutline": {
+    //             // borderColor: "rgba(65, 171, 255, 0.6)",
+    //             border: "none",
+    //             boxShadow: "rgb(65 171 255 / 16%) 0px 0px 0px 1px",
+    //           },
+    //         },
+    //       }}
+    //     />
+    //     {insertComponent && insertComponent}
+    //   </Stack>
+    // </Stack>
     <Grid
       container
       spacing={2}
@@ -86,9 +126,9 @@ const HeaderSearch = ({
       </Grid>
       {insertComponent && (
         <Grid item xs={12}>
-          <Stack direction="row" justifyContent="flex-end">
-            {insertComponent}
-          </Stack>
+          {/* <Stack direction="row" justifyContent="flex-end"> */}
+          {insertComponent}
+          {/* </Stack> */}
         </Grid>
       )}
     </Grid>

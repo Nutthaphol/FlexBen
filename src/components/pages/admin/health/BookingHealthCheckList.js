@@ -10,11 +10,20 @@ import Themplates from "../../shared/theme";
 import HeaderSearch from "../../shared/textBox/HeaderSearch";
 import { Box } from "@mui/system";
 import {
+  Alert,
   Avatar,
   Button,
   Chip,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemText,
   Paper,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
@@ -35,97 +44,78 @@ const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({}));
 
-const defaultColumns = [
+const rowsimportData = [
   {
     field: "id",
     headerName: "ID",
-    flex: 0.1,
-    minWidth: 60,
+    flex: 0.5,
+    minWidth: 80,
   },
   {
-    field: "profile",
-    header: "ชื่อ-สกุล",
+    field: "userId",
+    headerName: "ID employee",
+    flex: 0.5,
+    minWidth: 180,
+  },
+  {
+    field: "prefix",
+    headerName: "Prefix",
+    flex: 0.5,
+    minWidth: 100,
+  },
+  {
+    field: "firstname",
+    headerName: "First name",
     flex: 1,
-    minWidth: 240,
-    renderCell: (params) => {
-      return (
-        <Box sx={{ display: "flex", alingItems: "center" }}>
-          <Avatar
-            sx={{ width: 36, height: 36, marginRight: "0.5rem" }}
-            src={`${process.env.REACT_APP_URL}image/profile/${params.value.image}`}
-          />
-          <Typography
-            variant="subtitle1"
-            sx={{ fontWeight: "600", display: "flex", alignItems: "center" }}
-          >
-            {`${
-              // params.value.prefix +
-              // " " +
-              params.value.firstname + " " + params.value.lastname
-            }`}
-          </Typography>
-        </Box>
-      );
-    },
+    minWidth: 140,
   },
   {
-    field: "dateBooking",
-    headerName: "วันที่จอง",
-    flex: 0.4,
-    minWidth: 120,
+    field: "lastname",
+    headerName: "Last name",
+    flex: 1,
+    minWidth: 140,
   },
-  { field: "time", headerName: "เวลาที่จอง", flex: 0.6, minWidth: 160 },
   {
-    field: "hospital",
-    headerName: "สถานที่ตรวจ",
-    flex: 0.8,
-    minWidth: 200,
+    field: "phone",
+    headerName: "Phone number",
+    flex: 1,
+    minWidth: 140,
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    flex: 1,
+    minWidth: 140,
+  },
+  {
+    field: "nationalId",
+    headerName: "National ID",
+    flex: 1,
+    minWidth: 140,
+  },
+  {
+    field: "hospitalId",
+    headerName: "Package ID",
+    flex: 0.5,
+    minWidth: 100,
+  },
+  {
+    field: "bookingDate",
+    headerName: "Booking date",
+    flex: 1,
+    minWidth: 140,
+  },
+  {
+    field: "bookingTime",
+    headerName: "Booking time",
+    flex: 1,
+    minWidth: 140,
   },
   {
     field: "collectingType",
-    headerName: "รูปแบบการชำระเงิน",
-    flex: 0.4,
-    minWidth: 140,
-    renderCell: (params) => {
-      return (
-        <Box>
-          <Chip
-            label={params.value}
-            color={params.value == "เงินสด" ? "primary" : "warning"}
-          />
-        </Box>
-      );
-    },
-  },
-  {
-    field: "booker",
-    headerName: "จองโดย",
-    flex: 0.6,
-    minWidth: 160,
-    renderCell: (params) => {
-      return (
-        <Box>
-          <Typography variant="subtitle1">
-            {`${params.value.firstname + " " + params.value.lastname}`}
-          </Typography>
-        </Box>
-      );
-    },
-  },
-  {
-    field: "insertDate",
-    headerName: "จองเมื่อวันที่",
-    flex: 0.4,
-    minWidth: 120,
-  },
-  {
-    field: "view",
-    headerName: "View",
-    flex: 0.4,
-    minWidth: 120,
-    renderCell: (params) => {
-      return <Button variant="contained">View</Button>;
-    },
+    headerName: "Collecting type",
+    flex: 0.5,
+    minWidth: 100,
   },
 ];
 
@@ -146,6 +136,8 @@ export const BookingHealthCheckList = () => {
   const [rows, setRows] = useState();
   const [loadData, setLoadData] = useState(false);
   const [fullData, setFullData] = useState(false);
+  const [openDialgoData, setOpenDialogData] = useState(false);
+  const [save, setSave] = useState(false);
 
   useEffect(() => {
     const fetchData = async (callback_) => {
@@ -165,11 +157,137 @@ export const BookingHealthCheckList = () => {
     }
   }, [rows, loadData]);
 
+  const defaultColumns = [
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.1,
+      minWidth: 60,
+    },
+    {
+      field: "profile",
+      header: "ชื่อ-สกุล",
+      flex: 1,
+      minWidth: 240,
+      renderCell: (params) => {
+        return (
+          <Box sx={{ display: "flex", alingItems: "center" }}>
+            {params.value.image && (
+              <Avatar
+                sx={{ width: 36, height: 36, marginRight: "0.5rem" }}
+                src={`${process.env.REACT_APP_URL}image/profile/${params.value.image}`}
+              />
+            )}
+            <Typography
+              variant="subtitle1"
+              sx={{ fontWeight: "600", display: "flex", alignItems: "center" }}
+            >
+              {`${
+                // params.value.prefix +
+                // " " +
+                params.value.firstname + " " + params.value.lastname
+              }`}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "bookingDate",
+      headerName: "วันที่จอง",
+      flex: 0.4,
+      minWidth: 120,
+    },
+    {
+      field: "bookingTime",
+      headerName: "เวลาที่จอง",
+      flex: 0.6,
+      minWidth: 160,
+    },
+    {
+      field: "hospital",
+      headerName: "สถานที่ตรวจ",
+      flex: 0.8,
+      minWidth: 200,
+    },
+    {
+      field: "collectingType",
+      headerName: "รูปแบบการชำระเงิน",
+      flex: 0.4,
+      minWidth: 140,
+      renderCell: (params) => {
+        return (
+          <Box>
+            <Chip
+              label={params.value}
+              color={params.value == "เงินสด" ? "primary" : "warning"}
+            />
+          </Box>
+        );
+      },
+    },
+    {
+      field: "booker",
+      headerName: "จองโดย",
+      flex: 0.6,
+      minWidth: 160,
+      renderCell: (params) => {
+        return (
+          <Box>
+            <Typography variant="subtitle1">
+              {`${params.value.firstname + " " + params.value.lastname}`}
+            </Typography>
+          </Box>
+        );
+      },
+    },
+    {
+      field: "insertDate",
+      headerName: "จองเมื่อวันที่",
+      flex: 0.4,
+      minWidth: 120,
+    },
+    {
+      field: "view",
+      headerName: "View",
+      flex: 0.4,
+      minWidth: 120,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+
+          const api = params.api;
+          const thisRow = {};
+
+          api
+            .getAllColumns()
+            .filter((c) => !!c)
+            .forEach(
+              (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+            );
+
+          const dataId = params.id;
+
+          let data = bookingHealthcheck.find((item) => item.id == dataId);
+          data.hospitalNmae = hospitalList.find(
+            (item) => item.id == data.hospitalId
+          ).name;
+
+          setFullData(data);
+          setOpenDialogData(true);
+          setSave(false);
+        };
+        return (
+          <Button variant="contained" onClick={onClick}>
+            View
+          </Button>
+        );
+      },
+    },
+  ];
+
   const preRowsTable = () => {
     let preRows = [];
-    console.log("hospitalList", hospitalList);
-    console.log("bookingHealthcheck", bookingHealthcheck);
-    console.log("allUsers", allUsers);
     if (hospitalList && bookingHealthcheck && allUsers) {
       for (
         let runbooking = 0;
@@ -179,8 +297,8 @@ export const BookingHealthCheckList = () => {
         const thisData = bookingHealthcheck[runbooking];
 
         const profile = allUsers.find((item) => item.id == thisData.userId);
-        const dateBooking = thisData.dateBooking;
-        const time = thisData.time;
+        const bookingDate = thisData.bookingDate;
+        const bookingTime = thisData.bookingTime;
         const hospital = hospitalList.find(
           (item) => item.id == thisData.hospitalId
         ).name;
@@ -190,8 +308,8 @@ export const BookingHealthCheckList = () => {
         preRows.push({
           id: thisData.id,
           profile: profile,
-          dateBooking: dayjs(dateBooking).format("DD-MM-YYYY"),
-          time: time,
+          bookingDate: dayjs(bookingDate).format("DD-MM-YYYY"),
+          bookingTime: bookingTime,
           hospital: hospital,
           collectingType: collectingType,
           booker: booker,
@@ -199,13 +317,11 @@ export const BookingHealthCheckList = () => {
         });
       }
     }
-
-    console.log("preRows", preRows);
     setRows(preRows);
   };
 
   const handleImportFile = (file) => {
-    setExternal(null);
+    setExternal(false);
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       if (!file) {
@@ -226,19 +342,26 @@ export const BookingHealthCheckList = () => {
       };
     });
     promise.then((data) => {
-      const perData = data.map((row, index) => {
-        console.log("row", row);
+      const preData = data.map((row, index) => {
         return {
-          id: index + 1,
+          id: index + 10021,
           userId: row["employee id"],
           prefix: row["prefix"],
           firstname: row["firstname"],
           lastname: row["lastname"],
-          hospitalId: row["id package"],
+          phone: row["phone number"],
+          email: row["Email"],
+          nationalId: row["national id"],
+          hospitalId: row["package id"],
+          bookingDate: row["booking date"],
+          bookingTime: row["booking time"],
+          collectingType: row["collecting type"],
+          bookerId: currentUser.id,
+          insertDate: dayjs(new Date()).format("DD-MM-YYYY"),
         };
       });
       file = null;
-      setExternal(perData);
+      setExternal(preData);
     });
   };
 
@@ -256,7 +379,7 @@ export const BookingHealthCheckList = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <Box className={`page`}>
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <Stack spacing={4} sx={{ mb: 4 }}>
               <HeaderSearch
                 normalText="Employee health check reservation list"
@@ -286,10 +409,63 @@ export const BookingHealthCheckList = () => {
                 </Button>
               </Box>
 
+              {external && (
+                <Paper sx={{ p: 2 }}>
+                  <DataGrid
+                    rows={external}
+                    rowHeight={64}
+                    columns={rowsimportData}
+                    getRowId={(row) => row.id}
+                    autoHeight
+                    checkboxSelection
+                    disableSelectionOnClick
+                    pageSize={10}
+                    rowsPerPageOptions={[10]}
+                    components={{
+                      Toolbar: CustomToolbar,
+                    }}
+                  />
+                  <Stack direction="row" justifyContent="flex-end">
+                    <Button
+                      variant="contained"
+                      onClick={() => {
+                        setExternal(false);
+                        setSave(true);
+                      }}
+                    >
+                      save
+                    </Button>
+                  </Stack>
+                </Paper>
+              )}
+              <Snackbar
+                open={save}
+                onClose={() => setSave(false)}
+                autoHideDuration={10000}
+              >
+                <Alert sx={{ width: "100%" }}>Save done!</Alert>
+              </Snackbar>
+
               <Paper sx={{ p: 2 }}>
                 {rows && (
                   <DataGrid
-                    rows={rows}
+                    rows={
+                      rows &&
+                      rows
+                        .filter(
+                          (item) =>
+                            (
+                              item.profile.firstname +
+                              " " +
+                              item.profile.lastname
+                            )
+                              .toLowerCase()
+                              .includes(search) == 1
+                        )
+                        .map((e) => {
+                          return e;
+                        })
+                    }
                     rowHeight={64}
                     columns={defaultColumns}
                     autoHeight
@@ -306,6 +482,141 @@ export const BookingHealthCheckList = () => {
             </Stack>
           </Container>
         </Box>
+        <Dialog
+          open={openDialgoData}
+          onClose={() => setOpenDialogData(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle>
+            <Typography variant="h4">#ID {fullData.id}</Typography>
+          </DialogTitle>
+          {fullData && (
+            <DialogContent dividers>
+              <Stack spacing={1} sx={{ p: 1 }}>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">ชื่อ-สกุล</Typography>
+                  <Typography variant="subtitle1">
+                    {allUsers
+                      .filter((item) => item.id == fullData.userId)
+                      .slice(0, 1)
+                      .map((e) => {
+                        return e.firstname + " " + e.lastname;
+                      })}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">เบอร์โทรศัพท์</Typography>
+                  <Typography variant="subtitle1">{fullData.phone}</Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">E-mail</Typography>
+                  <Typography variant="subtitle1">{fullData.email}</Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">เลขบัตรประชาชน</Typography>
+                  <Typography variant="subtitle1">
+                    {fullData.nationalId}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">package</Typography>
+                  <Typography variant="subtitle1">
+                    {
+                      hospitalList.find(
+                        (item) => item.id == fullData.hospitalId
+                      ).name
+                    }
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">วันที่</Typography>
+                  <Typography variant="subtitle1">
+                    {dayjs(fullData.bookingDate).format("DD-MM-YYYY")}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">เวลา</Typography>
+                  <Typography variant="subtitle1">
+                    {fullData.bookingTime}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">ประเภทการเก็บเงิน</Typography>
+                  <Typography variant="subtitle1">
+                    {fullData.collectingType}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">จองเมื่อวันที่</Typography>
+                  <Typography variant="subtitle1">
+                    {fullData.insertDate}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  sx={{ width: 1 }}
+                >
+                  <Typography variant="body1">ผู้จอง</Typography>
+                  <Typography variant="subtitle1">
+                    {allUsers
+                      .filter((item) => item.id == fullData.bookerId)
+                      .slice(0, 1)
+                      .map((e) => {
+                        return e.firstname + " " + e.lastname;
+                      })}
+                  </Typography>
+                </Stack>
+              </Stack>
+            </DialogContent>
+          )}
+          <DialogActions sx={{ p: 2 }}>
+            <Button
+              variant="contained"
+              color="info"
+              onClick={() => setOpenDialogData(false)}
+            >
+              Done
+            </Button>
+          </DialogActions>
+        </Dialog>
       </ThemeProvider>
     </StyledEngineProvider>
   );

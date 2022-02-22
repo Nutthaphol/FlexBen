@@ -34,6 +34,7 @@ import { getAllRightTreatment } from "../../../../actions/rightTreatment";
 import healthCheckCategoryService from "../../../../services/healthCheckCategory.service";
 import treatmentCategoryService from "../../../../services/treatmentCategory.service";
 import dayjs from "dayjs";
+import HeaderSearch from "../../shared/textBox/HeaderSearch";
 
 const theme = createTheme(Themplates);
 
@@ -244,8 +245,34 @@ const TreatmentInformation = () => {
       <ThemeProvider theme={theme}>
         <div className={`page`}>
           <Container maxWidth="xl">
-            <Paper className={classes.cardW}>
-              <Box
+            <HeaderSearch
+              normalText="ข้อมูลการรักษาพยาบาล"
+              setSearch={setSearchList}
+              insertComponent={
+                <FormControl sx={{ width: 1 }}>
+                  <InputLabel size="small" id="Category">
+                    ประเภท
+                  </InputLabel>
+                  <Select
+                    size="small"
+                    labelId="Category"
+                    id="category"
+                    label="ประเภท"
+                    onChange={(e) => setSelectCategory(e.target.value)}
+                  >
+                    <MenuItem value={"all"}>{`ทั้งหมด`}</MenuItem>
+                    {category &&
+                      category.map((val, index) => (
+                        <MenuItem key={index} value={val.name}>
+                          {val.name}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
+              }
+            />
+            <Paper sx={{ p: 2, mt: 4 }}>
+              {/* <Box
                 sx={{
                   display: "flex",
                   justifyContent: "flex-end",
@@ -302,7 +329,7 @@ const TreatmentInformation = () => {
                   }}
                   placeholder="Search…"
                 />
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   width: "100%",

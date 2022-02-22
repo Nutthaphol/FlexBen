@@ -95,9 +95,9 @@ const BookingHistory = () => {
                       <TableRow key={val.id + index + val.hospitalId}>
                         <TableCell>{val.hospitalName}</TableCell>
                         <TableCell>
-                          {dayjs(val.dateBooking).format("DD/MM/YYYY")}
+                          {dayjs(val.bookingDate).format("DD/MM/YYYY")}
                         </TableCell>
-                        <TableCell>{val.time}</TableCell>
+                        <TableCell>{val.bookingTime}</TableCell>
                         <TableCell>{`${
                           val.prefix + " " + val.firstname + " " + val.lastname
                         }`}</TableCell>
