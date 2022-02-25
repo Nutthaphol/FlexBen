@@ -1034,59 +1034,59 @@ const Dashbord = () => {
                                   </ListItemAvatar>
                                   <ListItemText
                                     primary={
-                                      <Typography
-                                        variant="subtitle2"
-                                        sx={{ color: "grey.200" }}
-                                      >
-                                        {`${val.firstname} ${val.lastname}`}
-                                      </Typography>
-                                    }
-                                    secondary={
-                                      <Stack
-                                        direction="row"
-                                        spacing={1}
-                                        sx={{}}
-                                      >
-                                        <IconButton
-                                          color="info"
-                                          sx={{
-                                            height: 16,
-                                            width: 16,
-                                            color: `${alpha(
-                                              theme.palette.grey[200],
-                                              0.9
-                                            )}`,
-                                          }}
+                                      <Box>
+                                        <Typography
+                                          variant="subtitle2"
+                                          sx={{ color: "grey.200" }}
                                         >
-                                          <Facebook sx={{ fontSize: 16 }} />
-                                        </IconButton>
-                                        <IconButton
-                                          color="info"
-                                          sx={{
-                                            height: 16,
-                                            width: 16,
-                                            color: `${alpha(
-                                              theme.palette.grey[200],
-                                              0.9
-                                            )}`,
-                                          }}
+                                          {`${val.firstname} ${val.lastname}`}
+                                        </Typography>
+                                        <Stack
+                                          direction="row"
+                                          spacing={1}
+                                          sx={{}}
                                         >
-                                          <Phone sx={{ fontSize: 16 }} />
-                                        </IconButton>
-                                        <IconButton
-                                          color="info"
-                                          sx={{
-                                            height: 16,
-                                            width: 16,
-                                            color: `${alpha(
-                                              theme.palette.grey[200],
-                                              0.9
-                                            )}`,
-                                          }}
-                                        >
-                                          <Email sx={{ fontSize: 16 }} />
-                                        </IconButton>
-                                      </Stack>
+                                          <IconButton
+                                            color="info"
+                                            sx={{
+                                              height: 16,
+                                              width: 16,
+                                              color: `${alpha(
+                                                theme.palette.grey[200],
+                                                0.9
+                                              )}`,
+                                            }}
+                                          >
+                                            <Facebook sx={{ fontSize: 16 }} />
+                                          </IconButton>
+                                          <IconButton
+                                            color="info"
+                                            sx={{
+                                              height: 16,
+                                              width: 16,
+                                              color: `${alpha(
+                                                theme.palette.grey[200],
+                                                0.9
+                                              )}`,
+                                            }}
+                                          >
+                                            <Phone sx={{ fontSize: 16 }} />
+                                          </IconButton>
+                                          <IconButton
+                                            color="info"
+                                            sx={{
+                                              height: 16,
+                                              width: 16,
+                                              color: `${alpha(
+                                                theme.palette.grey[200],
+                                                0.9
+                                              )}`,
+                                            }}
+                                          >
+                                            <Email sx={{ fontSize: 16 }} />
+                                          </IconButton>
+                                        </Stack>
+                                      </Box>
                                     }
                                   />
                                 </ListItem>
@@ -1094,195 +1094,7 @@ const Dashbord = () => {
                           </List>
                         </Paper>
                       </Grid>
-                      {/* <Grid item xs={12} md={6} lg={7}>
-                        {data.health && (
-                          <Paper className={classes.dashboardCard}>
-                            <Typography
-                              variant="h6"
-                              component="div"
-                              sx={{ color: "grey.200", mb: 4 }}
-                            >
-                              Trend การออกกำลังกาย
-                            </Typography>
-
-                            <ReactApexChart
-                              options={setChartDataTrendExercise("option")}
-                              series={setChartDataTrendExercise("series")}
-                              type="line"
-                              height="360px"
-                            />
-                          </Paper>
-                        )}
-                      </Grid> */}
                     </Grid>
-                    {/* <Grid container spacing={4} sx={{ mb: 4 }}>
-                      <Grid item lg={6} xs={12}>
-                        <Paper className={classes.dashboardCard}>
-                          <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ color: "grey.200", mb: 4 }}
-                          >
-                            IPD Now
-                          </Typography>
-                          <List sx={{ width: 1, ml: 2, mr: 2 }}>
-                            {allUsers &&
-                              allUsers.slice(0, 6).map((val, index) => (
-                                <Grid key={index} item lg={4}>
-                                  <Box
-                                    sx={{ textAlign: "center", width: "100%" }}
-                                  >
-                                    <GroupButtonTooltip
-                                      placement="top"
-                                      title={
-                                        <Fragment>
-                                          <Box
-                                            sx={{
-                                              width: "140px",
-                                              display: "flex",
-                                              justifyContent: "flex-start",
-                                              flexWrap: "wrap",
-                                            }}
-                                          >
-                                            <Box
-                                              sx={{
-                                                flexGrow: 1,
-                                                margin: "4px",
-                                              }}
-                                            >
-                                              <IconButton
-                                                className={classes.iconButton}
-                                                size="small"
-                                              >
-                                                <Facebook
-                                                  sx={{ color: "#4267B2" }}
-                                                />
-                                              </IconButton>
-                                            </Box>
-                                            <Box
-                                              sx={{
-                                                flexGrow: 1,
-                                                margin: "4px",
-                                              }}
-                                            >
-                                              <IconButton
-                                                className={classes.iconButton}
-                                                size="small"
-                                              >
-                                                <Phone
-                                                  sx={{ color: "#4267B2" }}
-                                                />
-                                              </IconButton>
-                                            </Box>
-                                            <Box
-                                              sx={{
-                                                flexGrow: 1,
-                                                margin: "4px",
-                                              }}
-                                            >
-                                              <IconButton
-                                                className={classes.iconButton}
-                                                size="small"
-                                              >
-                                                <Email
-                                                  sx={{ color: "#4267B2" }}
-                                                />
-                                              </IconButton>
-                                            </Box>
-                                          </Box>
-                                        </Fragment>
-                                      }
-                                    >
-                                      <Box
-                                        sx={{
-                                          width: "100%",
-                                          display: "flex",
-                                          justifyContent: "center",
-                                        }}
-                                      >
-                                        <Avatar
-                                          sx={{ height: 64, width: 64 }}
-                                          src={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
-                                        />
-                                      </Box>
-                                    </GroupButtonTooltip>
-                                    <Typography variant="h6" component="div">
-                                      {`${val.firstname + " " + val.lastname}`}
-                                    </Typography>
-                                    <br />
-                                    <Typography
-                                      variant="body2"
-                                      component="div"
-                                      sx={{
-                                        color: "rgba(255, 255, 255, 0.7)",
-                                        whiteSpace: "nowrap",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                      }}
-                                    >
-                                      {`${val.department}`}
-                                    </Typography>
-                                  </Box>
-                                </Grid>
-                              ))}
-                          </List>
-                        </Paper>
-                      </Grid>
-                      <Grid item lg={6} xs={12}>
-                        <Paper className={classes.dashboardCard}>
-                          <Typography
-                            variant="h6"
-                            component="div"
-                            sx={{ color: "grey.200", mb: 4 }}
-                          >
-                            ค่ารักษาสูงสุด
-                          </Typography>
-
-                          <Box sx={{ padding: "1.5rem" }}>
-                            <Slider {...setting}>
-                              {allUsers &&
-                                allUsers.slice(0, 3).map((val, index) => (
-                                  <Fragment key={index}>
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        margin: "50px 0",
-                                      }}
-                                    >
-                                      <Box
-                                        sx={
-                                          {
-                                            // width: "280px",
-                                          }
-                                        }
-                                      >
-                                        <RankCard
-                                          themes="dark"
-                                          imageProfile={`${process.env.REACT_APP_URL}image/profile/${val.image}`}
-                                          primaryText={`${
-                                            val.firstname + " " + val.lastname
-                                          }`}
-                                          secondaryText={`${val.department}`}
-                                          labelText={`${parseInt(
-                                            800000 / (index + 1)
-                                          )
-                                            .toString()
-                                            .replace(
-                                              /\B(?=(\d{3})+(?!\d))/g,
-                                              ","
-                                            )} บาท`}
-                                          rank={index + 1}
-                                        />
-                                      </Box>
-                                    </Box>
-                                  </Fragment>
-                                ))}
-                            </Slider>
-                          </Box>
-                        </Paper>
-                      </Grid>
-                    </Grid> */}
                   </Fragment>
                 ) : (
                   ""
@@ -1294,46 +1106,6 @@ const Dashbord = () => {
                     useRight={data.health && data.health.treatment}
                   />
                 </Paper>
-
-                {/* Message */}
-                {/* {health && (
-                  <Paper className={classes.card}>
-                    <Box sx={{ marginLeft: "60px" }}>
-                      <Message message={health.healthStatus.family} />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginTop: "10px",
-                        textAlign: "end",
-                        width: "60px",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "5rem" }}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/other/family.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                    </Box>
-                    <Box sx={{ marginLeft: "60px" }}>
-                      <Message message={health.healthStatus.myself} />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginTop: "10px",
-                        textAlign: "end",
-                        width: "60px",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "5rem" }}>
-                        <img
-                          src={`${process.env.PUBLIC_URL}/assets/icons/other/boy.svg`}
-                          width="100%"
-                        />
-                      </Icon>
-                    </Box>
-                  </Paper>
-                )} */}
               </Container>
             </Box>
           ) : (

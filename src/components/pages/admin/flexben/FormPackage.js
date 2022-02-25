@@ -17,45 +17,19 @@ import Themplates from "../../shared/theme";
 import {
   Container,
   Grid,
-  IconButton,
   Paper,
   Typography,
-  TextField as TextFieldMUI,
   Divider,
-  Card,
-  CardActionArea,
   MenuItem,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  ListItem,
-  ListItemIcon,
   Icon,
 } from "@mui/material";
-import { Select, SimpleFileUpload, Switch, TextField } from "formik-mui";
-import {
-  Add,
-  Category,
-  CleanHands,
-  Clear,
-  QueueOutlined,
-  Remove,
-  AddAPhoto,
-  Image,
-  KeyboardArrowLeft,
-  KeyboardArrowRight,
-  CancelRounded,
-} from "@mui/icons-material";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
-import { Field, FieldArray, Form, Formik } from "formik";
-import { border, Box, width } from "@mui/system";
-import { getAllShopCategory } from "../../../../actions/shopCategory";
+import { Select, TextField } from "formik-mui";
+
+import { Field, Form, Formik } from "formik";
+import { Box } from "@mui/system";
 import "./index.css";
 
-import * as XLSX from "xlsx";
-import { getAllDelivery } from "../../../../actions/delivery";
-import { useDropzone } from "react-dropzone";
 import * as Yup from "yup";
 import iconsService from "../../../../services/icons.service";
 import { getAllInsurance } from "../../../../actions/insurance";
@@ -121,7 +95,6 @@ const FormPackage = () => {
   const dispatch = useDispatch();
 
   const [groupPackage, setGroupPackage] = useState({ ...groupPack });
-  const [files, setFiles] = useState([]);
   const [iconsGroup, setIconsGroup] = useState();
 
   const { result: insurance } = useSelector((state) => state.insurance);
@@ -140,22 +113,6 @@ const FormPackage = () => {
     }
   }, [iconsGroup]);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    let formData = new FormData();
-    acceptedFiles.map((file) => formData.append("image", file));
-    setFiles(
-      acceptedFiles.map((file) =>
-        Object.assign(file, { preview: URL.createObjectURL(file) })
-      )
-    );
-    // setUploads(acceptedFiles);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "image/jpeg, image/png",
-    onDrop,
-    maxFiles: 3,
-  });
   const onKeyDown = (keyEvent) => {
     if ((keyEvent.charCode || keyEvent.keyCode) === 13) {
       keyEvent.preventDefault();
@@ -193,15 +150,7 @@ const FormPackage = () => {
                 enableReinitialize
                 validationSchema={validate}
               >
-                {({
-                  values,
-                  errors,
-                  isSubmitting,
-                  touched,
-                  handleBlur,
-                  setFieldValue,
-                  setValues,
-                }) => (
+                {({ values, errors, setFieldValue }) => (
                   <Form autoComplete="off" onKeyDown={onKeyDown}>
                     <Typography className={classes.typography}>
                       ชื่อ Package
@@ -473,13 +422,12 @@ const FormPackage = () => {
                         sx={{
                           fontWeight: "600",
                           fontSize: "18px",
-                          backgroundColor: "#1769aa",
                         }}
                       >
                         ลงทะเบียน
                       </Button>
                     </Box>
-                    <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
+                    {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
                   </Form>
                 )}
               </Formik>

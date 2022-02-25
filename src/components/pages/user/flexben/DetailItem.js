@@ -143,25 +143,6 @@ const DetailItem = (props) => {
                         )}
                       </Typography>
                     </Stack>
-                    {/* <SliderPreview>
-                      {detail.image.map((val, index) => (
-                        <Box
-                          key={val + index}
-                          sx={{ height: "360px", position: "relative" }}
-                        >
-                          <Box
-                            component="img"
-                            src={`${process.env.REACT_APP_URL}image/${val}`}
-                            sx={{
-                              position: "absolute",
-                              height: "100%",
-                              width: "100%",
-                              objectFit: "scale-down",
-                            }}
-                          />
-                        </Box>
-                      ))}
-                    </SliderPreview> */}
                     <MultiImage listImage={detail.image} />
                     <br />
                     <br />

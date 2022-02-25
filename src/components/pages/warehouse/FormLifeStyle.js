@@ -369,7 +369,6 @@ const FormLifeStyle = () => {
                   startIcon={<QueueOutlined />}
                   component="label"
                   variant="contained"
-                  style={{ backgroundColor: "#1769aa" }}
                 >
                   Import Excel
                   <input
@@ -983,14 +982,13 @@ const FormLifeStyle = () => {
                           sx={{
                             fontWeight: "600",
                             fontSize: "18px",
-                            backgroundColor: "#1769aa",
                           }}
                         >
                           ลงทะเบียน
                         </Button>
                       </Box>
 
-                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
+                      {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
                     </Form>
                   )}
                 </Formik>

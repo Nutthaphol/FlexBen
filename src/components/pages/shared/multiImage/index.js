@@ -34,11 +34,12 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({}));
 
 const MultiImage = ({ listImage }) => {
-  const [slide1, setSlide1] = useState(0);
-  const [slide2, setSlide2] = useState(0);
+  const [slide, setSlide] = useState(0);
+  // const [slide2, setSlide2] = useState(0);
   const [slideDialog, setSlideDialog] = useState(0);
   const [open, setOpen] = useState(false);
   const sliderRef = useRef(null);
+  const sliderRef2 = useRef(null);
 
   const settings1 = {
     dots: false,
@@ -47,8 +48,7 @@ const MultiImage = ({ listImage }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    beforeChange: (current, next) => setSlide1(next),
-    afterChange: (current) => setSlide2(current),
+    afterChange: (current) => setSlide(current),
   };
   const settings2 = {
     dots: false,
@@ -56,18 +56,9 @@ const MultiImage = ({ listImage }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: slide1,
+    initialSlide: slide,
     afterChange: (current) => setSlideDialog(current),
   };
-
-  const ProductImgStyle = styled("img")({
-    top: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    position: "absolute",
-    borderRadius: "16px",
-  });
 
   return (
     <StyledEngineProvider injectFirst>
@@ -76,7 +67,10 @@ const MultiImage = ({ listImage }) => {
           <Slider {...settings1} ref={sliderRef}>
             {listImage.map((val, index) => (
               <Box
-                onClick={() => setOpen(true)}
+                onClick={() => {
+                  setOpen(true);
+                  setSlideDialog(slide);
+                }}
                 key={val + index}
                 sx={{
                   height: "360px",
@@ -132,7 +126,7 @@ const MultiImage = ({ listImage }) => {
                   color: "rgba(255,255,255, 1)",
                 }}
               >
-                {slide2 + 1}/{listImage.length}
+                {slide + 1}/{listImage.length}
               </Typography>
               <IconButton
                 sx={{
@@ -157,11 +151,7 @@ const MultiImage = ({ listImage }) => {
         >
           <DialogContent sx={{ overflow: "hidden", position: "relative" }}>
             {
-              <Slider
-                {...settings2}
-                ref={(slider) => slide2 == slider}
-                ref={sliderRef}
-              >
+              <Slider {...settings2} ref={sliderRef2}>
                 {listImage.map((val, index) => (
                   <Box
                     key={index}
@@ -211,7 +201,7 @@ const MultiImage = ({ listImage }) => {
                       color: "rgba(255,255,255,1)",
                     },
                   }}
-                  onClick={() => sliderRef.current.slickPrev()}
+                  onClick={() => sliderRef2.current.slickPrev()}
                 >
                   <ArrowLeft />
                 </IconButton>
@@ -232,7 +222,7 @@ const MultiImage = ({ listImage }) => {
                       color: "rgba(255,255,255,1)",
                     },
                   }}
-                  onClick={() => sliderRef.current.slickNext()}
+                  onClick={() => sliderRef2.current.slickNext()}
                 >
                   <ArrowRight />
                 </IconButton>

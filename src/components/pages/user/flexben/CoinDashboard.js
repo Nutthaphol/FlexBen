@@ -10,11 +10,8 @@ import {
   Button,
   Container,
   Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -36,11 +33,7 @@ const theme = createTheme(Themplates);
 const useStyles = makeStyles(() => ({
   root: {},
   paper: {
-    // position: "relative",
     padding: "10px",
-    // width: "100%",
-    // height: "auto",
-    // marginTop: "50px",
     overflow: "scroll",
     boxShadow: "rgb(3 0 71 / 9%) 0px 1px 3px",
     padding: "1rem",
@@ -80,7 +73,6 @@ const CoinDashboard = () => {
                     secondaryText="คงเหลือ"
                     icon={AutoGraphSharp}
                   />
-                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
                   <LongCard
@@ -88,7 +80,6 @@ const CoinDashboard = () => {
                     secondaryText="คงเหลือ"
                     icon={AutoGraphSharp}
                   />
-                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
                   <LongCard
@@ -96,7 +87,6 @@ const CoinDashboard = () => {
                     secondaryText="คงเหลือ"
                     icon={AutoGraphSharp}
                   />
-                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
                 </Grid>
                 <Grid item xs={12} md={6} lg={3}>
                   <LongCard
@@ -104,10 +94,8 @@ const CoinDashboard = () => {
                     secondaryText="คงเหลือ"
                     icon={AutoGraphSharp}
                   />
-                  {/* <DataCard section="Insurance คงเหลือ" value={10000} /> */}
                 </Grid>
               </Grid>
-              {/* <Box sx={{ mt: 6 }} /> */}
               <br />
               <Paper className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
@@ -117,38 +105,49 @@ const CoinDashboard = () => {
                   <TableBody>
                     {[1, 2, 3, 4].map((item, index) => (
                       <TableRow key={index}>
-                        <TableCell>
-                          <ListItem>
-                            <ListItemIcon>
-                              <Adb sx={{ fontSize: "2rem" }} />
-                            </ListItemIcon>
-                            <ListItemText primary="Insurance" />
-                          </ListItem>
+                        <TableCell sx={{ width: 120 }} align="left">
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            spacing={2}
+                          >
+                            <Adb fontSize="large" />
+                            <Typography variant="body1">Insurance</Typography>
+                          </Stack>
                         </TableCell>
-                        <TableCell align="right">2000</TableCell>
-                        <TableCell align="right">2000</TableCell>
-                        <TableCell align="right">+4.25%</TableCell>
-                        <TableCell align="right">
-                          <Grid container justifyContent="flex-end" spacing={6}>
-                            <Grid item>
-                              <Button
-                                variant="outlined"
-                                size="small"
-                                color="success"
-                              >
-                                แลก
-                              </Button>
-                            </Grid>
-                            <Grid item>
-                              <Button
-                                variant="outlined"
-                                size="small"
-                                color="secondary"
-                              >
-                                ฝาก
-                              </Button>
-                            </Grid>
-                          </Grid>
+                        <TableCell sx={{ minWidth: 120 }} align="center">
+                          2000
+                        </TableCell>
+                        <TableCell sx={{ minWidth: 120 }} align="center">
+                          2000
+                        </TableCell>
+                        <TableCell sx={{ minWidth: 120 }} align="center">
+                          +4.25%
+                        </TableCell>
+                        <TableCell sx={{ minWidth: 120 }} align="right">
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            justifyContent="space-around"
+                            spacing={2}
+                            sx={{ width: 1 }}
+                          >
+                            <Button
+                              variant="contained"
+                              color="success"
+                              sx={{ width: 1 }}
+                            >
+                              แลก
+                            </Button>
+
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              sx={{ width: 1 }}
+                            >
+                              ฝาก
+                            </Button>
+                          </Stack>
                         </TableCell>
                       </TableRow>
                     ))}

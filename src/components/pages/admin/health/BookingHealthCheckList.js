@@ -439,6 +439,7 @@ export const BookingHealthCheckList = () => {
                 </Paper>
               )}
               <Snackbar
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
                 open={save}
                 onClose={() => setSave(false)}
                 autoHideDuration={10000}

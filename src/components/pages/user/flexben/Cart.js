@@ -514,46 +514,6 @@ const Cart = (props) => {
                           </Stack>
                         </Stack>
                       </Stack>
-                      {/* <Table>
-                        <TableBody>
-                          <TableRow>
-                            <TableCell align="left">
-                              <Typography variant="h6" component="span">
-                                ทั้งหมด ({number && totalList()})
-                              </Typography>
-                            </TableCell>
-                            <TableCell align="right">
-                              <Box
-                                display="flex"
-                                alignItems="center"
-                                justifyContent="flex-end"
-                              >
-                                <Icon
-                                  sx={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginRight: "5px",
-                                  }}
-                                  fontSize="small"
-                                >
-                                  <img
-                                    src={`${process.env.PUBLIC_URL}/assets/icons/Coin.svg`}
-                                    width="100%"
-                                  />
-                                </Icon>
-                                <Typography
-                                  variant="h6"
-                                  sx={{ color: amber[700] }}
-                                  component="span"
-                                >
-                                  {data && number && lastPrice()}
-                                </Typography>
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                        </TableBody>
-                      </Table> */}
-
                       <Button
                         // fullWidth
                         variant="contained"
@@ -573,8 +533,8 @@ const Cart = (props) => {
           )}
 
           {userProfile && (
-            <Dialog open={open} onClose={handleClose}>
-              <Card sx={{ minWidth: "480px" }}>
+            <Dialog open={open} onClose={handleClose} maxWidth="xs" fullWidth>
+              <Card>
                 <CardContent>
                   <Typography
                     variant="h5"

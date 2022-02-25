@@ -1,20 +1,7 @@
+import { AssignmentTurnedIn, FavoriteBorder, Star } from "@mui/icons-material";
 import {
-  AssignmentTurnedIn,
-  Favorite,
-  FavoriteBorder,
-  Star,
-} from "@mui/icons-material";
-import {
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
   Typography,
-  CardActions,
-  Button,
-  Grid,
   Paper,
-  Chip,
   Link,
   IconButton,
   Icon,
@@ -32,9 +19,8 @@ import {
 } from "@mui/material/styles";
 import { makeStyles, styled } from "@mui/styles";
 import { Box } from "@mui/system";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import reviewService from "../../../../services/review.service";
-import { Link as RouterLink } from "react-router-dom";
 
 import Themplates from "../theme";
 
@@ -42,15 +28,11 @@ const theme = createTheme(Themplates);
 
 const useStyles = makeStyles(() => ({
   root: {
-    // margin: "1rem",
-    // width: "100%",
     height: "auto",
     boxShadow: "rgb(3 0 71 / 16%) 0px 1px 3px",
     borderRadius: "16px",
     transition: "box-shadow .3s",
     "&:hover": {
-      // transform: "scale(1.05)",
-      // transition: "transform .2s",
       boxShadow: "rgb(3 0 71 / 12%) 0px 0px 24px",
     },
   },
@@ -138,8 +120,8 @@ const ProductCard = (props) => {
     borderTopLeftRadius: "16px",
   });
 
-  useEffect(async () => {
-    if (rating == null) {
+  useEffect(() => {
+    const fetch = async () => {
       const review = await reviewService.getAllReviews().then((response) => {
         return response.data;
       });
@@ -161,6 +143,9 @@ const ProductCard = (props) => {
 
       const avgRat = compRating();
       setRating(avgRat);
+    };
+    if (rating == null) {
+      fetch();
     }
   }, [rating]);
 
@@ -195,14 +180,13 @@ const ProductCard = (props) => {
               href={path && id ? `${path}/${id}` : ``}
               color="inherit"
               underline="hover"
-              // component={"span"}
               sx={{
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 cursor: "pointer",
               }}
             >
-              <Typography variant="subtitle1" noWrap>
+              <Typography component="span" variant="subtitle1" noWrap>
                 {primaryText.replace("Insurance", "").toUpperCase()}
               </Typography>
               {secondaryText && (
@@ -211,7 +195,6 @@ const ProductCard = (props) => {
                   variant="body2"
                   color="text.secondary"
                   noWrap
-                  // sx={{ overflow: "hidden", textOverflow: "ellipsis" }}
                 >
                   {secondaryText}
                 </Typography>
@@ -225,7 +208,7 @@ const ProductCard = (props) => {
                       <AssignmentTurnedIn fontSize="small" color="success" />
                     </ListItemIcon>
                     <ListItemText
-                      secondary={
+                      primary={
                         <Stack
                           direction="row"
                           justifyContent="space-between"
@@ -235,7 +218,7 @@ const ProductCard = (props) => {
                             {val.name}
                           </Typography>
                           <Stack direction="row" spacing={1}>
-                            <Typography variant="body2" component="span">
+                            <Typography variant="body2">
                               {val.limitCoin}
                             </Typography>
 
@@ -265,6 +248,7 @@ const ProductCard = (props) => {
                   sx={{ display: "flex", alignItems: "center" }}
                   color="warning"
                   noWrap
+                  component="span"
                 >
                   {rating}
                   {count && `(${count / 1000} k)`}
@@ -272,6 +256,7 @@ const ProductCard = (props) => {
               </Stack>
               {bottomRightType === "price" ? (
                 <Typography
+                  component="span"
                   variant="subtitle1"
                   noWrap
                   sx={{ display: "flex", alignItems: "center" }}

@@ -116,25 +116,7 @@ const DetailPackage = (props) => {
                         </Typography>
                       </Stack>
                     </Stack>
-                    {/* <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <Typography
-                        component={"span"}
-                        variant={"h4"}
-                        sx={{ fontWeight: "700" }}
-                        gutterBottom
-                      >
-                        {detail.name.toUpperCase()} !
-                      </Typography>
-                      <Box sx={{ flexGrow: 1 }} />
-                      <Typography component={"span"} variant="h5" gutterBottom>
-                        <Grid container spacing={1}>
-                          <Grid item>
-                            <Star sx={{ color: amber[500] }} />
-                          </Grid>
-                          <Grid item>{detail.rating}</Grid>
-                        </Grid>
-                      </Typography>
-                    </Box> */}
+
                     <CardMedia
                       className={classes.cardMedia}
                       component="img"

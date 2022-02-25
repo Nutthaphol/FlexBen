@@ -474,16 +474,6 @@ const TreatmentHistory = (props) => {
                       secondaryText="ใช้ไป"
                       icon={Paid}
                     />
-                    {/* <BowTieCard
-                      themes="light"
-                      headerknot="rectangle"
-                      headerPosition="left"
-                      headerknotText="ใช้ไป"
-                      imageIcon={"cash-payment.svg"}
-                      primaryText="84,248"
-                      fontSmall
-                      secondaryText="บาท"
-                    /> */}
                   </Grid>
                   <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
@@ -492,16 +482,6 @@ const TreatmentHistory = (props) => {
                       icon={AttachMoney}
                       colors="error"
                     />
-                    {/* <BowTieCard
-                      themes="light"
-                      headerknot="rectangle"
-                      headerPosition="left"
-                      headerknotText="เบิกได้"
-                      imageIcon={"save-money.svg"}
-                      primaryText="150,000"
-                      fontSmall
-                      secondaryText="บาท"
-                    /> */}
                   </Grid>
                   <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
@@ -510,16 +490,6 @@ const TreatmentHistory = (props) => {
                       icon={LinkOff}
                       colors="success"
                     />
-                    {/* <BowTieCard
-                      themes="light"
-                      headerknot="rectangle"
-                      headerPosition="left"
-                      headerknotText="ส่วนต่าง"
-                      imageIcon={"Withdraw-money.svg"}
-                      primaryText="65,752"
-                      fontSmall
-                      secondaryText="บาท"
-                    /> */}
                   </Grid>
                   <Grid item xs={12} sm={6} md={3}>
                     <NormalCard
@@ -528,16 +498,6 @@ const TreatmentHistory = (props) => {
                       icon={NoteAlt}
                       colors="warning"
                     />
-                    {/* <BowTieCard
-                      themes="light"
-                      headerknot="rectangle"
-                      headerPosition="left"
-                      headerknotText="รอดำเนินการ"
-                      imageIcon={"file.svg"}
-                      primaryText="2"
-                      fontSmall
-                      secondaryText="รายการ"
-                    /> */}
                   </Grid>
                 </Grid>
                 <PercentCard

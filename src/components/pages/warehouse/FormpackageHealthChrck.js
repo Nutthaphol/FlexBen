@@ -400,8 +400,16 @@ const FormpackageHealthChrck = () => {
                         margin: "1.75rem 0",
                       }}
                     >
-                      <Button variant="contained" type="submit" color="primary">
-                        Submit
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        color="primary"
+                        sx={{
+                          fontWeight: "600",
+                          fontSize: "18px",
+                        }}
+                      >
+                        ลงทะเบียน
                       </Button>
                     </Box>
                     {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}

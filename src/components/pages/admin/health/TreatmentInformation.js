@@ -272,64 +272,6 @@ const TreatmentInformation = () => {
               }
             />
             <Paper sx={{ p: 2, mt: 4 }}>
-              {/* <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "center",
-                  flexWrap: "wrap",
-                }}
-              >
-                <Box sx={{ flexGrow: 1 }}>
-                  <Typography variant="h5" component="div">
-                    ข้อมูลการรักษาพยาบาล
-                  </Typography>
-                </Box>
-                <FormControl sx={{ width: "240px", margin: "1rem 1rem" }}>
-                  <InputLabel size="small" id="Category">
-                    ประเภท
-                  </InputLabel>
-                  <Select
-                    size="small"
-                    labelId="Category"
-                    id="category"
-                    label="ประเภท"
-                    onChange={(e) => setSelectCategory(e.target.value)}
-                  >
-                    <MenuItem value={"all"}>{`ทั้งหมด`}</MenuItem>
-                    {category &&
-                      category.map((val, index) => (
-                        <MenuItem key={index} value={val.name}>
-                          {val.name}
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
-                <TextField
-                  variant="outlined"
-                  size="small"
-                  value={searchList}
-                  sx={{ width: "240px", margin: "1rem 1rem" }}
-                  onChange={(e) => setSearchList(e.target.value)}
-                  InputProps={{
-                    startAdornment: <Search fontSize="small" />,
-                    endAdornment: (
-                      <IconButton
-                        title="Clear"
-                        aria-label="Clear"
-                        size="small"
-                        style={{
-                          visibility: searchList != "" ? "visible" : "hidden",
-                        }}
-                        onClick={() => setSearchList("")}
-                      >
-                        <Clear fontSize="small" />
-                      </IconButton>
-                    ),
-                  }}
-                  placeholder="Search…"
-                />
-              </Box> */}
               <Box
                 sx={{
                   width: "100%",

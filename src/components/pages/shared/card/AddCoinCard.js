@@ -85,6 +85,7 @@ const AddCoinCard = (props) => {
                       </Stack>
                       <Typography
                         variant="subtitle1"
+                        component="span"
                         sx={{ color: "info.dark" }}
                       >
                         Coin ทั้งหมด

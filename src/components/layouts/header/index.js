@@ -9,13 +9,11 @@ import makeStyles from "@mui/styles/makeStyles";
 import { Link, withRouter, NavLink } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import Avatar from "@mui/material/Avatar";
-import NotificationsIcon from "@mui/icons-material/Notifications";
 import IconButton from "@mui/material/IconButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -23,15 +21,11 @@ import SvgIcon from "@mui/material/SvgIcon";
 import { useDispatch, useSelector } from "react-redux";
 
 import { logout } from "../../../actions/auth";
-import { Button, Divider, Grid } from "@mui/material";
-import { amber, indigo, red } from "@mui/material/colors";
+import { Button, Divider, Stack } from "@mui/material";
 import {
   AccountBalanceWallet,
-  AttachMoney,
   Bloodtype,
-  HealthAndSafety,
   HistoryEdu,
-  MonetizationOn,
   ShoppingCart,
 } from "@mui/icons-material";
 import Themplates from "../../pages/shared/theme";
@@ -46,14 +40,6 @@ const HeartIcon = (props) => {
   );
 };
 
-// const heart = (props) => {
-//   return (
-//     <SvgIcon {...props}>
-//       <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-//     </SvgIcon>
-//   );
-// };
-
 const drawerWidth = 240;
 const useStyles = makeStyles(() => ({
   root: {
@@ -61,7 +47,6 @@ const useStyles = makeStyles(() => ({
   },
   appBar: {
     backgroundColor: theme.palette.primary.main,
-    // backgroundColor: "#FFCD2E",
     zIndex: theme.zIndex.drawer + 1,
     right: 0,
     boxShadow: "0px 2px 3px -1px rgb(0 0 0 / 20%)",
@@ -75,7 +60,6 @@ const useStyles = makeStyles(() => ({
     borderRadius: "0px",
   },
   appBarShift: {
-    // backgroundColor: "#FFCD2E",
     backgroundColor: theme.palette.primary.main,
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -176,11 +160,7 @@ const Header = (props) => {
 
   useEffect(() => {
     const callCart = JSON.parse(localStorage.getItem("cart"));
-
     if (JSON.stringify(callCart) != JSON.stringify(cart)) {
-      console.log("run");
-      console.log("callCart,", callCart);
-      console.log("cart", cart);
       setCart(callCart);
     }
   }, [cart]);
@@ -190,11 +170,12 @@ const Header = (props) => {
   };
 
   const menuId = "primary-search-account-menu";
+
+  // Menu profile button
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
       id={menuId}
-      // keepMounted
       sx={{
         "& .MuiPaper-root": {
           minWidth: 180,
@@ -276,7 +257,6 @@ const Header = (props) => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        {/* <div> */}
         <AppBar
           className={clsx(classes.appBar, {
             [classes.appBarShift]: props.open,
@@ -310,7 +290,7 @@ const Header = (props) => {
                 Flexible benefit
               </Button>
             </Box>
-            <div style={{ display: "flex", marginLeft: 20 }}>
+            <Stack direction="row" alignItems="center" spacing={2}>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -326,11 +306,10 @@ const Header = (props) => {
                   src={`${process.env.REACT_APP_URL}image/profile/${currentUser.image}`}
                 />
               </IconButton>
-            </div>
+            </Stack>
           </Toolbar>
         </AppBar>
         {renderMenu}
-        {/* </div> */}
       </ThemeProvider>
     </StyledEngineProvider>
   );

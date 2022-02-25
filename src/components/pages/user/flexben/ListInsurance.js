@@ -136,6 +136,13 @@ const ListInsurance = () => {
                           return true;
                         }
                       })
+                      .filter((val) => {
+                        if (checked.length != 0) {
+                          return checked.includes(val.category);
+                        } else {
+                          return true;
+                        }
+                      })
                       .map((val, index) => (
                         <Grid item key={index} xl={3} md={4} sm={6} xs={12}>
                           <Box className={classes.boxMap}>

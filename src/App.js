@@ -17,17 +17,8 @@ import Divider from "@mui/material/Divider";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box } from "@mui/system";
-import {
-  IconButton,
-  Typography,
-  Icon,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Stack,
-} from "@mui/material";
-import { AdminPanelSettings, ChevronLeft, NoteAlt } from "@mui/icons-material";
-import { indigo } from "@mui/material/colors";
+import { IconButton, Typography, ListItem, ListItemText } from "@mui/material";
+import { ChevronLeft } from "@mui/icons-material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Themplates from "./components/pages/shared/theme";
@@ -54,6 +45,7 @@ const drawerUseStyles = makeStyles(() => ({
   drawerOpen: {
     width: drawerWidth,
     backgroundColor: "#fff",
+    zIndex: theme.zIndex.drawer,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -68,12 +60,7 @@ const drawerUseStyles = makeStyles(() => ({
     width: theme.spacing(7),
   },
   bannerOpen: {
-    backgroundImage:
-      // "url(" +
-      // process.env.PUBLIC_URL +
-      // "/images/background_menu.jpg" +
-      // ")"
-      `url(${process.env.PUBLIC_URL}/images/background_menu.jpg)`,
+    backgroundImage: `url(${process.env.PUBLIC_URL}/images/background_menu.jpg)`,
   },
   drawer: {
     width: drawerWidth,
@@ -168,7 +155,12 @@ const DrawerContainer = ({ open, setOpen }) => {
           >
             <ListItemText
               secondary={
-                <Typography noWrap variant="body2" color="text.secondary">
+                <Typography
+                  noWrap
+                  variant="body2"
+                  component="span"
+                  color="text.secondary"
+                >
                   Manager
                 </Typography>
               }
@@ -186,7 +178,12 @@ const DrawerContainer = ({ open, setOpen }) => {
           >
             <ListItemText
               secondary={
-                <Typography noWrap variant="body2" color="text.secondary">
+                <Typography
+                  noWrap
+                  variant="body2"
+                  component="span"
+                  color="text.secondary"
+                >
                   Admin
                 </Typography>
               }
@@ -204,7 +201,12 @@ const DrawerContainer = ({ open, setOpen }) => {
           >
             <ListItemText
               secondary={
-                <Typography noWrap variant="body2" color="text.secondary">
+                <Typography
+                  noWrap
+                  variant="body2"
+                  component="span"
+                  color="text.secondary"
+                >
                   Werehouse
                 </Typography>
               }
@@ -233,7 +235,6 @@ function App() {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
           <Box
-            component="div"
             sx={{
               display: "flex",
               minHeight: "100%",
@@ -241,12 +242,17 @@ function App() {
             }}
           >
             {isLoggedIn && (
+              // appbar
               <Header handleDrawerOpen={handleDrawerOpen} open={open} />
             )}
+            {/* sidebar */}
             {isLoggedIn && <DrawerContainer open={open} setOpen={setOpen} />}
+
+            {/* load body at top page */}
             <ScrollToTop />
+
+            {/* body */}
             <Box
-              component="div"
               sx={{
                 flexGrow: 1,
                 overflow: "hidden",

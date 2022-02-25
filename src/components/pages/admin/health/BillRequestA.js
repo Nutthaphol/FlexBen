@@ -115,8 +115,6 @@ const BillRequest = () => {
     setDisplayImage({ open: false });
   };
 
-  const setStatusBillRequest = () => {};
-
   const filterDataUsers = (id, params) => {
     if (allUsers) {
       const data = allUsers.find((item) => item.id == id) || false;

@@ -332,7 +332,6 @@ const FormInsurance = () => {
                   startIcon={<QueueOutlined />}
                   component="label"
                   variant="contained"
-                  style={{ backgroundColor: "#1769aa" }}
                 >
                   Import Excel
                   <input
@@ -651,21 +650,6 @@ const FormInsurance = () => {
                                       component={TextField}
                                       name={`protection[${index}].name`}
                                       fullWidth
-                                      // InputProps={{
-                                      //   endAdornment: (
-                                      //     <IconButton
-                                      //       color="error"
-                                      //       disabled={
-                                      //         values.protection.length <= 1
-                                      //           ? true
-                                      //           : false
-                                      //       }
-                                      //       onClick={() => remove(index)}
-                                      //     >
-                                      //       <Close />
-                                      //     </IconButton>
-                                      //   ),
-                                      // }}
                                       label={`หัวข้อความคุมครองที่ (${
                                         index + 1
                                       })`}
@@ -676,21 +660,6 @@ const FormInsurance = () => {
                                       component={TextField}
                                       name={`protection[${index}].condition`}
                                       fullWidth
-                                      // InputProps={{
-                                      //   endAdornment: (
-                                      //     <IconButton
-                                      //       color="error"
-                                      //       disabled={
-                                      //         values.protection.length <= 1
-                                      //           ? true
-                                      //           : false
-                                      //       }
-                                      //       onClick={() => remove(index)}
-                                      //     >
-                                      //       <Close />
-                                      //     </IconButton>
-                                      //   ),
-                                      // }}
                                       label={`เนื้อหาความคุ้มครองที่ (${
                                         index + 1
                                       })`}
@@ -861,13 +830,12 @@ const FormInsurance = () => {
                           sx={{
                             fontWeight: "600",
                             fontSize: "18px",
-                            backgroundColor: "#1769aa",
                           }}
                         >
                           ลงทะเบียน
                         </Button>
                       </Box>
-                      <pre>{JSON.stringify({ values, errors }, null, 4)}</pre>
+                      {/* <pre>{JSON.stringify({ values, errors }, null, 4)}</pre> */}
                     </Form>
                   )}
                 </Formik>

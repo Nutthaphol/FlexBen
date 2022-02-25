@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { amber } from "@mui/material/colors";
+import { ArrowDropDown, ArrowDropUp } from "@mui/icons-material/";
 
 const theme = createTheme(Themplates);
 
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
     },
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      // backgroundColor: amber[500],
       backgroundColor: theme.palette.primary.lighter,
     },
   },
@@ -44,23 +44,19 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "flex-start",
     },
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      // backgroundColor: amber[500],
       backgroundColor: theme.palette.primary.lighter,
     },
   },
   selected: {
     "&.MuiButtonBase-root.MuiListItem-root.Mui-selected": {
-      // backgroundColor: amber[500],
       backgroundColor: theme.palette.primary.lighter,
     },
   },
   selected2: {
     "&.MuiListItem-root.Mui-selected": {
-      // backgroundColor: amber[50],
       backgroundColor: theme.palette.primary.lighter,
 
       borderLeft: "4px solid",
-      // borderLeftColor: amber[500],
       borderLeftColor: theme.palette.primary.main,
     },
   },
@@ -118,7 +114,25 @@ const ListMenu = (props) => {
                       }
                       className={classes.selected2}
                     >
-                      <ListItemIcon>{value.listItemIcon}</ListItemIcon>
+                      <ListItemIcon>
+                        {value.listItemIcon}
+                        {!props.open && (
+                          <Box
+                            component="span"
+                            sx={{
+                              position: "absolute",
+                              right: -2,
+                              bottom: 0,
+                            }}
+                          >
+                            {openCollapse === index ? (
+                              <ArrowDropUp fontSize="small" />
+                            ) : (
+                              <ArrowDropDown fontSize="small" />
+                            )}
+                          </Box>
+                        )}
+                      </ListItemIcon>
                       <ListItemText
                         primary={
                           <Typography
@@ -194,7 +208,6 @@ const ListMenu = (props) => {
                     className={classes.selected}
                     key={value.listKey}
                     activeclassname={{ color: "#fff" }}
-                    // activeclassname={classes.isActive}
                     selected={value.listLink == path.path ? true : false}
                     onClick={() => handleOnClickSelect(value.listLink)}
                   >

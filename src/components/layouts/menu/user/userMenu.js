@@ -117,12 +117,6 @@ const UserMenu = ({ open }) => {
           listLink: "/healthcheck/BookingOutsite",
           listKey: "BookingOutsite",
         },
-        // {
-        //   listItemIcon: <LocalHospital />,
-        //   listItemText: "Treatment history",
-        //   listLink: "/health/TreatmentHistory",
-        //   listKey: "healthTreatmentHistory",
-        // },
       ],
     },
   ];
