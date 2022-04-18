@@ -175,12 +175,13 @@ const TreatmentInformation = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 80 },
-    { field: "date", headerName: "วันที่", width: 240 },
+    { field: "id", headerName: "ID", flex: 0.1, minWidth: 80 },
+    { field: "date", headerName: "วันที่", flex: 0.6, minWidth: 240 },
     {
       field: "profile",
       headerName: "ชื่อ-สกุล",
-      width: 400,
+      flex: 1,
+      minWidth: 400,
       renderCell: (params) => {
         return (
           <Box sx={{ display: "flex", alingItems: "center" }}>
@@ -201,7 +202,8 @@ const TreatmentInformation = () => {
     {
       field: "category",
       headerName: "ประเภทการรักษา",
-      width: 320,
+      flex: 0.7,
+      minWidth: 320,
       renderCell: (params) => {
         return (
           <Box sx={{ textAlign: "center" }}>
@@ -236,7 +238,8 @@ const TreatmentInformation = () => {
     {
       field: "expenses",
       headerName: "ค่าใช้จ่ายทั้งหมด",
-      width: 240,
+      minWidth: 240,
+      flex: 0.6,
     },
   ];
 
@@ -249,7 +252,7 @@ const TreatmentInformation = () => {
               normalText="ข้อมูลการรักษาพยาบาล"
               setSearch={setSearchList}
               insertComponent={
-                <FormControl sx={{ width: 1 }}>
+                <FormControl sx={{ minWidth: 240 }}>
                   <InputLabel size="small" id="Category">
                     ประเภท
                   </InputLabel>

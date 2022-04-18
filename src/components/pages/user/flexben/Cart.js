@@ -380,6 +380,7 @@ const Cart = (props) => {
                                     alignItems: "center",
                                     padding: "4px 6px",
                                   }}
+                                  justifyContent="space-between"
                                 >
                                   <IconButton
                                     size="small"

@@ -186,7 +186,7 @@ const Header = (props) => {
       transformOrigin={{ horizontal: "right", vertical: "top" }}
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
-      <MenuItem
+      {/* <MenuItem
         onClick={() => {
           setAnchorEl(null);
           handleOnClickPath("/coinDashboard");
@@ -198,7 +198,7 @@ const Header = (props) => {
           <AccountBalanceWallet />
         </ListItemIcon>
         Wallet
-      </MenuItem>
+      </MenuItem> */}
       <MenuItem
         onClick={() => {
           handleOnClickPath("/cart");

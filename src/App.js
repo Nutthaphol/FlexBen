@@ -94,6 +94,7 @@ const drawerWidth = 240;
 
 const DrawerContainer = ({ open, setOpen }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
+  const [isUser, setIsUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isManager, setIsManager] = useState(false);
   const [isWarehouse, setIsWarehouse] = useState(false);
@@ -104,6 +105,7 @@ const DrawerContainer = ({ open, setOpen }) => {
 
   useEffect(() => {
     if (currentUser) {
+      setIsUser(currentUser.roles.includes("ROLE_USER"));
       setIsAdmin(currentUser.roles.includes("ROLE_ADMIN"));
       setIsManager(currentUser.roles.includes("ROLE_MANAGER"));
       setIsWarehouse(currentUser.roles.includes("ROLE_WAREHOUSE"));
@@ -145,7 +147,7 @@ const DrawerContainer = ({ open, setOpen }) => {
         </IconButton>
       </div>
       <Divider />
-      <UserMenu open={open} />
+      {isUser && <UserMenu open={open} />}
       {isManager && (
         <Fragment>
           <Divider />

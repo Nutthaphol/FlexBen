@@ -397,7 +397,7 @@ const HealthHistoryEmproyee = () => {
               normalText="ข้อมูลประวัติการตรวจสุขภาพ"
               setSearch={setSearchList}
               insertComponent={
-                <FormControl sx={{ width: 1 }}>
+                <FormControl sx={{ minWidth: 240 }}>
                   <InputLabel size="small" id="Category">
                     ปี
                   </InputLabel>

@@ -458,12 +458,7 @@ const FormLifeStyle = () => {
                                 })}
                             />
                           </Grid>
-                          <Grid
-                            item
-                            xs={12}
-                            xs={12}
-                            sx={{ textAlign: "center" }}
-                          >
+                          <Grid item xs={12} sx={{ textAlign: "center" }}>
                             <img
                               style={{ maxWidth: "200px", height: "100%" }}
                               src={external

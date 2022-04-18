@@ -186,19 +186,21 @@ const ProductCard = (props) => {
                 cursor: "pointer",
               }}
             >
-              <Typography component="span" variant="subtitle1" noWrap>
-                {primaryText.replace("Insurance", "").toUpperCase()}
-              </Typography>
-              {secondaryText && (
-                <Typography
-                  component="span"
-                  variant="body2"
-                  color="text.secondary"
-                  noWrap
-                >
-                  {secondaryText}
+              <Stack>
+                <Typography component="span" variant="subtitle1" noWrap>
+                  {primaryText.replace("Insurance", "").toUpperCase()}
                 </Typography>
-              )}
+                {secondaryText && (
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                    noWrap
+                  >
+                    {secondaryText}
+                  </Typography>
+                )}
+              </Stack>
             </Link>
             {listDetail && (
               <List sx={{ width: "100%" }} disablePadding>

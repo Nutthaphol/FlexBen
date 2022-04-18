@@ -125,8 +125,7 @@ const ListInsurance = () => {
                     allInsurance
                       .filter((item) => {
                         if (search != null) {
-                          console.log("search ", search.label);
-                          const word = search.label
+                          const word = search
                             .replace("Package ", "")
                             .toLocaleLowerCase();
                           return (

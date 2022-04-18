@@ -125,7 +125,7 @@ const HeaderSearch = ({
         />
       </Grid>
       {insertComponent && (
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
           {/* <Stack direction="row" justifyContent="flex-end"> */}
           {insertComponent}
           {/* </Stack> */}
